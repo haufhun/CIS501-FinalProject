@@ -163,7 +163,7 @@
         <ownedAttributesInternal>
           <property
             Id="770761b1-5bb7-4a8b-86e3-821347b46968"
-            name="o"
+            name="_observer"
             visibility="Private"
             isLeaf="false"
             isStatic="false"
@@ -461,8 +461,8 @@
           <association
             Id="15c00bb6-72f4-4ddb-8c37-b006146ab81c"
             isDerived="false"
-            sourceEndRoleName="Client_Controller"
-            targetEndRoleName="Observer"
+            sourceEndRoleName=""
+            targetEndRoleName=""
             isLeaf="false"
             isAbstract="false">
             <interfaceMoniker
@@ -473,7 +473,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="8c740487-bc3a-4af9-83ef-bb998621d586"
-                  name="Client_Controller"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -486,7 +485,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="4bd5ca23-78f9-448a-b40f-2c4be5147148"
-                  name="Observer"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -538,7 +536,8 @@
         <ownedAttributesInternal>
           <property
             Id="51e78f1e-d819-4c80-ac2c-a9c637d923ba"
-            name="o"
+            name="_observer"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -548,15 +547,16 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <interfaceMoniker
-                Id="5fc8e905-83c2-4706-9174-3d3664acf0b0"
-                LastKnownName="Observer"
+              <undefinedTypeMoniker
+                Id="d1c6a142-1161-4046-9c4a-40e24edd23c1"
+                LastKnownName="ModelingProject1::List&lt;Observer&gt;"
                 LastKnownLocation="ModelingProject1.uml" />
             </type_NamedElement>
           </property>
           <property
             Id="7565a105-5ac3-4891-bf61-ed5eeeacdf45"
-            name="ws"
+            name="_ws"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -616,7 +616,23 @@
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4e8a1ebb-40f9-4e2b-b418-89182c13bf00"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="f1e2f1f4-d695-41d7-83a6-c2d7864a152c"
+                      LastKnownName="bool"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="e664304c-b6b0-4e13-81f3-919b27f18f2e"
             name="AddContact"
@@ -626,6 +642,45 @@
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false" />
+          <operation
+            Id="e06bbb9d-7a51-473d-b956-2a28ff9aa2e7"
+            name="Login"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="44cd0d5c-aa65-4d96-9dc7-21537fd1651c"
+                  name="name"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
+                      LastKnownName="string"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c69a1df1-c4c2-442b-a023-c5be1f9a6ac6"
+                  name="password"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
+                      LastKnownName="string"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -757,11 +812,62 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="7c6ac7dd-5965-4bcd-a162-468d603b6757"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="57b3912b-f5c5-4d37-a615-e05bdba6274f"
+              LastKnownName="ChatForm"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3e5a01d1-263f-4429-bbb5-cb9f1e7ab5d5"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="597f8be5-7cce-46b7-a9ec-c7019bfea308"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="3f85a9d7-14ea-422e-8e67-d7478b4445bb"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a2bdb34b-3c09-4d80-9c4c-93bc690515b3"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="aab32cec-9ed3-4d64-be30-6b699662e8bd"
-            name="h"
+            name="_handler"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -822,6 +928,14 @@
           <operation
             Id="4827f761-efc2-44c1-ada7-17f5f32faf43"
             name="Update"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="ac795b95-56ee-49c1-966c-89195c11a0c2"
+            name="CreateChatForm"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -954,7 +1068,8 @@
         <ownedAttributesInternal>
           <property
             Id="7e76b7c6-9dd3-4c9a-8374-92de71240d81"
-            name="contacts"
+            name="_contacts"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -1141,7 +1256,8 @@
         <ownedAttributesInternal>
           <property
             Id="6ef4ec64-adde-4e40-b33d-28cc908551e5"
-            name="name"
+            name="_name"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -1159,7 +1275,8 @@
           </property>
           <property
             Id="2ad49880-c823-40e3-9d15-fc33dbd104ff"
-            name="status"
+            name="_status"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -1227,6 +1344,54 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="bf0176fc-f71f-41a5-89f3-922aebec2d0a"
+            name="GetName"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1af2654a-5cf1-49fd-89ba-a015a7562845"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
+                      LastKnownName="string"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="b11b1f74-647d-4efd-9c3a-0d2272e84950"
+            name="GetStatus"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1c639221-3a68-4699-8703-a4a1d1595ea3"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="f1e2f1f4-d695-41d7-83a6-c2d7864a152c"
+                      LastKnownName="bool"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -1271,6 +1436,15 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="f37a2072-1e19-41d5-a801-65bc9ee70e4f">
+            <interfaceMoniker
+              Id="5fc8e905-83c2-4706-9174-3d3664acf0b0"
+              LastKnownName="Observer"
+              LastKnownLocation="ModelingProject1.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
         <targetEnds>
           <association
             Id="e544a9dc-47de-4e3f-b490-07d3d5012bad"
@@ -1346,19 +1520,164 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="2abb9d72-5f03-4a8b-ac68-b8391bd9c447"
+            isDerived="false"
+            sourceEndRoleName=""
+            targetEndRoleName=""
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="817134ed-7e42-44a0-9042-e15b19fa46ba"
+              LastKnownName="InputHandler"
+              LastKnownLocation="ModelingProject1.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c222ddb8-7db8-4d83-905e-c0acdd8838db"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="929c1314-dcda-405d-be25-ac706f82718c"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
-            Id="bcff7e25-30e8-4295-99af-60600fdebe7c"
-            name="Attribute1"
+            Id="5ea00ead-d5fb-4aad-8580-432f0d190ca7"
+            name="_handler"
+            visibility="Private"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
+            isUnique="false"
             isDerived="false"
             isDerivedUnion="false"
             aggregation="None"
-            isComposite="false" />
+            isComposite="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="817134ed-7e42-44a0-9042-e15b19fa46ba"
+                LastKnownName="InputHandler"
+                LastKnownLocation="ModelingProject1.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="34df6184-09e7-415b-9abb-a6522586ea68"
+            name="SendMessage"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8240133a-0072-453b-a49c-df54d4808d70"
+                  name="message"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
+                      LastKnownName="string"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="941d8fa1-14c9-406b-9c3a-88837c9ca2d7"
+                  name="name"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
+                      LastKnownName="string"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="438fefd4-6668-417c-875f-b3f7b6fdc2a5"
+            name="AddContactToRoom"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b241515d-8716-40f0-86ed-a4b0dd13f1b9"
+                  name="name"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
+                      LastKnownName="string"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="9d00f054-f54d-4cda-920e-c1ae0f4203b0"
+            name="ChatForm"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="47df5fed-9fa7-4e89-a5e4-b048e0bdde58"
+                  name="h"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="817134ed-7e42-44a0-9042-e15b19fa46ba"
+                      LastKnownName="InputHandler"
+                      LastKnownLocation="ModelingProject1.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0214d66f-852f-4650-b6f0-1c6de837df18"
+            name="Update"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -1827,8 +2146,8 @@
           <association
             Id="a6c19363-64ca-426d-be14-5d400255c5a0"
             isDerived="false"
-            sourceEndRoleName="Server_Form"
-            targetEndRoleName="Accounts"
+            sourceEndRoleName=""
+            targetEndRoleName=""
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -1839,7 +2158,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="fae6e4cb-dac2-4a09-86a3-7a18610f25fe"
-                  name="Server_Form"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1852,7 +2170,6 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="21b29417-e3e5-4039-b45e-bb0c497e3996"
-                  name="Accounts"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2344,6 +2661,11 @@
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="d1c6a142-1161-4046-9c4a-40e24edd23c1"
+        name="ModelingProject1::List&lt;Observer&gt;" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType
