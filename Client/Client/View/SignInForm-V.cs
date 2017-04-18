@@ -10,16 +10,14 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    public partial class HomeForm : Form
+    public partial class SignInForm : Form
     {
-        public HomeForm()
+        private HomeForm homeForm;
+
+        public SignInForm(HomeForm homeForm)
         {
+            this.homeForm = homeForm;
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
