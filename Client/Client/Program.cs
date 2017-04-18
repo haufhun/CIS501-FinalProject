@@ -16,7 +16,9 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HomeForm());
+            Application.Run(new SignInForm());
+           // Application.Run(new ChatForm());
+           // Application.Run(new HomeForm());
         }
     }
 }

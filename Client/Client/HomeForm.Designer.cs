@@ -46,7 +46,7 @@
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.uxNameCol,
             this.uxStatus});
-            this.listView1.Location = new System.Drawing.Point(12, 30);
+            this.listView1.Location = new System.Drawing.Point(12, 37);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(355, 314);
             this.listView1.TabIndex = 1;
