@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,11 @@ namespace Server
         {
             InitializeComponent();
 
-            eventLog1.BeginInit();
-            eventLog1.WriteEntry("Here is the message. ");
+            using (eventLog1 = new EventLog("Application"))
+            {
+                eventLog1.Source = "Application";
+                eventLog1.WriteEntry("Log message example", EventLogEntryType.Information, 101, 1);
+            }
         }
     }
 }
