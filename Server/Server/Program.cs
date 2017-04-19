@@ -8,6 +8,11 @@ namespace Server
 {
     static class Program
     {
+        //The delegate that will update the GUI application with information from the server
+        public delegate void Observer();
+        //The delegate that will handle a user interaction
+        public delegate void InputHandler();
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -16,7 +21,7 @@ namespace Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new ServerForm());
         }
     }
 }
