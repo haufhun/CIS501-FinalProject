@@ -28,31 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            this.uxTabControl = new System.Windows.Forms.TabControl();
+            this.uxEventLogTabPage = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabControl1.SuspendLayout();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.uxTabControl.SuspendLayout();
+            this.uxEventLogTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tabControl1
+            // uxTabControl
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(0, 0);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(777, 595);
-            this.tabControl1.TabIndex = 0;
+            this.uxTabControl.Controls.Add(this.uxEventLogTabPage);
+            this.uxTabControl.Controls.Add(this.tabPage2);
+            this.uxTabControl.Location = new System.Drawing.Point(0, 0);
+            this.uxTabControl.Name = "uxTabControl";
+            this.uxTabControl.SelectedIndex = 0;
+            this.uxTabControl.Size = new System.Drawing.Size(790, 612);
+            this.uxTabControl.TabIndex = 0;
             // 
-            // tabPage1
+            // uxEventLogTabPage
             // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(769, 569);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.uxEventLogTabPage.Controls.Add(this.listView1);
+            this.uxEventLogTabPage.Location = new System.Drawing.Point(4, 22);
+            this.uxEventLogTabPage.Name = "uxEventLogTabPage";
+            this.uxEventLogTabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.uxEventLogTabPage.Size = new System.Drawing.Size(782, 586);
+            this.uxEventLogTabPage.TabIndex = 0;
+            this.uxEventLogTabPage.Text = "Event Log";
+            this.uxEventLogTabPage.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -64,23 +68,38 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // listView1
+            // 
+            this.listView1.GridLines = true;
+            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.listView1.Location = new System.Drawing.Point(8, 6);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(765, 557);
+            this.listView1.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 607);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.uxTabControl);
             this.Name = "ServerForm";
             this.Text = "Form1";
-            this.tabControl1.ResumeLayout(false);
+            this.uxTabControl.ResumeLayout(false);
+            this.uxEventLogTabPage.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabControl uxTabControl;
+        private System.Windows.Forms.TabPage uxEventLogTabPage;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 

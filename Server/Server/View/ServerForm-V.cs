@@ -17,11 +17,24 @@ namespace Server
         {
             InitializeComponent();
 
-            using (eventLog1 = new EventLog("Application"))
+            //listView1.Columns.Add("Time");
+            //listView1.Columns.Add("Invoked by User");
+            //listView1.Columns.Add("Successful");
+            //listView1.Columns.Add("Message");
+            //listView1.Columns[1].Text = "First";
+            //listView1.Columns[2].Text = "Second";
+            //listView1.Columns[3].Text = "One index";
+
+            string[] row = { "Hey", "what's", "up", "yes" };
+
+            for (int i = 0; i < 20; i++)
             {
-                eventLog1.Source = "Application";
-                eventLog1.WriteEntry("Log message example", EventLogEntryType.Information, 101, 1);
+                var lt1 = new ListViewItem("Heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+                listView1.Items.Add(lt1);
             }
+            var lt = new ListViewItem("Hey1");
+            listView1.Items.Add(lt);
+            Refresh();
         }
     }
 }
