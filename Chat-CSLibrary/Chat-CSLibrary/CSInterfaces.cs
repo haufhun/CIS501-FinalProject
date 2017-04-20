@@ -1,18 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Chat_CSLibrary
 {
     /// <summary>
     /// Sends across the server and the chat
     /// </summary>
+    [JsonObject]
     public interface IMensaje
     {
-        Status MyStatus { get; set; }
-        IUser User { get; set; }
-        IContact Contact { get; set; }
-        ITextMessage Message { get; set; }
-        IChatRoom ChatRoom { get; set; }
+        Status MyStatus { get; }
+        IUser User { get; }
+        IContact Contact { get; }
+        ITextMessage Message { get; }
+        IChatRoom ChatRoom { get; }
+        bool IsError { get; }
+        string ErrorMessage { get; }
     }
     /// <summary>
     /// Used for login/logout.
@@ -20,7 +24,8 @@ namespace Chat_CSLibrary
     public interface IUser
     {
         string Username { get; }
-        string Password { get; }
+        bool IsValidPassword(string password);
+        void SetPassword(string currentPassword, string newPassword);
         IContactList ContactList { get; }
     }
     /// <summary>
@@ -28,8 +33,8 @@ namespace Chat_CSLibrary
     /// </summary>
     public interface IChatRoom
     {
-        IContactList Contacts { get; set; }
-        List<string> MessageHistory { get; set; }
+        IContactList Contacts { get; }
+        List<string> MessageHistory { get; }
         string Id { get; }
     }
     /// <summary>
@@ -37,24 +42,23 @@ namespace Chat_CSLibrary
     /// </summary>
     public interface IContactList
     {
-        List<IContact> Contacts { get; set; }
         void AddContact(string name);
+        IContact GetContact(string username);
         void RemoveContact(string name);
-    }
+        List<IContact> GetAllContacts();
 
+    }
     public interface ITextMessage
     {
-        string Body { get; set; }
-        IContact Sender { get; set; }
-        DateTime Time { get; set; }
+        string Body { get; }
+        IContact Sender { get; }
+        DateTime Time { get; }
     }
-
     public interface IContact
     {
-        string Username { get; set; }
-        bool Status { get; set; }
+        string Username { get; }
+        bool Status { get; }
     }
-
     public enum Status
     {
         AddContact,
