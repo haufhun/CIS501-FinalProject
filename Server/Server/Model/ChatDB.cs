@@ -1,4 +1,5 @@
-﻿ using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Chat_CSLibrary;
 
 namespace Server.Model
@@ -13,5 +14,27 @@ namespace Server.Model
             _users = new Dictionary<string, IUser>();
             _chatRooms = new Dictionary<string, IChatRoom>();
         }
+
+        public ChatDb(Dictionary<string, IUser> users, Dictionary<string, IChatRoom> chatRooms)
+        {
+            //overload for JSON initializations
+        }
+
+        public bool LookupUser(string username)
+        {
+
+            throw new NotImplementedException();
+        }
+
+        public bool ValidatePassword(string username, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateUser(string username, string password)
+        {
+
+        }
+
     }
 }

@@ -3,14 +3,19 @@ using System.Runtime.InteropServices;
 using Chat_CSLibrary;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using Server.Model;
 
 namespace Server.Controller
 {
     public delegate IMensaje ClientMessageHandler(IMensaje m);
     public class ServerController
     {
-        public ServerController()
+        private ChatDb _chatDb;
+
+        public ServerController(ChatDb db)
         {
+            _chatDb = db;
+
             var wss = new WebSocketServer(8001);
 
             // Add the Chat websocket service
@@ -27,6 +32,8 @@ namespace Server.Controller
 
         private IMensaje ChatDelegate(IMensaje m)
         {
+            SignIn("haufhun", "12345");
+
             throw new NotImplementedException();
         }
         private Chat CreateChat()
@@ -36,7 +43,7 @@ namespace Server.Controller
 
         public void SignIn(string name, string password)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void AddContact(string name)
