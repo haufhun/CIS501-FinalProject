@@ -1,4 +1,4 @@
-﻿namespace Server
+﻿namespace Server.View
 {
     partial class ServerForm
     {

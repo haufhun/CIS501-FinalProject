@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿ using System.Collections.Generic;
 using Chat_CSLibrary;
 
 namespace Server.Model
 {
-    public class ChatDB
+    public class ChatDb
     {
         private Dictionary<string, IUser> _users;
         private Dictionary<string, IChatRoom> _chatRooms;
 
-        public ChatDB()
+        public ChatDb()
         {
             _users = new Dictionary<string, IUser>();
             _chatRooms = new Dictionary<string, IChatRoom>();

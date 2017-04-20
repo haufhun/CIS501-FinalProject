@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
-namespace Server
+namespace Server.Controller
 {
-    public class ServerController_C
+    public class ServerController : WebSocketBehavior
     {
 
         public void SignIn(string name, string password)
@@ -19,14 +17,29 @@ namespace Server
 
         }
 
+        public void RemoveContact(string name)
+        {
+            
+        }
+        public void CreateRoom()
+        {
+
+        }
+
+        public void SendTextMessageMessage(string roomId, string username, DateTime time)
+        {
+            
+        }
+
         public void AddContactToRoom(string name)
         {
 
         }
 
-        public void CreateRoom()
+        protected override void OnMessage(MessageEventArgs e)
         {
-
+            
         }
+
     }
 }
