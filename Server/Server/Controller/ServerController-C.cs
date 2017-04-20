@@ -68,12 +68,12 @@ namespace Server.Controller
 
     public class Chat : WebSocketBehavior
     {
+        private Action _handle;
         public Chat(Action a)
         {
             _handle = a;
         }
 
-        private Action _handle;
         protected override void OnMessage(MessageEventArgs e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
