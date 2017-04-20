@@ -7,7 +7,9 @@ using Server.Model;
 
 namespace Server.Controller
 {
+    //Delegate used to call the controller from the Chat WebSocketBehavior class
     public delegate IMensaje ClientMessageHandler(IMensaje m);
+
     public class ServerController
     {
         private ChatDb _chatDb;
