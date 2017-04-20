@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chat_CSLibrary;
 using Server.Controller;
 using Server.View;
 using WebSocketSharp;
@@ -15,7 +16,7 @@ namespace Server
         //The delegate that will update the GUI application with information from the server
         public delegate void Observer();
         //The delegate that will handle a user interaction
-        public delegate void InputHandler();
+        public delegate void InputHandler(IMensaje mensaje);
 
         /// <summary>
         /// The main entry point for the application.
@@ -23,20 +24,7 @@ namespace Server
         [STAThread]
         static void Main()
         {
-            var wss = new WebSocketServer(8001);
-
-            // Add the Chat websocket service
-            wss.AddWebSocketService<Chat>("/chat");
-
-            // Start the server
-            wss.Start();
-
-            Console.WriteLine("Press Enter to exit.");
-            Console.ReadLine();
-
-            // Stop the server
-            wss.Stop();
-
+            var c = new ServerController();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
