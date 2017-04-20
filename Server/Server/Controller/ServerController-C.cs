@@ -3,10 +3,10 @@ using System.Runtime.InteropServices;
 using Chat_CSLibrary;
 using WebSocketSharp;
 using WebSocketSharp.Server;
-using Server;
 
 namespace Server.Controller
 {
+    public delegate IMensaje ClientMessageHandler(IMensaje m);
     public class ServerController
     {
         public ServerController()
@@ -14,70 +14,72 @@ namespace Server.Controller
             var wss = new WebSocketServer(8001);
 
             // Add the Chat websocket service
-            wss.AddWebSocketService<Chat>("/chat", new Func<Chat>(DoStuff));
+            wss.AddWebSocketService("/chat", new Func<Chat>(CreateChat));
 
             // Start the server
             wss.Start();
-            
-            //wss.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data);
         }
 
         ~ServerController()
         {
-            
+            //Serialize and put away the DB so it can be reloaded
         }
 
-        private void Darn()
+        private IMensaje Darn(IMensaje m)
         {
-            
+            throw new NotImplementedException();
         }
-        private Chat DoStuff()
+        private Chat CreateChat()
         {
             return new Chat(Darn);
         }
 
         public void SignIn(string name, string password)
         {
-
+            throw new NotImplementedException();
         }
 
         public void AddContact(string name)
         {
-
+            throw new NotImplementedException();
         }
 
         public void RemoveContact(string name)
         {
-            
+            throw new NotImplementedException();
         }
         public void CreateRoom()
         {
-
+            throw new NotImplementedException();
         }
 
         public void SendTextMessageMessage(string roomId, string username, DateTime time)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void AddContactToRoom(string name)
         {
-
+            throw new NotImplementedException();
         }
     }
 
     public class Chat : WebSocketBehavior
     {
-        private Action _handle;
-        public Chat(Action a)
+        private ClientMessageHandler _messageHandler;
+
+        public Chat(ClientMessageHandler a)
         {
-            _handle = a;
+            _messageHandler = a;
         }
 
         protected override void OnMessage(MessageEventArgs e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
-            _handle();
+
+            //_messageHandler();
+
+            Sessions.Broadcast("ahhhh");
         }
     }
 }
