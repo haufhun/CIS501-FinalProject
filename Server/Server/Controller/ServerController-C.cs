@@ -22,16 +22,16 @@ namespace Server.Controller
 
         ~ServerController()
         {
-            //Serialize and put away the DB so it can be reloaded
+            //Serialize and put away the DB so it can be reloaded on startup
         }
 
-        private IMensaje Darn(IMensaje m)
+        private IMensaje ChatDelegate(IMensaje m)
         {
             throw new NotImplementedException();
         }
         private Chat CreateChat()
         {
-            return new Chat(Darn);
+            return new Chat(ChatDelegate);
         }
 
         public void SignIn(string name, string password)
