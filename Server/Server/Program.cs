@@ -3,20 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chat_CSLibrary;
+using Server.Controller;
+using Server.View;
+using WebSocketSharp;
+using WebSocketSharp.Server;
 
 namespace Server
 {
     static class Program
     {
+        //The delegate that will update the GUI application with information from the server
+        public delegate void Observer();
+        //The delegate that will handle a user interaction
+        public delegate void InputHandler(IMensaje mensaje);
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
+            var c = new ServerController();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new ServerForm());
         }
     }
 }
