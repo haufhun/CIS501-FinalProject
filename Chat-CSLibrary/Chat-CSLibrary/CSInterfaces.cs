@@ -13,6 +13,8 @@ using Newtonsoft.Json;
  * What is the difference between a contact and a user? 
  * When is it appropriate to use one or the other? 
  * Does a contact have the same info as a user, but just the username?
+ * Should the user have a status?
+ * --> What about putting an IContact in IUser which just gives the contact info of a user? I think that may be a good way to do it? *** I think I actually like this quite a bit.
  */
 
 namespace Chat_CSLibrary
@@ -31,23 +33,30 @@ namespace Chat_CSLibrary
         bool IsError { get; }
         string ErrorMessage { get; }
     }
+
     /// <summary>
-    /// Used for login/logout.
+    /// Used for login/logout, the database will have a collection of all the users as well.
     /// </summary>
     public interface IUser
     {
         /// <summary>
         /// The username fo the particular user.
         /// </summary>
-        string Username { get; }
+        IContact ContactInfo { get; }
 
         /// <summary>
-        /// The password for this user.
+        /// Checks to see if the password being passed in is the correct password for the user.
         /// </summary>
-        string Password { get; }
+        /// <param name="password">The password being validated.</param>
+        /// <returns></returns>
+        bool IsValidPassword(string password);
         
+        /// <summary>
+        /// A list of all the contacts that this user has added.
+        /// </summary>
         IContactList ContactList { get; }
     }
+
     /// <summary>
     /// Contains all information related to a particular chat room.
     /// </summary>
@@ -72,7 +81,7 @@ namespace Chat_CSLibrary
     /// </summary>
     public interface IContactList
     {
-        void AddContact(string name);
+        //void AddContact(string name); I don't think we want this here because we just want the server to add a contact to the list.
         IContact GetContact(string username);
         void RemoveContact(string name);
         List<IContact> GetAllContacts();
