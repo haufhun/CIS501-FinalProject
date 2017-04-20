@@ -18,6 +18,8 @@ namespace Client
     public delegate void SignInHandler(string name, string password);
     // defines the type of method that handles an add contact event
     public delegate void AddContactHandler(string name);
+    // defines the type of method that handles a remove contact event
+    public delegate void RemoveContactHandler(string name);
     // defines the type of method that handles an add contact to room event
     public delegate void AddContactToRoomHandler(string name);
     // defines the type of method that handles a create chat room event
@@ -33,7 +35,7 @@ namespace Client
         {
             ClientController_C c = new ClientController_C();
 
-            HomeForm hForm = new HomeForm(c.SignIn, c.AddContact, c.AddContactToRoom,c.CreateRoom);
+            HomeForm hForm = new HomeForm(c.SignIn, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
             SignInForm sIForm = new SignInForm(hForm);
 
 

@@ -14,12 +14,14 @@ namespace Client
     {
         private SignInHandler _sIHandler;
         private AddContactHandler _addCHandler;
+        private RemoveContactHandler _removeCHandler;
         private AddContactToRoomHandler _addCToRoomHandler;
         private CreateRoomHandler _createRoomHandler;
-        public HomeForm(SignInHandler s, AddContactHandler ac, AddContactToRoomHandler acr, CreateRoomHandler cr)
+        public HomeForm(SignInHandler s, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr)
         {
             _sIHandler = s;
             _addCHandler = ac;
+            _removeCHandler = rc;
             _addCToRoomHandler = acr;
             _createRoomHandler = cr;
 
@@ -31,6 +33,5 @@ namespace Client
         {
 
         }
-
     }
 }

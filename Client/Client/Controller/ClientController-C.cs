@@ -8,9 +8,14 @@ namespace Client
 {
     class ClientController_C
     {
-        private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
-        private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>(); 
         private SignInFormObserver _sIFormObserver;
+        private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
+        private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
+
+        public void SignInRegister(SignInFormObserver o)
+        {
+            _sIFormObserver = o;
+        }
         public void HomeFormRegister(HomeFormObserver o)
         {
             _hFormObserver.Add(o);
@@ -20,10 +25,7 @@ namespace Client
             _cFormObserver.Add(o);
         }
        
-        public void SignInRegister(SignInFormObserver o)
-        {
-            _sIFormObserver = o;
-        }
+        
 
         public void SignIn(string name, string password)
         {
@@ -31,6 +33,11 @@ namespace Client
         }
 
         public void AddContact(string name)
+        {
+            
+        }
+
+        public void RemoveContact(string name)
         {
             
         }
@@ -44,6 +51,21 @@ namespace Client
         {
             
         }
+        private void SignalCFormObserver()
+        {
+
+        }
+        private void SignalHFormObserver()
+        {
+            
+        }
+
+        private void SignalSIFormObsever()
+        {
+            
+        }
+
+        
     }
 
 }
