@@ -93,13 +93,27 @@ namespace Server.Controller
         {
             IChatRoom room = _chatDb.LookupRoom(roomId);
             IMensaje m = null;
-            if (room != null)
+
+            if (room == null)
             {
-                m = new Mensaje(room, msg);
+                //Send error
+                m = new Mensaje(Status.SendTextMessage, "The chat room no longer exists");
             }
             else
             {
-                m = new Mensaje(Status.SendTextMessage, "The chat room no longer exists");
+                //We need to implement the GetAllContacts in the Class Library
+                foreach(IUser user in room.GetAllContacts())
+                {
+                    if(!user.ContactInfo.Status)
+                    {
+                        //Notify all the other users that this user is offline
+                        string sessionId = user.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
+                        room.RemoveUser(user.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
+
+                    }
+                }
+                //Send 
+                m = new Mensaje(room, msg);
             }
             _send(m);
         }
@@ -130,8 +144,16 @@ namespace Server.Controller
         public void Send(IMensaje m)
         {
             string message = JsonConvert.SerializeObject(m);
-            Sessions.Broadcast(message);
+            Sessions.SendTo(m.User.Id, message);
             //This is what I imagine the send  function will look like, we might need more -- Calvin
+            //The Sessions.Broadcast will send it to ALL of the clients. We don't want this, we want to only send it to a specific client. This will help us with that
+            //So, we may need to add a ClientId field to the Mensaje and the User classes so they can know that. 
+                //Now, the question is, do we have the ClientId in the User class, or the Mensaje? We have it in the User then we HAVE to intialzie the
+                //User object everytime we send a Mensaje between the two of us. Or, if the Mensaje has it, we use that, but then we have to make sure
+                //that if we do send a User object, that the Ids are the same... 
+
+            //An even better question is should the User know what their ClientId is? Orrrr should we just have a lookup based on the username what their ClientId is?
+            //Then, we don't really have to worry about adding the ClientId to either... maybe. There's still a lot of variables. Tell me what you think.
         }
     }
 }
