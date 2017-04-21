@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ContactInfo-M.cs" />
     <Compile Include="CSInterfaces.cs" />
+    <Compile Include="Mensaje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

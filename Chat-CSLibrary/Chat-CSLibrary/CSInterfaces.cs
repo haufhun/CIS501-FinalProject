@@ -85,7 +85,6 @@ namespace Chat_CSLibrary
         IContact GetContact(string username);
         void RemoveContact(string name);
         List<IContact> GetAllContacts();
-
     }
     public interface ITextMessage
     {

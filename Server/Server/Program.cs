@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Chat_CSLibrary;
 using Server.Controller;
+using Server.Model;
 using Server.View;
 using WebSocketSharp;
 using WebSocketSharp.Server;
@@ -24,7 +25,8 @@ namespace Server
         [STAThread]
         static void Main()
         {
-            var c = new ServerController();
+            var db = new ChatDb();
+            var c = new ServerController(db);
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

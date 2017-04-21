@@ -8,11 +8,13 @@ using Server.Model;
 namespace Server.Controller
 {
     //Delegate used to call the controller from the Chat WebSocketBehavior class
-    public delegate IMensaje ClientMessageHandler(IMensaje m);
+    public delegate void MensajeHandler(IMensaje m);
 
     public class ServerController
     {
         private ChatDb _chatDb;
+
+        private MensajeHandler _send;
 
         public ServerController(ChatDb db)
         {
@@ -21,7 +23,7 @@ namespace Server.Controller
             var wss = new WebSocketServer(8001);
 
             // Add the Chat websocket service
-            wss.AddWebSocketService("/chat", new Func<Chat>(CreateChat));
+            wss.AddWebSocketService("/chat", CreateChat);
 
             // Start the server
             wss.Start();
@@ -32,18 +34,40 @@ namespace Server.Controller
             //Serialize and put away the DB so it can be reloaded on startup
         }
 
-        private IMensaje ChatDelegate(IMensaje m)
+        private void ChatDelegate(IMensaje m)
         {
+            switch (m.MyStatus)
+            {
+                case Status.AddContact:
+
+                    break;
+                case Status.AddContactToChat:
+                    break;
+                case Status.Login:
+                    break;
+                case Status.Logout:
+                    break;
+                case Status.OpenChat:
+                    break;
+                case Status.RemoveContact:
+                    break;
+                case Status.SendTextMessage:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             SignIn("haufhun", "12345");
 
             throw new NotImplementedException();
         }
         private Chat CreateChat()
         {
-            return new Chat(ChatDelegate);
+            var c = new Chat(ChatDelegate);
+            _send = c.Send;
+            return c;
         }
 
-        public void SignIn(string name, string password)
+        private void SignIn(string name, string password)
         {
             
         }
@@ -62,7 +86,7 @@ namespace Server.Controller
             throw new NotImplementedException();
         }
 
-        public void SendTextMessageMessage(string roomId, string username, DateTime time)
+        public void SendTextMessage(string roomId, string username, DateTime time)
         {
             throw new NotImplementedException();
         }
@@ -75,20 +99,26 @@ namespace Server.Controller
 
     public class Chat : WebSocketBehavior
     {
-        private ClientMessageHandler _messageHandler;
+        private readonly MensajeHandler _receive;
 
-        public Chat(ClientMessageHandler a)
+        public Chat(MensajeHandler a)
         {
-            _messageHandler = a;
+            _receive = a;
         }
 
         protected override void OnMessage(MessageEventArgs e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
+            //Deserialize this first, don't just pass a new instance...
+            IMensaje m = new Mensaje();
+            _receive(m);
+        }
 
-            //_messageHandler();
+        public void Send(IMensaje m)
+        {
+            Sessions.Broadcast("");
 
-            Sessions.Broadcast("ahhhh");
+            throw new NotImplementedException();
         }
     }
 }

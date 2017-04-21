@@ -67,7 +67,8 @@ namespace Chat_CSLibrary
         /// </summary>
         /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
         /// <param name="c"></param>
-        public Mensaje(Status s, IContact c, IUser user,)
+        /// <param name="user">The user to </param>
+        public Mensaje(Status s, IContact c, IUser user)
         {
             if (s != Status.AddContact || s != Status.RemoveContact) throw new NotSupportedException();
 
