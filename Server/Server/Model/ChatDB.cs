@@ -20,6 +20,15 @@ namespace Server.Model
             //overload for JSON initializations
         }
 
+        public IChatRoom LookupRoom(string id)
+        {
+            if (_chatRooms.ContainsKey(id))
+            {
+                return _chatRooms[id];
+            }
+            return null;
+        }
+
         public bool LookupUser(string username)
         {
 

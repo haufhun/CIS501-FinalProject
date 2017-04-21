@@ -4,6 +4,7 @@ using Chat_CSLibrary;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Server.Model;
+using Newtonsoft.Json;
 
 namespace Server.Controller
 {
@@ -52,6 +53,7 @@ namespace Server.Controller
                 case Status.RemoveContact:
                     break;
                 case Status.SendTextMessage:
+                    SendTextMessage(m.ChatRoom.Id, m.Message);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -86,9 +88,20 @@ namespace Server.Controller
             throw new NotImplementedException();
         }
 
-        public void SendTextMessage(string roomId, string username, DateTime time)
+        //public void SendTextMessage(string roomId, string username, DateTime time)
+        public void SendTextMessage(string roomId, ITextMessage msg)
         {
-            throw new NotImplementedException();
+            IChatRoom room = _chatDb.LookupRoom(roomId);
+            IMensaje m = null;
+            if (room != null)
+            {
+                m = new Mensaje(room, msg);
+            }
+            else
+            {
+                m = new Mensaje(Status.SendTextMessage, "The chat room no longer exists");
+            }
+            _send(m);
         }
 
         public void AddContactToRoom(string name)
@@ -116,9 +129,9 @@ namespace Server.Controller
 
         public void Send(IMensaje m)
         {
-            Sessions.Broadcast("");
-
-            throw new NotImplementedException();
+            string message = JsonConvert.SerializeObject(m);
+            Sessions.Broadcast(message);
+            //This is what I imagine the send  function will look like, we might need more -- Calvin
         }
     }
 }
