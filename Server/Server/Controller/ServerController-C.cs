@@ -9,13 +9,15 @@ using Newtonsoft.Json;
 namespace Server.Controller
 {
     //Delegate used to call the controller from the Chat WebSocketBehavior class
-    public delegate void MensajeHandler(IMensaje m);
+    public delegate void ClientMessageHandler(IMensaje m);
+    //Delegate used to send a message back to the appropriate user
+    public delegate void SendMessageHandler(IMensaje m, string sessionId);
 
     public class ServerController
     {
-        private ChatDb _chatDb;
+        private readonly ChatDb _chatDb;
 
-        private MensajeHandler _send;
+        private SendMessageHandler _send;
 
         public ServerController(ChatDb db)
         {
@@ -102,20 +104,20 @@ namespace Server.Controller
             else
             {
                 //We need to implement the GetAllUsers in the Class Library
-                foreach(IUser user in room.GetAllUsers())
+                foreach(User u in room.GetAllUsers())
                 {
-                    if(user.ContactInfo.OnlineStatus == Status.Offline)
+                    if(u.ContactInfo.OnlineStatus == Status.Offline)
                     {
                         //Notify all the other users that this user is offline
-                        string sessionId = user.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
-                        room.RemoveUser(user.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
+                        string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
+                        room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
 
                     }
                 }
                 //Send 
                 m = new Mensaje(room, msg);
             }
-            _send(m);
+            _send(m, );
         }
 
         public void AddContactToRoom(string name)
@@ -126,9 +128,9 @@ namespace Server.Controller
 
     public class Chat : WebSocketBehavior
     {
-        private readonly MensajeHandler _receive;
+        private readonly ClientMessageHandler _receive;
 
-        public Chat(MensajeHandler a)
+        public Chat(ClientMessageHandler a)
         {
             _receive = a;
         }
