@@ -53,5 +53,10 @@ namespace Server.Model
             _username = username;
             _onlineStatus = Status.Online;
         }
+
+        public void ChangeStatus(Status newStatus)
+        {
+            _onlineStatus = newStatus;
+        }
     }
 }

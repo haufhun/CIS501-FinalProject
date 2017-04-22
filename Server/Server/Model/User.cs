@@ -65,9 +65,9 @@ namespace Server.Model
         /// Changes the status of the user to represent online or offline.
         /// </summary>
         /// <param name="newState">The bool signifying whether the user is on or offline</param>
-        public void ChangeStatus(bool newState)
+        public void ChangeStatus(Status newState)
         {
-            _contact.Status = newState;
+            _contact.ChangeStatus(newState);
         }
 
         /// <summary>
