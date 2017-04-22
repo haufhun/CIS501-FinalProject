@@ -7,7 +7,7 @@ using Chat_CSLibrary;
 
 namespace Server.Model
 {
-    class User : IUser
+    public class User : IUser
     {
         //Stores the user's password, only can be set on initialization.
         private string _password;

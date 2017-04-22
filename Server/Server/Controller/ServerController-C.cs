@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Chat_CSLibrary;
 using WebSocketSharp;
@@ -11,7 +12,7 @@ namespace Server.Controller
     //Delegate used to call the controller from the Chat WebSocketBehavior class
     public delegate void ClientMessageHandler(IMensaje m);
     //Delegate used to send a message back to the appropriate user
-    public delegate void SendMessageHandler(IMensaje m, string sessionId);
+    public delegate void SendMessageHandler(IMensaje m, List<string> sessionId);
 
     public class ServerController
     {
@@ -94,6 +95,7 @@ namespace Server.Controller
         public void SendTextMessage(string roomId, ITextMessage msg)
         {
             ChatRoom room = _chatDb.LookupRoom(roomId);
+            List<string> activeIds = new List<string>();
             IMensaje m = null;
 
             if (room == null)
@@ -111,13 +113,17 @@ namespace Server.Controller
                         //Notify all the other users that this user is offline
                         string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
                         room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
-
+                    }
+                    else
+                    {
+                        activeIds.Add(u.SessionId);
                     }
                 }
                 //Send 
                 m = new Mensaje(room, msg);
             }
-            _send(m, );
+
+            _send(m, activeIds);
         }
 
         public void AddContactToRoom(string name)
@@ -143,11 +149,14 @@ namespace Server.Controller
             _receive(m);
         }
 
-        public void Send(IMensaje m, string sessionId)
+        public void Send(IMensaje m, List<string> sessionIds)
         {
             string message = JsonConvert.SerializeObject(m);
 
-            Sessions.SendTo(sessionId, message);
+            foreach (string s in sessionIds)
+            {
+                Sessions.SendTo(s, message);
+            }
             //This is what I imagine the send  function will look like, we might need more -- Calvin
             //The Sessions.Broadcast will send it to ALL of the clients. We don't want this, we want to only send it to a specific client. This will help us with that
             //So, we may need to add a ClientId field to the Mensaje and the User classes so they can know that. 
