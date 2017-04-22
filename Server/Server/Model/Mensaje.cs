@@ -8,7 +8,7 @@ namespace Chat_CSLibrary
 {
     public class Mensaje : IMensaje
     {
-        private Status _statusOfMessage;
+        private State _statusOfMessage;
 
         private IUser _userObj;
 
@@ -22,7 +22,7 @@ namespace Chat_CSLibrary
 
         private string _errorMessage;
 
-        public Status MyStatus => _statusOfMessage;
+        public State MyState => _statusOfMessage;
 
         public IUser User => _userObj;
 
@@ -54,9 +54,9 @@ namespace Chat_CSLibrary
         /// </summary>
         /// <param name="s">The status of the message being sent, either login or logout.</param>
         /// <param name="user">The user to be signed in.</param>
-        public Mensaje(Status s, IUser user)
+        public Mensaje(State s, IUser user)
         {
-            if (s != Status.Login || s != Status.Logout) throw new NotSupportedException();
+            if (s != State.Login || s != State.Logout) throw new NotSupportedException();
 
             _statusOfMessage = s;
             _userObj = user;
@@ -65,12 +65,12 @@ namespace Chat_CSLibrary
         /// <summary>
         /// Constructor used to add/remove a contact to a user's contact list.
         /// </summary>
-        /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
+        /// <param name="s">The status of the message being sent. This should be AddContact or RemoveUser</param>
         /// <param name="c"></param>
         /// <param name="user">The user to </param>
-        public Mensaje(Status s, IContact c, IUser user)
+        public Mensaje(State s, IContact c, IUser user)
         {
-            if (s != Status.AddContact || s != Status.RemoveContact) throw new NotSupportedException();
+            if (s != State.AddContact || s != State.RemoveContact) throw new NotSupportedException();
 
             _statusOfMessage = s;
             _contactObj = c;
@@ -84,7 +84,7 @@ namespace Chat_CSLibrary
         {
             if (chatroom.NumberOfPartcipants() < 2) throw new NotSupportedException();
 
-            _statusOfMessage = Status.OpenChat;
+            _statusOfMessage = State.OpenChat;
             _chatRoomObj = chatroom;
 
 
@@ -98,7 +98,7 @@ namespace Chat_CSLibrary
         /// <param name="msg">The text message that is to be sent in the chat room.</param>
         public Mensaje(IChatRoom chatroom, ITextMessage msg)
         {
-            _statusOfMessage = Status.SendTextMessage;
+            _statusOfMessage = State.SendTextMessage;
             _chatRoomObj = chatroom;
             _textMsgObj = msg;
         }
@@ -111,7 +111,7 @@ namespace Chat_CSLibrary
         /// <param name="c">The contact to be added to the chat room.</param>
         public Mensaje(IChatRoom chatroom, IContact c)
         {
-            _statusOfMessage = Status.AddContactToChat;
+            _statusOfMessage = State.AddContactToChat;
             _chatRoomObj = chatroom;
             _contactObj = c;
         }
@@ -131,7 +131,8 @@ namespace Chat_CSLibrary
         /// </summary>
         /// <param name="s">The status that the error occurred in.</param>
         /// <param name="errorMessage">The message details.</param>
-        public Mensaje(Status s, string errorMessage)
+        public Mensaje(State
+             s, string errorMessage)
         {
             _statusOfMessage = s;
             _isError = true;

@@ -37,22 +37,22 @@ namespace Server.Controller
 
         private void ChatDelegate(IMensaje m)
         {
-            switch (m.MyStatus)
+            switch (m.MyState)
             {
-                case Status.AddContact:
+                case State.AddContact:
 
                     break;
-                case Status.AddContactToChat:
+                case State.AddContactToChat:
                     break;
-                case Status.Login:
+                case State.Login:
                     break;
-                case Status.Logout:
+                case State.Logout:
                     break;
-                case Status.OpenChat:
+                case State.OpenChat:
                     break;
-                case Status.RemoveContact:
+                case State.RemoveContact:
                     break;
-                case Status.SendTextMessage:
+                case State.SendTextMessage:
                     SendTextMessage(m.ChatRoom.Id, m.Message);
                     break;
                 default:
@@ -91,20 +91,20 @@ namespace Server.Controller
         //public void SendTextMessage(string roomId, string username, DateTime time)
         public void SendTextMessage(string roomId, ITextMessage msg)
         {
-            IChatRoom room = _chatDb.LookupRoom(roomId);
+            ChatRoom room = _chatDb.LookupRoom(roomId);
             IMensaje m = null;
 
             if (room == null)
             {
                 //Send error
-                m = new Mensaje(Status.SendTextMessage, "The chat room no longer exists");
+                m = new Mensaje(State.SendTextMessage, "The chat room no longer exists");
             }
             else
             {
-                //We need to implement the GetAllContacts in the Class Library
-                foreach(IUser user in room.GetAllContacts())
+                //We need to implement the GetAllUsers in the Class Library
+                foreach(IUser user in room.GetAllUsers())
                 {
-                    if(!user.ContactInfo.Status)
+                    if(user.ContactInfo.OnlineStatus == Status.Offline)
                     {
                         //Notify all the other users that this user is offline
                         string sessionId = user.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
@@ -141,10 +141,11 @@ namespace Server.Controller
             _receive(m);
         }
 
-        public void Send(IMensaje m)
+        public void Send(IMensaje m, string sessionId)
         {
             string message = JsonConvert.SerializeObject(m);
-            Sessions.SendTo(m.User.Id, message);
+
+            Sessions.SendTo(sessionId, message);
             //This is what I imagine the send  function will look like, we might need more -- Calvin
             //The Sessions.Broadcast will send it to ALL of the clients. We don't want this, we want to only send it to a specific client. This will help us with that
             //So, we may need to add a ClientId field to the Mensaje and the User classes so they can know that. 
