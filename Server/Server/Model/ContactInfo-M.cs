@@ -46,7 +46,7 @@ namespace Server.Model
 
         public string Username => _username;
 
-        Status IContact.OnlineStatus => _onlineStatus;
+        public Status OnlineStatus => _onlineStatus;
 
         public Contact(string username)
         {
