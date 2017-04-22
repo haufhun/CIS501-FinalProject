@@ -145,7 +145,7 @@ namespace Server.Controller
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
             //Deserialize this first, don't just pass a new instance...
-            IMensaje m = new Mensaje();
+            IMensaje m = JsonConvert.DeserializeObject<IMensaje>(e.Data);
             _receive(m);
         }
 
