@@ -25,7 +25,7 @@ namespace Chat_CSLibrary
     [JsonObject]
     public interface IMensaje
     {
-        Status MyStatus { get; }
+        State MyState { get; }
         IUser User { get; }
         IContact Contact { get; }
         ITextMessage Message { get; }
@@ -95,9 +95,9 @@ namespace Chat_CSLibrary
     public interface IContact
     {
         string Username { get; }
-        bool Status { get; }
+        Status OnlineStatus  { get; }
     }
-    public enum Status
+    public enum State
     {
         AddContact,
         AddContactToChat,
@@ -106,5 +106,11 @@ namespace Chat_CSLibrary
         OpenChat,
         RemoveContact,
         SendTextMessage
+    }
+
+    public enum Status
+    {
+        Offline,
+        Online
     }
 }

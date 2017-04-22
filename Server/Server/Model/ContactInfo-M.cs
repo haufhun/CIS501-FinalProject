@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Chat_CSLibrary;
 
-namespace Chat_CSLibrary
+namespace Server.Model
 {
     public class ContactList : IContactList
     {
-        private Dictionary<string, IContact> _contacts;
+        private Dictionary<string, Contact> _contacts;
 
         public ContactList()
         {
-            _contacts = new Dictionary<string, IContact>();
+            _contacts = new Dictionary<string, Contact>();
         }
         public void AddContact(string name)
         {
@@ -21,6 +22,10 @@ namespace Chat_CSLibrary
             throw new NotImplementedException();
         }
 
+
+        /*
+         * These two methods will be used by the Client. We don't really want to use them in the server.
+         */
         public IContact GetContact(string username)
         {
             throw new NotImplementedException();
@@ -34,16 +39,19 @@ namespace Chat_CSLibrary
 
     public class Contact : IContact
     {
-        public bool Status { get; set; }
-        public string Username { get; set; }
-    }
+        private string _username;
 
-    public class M
-    {
-        public IContactList c = new ContactList();
+        private Status _onlineStatus;
 
-        public void m()
+
+        public string Username => _username;
+
+        Status IContact.OnlineStatus => _onlineStatus;
+
+        public Contact(string username)
         {
+            _username = username;
+            _onlineStatus = Status.Online;
         }
     }
 }
