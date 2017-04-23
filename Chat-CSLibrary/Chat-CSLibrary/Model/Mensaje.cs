@@ -1,52 +1,49 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Chat_CSLibrary;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace Chat_CSLibrary
+namespace Server.Model
 {
+    [JsonObject]
     public class Mensaje : IMensaje
     {
-        private State _statusOfMessage;
-
-        private IUser _userObj;
-
-        private IContact _contactObj;
-
-        private ITextMessage _textMsgObj;
-
-        private IChatRoom _chatRoomObj;
-
-        private bool _isError;
-
-        private string _errorMessage;
-
-        public State MyState => _statusOfMessage;
-
-        public IUser User => _userObj;
-
-        public IContact Contact => _contactObj;
-
-        public ITextMessage Message => _textMsgObj;
-
-        public IChatRoom ChatRoom => _chatRoomObj;
-
-        public bool IsError => _isError;
-
-        public string ErrorMessage => _errorMessage;
+        [JsonProperty]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public State MyState { get; private set; }
+        [JsonProperty]
+        public IUser User { get; private set; }
+        [JsonProperty]
+        public IContact Contact { get; private set; }
+        [JsonProperty]
+        public ITextMessage Message { get; private set; }
+        [JsonProperty]
+        public IChatRoom ChatRoom { get; private set; }
+        [JsonProperty]
+        public bool IsError { get; private set; }
+        [JsonProperty]
+        public string ErrorMessage { get; private set; }
 
         /// <summary>
         /// A default constructor that initializes all the contents to null.
         /// </summary>
         public Mensaje()
         {
-            _userObj = null;
-            _contactObj = null;
-            _textMsgObj = null;
-            _chatRoomObj = null;
-            _isError = false;
-            _errorMessage = null;
+            User = null;
+            Contact = null;
+            Message = null;
+            ChatRoom = null;
+            IsError = false;
+            ErrorMessage = null;
+        }
+        [JsonConstructor]
+        public Mensaje(State s, User u, Contact c, TextMessage m, ChatRoom r)
+        {
+            MyState = s;
+            User = u;
+            Contact = c;
+            Message = m;
+            ChatRoom = r;
         }
 
         /// <summary>
@@ -58,8 +55,8 @@ namespace Chat_CSLibrary
         {
             if (s != State.Login || s != State.Logout) throw new NotSupportedException();
 
-            _statusOfMessage = s;
-            _userObj = user;
+            MyState = s;
+            User = user;
         }
 
         /// <summary>
@@ -72,48 +69,44 @@ namespace Chat_CSLibrary
         {
             if (s != State.AddContact || s != State.RemoveContact) throw new NotSupportedException();
 
-            _statusOfMessage = s;
-            _contactObj = c;
+            MyState = s;
+            Contact = c;
         }
-        
+
         /// <summary>
         /// Constructor used to opne a new chat room.
         /// </summary>
         /// <param name="chatroom">The chat room that must contain the two users that desire to create a chat room.</param>
-        public Mensaje(IChatRoom chatroom)
+        public Mensaje(ChatRoom chatroom)
         {
-            if (chatroom.NumberOfPartcipants() < 2) throw new NotSupportedException();
+            //if (chatroom.NumberOfPartcipants() < 2) throw new NotSupportedException();
 
-            _statusOfMessage = State.OpenChat;
-            _chatRoomObj = chatroom;
-
-
+            MyState = State.OpenChat;
+            ChatRoom = chatroom;
         }
-        
+
         /// <summary>
         /// Constructor used to send a message to a chat room.
         /// </summary>
-        /// <param name="s">The status of the message being sent.</param>
         /// <param name="chatroom">The chat room object that the message should be sent to.</param>
         /// <param name="msg">The text message that is to be sent in the chat room.</param>
         public Mensaje(IChatRoom chatroom, ITextMessage msg)
         {
-            _statusOfMessage = State.SendTextMessage;
-            _chatRoomObj = chatroom;
-            _textMsgObj = msg;
+            MyState = State.SendTextMessage;
+            ChatRoom = chatroom;
+            Message = msg;
         }
-        
+
         /// <summary>
         /// Constructor used to add a contact to a chat room.
         /// </summary>
-        /// <param name="s">The status of the message being sent.</param>
         /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
         /// <param name="c">The contact to be added to the chat room.</param>
         public Mensaje(IChatRoom chatroom, IContact c)
         {
-            _statusOfMessage = State.AddContactToChat;
-            _chatRoomObj = chatroom;
-            _contactObj = c;
+            MyState = State.AddContactToChat;
+            ChatRoom = chatroom;
+            Contact = c;
         }
 
         /// <summary>
@@ -122,8 +115,8 @@ namespace Chat_CSLibrary
         /// <param name="errorMessage">The message details.</param>
         public Mensaje(string errorMessage)
         {
-            _isError = true;
-            _errorMessage = errorMessage;
+            IsError = true;
+            ErrorMessage = errorMessage;
         }
 
         /// <summary>
@@ -131,12 +124,11 @@ namespace Chat_CSLibrary
         /// </summary>
         /// <param name="s">The status that the error occurred in.</param>
         /// <param name="errorMessage">The message details.</param>
-        public Mensaje(State
-             s, string errorMessage)
+        public Mensaje(State s, string errorMessage)
         {
-            _statusOfMessage = s;
-            _isError = true;
-            _errorMessage = errorMessage;
+            MyState = s;
+            IsError = true;
+            ErrorMessage = errorMessage;
         }
     }
 }

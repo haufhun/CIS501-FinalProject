@@ -20,11 +20,14 @@ namespace Server.Controller
 
         private SendMessageHandler _send;
 
+        private WebSocketServer _wss;
+
         public ServerController(ChatDb db)
         {
             _chatDb = db;
 
             var wss = new WebSocketServer(8001);
+            _wss = wss;
 
             // Add the Chat websocket service
             wss.AddWebSocketService("/chat", CreateChat);
@@ -36,6 +39,7 @@ namespace Server.Controller
         ~ServerController()
         {
             //Serialize and put away the DB so it can be reloaded on startup
+            _wss.Stop();
         }
 
         private void ChatDelegate(IMensaje m)
@@ -56,7 +60,7 @@ namespace Server.Controller
                 case State.RemoveContact:
                     break;
                 case State.SendTextMessage:
-                    SendTextMessage(m.ChatRoom.Id, m.Message);
+                    //SendTextMessage(m.ChatRoom.Id, m.Message);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -92,39 +96,39 @@ namespace Server.Controller
         }
 
         //public void SendTextMessage(string roomId, string username, DateTime time)
-        public void SendTextMessage(string roomId, ITextMessage msg)
-        {
-            ChatRoom room = _chatDb.LookupRoom(roomId);
-            List<string> activeIds = new List<string>();
-            IMensaje m = null;
+        //public void SendTextMessage(string roomId, ITextMessage msg)
+        //{
+        //    //ChatRoom room = _chatDb.LookupRoom(roomId);
+        //    List<string> activeIds = new List<string>();
+        //    IMensaje m = null;
 
-            if (room == null)
-            {
-                //Send error
-                m = new Mensaje(State.SendTextMessage, "The chat room no longer exists");
-            }
-            else
-            {
-                //We need to implement the GetAllUsers in the Class Library
-                foreach(User u in room.GetAllUsers())
-                {
-                    if(u.ContactInfo.OnlineStatus == Status.Offline)
-                    {
-                        //Notify all the other users that this user is offline
-                        string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
-                        room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
-                    }
-                    else
-                    {
-                        activeIds.Add(u.SessionId);
-                    }
-                }
-                //Send 
-                m = new Mensaje(room, msg);
-            }
+        //    if (room == null)
+        //    {
+        //        //Send error
+        //        //m = new Mensaje(State.SendTextMessage, "The chat room no longer exists");
+        //    }
+        //    else
+        //    {
+        //        //We need to implement the GetAllUsers in the Class Library
+        //        foreach(User u in room.GetAllUsers())
+        //        {
+        //            if(u.ContactInfo.OnlineStatus == Status.Offline)
+        //            {
+        //                //Notify all the other users that this user is offline
+        //                string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
+        //                room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
+        //            }
+        //            else
+        //            {
+        //                activeIds.Add(u.SessionId);
+        //            }
+        //        }
+        //        //Send 
+        //        //m = new Mensaje(room, msg);
+        //    }
 
-            _send(m, activeIds);
-        }
+        //    _send(m, activeIds);
+        //}
 
         public void AddContactToRoom(string name)
         {
@@ -145,8 +149,8 @@ namespace Server.Controller
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
             //Deserialize this first, don't just pass a new instance...
-            IMensaje m = JsonConvert.DeserializeObject<IMensaje>(e.Data);
-            _receive(m);
+            //var m = JsonConvert.DeserializeObject<Mensaje>(e.Data);
+            //_receive(m);
         }
 
         public void Send(IMensaje m, List<string> sessionIds)

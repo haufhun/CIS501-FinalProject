@@ -22,7 +22,6 @@ namespace Chat_CSLibrary
     /// <summary>
     /// Sends across the server and the chat
     /// </summary>
-    [JsonObject]
     public interface IMensaje
     {
         State MyState { get; }
@@ -37,7 +36,6 @@ namespace Chat_CSLibrary
     /// <summary>
     /// Used for login/logout, the database will have a collection of all the users as well.
     /// </summary>
-    [JsonObject]
     public interface IUser
     {
         /// <summary>
@@ -61,7 +59,6 @@ namespace Chat_CSLibrary
     /// <summary>
     /// Contains all information related to a particular chat room.
     /// </summary>
-    [JsonObject]
     public interface IChatRoom
     {
         /// <summary>
@@ -81,7 +78,6 @@ namespace Chat_CSLibrary
     /// <summary>
     /// Contacts a list of contacts for a given user
     /// </summary>
-    [JsonObject]
     public interface IContactList
     {
         //void AddContact(string name); I don't think we want this here because we just want the server to add a contact to the list.
@@ -89,14 +85,12 @@ namespace Chat_CSLibrary
         void RemoveContact(string name);
         List<IContact> GetAllContacts();
     }
-    [JsonObject]
     public interface ITextMessage
     {
         string Body { get; }
         IContact Sender { get; }
         DateTime Time { get; }
     }
-    [JsonObject]
     public interface IContact
     {
         string Username { get; }

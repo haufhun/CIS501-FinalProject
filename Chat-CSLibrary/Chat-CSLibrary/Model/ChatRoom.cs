@@ -4,24 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chat_CSLibrary;
+using Newtonsoft.Json;
 
 namespace Server.Model
 {
+    [JsonObject]
     public class ChatRoom : IChatRoom
     {
+        [JsonProperty]
         private List<string> _messages;
-
+        [JsonProperty]
         private Dictionary<string, User> _users;
+        public List<string> MessageHistory => _messages;
+        public string Id { get; }
 
         public ChatRoom()
         {
             _messages = new List<string>();
+            _messages.Add("HUnter: Hey what's up");
             _users = new Dictionary<string, User>();
+            _users.Add("haufhun", new User(new Contact("haufhun"), "password"));
         }
 
-        public List<string> MessageHistory => _messages;
-
-        public string Id { get; }
+        [JsonConstructor]
+        public ChatRoom(List<string> msgs, Dictionary<string, User> users)
+        {
+            _messages = msgs;
+            _users = users;
+        }
 
         public int NumberOfPartcipants()
         {
@@ -40,7 +50,7 @@ namespace Server.Model
 
         public void RemoveUser(string username)
         {
-            
+
         }
     }
 }

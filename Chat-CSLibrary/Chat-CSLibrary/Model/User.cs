@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Chat_CSLibrary;
+using Newtonsoft.Json;
 
 namespace Server.Model
 {
+    [JsonObject]
     public class User : IUser
     {
         //Stores the user's password, only can be set on initialization.
@@ -47,9 +49,11 @@ namespace Server.Model
         }
 
         //Public IContact that refers to _contact
+        [JsonProperty]
         public IContact ContactInfo => _contact;
 
         //Public IContactList that refers to _list
+        [JsonProperty]
         public IContactList ContactList => _list;
 
         /// <summary>
