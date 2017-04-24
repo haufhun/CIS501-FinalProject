@@ -30,11 +30,6 @@ namespace Server.Model
             return _users.ContainsKey(username) ? _users[username] : null;
         }
 
-        public bool ValidatePassword(string username, string password)
-        {
-            return _users[username].IsValidPassword(password);
-        }
-
         public void CreateUser(string username, string password)
         {
 

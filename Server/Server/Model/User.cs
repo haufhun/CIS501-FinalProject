@@ -11,6 +11,7 @@ namespace Server.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class User : IUser
     {
+        [JsonProperty]
         private string _password;
 
         [JsonProperty]
@@ -32,8 +33,9 @@ namespace Server.Model
         }
 
         [JsonConstructor]
-        private User(Contact contactInfo, ContactList contactList)
+        private User(string password, Contact contactInfo, ContactList contactList)
         {
+            _password = password;
             ContactInfo = contactInfo;
             ContactList = contactList;
         }

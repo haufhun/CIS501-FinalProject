@@ -11,7 +11,7 @@ namespace Server.Model
     {
         [JsonProperty]
         [JsonConverter(typeof(StringEnumConverter))]
-        public State MyState { get; }
+        public State MyState { get; private set; }
 
         [JsonProperty]
         public IUser User { get; }
@@ -41,7 +41,7 @@ namespace Server.Model
         /// <param name="user">The user to be signed in.</param>
         public Mensaje(State s, IUser user)
         {
-            if (s != State.Login || s != State.Logout) throw new NotSupportedException();
+            if (s != State.Login && s != State.Logout) throw new NotSupportedException();
 
             MyState = s;
             User = user;
@@ -55,7 +55,7 @@ namespace Server.Model
         /// <param name="user">The user to </param>
         public Mensaje(State s, IContact c, IUser user)
         {
-            if (s != State.AddContact || s != State.RemoveContact) throw new NotSupportedException();
+            if (s != State.AddContact && s != State.RemoveContact) throw new NotSupportedException();
 
             MyState = s;
             Contact = c;
@@ -100,7 +100,7 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Constructor that creates an error message based on a error message alone.
+        /// Constructor that creates an error message based on an error message alone.
         /// </summary>
         /// <param name="errorMessage">The message details.</param>
         public Mensaje(string errorMessage)
@@ -120,13 +120,19 @@ namespace Server.Model
             IsError = true;
             ErrorMessage = errorMessage;
         }
+
         /// <summary>
         /// This constructor is ONLY to be used by Json in order to deserialize.
         /// </summary>
+        /// <param name="s"></param>
         /// <param name="user">The user to be passed. Can be null.</param>
         /// <param name="c">The contact to be passed. Can be null.</param>
         /// <param name="chatRoom">The chat room to be passed. Can be null.</param>
         /// <param name="contact"></param>
+        /// <param name="contactList"></param>
+        /// <param name="textMessage"></param>
+        /// <param name="isError"></param>
+        /// <param name="errorMessage"></param>
         [JsonConstructor]
         private Mensaje(State s, User user, ChatRoom chatRoom, Contact contact, ContactList contactList, TextMessage textMessage, bool isError, string errorMessage)
         {
