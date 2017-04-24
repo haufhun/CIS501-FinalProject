@@ -11,12 +11,15 @@ namespace Server.Model
     {
         IEnumerable<IContact> GetAllContacts();
         IContact GetContact(string username);
+        int Count { get; }
     }
     [JsonObject(MemberSerialization.OptIn)]
     public class ContactList : IContactList
     {
         [JsonProperty]
         private Dictionary<string, IContact> _contacts;
+
+        public int Count => _contacts.Values.Count;
 
         public ContactList()
         {
