@@ -15,7 +15,7 @@ namespace Client.Model
         {
             [JsonProperty]
             //[JsonConverter(typeof(StringEnumConverter))]
-            public State MyState { get; }
+            public State MyState {get; private set;}
 
             [JsonProperty]
             public IUser User { get; }
