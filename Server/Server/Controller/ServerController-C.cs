@@ -36,22 +36,22 @@ namespace Server.Controller
 
         private void ChatDelegate(IMensaje m)
         {
-            switch (m.MyStatus)
+            switch (m.MyState)
             {
-                case Status.AddContact:
+                case State.AddContact:
 
                     break;
-                case Status.AddContactToChat:
+                case State.AddContactToChat:
                     break;
-                case Status.Login:
+                case State.Login:
                     break;
-                case Status.Logout:
+                case State.Logout:
                     break;
-                case Status.OpenChat:
+                case State.OpenChat:
                     break;
-                case Status.RemoveContact:
+                case State.RemoveContact:
                     break;
-                case Status.SendTextMessage:
+                case State.SendTextMessage:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -110,7 +110,7 @@ namespace Server.Controller
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
             //Deserialize this first, don't just pass a new instance...
-            IMensaje m = new Mensaje();
+            IMensaje m = null;
             _receive(m);
         }
 
