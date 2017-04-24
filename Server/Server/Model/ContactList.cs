@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Chat_CSLibrary;
 
 namespace Server.Model
 {
-    public interface IContactList
-    {
-        IEnumerable<IContact> GetAllContacts();
-        IContact GetContact(string username);
-        int Count { get; }
-    }
     [JsonObject(MemberSerialization.OptIn)]
     public class ContactList : IContactList
     {

@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Chat_CSLibrary;
 
 namespace Server.Model
 {
-    public interface IChatRoom
-    {
-        string Id { get; }
-        IEnumerable<ITextMessage> GetMessageHistory();
-        IContactList Participants { get; }
-    }
     [JsonObject(MemberSerialization.OptIn)]
     public class ChatRoom : IChatRoom
     {
@@ -23,8 +18,9 @@ namespace Server.Model
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
         public string Id { get; }
 
-        [JsonProperty]
-        public IContactList Participants { get; private set; }
+        public IEnumerable<ITextMessage> MessageHistory => _messages;
+
+        public IEnumerable<IUser> Participants => _users.Values;
 
         private Dictionary<string, User> _users;
         
@@ -33,12 +29,16 @@ namespace Server.Model
         /// </summary>
         /// <param name="msgs"></param>
         /// <param name="list"></param>
-        private ChatRoom(List<TextMessage> msgs, ContactList list)
+        private ChatRoom(List<TextMessage> msgs, string id)
         {
             _messages = msgs;
-            Participants = list;
+            Id = id;
         }
 
+        /// <summary>
+        /// Default constructor that creates a new chat room. The client will set the id to null, but the server will set it to a unique id.
+        /// </summary>
+        /// <param name="id">The unique id associated with this chat room. Null if the client constructed it.</param>
         public ChatRoom(string id)
         {
             Id = id;
@@ -53,14 +53,7 @@ namespace Server.Model
             throw new NotImplementedException();
         }
 
-        //Do we want this to be IEnumerable of TextMessage? I think soo.....
-        public IEnumerable<ITextMessage> GetMessageHistory()
-        {
-            return _messages; //Does this work??? 
-            throw new NotImplementedException();
-        }
-
-        public List<IContact> GetOfflineParticipants()
+        public IEnumerable<IContact> GetOfflineParticipants()
         {
             //Find all the users that have a status of offline. only for the server.
             throw new NotImplementedException();

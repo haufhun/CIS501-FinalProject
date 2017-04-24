@@ -27,7 +27,7 @@ namespace Chat_CSLibrary
         State MyState { get; }
         IUser User { get; }
         IContact Contact { get; }
-        ITextMessage Message { get; }
+        ITextMessage TextMessage { get; }
         IChatRoom ChatRoom { get; }
         bool IsError { get; }
         string ErrorMessage { get; }
@@ -39,17 +39,10 @@ namespace Chat_CSLibrary
     public interface IUser
     {
         /// <summary>
-        /// The username fo the particular user.
+        /// The Contact Info for this user. The username and status.
         /// </summary>
         IContact ContactInfo { get; }
 
-        /// <summary>
-        /// Checks to see if the password being passed in is the correct password for the user.
-        /// </summary>
-        /// <param name="password">The password being validated.</param>
-        /// <returns></returns>
-        bool IsValidPassword(string password);
-        
         /// <summary>
         /// A list of all the contacts that this user has added.
         /// </summary>
@@ -62,28 +55,26 @@ namespace Chat_CSLibrary
     public interface IChatRoom
     {
         /// <summary>
-        /// A list of all the messages in a chat room for a new user in a chat room.
-        /// </summary>
-        List<string> MessageHistory { get; }
-        /// <summary>
         /// The unique id describing this particular chat room.
         /// </summary>
         string Id { get; }
         /// <summary>
-        /// Used to find how many people are in this particular chat room.
+        /// A list of all the messages in a chat room for a new user in a chat room.
         /// </summary>
-        /// <returns>The number of people in the chat room.</returns>
-        int NumberOfPartcipants();
+        IEnumerable<ITextMessage> MessageHistory { get; }
+        /// <summary>
+        /// An enumerable of all the users inside the Chat Room.
+        /// </summary>
+        IEnumerable<IUser> Participants { get; }
     }
     /// <summary>
     /// Contacts a list of contacts for a given user
     /// </summary>
     public interface IContactList
     {
-        //void AddContact(string name); I don't think we want this here because we just want the server to add a contact to the list.
+        int Count { get; }
+        IEnumerable<IContact> GetAllContacts();
         IContact GetContact(string username);
-        void RemoveContact(string name);
-        List<IContact> GetAllContacts();
     }
     public interface ITextMessage
     {

@@ -1,35 +1,37 @@
 ﻿using Newtonsoft.Json;
+using Chat_CSLibrary;
+using Newtonsoft.Json.Converters;
 
 namespace Server.Model
 {
-    public interface IMensaje
-    {
-        IUser User { get; }
-        IContact Contact { get; }
-        IContactList ContactList { get; }
-        IChatRoom ChatRoom { get; }
-        ITextMessage TextMessage { get; }
-        bool IsError { get; }
-        string ErrorMessage { get; }
-    }
-
     [JsonObject(MemberSerialization.OptIn)]
     public class Mensaje : IMensaje
     {
         [JsonProperty]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public State MyState { get; }
+
+        [JsonProperty]
         public IUser User { get; }
+
         [JsonProperty]
         public IChatRoom ChatRoom { get; }
+
         [JsonProperty]
         public IContact Contact { get; }
+
         [JsonProperty]
         public IContactList ContactList { get; }
+
         [JsonProperty]
         public ITextMessage TextMessage { get;  }
+
         [JsonProperty]
         public bool IsError { get; }
+
         [JsonProperty]
         public string ErrorMessage { get; }
+
         //Use for testing
         public Mensaje(Contact contact)
         {
@@ -72,8 +74,9 @@ namespace Server.Model
         /// <param name="chatRoom">The chat room to be passed. Can be null.</param>
         /// <param name="contact"></param>
         [JsonConstructor]
-        private Mensaje(User user, ChatRoom chatRoom, Contact contact, ContactList contactList, TextMessage textMessage, bool isError, string errorMessage)
+        private Mensaje(State s, User user, ChatRoom chatRoom, Contact contact, ContactList contactList, TextMessage textMessage, bool isError, string errorMessage)
         {
+            MyState = s;
             User = user;
             ChatRoom = chatRoom;
             Contact = contact;

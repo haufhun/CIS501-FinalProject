@@ -29,7 +29,7 @@ namespace Server.Model
             return null;
         }
 
-        public bool LookupUser(string username)
+        public User LookupUser(string username)
         {
 
             throw new NotImplementedException();

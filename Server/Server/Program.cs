@@ -8,6 +8,7 @@ using Server.Model;
 using Server.View;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using Chat_CSLibrary;
 
 namespace Server
 {

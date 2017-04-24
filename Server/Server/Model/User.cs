@@ -4,20 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Chat_CSLibrary;
 
 namespace Server.Model
 {
-    public interface IUser
-    {
-        IContact ContactInfo { get; }
-        IContactList ContactList { get; }
-        bool IsValidPassword(string password);
-    }
     [JsonObject(MemberSerialization.OptIn)]
     public class User : IUser
     {
         private string _password;
 
+        //Maybe we need this as a JsonProperty? Do we need this SessionId if the client sends us info?
         public string SessionId { get; private set; }
 
         [JsonProperty]
@@ -52,7 +48,7 @@ namespace Server.Model
             throw new NotImplementedException();
         }
 
-        public void ChangeStatus(bool onlineStatus)
+        public void ChangeStatus(Status newStatus)
         {
             throw new NotImplementedException();
         }

@@ -4,16 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Chat_CSLibrary;
 
 namespace Server.Model
 {
-    public interface ITextMessage
-    {
-        string Body { get; }
-        IContact Sender { get; }   
-        DateTime Time { get; }
-    }
-
     [JsonObject(MemberSerialization.OptIn)]
     public class TextMessage : ITextMessage
     {
