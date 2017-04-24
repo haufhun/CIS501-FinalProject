@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using Chat_CSLibrary;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Server.Model;
@@ -26,14 +25,13 @@ namespace Server.Controller
         {
             _chatDb = db;
 
-            var wss = new WebSocketServer(8001);
-            _wss = wss;
+            _wss = new WebSocketServer(8001);
 
             // Add the Chat websocket service
-            wss.AddWebSocketService("/chat", CreateChat);
+            _wss.AddWebSocketService("/chat", CreateChat);
 
             // Start the server
-            wss.Start();
+            _wss.Start();
         }
 
         ~ServerController()
@@ -44,27 +42,27 @@ namespace Server.Controller
 
         private void ChatDelegate(IMensaje m)
         {
-            switch (m.MyState)
-            {
-                case State.AddContact:
+            //switch (m.MyState)
+            //{
+            //    case State.AddContact:
 
-                    break;
-                case State.AddContactToChat:
-                    break;
-                case State.Login:
-                    break;
-                case State.Logout:
-                    break;
-                case State.OpenChat:
-                    break;
-                case State.RemoveContact:
-                    break;
-                case State.SendTextMessage:
-                    //SendTextMessage(m.ChatRoom.Id, m.Message);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            //        break;
+            //    case State.AddContactToChat:
+            //        break;
+            //    case State.Login:
+            //        break;
+            //    case State.Logout:
+            //        break;
+            //    case State.OpenChat:
+            //        break;
+            //    case State.RemoveContact:
+            //        break;
+            //    case State.SendTextMessage:
+            //        //SendTextMessage(m.ChatRoom.Id, m.Message);
+            //        break;
+            //    default:
+            //        throw new ArgumentOutOfRangeException();
+            //}
             SignIn("haufhun", "12345");
 
             throw new NotImplementedException();
@@ -149,7 +147,7 @@ namespace Server.Controller
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
             //Deserialize this first, don't just pass a new instance...
-            //var m = JsonConvert.DeserializeObject<Mensaje>(e.Data);
+            var m = JsonConvert.DeserializeObject<Mensaje>(e.Data);
             //_receive(m);
         }
 
