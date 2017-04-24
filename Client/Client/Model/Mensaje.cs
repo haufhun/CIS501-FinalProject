@@ -14,8 +14,8 @@ namespace Client.Model
         public class Mensaje : IMensaje
         {
             [JsonProperty]
-            //[JsonConverter(typeof(StringEnumConverter))]
-            public State MyState { get; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public State MyState { get; }
 
             [JsonProperty]
             public IUser User { get; }
