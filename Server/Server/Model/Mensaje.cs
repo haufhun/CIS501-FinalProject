@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Linq;
+using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Newtonsoft.Json.Converters;
 
@@ -32,41 +34,92 @@ namespace Server.Model
         [JsonProperty]
         public string ErrorMessage { get; }
 
-        //Use for testing
-        public Mensaje(Contact contact)
+        /// <summary>
+        /// Constructor used to sign in/out a particular user.
+        /// </summary>
+        /// <param name="s">The status of the message being sent, either login or logout.</param>
+        /// <param name="user">The user to be signed in.</param>
+        public Mensaje(State s, IUser user)
         {
-            Contact = contact;
-        }
+            if (s != State.Login || s != State.Logout) throw new NotSupportedException();
 
-        //Use for testing
-        public Mensaje(User user)
-        {
-            MyState = State.Login;
+            MyState = s;
             User = user;
         }
 
-        //Use for testing
-        public Mensaje(ContactList contactList)
+        /// <summary>
+        /// Constructor used to add/remove a contact to a user's contact list.
+        /// </summary>
+        /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
+        /// <param name="c"></param>
+        /// <param name="user">The user to </param>
+        public Mensaje(State s, IContact c, IUser user)
         {
-            ContactList = contactList;
-        }
+            if (s != State.AddContact || s != State.RemoveContact) throw new NotSupportedException();
 
-        //Use for testing
-        public Mensaje(TextMessage textMessage)
-        {
-            TextMessage = textMessage;
+            MyState = s;
+            Contact = c;
         }
 
         /// <summary>
-        /// A constructor that constructs an error Mensaje to send back to the client.
+        /// Constructor used to opne a new chat room.
         /// </summary>
-        /// <param name="errorMessage"></param>
+        /// <param name="chatroom">The chat room that must contain the two users that desire to create a chat room.</param>
+        public Mensaje(IChatRoom chatroom)
+        {
+            if (chatroom.Participants.Count() < 2) throw new NotSupportedException();
+
+            MyState = State.OpenChat;
+            ChatRoom = chatroom;
+        }
+
+        /// <summary>
+        /// Constructor used to send a message to a chat room.
+        /// </summary>
+        /// <param name="s">The status of the message being sent.</param>
+        /// <param name="chatroom">The chat room object that the message should be sent to.</param>
+        /// <param name="msg">The text message that is to be sent in the chat room.</param>
+        public Mensaje(IChatRoom chatroom, ITextMessage msg)
+        {
+            MyState = State.SendTextMessage;
+            ChatRoom = chatroom;
+            TextMessage = msg;
+        }
+
+        /// <summary>
+        /// Constructor used to add a contact to a chat room.
+        /// </summary>
+        /// <param name="s">The status of the message being sent.</param>
+        /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
+        /// <param name="c">The contact to be added to the chat room.</param>
+        public Mensaje(IChatRoom chatroom, IContact c)
+        {
+            MyState = State.AddContactToChat;
+            ChatRoom = chatroom;
+            Contact = c;
+        }
+
+        /// <summary>
+        /// Constructor that creates an error message based on a error message alone.
+        /// </summary>
+        /// <param name="errorMessage">The message details.</param>
         public Mensaje(string errorMessage)
         {
             IsError = true;
             ErrorMessage = errorMessage;
         }
 
+        /// <summary>
+        /// Constructor that creates an error message with a status and a message.
+        /// </summary>
+        /// <param name="s">The status that the error occurred in.</param>
+        /// <param name="errorMessage">The message details.</param>
+        public Mensaje(State s, string errorMessage)
+        {
+            MyState = s;
+            IsError = true;
+            ErrorMessage = errorMessage;
+        }
         /// <summary>
         /// This constructor is ONLY to be used by Json in order to deserialize.
         /// </summary>
