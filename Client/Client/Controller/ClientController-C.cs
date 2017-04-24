@@ -9,7 +9,9 @@ namespace Client
     class ClientController_C
     {
         private SignInFormObserver _sIFormObserver;
+
         private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
+
         private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
 
         public void SignInRegister(SignInFormObserver o)

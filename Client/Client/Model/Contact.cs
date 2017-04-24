@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Chat_CSLibrary;
 
-namespace Client
+namespace Client.Model
 {
-    class Contact
+    [JsonObject(MemberSerialization.OptIn)]
+    public class Contact : IContact
     {
-        private string _name;
-        private bool _status;
+        [JsonProperty]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Status OnlineStatus { get; private set; }
 
-        public Contact(string name)
+        [JsonProperty]
+        public string Username { get; private set; }
+
+        [JsonConstructor]
+        public Contact(string username, Status s)
         {
-            _name = name;
-            _status = false;
+            OnlineStatus = s;
+            Username = username;
         }
-        public string GetName
+
+        public void ChangeOnlineStatus(Status newStatus)
         {
-            get { return _name; }
-        }
-        public bool Status
-        {
-            get { return _status; }
-            set { _status = value; }
+            OnlineStatus = newStatus;
         }
 
     }
