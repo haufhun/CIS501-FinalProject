@@ -49,6 +49,7 @@ namespace Server.Controller
                 case State.AddContact:
                     break;
                 case State.AddContactToChat:
+                    AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
                     SignIn(m.User.ContactInfo.Username, "password", sessionId);
@@ -93,7 +94,7 @@ namespace Server.Controller
                     u.ChangeSessionId(sessionId);
                     var l = new List<string> {sessionId};
 
-                    _send(new Mensaje(u), new List<string> {sessionId});
+                    _send(new Mensaje(State.Login, u), new List<string> {sessionId});
                 }
                 else
                 {
@@ -103,9 +104,19 @@ namespace Server.Controller
             }
         }
 
-        public void AddContact(string name)
+        public void AddContact(string toAdd, string adder)
         {
-            throw new NotImplementedException();
+            User a = _chatDb.LookupUser(adder);
+            User b = _chatDb.LookupUser(toAdd);
+            if(b!=null)
+            {
+                a.AddContact(toAdd);
+                _send(new Mensaje(State.AddContact, new Contact(b.ContactInfo.Username, Status.Offline), a), new List<string> { toAdd, adder });
+            }
+            else
+            {
+                _send(new Mensaje("This user does not exist"), new List<string>());
+            }
         }
 
         public void RemoveContact(string name)
