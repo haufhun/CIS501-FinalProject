@@ -41,6 +41,7 @@ namespace Server.Model
         //Use for testing
         public Mensaje(User user)
         {
+            MyState = State.Login;
             User = user;
         }
 

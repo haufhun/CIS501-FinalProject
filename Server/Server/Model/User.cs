@@ -21,13 +21,15 @@ namespace Server.Model
         [JsonProperty]
         public IContactList ContactList { get; }
 
-        public User(string password, string sessionId, ContactList list)
+        public User(Contact contactInfo, string password, string sessionId)
         {
+            ContactInfo = contactInfo;
             _password = password;
+            SessionId = sessionId;
         }
 
         [JsonConstructor]
-        public User(Contact contactInfo, ContactList contactList)
+        private User(Contact contactInfo, ContactList contactList)
         {
             ContactInfo = contactInfo;
             ContactList = contactList;

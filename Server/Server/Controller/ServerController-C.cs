@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Server.Model;
@@ -10,7 +11,7 @@ using Chat_CSLibrary;
 namespace Server.Controller
 {
     //Delegate used to call the controller from the Chat WebSocketBehavior class
-    public delegate void ClientMessageHandler(IMensaje m);
+    public delegate void ClientMessageHandler(IMensaje m, string sessionId);
     //Delegate used to send a message back to the appropriate user
     public delegate void SendMessageHandler(IMensaje m, List<string> sessionId);
 
@@ -18,9 +19,9 @@ namespace Server.Controller
     {
         private readonly ChatDb _chatDb;
 
-        private SendMessageHandler _send;
+        private readonly WebSocketServer _wss;
 
-        private WebSocketServer _wss;
+        private SendMessageHandler _send;
 
         public ServerController(ChatDb db)
         {
@@ -41,16 +42,16 @@ namespace Server.Controller
             _wss.Stop();
         }
 
-        private void ChatDelegate(IMensaje m)
+        private void ChatDelegate(IMensaje m, string sessionId)
         {
             switch (m.MyState)
             {
                 case State.AddContact:
-
                     break;
                 case State.AddContactToChat:
                     break;
                 case State.Login:
+                    SignIn(m.User.ContactInfo.Username, "password", sessionId);
                     break;
                 case State.Logout:
                     break;
@@ -64,7 +65,6 @@ namespace Server.Controller
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            SignIn("haufhun", "12345");
 
             throw new NotImplementedException();
         }
@@ -75,9 +75,31 @@ namespace Server.Controller
             return c;
         }
 
-        private void SignIn(string name, string password)
+        private void SignIn(string name, string password, string sessionId)
         {
-            
+            var u = _chatDb.LookupUser(name);
+
+            if (u == null)
+            {
+                //create a new user
+                _chatDb.AddUser(name, password, sessionId);
+            }
+            else
+            {
+                //validate password
+                if (u.IsValidPassword(password))
+                {
+                    //send valid sign in
+                    u.ChangeSessionId(sessionId);
+                    var l = new List<string> {sessionId};
+
+                    _send(new Mensaje(u), new List<string> {sessionId});
+                }
+                else
+                {
+                    //send error message
+                }
+            }
         }
 
         public void AddContact(string name)
@@ -143,12 +165,17 @@ namespace Server.Controller
             _receive = a;
         }
 
+        protected override void OnOpen()
+        {
+
+        }
+
         protected override void OnMessage(MessageEventArgs e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
             //Deserialize this first, don't just pass a new instance...
             var m = JsonConvert.DeserializeObject<Mensaje>(e.Data);
-            //_receive(m);
+            _receive(m, ID);
         }
 
         public void Send(IMensaje m, List<string> sessionIds)
