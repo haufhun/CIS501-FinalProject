@@ -28,8 +28,9 @@ namespace Client.Model
         }
 
         [JsonConstructor]
-        private User(Contact contactInfo, ContactList contactList)
+        private User(string password, Contact contactInfo, ContactList contactList)
         {
+            _password = password;
             ContactInfo = contactInfo;
             ContactList = contactList;
         }

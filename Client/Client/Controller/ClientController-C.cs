@@ -4,6 +4,7 @@ using Client.Model;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSocketSharp;
+using Chat_CSLibrary;
 //using System.Net.WebSockets;
 
 namespace Client.Controller
@@ -72,7 +73,7 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(new User(name, password));
+                var m = new Mensaje(State.Login, new User(name, password));
                 string output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);

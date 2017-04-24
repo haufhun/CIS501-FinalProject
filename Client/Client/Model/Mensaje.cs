@@ -14,7 +14,7 @@ namespace Client.Model
         public class Mensaje : IMensaje
         {
             [JsonProperty]
-            [JsonConverter(typeof(StringEnumConverter))]
+            //[JsonConverter(typeof(StringEnumConverter))]
             public State MyState { get; }
 
             [JsonProperty]
@@ -45,7 +45,7 @@ namespace Client.Model
             /// <param name="user">The user to be signed in.</param>
             public Mensaje(State s, IUser user)
             {
-                if (s != State.Login || s != State.Logout) throw new NotSupportedException();
+                if (s != State.Login && s != State.Logout) throw new NotSupportedException();
 
                 MyState = s;
                 User = user;
