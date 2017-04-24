@@ -42,7 +42,7 @@ namespace Server.Model
 
         public void AddUser(string username, string password, string sessionId)
         {
-            var u = new User(new Contact("username", Status.Offline), password, sessionId);
+            var u = new User(new Contact(username, Status.Online), password, sessionId);
             _users.Add(username, u);
         }
     }

@@ -97,6 +97,7 @@ namespace Server.Controller
                 }
                 else
                 {
+                    _send(new Mensaje("The password you entered is not valid"), new List<string>());
                     //send error message
                 }
             }
