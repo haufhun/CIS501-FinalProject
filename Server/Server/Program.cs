@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Chat_CSLibrary;
 using Server.Controller;
 using Server.Model;
 using Server.View;
 using WebSocketSharp;
 using WebSocketSharp.Server;
+using Chat_CSLibrary;
 
 namespace Server
 {

@@ -85,7 +85,7 @@ namespace Chat_CSLibrary
     public interface IContact
     {
         string Username { get; }
-        Status OnlineStatus { get; }
+        Status OnlineStatus  { get; }
     }
     public enum State
     {

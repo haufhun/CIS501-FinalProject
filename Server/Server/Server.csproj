@@ -58,6 +58,12 @@
   <ItemGroup>
     <Compile Include="Controller\ServerController-C.cs" />
     <Compile Include="Model\ChatDB.cs" />
+    <Compile Include="Model\ChatRoom.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\ContactList.cs" />
+    <Compile Include="Model\Mensaje.cs" />
+    <Compile Include="Model\TextMessage.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="View\ServerForm-V.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,7 @@
     <EmbeddedResource Include="View\ServerForm-V.resx">
       <DependentUpon>ServerForm-V.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
