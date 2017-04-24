@@ -20,9 +20,14 @@ namespace Client.Model
         public string Username { get; private set; }
 
         [JsonConstructor]
-        public Contact(string username, Status s)
+       private Contact(string username, Status s)
         {
             OnlineStatus = s;
+            Username = username;
+        }
+
+        public Contact(string username)
+        {
             Username = username;
         }
 

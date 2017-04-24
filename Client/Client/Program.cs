@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.Controller;
 
 namespace Client
 {
-
+    public delegate bool Message(string message);
     //defines the type of method that handles HomeForm Events
     public delegate void HomeFormObserver();
     //defines the type of method that handles ChatForm Events
@@ -33,14 +34,14 @@ namespace Client
         [STAThread]
         static void Main()
         {
-            ClientController_C c = new ClientController_C();
+            ClientController_C c = new ClientController_C("tyler");
 
             HomeForm hForm = new HomeForm(c.SignIn, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
-            SignInForm sIForm = new SignInForm(hForm);
+            SignInForm sIForm = new SignInForm(c.SignIn, hForm);
 
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+           // Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(sIForm);
 
             c.HomeFormRegister(hForm.Update);
