@@ -1,4 +1,4 @@
-﻿namespace Client
+﻿namespace Client.View
 {
     partial class HomeForm
     {
@@ -110,6 +110,7 @@
             this.uxSignOut.Name = "uxSignOut";
             this.uxSignOut.Size = new System.Drawing.Size(90, 24);
             this.uxSignOut.Text = "Sign Out";
+            this.uxSignOut.Click += new System.EventHandler(this.uxSignOut_Click);
             // 
             // uxInfoLabel
             // 
@@ -131,7 +132,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "HomeForm";
             this.Text = "Home";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

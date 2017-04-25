@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.View;
 
 namespace Client
 {
@@ -29,8 +30,10 @@ namespace Client
 
         public void EventSuccessfulLogin()
         {
-            homeForm.Show();
-            this.Hide();
+            //homeForm.Show();
+            Application.Run(homeForm);
+            
+           // Hide();
         }
     }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Client.Controller;
+using Client.View;
 
 namespace Client
 {
@@ -34,21 +35,26 @@ namespace Client
         [STAThread]
         static void Main()
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             ClientController_C c = new ClientController_C("tyler");
 
             HomeForm hForm = new HomeForm(c.SignIn, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
+           
             SignInForm sIForm = new SignInForm(c.SignIn, hForm);
-            c.MessageReceived += c.message;
 
-            Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(sIForm);
+            c.MessageReceived += c.message;
 
             c.HomeFormRegister(hForm.Update);
             c.SignInRegister(sIForm.EventSuccessfulLogin);
 
-           // Application.Run(new ChatForm());
-           // Application.Run(new HomeForm());
+
+            Application.Run(sIForm);
+            //Application.Run(hForm);
+
+            //Application.Run(new ChatForm());
+
         }
     }
 }

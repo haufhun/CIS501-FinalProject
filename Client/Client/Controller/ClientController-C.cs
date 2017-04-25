@@ -30,7 +30,7 @@ namespace Client.Controller
             this.name = name;
 
             // Connects to the server
-            ws = new WebSocket("ws://192.168.2.4:8001/chat");
+            ws = new WebSocket("ws://192.168.2.4:8022/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
             ws.Connect();
@@ -54,7 +54,14 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     break;
                 case State.Login:
-                    SignalSIFormObsever(true);
+                    if (m.IsError)
+                    {
+                        
+                    }
+                    else
+                    {
+                        SignalSIFormObsever(true);
+                    }
                     break;
                 case State.Logout:
                     break;
@@ -81,6 +88,7 @@ namespace Client.Controller
         {
             _hFormObserver.Add(o);
         }
+
         public void ChatFormRegister(ChatFormObserver o)
         {
             _cFormObserver.Add(o);
@@ -129,12 +137,13 @@ namespace Client.Controller
             
         }
 
-        private void SignalSIFormObsever(bool succesfful)
+        private void SignalSIFormObsever(bool successful)
         {
             //calls EventSuccessfulLogin if true index of [0]
-            if (succesfful)
+            if (successful)
             {
-                _sIFormObserver[0]();
+                SignInFormObserver s = _sIFormObserver[0];
+                s();
             }
             //calls EventUnsuccessfulLogin if false index of [1]
             else
