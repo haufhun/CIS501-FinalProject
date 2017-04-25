@@ -49,7 +49,7 @@ namespace Server.Model
             SessionId = newId;
         }
 
-        public void AddContact(string username)
+        public void AddContact(IContact c)
         {
             throw new NotImplementedException();
         }

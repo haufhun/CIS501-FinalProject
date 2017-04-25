@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Server.Model;
+using Chat_CSLibrary;
 
 namespace Server.View
 {
@@ -26,9 +27,9 @@ namespace Server.View
 
         }
 
-        public void SendEvent(Mensaje m)
+        public void SendEvent(IMensaje m)
         {
-            var lt = new ListViewItem(m.ToArrayString());
+            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
             listView1.Items.Add(lt);
         }
 
@@ -36,6 +37,7 @@ namespace Server.View
         {
             var m = new Mensaje(new User(new Contact("Hunter", Chat_CSLibrary.Status.Online), "password", "123"), false);
 
-            SendEvent(m);        }
+            SendEvent(m);
+        }
     }
 }

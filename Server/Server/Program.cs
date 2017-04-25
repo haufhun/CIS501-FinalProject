@@ -27,7 +27,7 @@ namespace Server
             var c = new ServerController(db);
             var sf = new ServerForm();
 
-            c.Register(sf.SendEvent);
+            c.RegisterEventLog(sf.SendEvent);
 
             Application.Run(sf);
         }

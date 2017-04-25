@@ -6,13 +6,14 @@ using Server.Model;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Server;
+using static Server.Delegates;
 
 namespace Server.Controller
 {
     //Delegate used to call the controller from the Chat WebSocketBehavior class
     public delegate void ClientMessageHandler(IMensaje m, string sessionId);
     //Delegate used to send a message back to the appropriate user
-    public delegate void SendMessageHandler(IMensaje m, List<string> sessionId);
+    public delegate void SendMessageHandler(IMensaje m, string sessionId);
 
     public class ServerController
     {
@@ -22,12 +23,16 @@ namespace Server.Controller
 
         private SendMessageHandler _send;
 
-        private List<Delegates.EventLogObserver> _observers;
+        private List<EventLogObserver> _eventObserver;
 
+        /// <summary>
+        /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
+        /// </summary>
+        /// <param name="db">The chat database to be loaded.</param>
         public ServerController(ChatDb db)
         {
             _chatDb = db;
-            _observers = new List<Delegates.EventLogObserver>();
+            _eventObserver = new List<EventLogObserver>();
 
             _wss = new WebSocketServer(8022);
 
@@ -38,19 +43,36 @@ namespace Server.Controller
             _wss.Start();
         }
 
+        /// <summary>
+        /// Factory method. Used to construct the chat for the WebSocketBehavior. Sets up the delegates for both receive and send between the Controller and the Chat.
+        /// </summary>
+        /// <returns>A new instance of the Chat class.</returns>
+        private Chat CreateChat()
+        {
+            var c = new Chat(ChatDelegate);
+            _send = c.Send;
+            return c;
+        }
+
         ~ServerController()
         {
-            //Serialize and put away the DB so it can be reloaded on startup
+            //Need to serialize and put away the DB so it can be reloaded on startup
             _wss.Stop();
         }
 
+        /// <summary>
+        /// Delegate that will be called on a receive from the Chat imitating the client.
+        /// </summary>
+        /// <param name="m">The Mensaje object sent from the Client.</param>
+        /// <param name="sessionId">The session id of the Client.</param>
         private void ChatDelegate(IMensaje m, string sessionId)
         {
+            SignalEventObserver(m);
+
             switch (m.MyState)
             {
                 case State.AddContact:
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
-                    //_send(m, new List<string> {sessionId});
                     break;
                 case State.AddContactToChat:
                     break;
@@ -71,58 +93,97 @@ namespace Server.Controller
                     throw new ArgumentOutOfRangeException();
             }
         }
-        private Chat CreateChat()
+
+        /// <summary>
+        /// Calls the list of event log observers and displays to the log the contents of a Mensaje.
+        /// </summary>
+        /// <param name="m">The Mensaje object.</param>
+        private void SignalEventObserver(IMensaje m)
         {
-            var c = new Chat(ChatDelegate);
-            _send = c.Send;
-            return c;
+            foreach(EventLogObserver o in _eventObserver)
+            {
+                o(m);
+            }
         }
 
-        public void Register(Delegates.EventLogObserver o)
+        /// <summary>
+        /// Registers a new EventLogObserver in the list.
+        /// </summary>
+        /// <param name="o">An event log observer.</param>
+        public void RegisterEventLog(EventLogObserver o)
         {
-            
+            _eventObserver.Add(o);
         }
 
+        /// <summary>
+        /// Looks up if a user exists, creating a new user if needed, or validates the password sent in.
+        /// </summary>
+        /// <param name="name">The name of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <param name="sessionId">The session id of the client.</param>
         private void Login(string name, string password, string sessionId)
         {
             var u = _chatDb.LookupUser(name);
 
             if (u == null)
             {
-                //create a new user
                 _chatDb.AddUser(name, password, sessionId);
-                _send(new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true), new List<string> {sessionId});
+
+                var m = new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true);
+
+                SignalEventObserver(m);
+                _send(m, sessionId );
             }
             else
             {
-                //validate password
                 if (u.IsValidPassword(password))
                 {
-                    //send valid sign in
                     u.ChangeSessionId(sessionId);
 
-                    _send(new Mensaje(u, false), new List<string> {sessionId});
+                    var m = new Mensaje(u, false);
+                    SignalEventObserver(m);
+                    _send(m,sessionId);
                 }
                 else
                 {
-                    _send(new Mensaje("The password you entered is not valid"), new List<string> {sessionId});
-                    //send error message
+                    var m = new Mensaje(State.Login, "The password you entered is not valid");
+                    SignalEventObserver(m);
+                    _send(m,sessionId);
                 }
             }
         }
 
-        public void AddContact(string toAdd, string adder)
+        /// <summary>
+        /// Checks if the user to be added is null, if so sends an error to the Client, else puts both contacts into each other's lists.
+        /// </summary>
+        /// <param name="adder">The name of the user to be added.</param>
+        /// <param name="toAdd">The name of the user that requested the add.</param>
+        public void AddContact(string adder, string toAdd)
         {
             User a = _chatDb.LookupUser(adder);
             User b = _chatDb.LookupUser(toAdd);
-            if(b!=null)
+
+            if (b == null)
             {
-                a.AddContact(toAdd);
-                _send(new Mensaje(State.AddContact, new Contact(b.ContactInfo.Username, Status.Offline), a), new List<string> { toAdd, adder });
+                var m = new Mensaje(State.AddContact, "This user does not exist");
+                SignalEventObserver(m);
+                _send(m, a.SessionId);
             }
             else
             {
-                _send(new Mensaje("This user does not exist"), new List<string>());
+                a.AddContact(b.ContactInfo);
+                var m = new Mensaje(State.AddContact, b.ContactInfo, a);
+                SignalEventObserver(m);
+                _send(m, a.SessionId);
+
+                b.AddContact(a.ContactInfo);
+                var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
+                SignalEventObserver(m2);
+
+                if (b.ContactInfo.OnlineStatus == Status.Online)
+                {
+                    _send(m2, b.SessionId);
+                }
             }
         }
 
@@ -167,7 +228,7 @@ namespace Server.Controller
                 m = new Mensaje(room, msg);
             }
 
-            _send(m, activeIds);
+            //_send(m, activeIds);
         }
 
         public void AddContactToRoom(string name)
@@ -199,14 +260,11 @@ namespace Server.Controller
             _receive(m, ID);
         }
 
-        public void Send(IMensaje m, List<string> sessionIds)
+        public void Send(IMensaje m, string sessionId)
         {
             string message = JsonConvert.SerializeObject(m);
 
-            foreach (string s in sessionIds)
-            {
-                Sessions.SendTo(s, message);
-            }
+            Sessions.SendTo(sessionId, message);
             //This is what I imagine the send  function will look like, we might need more -- Calvin
             //The Sessions.Broadcast will send it to ALL of the clients. We don't want this, we want to only send it to a specific client. This will help us with that
             //So, we may need to add a ClientId field to the Mensaje and the User classes so they can know that. 
