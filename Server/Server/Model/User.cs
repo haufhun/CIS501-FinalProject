@@ -11,7 +11,10 @@ namespace Server.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class User : IUser
     {
+        [JsonProperty]
         private string _password;
+
+        public string Password => _password;
 
         //Maybe we need this as a JsonProperty? Do we need this SessionId if the client sends us info?
         public string SessionId { get; private set; }
@@ -21,14 +24,17 @@ namespace Server.Model
         [JsonProperty]
         public IContactList ContactList { get; }
 
-        public User(string password, string sessionId, ContactList list)
+        public User(Contact contactInfo, string password, string sessionId)
         {
+            ContactInfo = contactInfo;
             _password = password;
+            SessionId = sessionId;
         }
 
         [JsonConstructor]
-        public User(Contact contactInfo, ContactList contactList)
+        private User(string password, Contact contactInfo, ContactList contactList)
         {
+            _password = password;
             ContactInfo = contactInfo;
             ContactList = contactList;
         }
