@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Client.Model;
 using Newtonsoft.Json;
@@ -11,8 +12,14 @@ namespace Client.Controller
 {
     class ClientController_C
     {
+        private List<SignInFormObserver> _sIFormObserver = new List<SignInFormObserver>();
+
+        private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
+
+        private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
 
         private string name;
+
         private WebSocket ws;
 
         // Event for when a message is received from the server
@@ -25,22 +32,8 @@ namespace Client.Controller
             // Connects to the server
             ws = new WebSocket("ws://192.168.2.4:8001/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
-            ws.Connect();
-        }
 
-        // Handles when a new message is entered by the user
-        public bool MessageEntered(string message)
-        {
-            // Send the message to the server if connection is alive
-            if (ws.IsAlive)
-            {
-                ws.Send(name + ": " + message);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            ws.Connect();
         }
 
         // Makes sure to close the websocket when the controller is destructed
@@ -48,16 +41,42 @@ namespace Client.Controller
         {
             ws.Close();
         }
-        private SignInFormObserver _sIFormObserver;
 
-        private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
+        public bool message(string e)
+        {
+            if (e == null) throw new ArgumentNullException(nameof(e));
+            //Deserialize this first, don't just pass a new instance...
+            var m = JsonConvert.DeserializeObject<Mensaje>(e);
+            switch (m.MyState)
+            {
+                case State.AddContact:
+                    break;
+                case State.AddContactToChat:
+                    break;
+                case State.Login:
+                    SignalSIFormObsever(true);
+                    break;
+                case State.Logout:
+                    break;
+                case State.OpenChat:
+                    break;
+                case State.RemoveContact:
+                    break;
+                case State.SendTextMessage:
+                    //SendTextMessage(m.ChatRoom.Id, m.Message);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return true;
+        }
 
-        private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
 
         public void SignInRegister(SignInFormObserver o)
         {
-            _sIFormObserver = o;
+            _sIFormObserver.Add(o);
         }
+
         public void HomeFormRegister(HomeFormObserver o)
         {
             _hFormObserver.Add(o);
@@ -67,8 +86,6 @@ namespace Client.Controller
             _cFormObserver.Add(o);
         }
        
-        
-
         public void SignIn(string name, string password)
         {
             if (ws.IsAlive)
@@ -112,12 +129,21 @@ namespace Client.Controller
             
         }
 
-        private void SignalSIFormObsever()
+        private void SignalSIFormObsever(bool succesfful)
         {
-            
+            //calls EventSuccessfulLogin if true index of [0]
+            if (succesfful)
+            {
+                _sIFormObserver[0]();
+            }
+            //calls EventUnsuccessfulLogin if false index of [1]
+            else
+            {
+                _sIFormObserver[1]();
+            }
         }
 
-        
+     
     }
 
 }

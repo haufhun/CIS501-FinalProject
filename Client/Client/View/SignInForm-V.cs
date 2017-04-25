@@ -23,8 +23,15 @@ namespace Client
         }
 
         private void uxSignIn_Click(object sender, EventArgs e)
+        {       
+            _sIHandler(uxUsernameTxt.Text, uxPassTxt.Text);
+        }
+
+        public void EventSuccessfulLogin()
         {
-            _sIHandler("Tyler", "456");
+            homeForm.Show();
+            this.Hide();
         }
     }
+
 }

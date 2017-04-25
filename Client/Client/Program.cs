@@ -13,7 +13,7 @@ namespace Client
     //defines the type of method that handles ChatForm Events
     public delegate void ChatFormObserver();
     //defines the type of method that handles SignInFormEvents
-    public delegate void SignInFormObserver(bool sucessful);
+    public delegate void SignInFormObserver();
 
     // defines the type of method that handles a log in event
     public delegate void SignInHandler(string name, string password);
@@ -38,13 +38,14 @@ namespace Client
 
             HomeForm hForm = new HomeForm(c.SignIn, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
             SignInForm sIForm = new SignInForm(c.SignIn, hForm);
-
+            c.MessageReceived += c.message;
 
             Application.EnableVisualStyles();
-           // Application.SetCompatibleTextRenderingDefault(false);
+            //Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(sIForm);
 
             c.HomeFormRegister(hForm.Update);
+            c.SignInRegister(sIForm.EventSuccessfulLogin);
 
            // Application.Run(new ChatForm());
            // Application.Run(new HomeForm());

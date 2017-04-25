@@ -59,7 +59,7 @@ namespace Client.Model
             /// <param name="user">The user to </param>
             public Mensaje(State s, IContact c, IUser user)
             {
-                if (s != State.AddContact || s != State.RemoveContact) throw new NotSupportedException();
+                if (s != State.AddContact && s != State.RemoveContact) throw new NotSupportedException();
 
                 MyState = s;
                 Contact = c;
