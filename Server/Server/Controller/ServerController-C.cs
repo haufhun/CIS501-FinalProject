@@ -25,7 +25,7 @@ namespace Server.Controller
         {
             _chatDb = db;
 
-            _wss = new WebSocketServer(8001);
+            _wss = new WebSocketServer(8022);
 
             // Add the Chat websocket service
             _wss.AddWebSocketService("/chat", CreateChat);
@@ -51,7 +51,7 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
-                    Login(m.User.ContactInfo.Username, "password", sessionId);
+                    Login(m.User.ContactInfo.Username, "passss", sessionId);
                     break;
                 case State.Logout:
                     break;
@@ -81,6 +81,7 @@ namespace Server.Controller
             {
                 //create a new user
                 _chatDb.AddUser(name, password, sessionId);
+                _send(new Mensaje(State.Login, new User(new Contact(name, Status.Online), null, sessionId)), new List<string> {sessionId});
             }
             else
             {
