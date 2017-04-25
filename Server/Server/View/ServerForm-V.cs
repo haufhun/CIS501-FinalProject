@@ -11,11 +11,13 @@ namespace Server.View
             InitializeComponent();
 
             listView1.Columns.Add("Time");
-            listView1.Columns.Add("Invoked by User");
-            listView1.Columns.Add("Successful");
-            listView1.Columns.Add("Message");
+            listView1.Columns.Add("User");
+            listView1.Columns.Add("Session Id");
             listView1.Columns.Add("State");
-            listView1.Columns.Add("Send/Receive");
+            listView1.Columns.Add("New User?");
+            listView1.Columns.Add("Error?");
+            listView1.Columns.Add("Error Message");
+            listView1.Columns.Add("Chat Room Id");
 
 
             //listView1.Columns[1].Text = "First";
@@ -26,11 +28,14 @@ namespace Server.View
 
         public void SendEvent(Mensaje m)
         {
-                            //      The time                The Username                SessionId of User       The state           //Send/Receive
-            string [] row = { DateTime.Now.ToString(), m.User.ContactInfo.Username, ((User)m.User).SessionId, m.MyState.ToString() };
-
-            var lt = new ListViewItem(row);
+            var lt = new ListViewItem(m.ToArrayString());
             listView1.Items.Add(lt);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new User(new Contact("Hunter", Chat_CSLibrary.Status.Online), "password", "123"), false);
+
+            SendEvent(m);        }
     }
 }
