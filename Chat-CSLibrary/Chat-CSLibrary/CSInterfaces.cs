@@ -31,6 +31,7 @@ namespace Chat_CSLibrary
         IChatRoom ChatRoom { get; }
         bool IsError { get; }
         string ErrorMessage { get; }
+        bool IsNewUser { get; }
     }
 
     /// <summary>

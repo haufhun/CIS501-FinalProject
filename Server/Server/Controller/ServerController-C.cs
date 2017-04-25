@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Server.Model;
@@ -10,7 +9,7 @@ using Chat_CSLibrary;
 namespace Server.Controller
 {
     //Delegate used to call the controller from the Chat WebSocketBehavior class
-    public delegate void ClientMessageHandler(IMensaje m);
+    public delegate void ClientMessageHandler(IMensaje m, string sessionId);
     //Delegate used to send a message back to the appropriate user
     public delegate void SendMessageHandler(IMensaje m, List<string> sessionId);
 
@@ -18,15 +17,15 @@ namespace Server.Controller
     {
         private readonly ChatDb _chatDb;
 
-        private SendMessageHandler _send;
+        private readonly WebSocketServer _wss;
 
-        private WebSocketServer _wss;
+        private SendMessageHandler _send;
 
         public ServerController(ChatDb db)
         {
             _chatDb = db;
 
-            _wss = new WebSocketServer(8001);
+            _wss = new WebSocketServer(8022);
 
             // Add the Chat websocket service
             _wss.AddWebSocketService("/chat", CreateChat);
@@ -41,16 +40,19 @@ namespace Server.Controller
             _wss.Stop();
         }
 
-        private void ChatDelegate(IMensaje m)
+        private void ChatDelegate(IMensaje m, string sessionId)
         {
             switch (m.MyState)
             {
                 case State.AddContact:
-
+                    _send(m, new List<string> {sessionId});
                     break;
                 case State.AddContactToChat:
+                    AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
+                    //Must cast this to our User object so as to access the password.
+                    Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
                     break;
@@ -64,9 +66,6 @@ namespace Server.Controller
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            SignIn("haufhun", "12345");
-
-            throw new NotImplementedException();
         }
         private Chat CreateChat()
         {
@@ -75,14 +74,47 @@ namespace Server.Controller
             return c;
         }
 
-        private void SignIn(string name, string password)
+        private void Login(string name, string password, string sessionId)
         {
-            
+            var u = _chatDb.LookupUser(name);
+
+            if (u == null)
+            {
+                //create a new user
+                _chatDb.AddUser(name, password, sessionId);
+                _send(new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true), new List<string> {sessionId});
+            }
+            else
+            {
+                //validate password
+                if (u.IsValidPassword(password))
+                {
+                    //send valid sign in
+                    u.ChangeSessionId(sessionId);
+
+                    _send(new Mensaje(u, false), new List<string> {sessionId});
+                }
+                else
+                {
+                    _send(new Mensaje("The password you entered is not valid"), new List<string> {sessionId});
+                    //send error message
+                }
+            }
         }
 
-        public void AddContact(string name)
+        public void AddContact(string toAdd, string adder)
         {
-            throw new NotImplementedException();
+            User a = _chatDb.LookupUser(adder);
+            User b = _chatDb.LookupUser(toAdd);
+            if(b!=null)
+            {
+                a.AddContact(toAdd);
+                _send(new Mensaje(State.AddContact, new Contact(b.ContactInfo.Username, Status.Offline), a), new List<string> { toAdd, adder });
+            }
+            else
+            {
+                _send(new Mensaje("This user does not exist"), new List<string>());
+            }
         }
 
         public void RemoveContact(string name)
@@ -108,21 +140,22 @@ namespace Server.Controller
             else
             {
                 //We need to implement the GetAllUsers in the Class Library
-                //foreach (User u in room.GetAllUsers())
-                //{
-                //    if (u.ContactInfo.OnlineStatus == Status.Offline)
-                //    {
-                //        //Notify all the other users that this user is offline
-                //        string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
-                //        room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
-                //    }
-                //    else
-                //    {
-                //        activeIds.Add(u.SessionId);
-                //    }
-                //}
-                //Send 
-                //m = new Mensaje(room, msg);
+                foreach (var user in room.Participants)
+                {
+                    var u = (User) user;
+                    if (u.ContactInfo.OnlineStatus == Status.Offline)
+                    {
+                        //Notify all the other users that this user is offline
+                        string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
+                        //room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
+                    }
+                    else
+                    {
+                        activeIds.Add(u.SessionId);
+                    }
+                }
+
+                m = new Mensaje(room, msg);
             }
 
             _send(m, activeIds);
@@ -143,12 +176,18 @@ namespace Server.Controller
             _receive = a;
         }
 
+        protected override void OnOpen()
+        {
+
+        }
+
         protected override void OnMessage(MessageEventArgs e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
+
             //Deserialize this first, don't just pass a new instance...
             var m = JsonConvert.DeserializeObject<Mensaje>(e.Data);
-            //_receive(m);
+            _receive(m, ID);
         }
 
         public void Send(IMensaje m, List<string> sessionIds)

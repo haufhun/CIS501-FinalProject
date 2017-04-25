@@ -6,38 +6,28 @@ namespace Server.Model
 {
     public class ChatDb
     {
-        private Dictionary<string, IUser> _users;
+        private Dictionary<string, User> _users;
         private Dictionary<string, ChatRoom> _chatRooms;
 
         public ChatDb()
         {
-            _users = new Dictionary<string, IUser>();
+            _users = new Dictionary<string, User>();
             _chatRooms = new Dictionary<string, ChatRoom>();
         }
 
-        public ChatDb(Dictionary<string, IUser> users, Dictionary<string, ChatRoom> chatRooms)
+        public ChatDb(Dictionary<string, User> users, Dictionary<string, ChatRoom> chatRooms)
         {
             //overload for JSON initializations
         }
 
         public ChatRoom LookupRoom(string id)
         {
-            if (_chatRooms.ContainsKey(id))
-            {
-                return _chatRooms[id];
-            }
-            return null;
+            return _chatRooms.ContainsKey(id) ? _chatRooms[id] : null;
         }
 
         public User LookupUser(string username)
         {
-
-            throw new NotImplementedException();
-        }
-
-        public bool ValidatePassword(string username, string password)
-        {
-            throw new NotImplementedException();
+            return _users.ContainsKey(username) ? _users[username] : null;
         }
 
         public void CreateUser(string username, string password)
@@ -45,5 +35,10 @@ namespace Server.Model
 
         }
 
+        public void AddUser(string username, string password, string sessionId)
+        {
+            var u = new User(new Contact(username, Status.Online), password, sessionId);
+            _users.Add(username, u);
+        }
     }
 }
