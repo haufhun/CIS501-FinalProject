@@ -49,10 +49,10 @@ namespace Server.Controller
             switch (m.MyState)
             {
                 case State.AddContact:
-                    _send(m, new List<string> {sessionId});
+                    AddContact(m.Contact.Username, m.User.ContactInfo.Username);
+                    //_send(m, new List<string> {sessionId});
                     break;
                 case State.AddContactToChat:
-                    AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
                     //Must cast this to our User object so as to access the password.
