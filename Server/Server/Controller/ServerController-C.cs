@@ -22,12 +22,12 @@ namespace Server.Controller
 
         private SendMessageHandler _send;
 
-        private List<Delegates.Observer> _observers;
+        private List<Delegates.EventLogObserver> _observers;
 
         public ServerController(ChatDb db)
         {
             _chatDb = db;
-            _observers = new List<Delegates.Observer>();
+            _observers = new List<Delegates.EventLogObserver>();
 
             _wss = new WebSocketServer(8022);
 
@@ -78,7 +78,7 @@ namespace Server.Controller
             return c;
         }
 
-        public void Register(Delegates.Observer o)
+        public void Register(Delegates.EventLogObserver o)
         {
             
         }

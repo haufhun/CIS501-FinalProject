@@ -11,7 +11,7 @@ namespace Server
     public class Delegates
     {
         //The delegate that will update the GUI application with information from the server
-        public delegate void Observer(Mensaje m);
+        public delegate void EventLogObserver(Mensaje m);
         //The delegate that will handle a user interaction
         public delegate void InputHandler(IMensaje mensaje);
 

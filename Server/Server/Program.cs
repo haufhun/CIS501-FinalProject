@@ -20,12 +20,16 @@ namespace Server
         [STAThread]
         static void Main()
         {
-            var db = new ChatDb();
-            var c = new ServerController(db);
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ServerForm());
+
+            var db = new ChatDb();
+            var c = new ServerController(db);
+            var sf = new ServerForm();
+
+            c.Register(sf.SendEvent);
+
+            Application.Run(sf);
         }
     }
 }
