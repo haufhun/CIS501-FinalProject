@@ -51,7 +51,7 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
-                    Login(m.User.ContactInfo.Username, "passss", sessionId);
+                    Login(u.ContactInfo.Username, ((User)m.Contact).Password, sessionId);
                     break;
                 case State.Logout:
                     break;
@@ -81,7 +81,7 @@ namespace Server.Controller
             {
                 //create a new user
                 _chatDb.AddUser(name, password, sessionId);
-                _send(new Mensaje(State.Login, new User(new Contact(name, Status.Online), null, sessionId)), new List<string> {sessionId});
+                _send(new Mensaje(State.Login, new User(new Contact(name, Status.Online), password, sessionId)), new List<string> {sessionId});
             }
             else
             {
@@ -95,7 +95,7 @@ namespace Server.Controller
                 }
                 else
                 {
-                    _send(new Mensaje("The password you entered is not valid"), new List<string>());
+                    _send(new Mensaje("The password you entered is not valid"), new List<string> {sessionId});
                     //send error message
                 }
             }
