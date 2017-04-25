@@ -17,6 +17,7 @@ namespace Client
         private RemoveContactHandler _removeCHandler;
         private AddContactToRoomHandler _addCToRoomHandler;
         private CreateRoomHandler _createRoomHandler;
+
         public HomeForm(SignInHandler s, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr)
         {
             _sIHandler = s;

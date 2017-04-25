@@ -76,6 +76,7 @@
             this.uxSignIn.TabIndex = 4;
             this.uxSignIn.Text = "Sign In";
             this.uxSignIn.UseVisualStyleBackColor = true;
+            this.uxSignIn.Click += new System.EventHandler(this.uxSignIn_Click);
             // 
             // uxInfoLabel
             // 

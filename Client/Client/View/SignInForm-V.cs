@@ -13,11 +13,18 @@ namespace Client
     public partial class SignInForm : Form
     {
         private HomeForm homeForm;
+        private SignInHandler _sIHandler;
 
-        public SignInForm(HomeForm homeForm)
+        public SignInForm(SignInHandler s, HomeForm homeForm)
         {
+            _sIHandler = s;
             this.homeForm = homeForm;
             InitializeComponent();
+        }
+
+        private void uxSignIn_Click(object sender, EventArgs e)
+        {
+            _sIHandler("Tyler", "456");
         }
     }
 }

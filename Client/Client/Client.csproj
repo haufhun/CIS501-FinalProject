@@ -56,6 +56,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ChatRoom.cs" />
+    <Compile Include="Model\Mensaje.cs" />
+    <Compile Include="Model\TextMessage.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="View\ChatForm-V.cs">
       <SubType>Form</SubType>
     </Compile>
