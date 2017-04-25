@@ -34,17 +34,29 @@ namespace Server.Model
         [JsonProperty]
         public string ErrorMessage { get; }
 
-        /// <summary>
-        /// Constructor used to sign in/out a particular user.
-        /// </summary>
-        /// <param name="s">The status of the message being sent, either login or logout.</param>
-        /// <param name="user">The user to be signed in.</param>
-        public Mensaje(State s, IUser user)
-        {
-            if (s != State.Login && s != State.Logout) throw new NotSupportedException();
+        [JsonProperty]
+        public bool IsNewUser { get; }
 
-            MyState = s;
+        /// <summary>
+        /// Constructor used to send a client a login message. Send true if a new user was created.
+        /// </summary>
+        /// <param name="user">The user to be signed in.</param>
+        /// <param name="isNewUser">If the user was a new user or not.</param>
+        public Mensaje(IUser user, bool isNewUser)
+        {
+            MyState = State.Login;
             User = user;
+            IsNewUser = isNewUser;
+        }
+
+        /// <summary>
+        /// Used to send to other clients that a particular contact is logged out.
+        /// </summary>
+        /// <param name="c">The contact that was logged out.</param>
+        public Mensaje(Contact c)
+        {
+            MyState = State.Logout;
+            Contact = c;
         }
 
         /// <summary>
@@ -143,5 +155,6 @@ namespace Server.Model
             ContactList = contactList;
             TextMessage = textMessage;
         }
+
     }
 }

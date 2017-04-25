@@ -51,7 +51,8 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
-                    Login(u.ContactInfo.Username, ((User)m.Contact).Password, sessionId);
+                    //Must cast this to our User object so as to access the password.
+                    Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
                     break;
@@ -81,7 +82,7 @@ namespace Server.Controller
             {
                 //create a new user
                 _chatDb.AddUser(name, password, sessionId);
-                _send(new Mensaje(State.Login, new User(new Contact(name, Status.Online), password, sessionId)), new List<string> {sessionId});
+                _send(new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true), new List<string> {sessionId});
             }
             else
             {
@@ -91,7 +92,7 @@ namespace Server.Controller
                     //send valid sign in
                     u.ChangeSessionId(sessionId);
 
-                    _send(new Mensaje(State.Login, u), new List<string> {sessionId});
+                    _send(new Mensaje(u, false), new List<string> {sessionId});
                 }
                 else
                 {
