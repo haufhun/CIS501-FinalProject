@@ -5,6 +5,7 @@ using WebSocketSharp.Server;
 using Server.Model;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
+using Server;
 
 namespace Server.Controller
 {
@@ -21,9 +22,12 @@ namespace Server.Controller
 
         private SendMessageHandler _send;
 
+        private List<Delegates.Observer> _observers;
+
         public ServerController(ChatDb db)
         {
             _chatDb = db;
+            _observers = new List<Delegates.Observer>();
 
             _wss = new WebSocketServer(8022);
 
@@ -72,6 +76,11 @@ namespace Server.Controller
             var c = new Chat(ChatDelegate);
             _send = c.Send;
             return c;
+        }
+
+        public void Register(Delegates.Observer o)
+        {
+            
         }
 
         private void Login(string name, string password, string sessionId)

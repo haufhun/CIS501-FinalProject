@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using Server.Model;
 
 namespace Server.View
 {
@@ -25,6 +26,11 @@ namespace Server.View
             }
             var lt = new ListViewItem("Hey1");
             listView1.Items.Add(lt);
+        }
+
+        public void SendEvent(Mensaje m)
+        {
+            
         }
     }
 }
