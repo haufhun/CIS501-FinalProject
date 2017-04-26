@@ -279,8 +279,8 @@ namespace Server.Controller
             }
             else {
                 ChatRoom c = _chatDb.CreateRoom();
-                _send(new Mensaje(c), a.SessionId);
-                _send(new Mensaje(c), b.SessionId);
+                _send(new Mensaje(c, b.ContactInfo), a.SessionId);
+                _send(new Mensaje(c, a.ContactInfo), b.SessionId);
             }
         }
 
