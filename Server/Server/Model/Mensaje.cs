@@ -91,15 +91,17 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Constructor used to opne a new chat room.
+        /// Constructor used to open a new chat room.
         /// </summary>
         /// <param name="chatroom">The chat room that must contain the two users that desire to create a chat room.</param>
-        public Mensaje(IChatRoom chatroom)
+        /// <param name="u">The user that is requesting the chat room to be opened.</param>
+        public Mensaje(IChatRoom chatroom, User u)
         {
             if (chatroom.Participants.Count() < 2) throw new NotSupportedException();
 
             MyState = State.OpenChat;
             ChatRoom = chatroom;
+            User = u;
         }
 
         /// <summary>

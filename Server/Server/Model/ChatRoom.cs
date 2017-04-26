@@ -18,21 +18,26 @@ namespace Server.Model
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
         public string Id { get; }
 
+        [JsonProperty]
+        private Dictionary<string, User> _users;
+
         public IEnumerable<ITextMessage> MessageHistory => _messages;
 
         public IEnumerable<IUser> Participants => _users.Values;
 
-        private Dictionary<string, User> _users;
-        
+
         /// <summary>
         /// Used for Json.
         /// </summary>
         /// <param name="msgs"></param>
-        /// <param name="list"></param>
-        private ChatRoom(List<TextMessage> msgs, string id)
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        [JsonConstructor]
+        private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users)
         {
             _messages = msgs;
             Id = id;
+            _users = users;
         }
 
         /// <summary>
@@ -42,6 +47,29 @@ namespace Server.Model
         public ChatRoom(string id)
         {
             Id = id;
+            _messages = new List<TextMessage>();
+            _users = new Dictionary<string, User>();
+        }
+
+        /// <summary>
+        /// Simulation of how the client should construct a Chat Room object. Do not use on Server.
+        /// </summary>
+        /// <param name="user1">Participant one.</param>
+        /// <param name="user2">Participant two.</param>
+        public ChatRoom(User user1, User user2)
+        {
+            Id = null;
+            _messages = new List<TextMessage>();
+            _users = new Dictionary<string, User>
+            {
+                {user1.ContactInfo.Username, user1},
+                {user2.ContactInfo.Username, user2}
+            };
+        }
+
+        public void AddParticipant(User u)
+        {
+            _users.Add(u.ContactInfo.Username, u);
         }
 
         /// <summary>
