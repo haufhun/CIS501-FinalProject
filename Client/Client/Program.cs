@@ -18,6 +18,8 @@ namespace Client
 
     // defines the type of method that handles a log in event
     public delegate void SignInHandler(string name, string password);
+    // defines the type of method that handles a log out event
+    public delegate void SignOutHandler();
     // defines the type of method that handles an add contact event
     public delegate void AddContactHandler(string name);
     // defines the type of method that handles a remove contact event
@@ -39,17 +41,21 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
 
             ClientController_C c = new ClientController_C("tyler");
-
-            HomeForm hForm = new HomeForm(c.SignIn, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
-           
+            HomeForm hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
             SignInForm sIForm = new SignInForm(c.SignIn, hForm);
 
             c.MessageReceived += c.message;
 
-            c.HomeFormRegister(hForm.Update);
+            c.HomeFormRegister(hForm.UpdateView);
+            c.HomeFormRegister(hForm.SignOut);
+
             c.SignInRegister(sIForm.EventSuccessfulLogin);
+            c.SignInRegister(sIForm.EventUnSuccessfulLogin);
+            c.SignInRegister(sIForm.SignOut);
+
            // sIForm.Show();
             hForm.Show();
+           hForm.Visible = false;
             Application.Run(sIForm);
           //  Application.Run(hForm);
 

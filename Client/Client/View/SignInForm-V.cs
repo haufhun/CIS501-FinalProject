@@ -13,13 +13,13 @@ namespace Client
 {
     public partial class SignInForm : Form
     {
-        private HomeForm homeForm;
+        private HomeForm _homeForm;
         private SignInHandler _sIHandler;
 
         public SignInForm(SignInHandler s, HomeForm homeForm)
         {
             _sIHandler = s;
-            this.homeForm = homeForm;
+            this._homeForm = homeForm;
             InitializeComponent();
         }
 
@@ -31,10 +31,17 @@ namespace Client
 
         public void EventSuccessfulLogin()
         {
-            //homeForm.Show();
-            Application.Run(homeForm);
-            
-           // Hide();
+            _homeForm.Invoke(new MethodInvoker(_homeForm.Show));
+            this.Invoke(new MethodInvoker(this.Hide));
+        }
+        public void EventUnSuccessfulLogin()
+        {
+            //_homeForm.Invoke(new MethodInvoker(_homeForm.Show));
+            //this.Invoke(new MethodInvoker(this.Hide));
+        }
+        public void SignOut()
+        {
+            this.Invoke(new MethodInvoker(this.Show));
         }
     }
 

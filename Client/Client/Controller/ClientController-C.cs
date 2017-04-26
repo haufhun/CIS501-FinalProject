@@ -18,19 +18,18 @@ namespace Client.Controller
 
         private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
 
-        private string name;
-
         private WebSocket ws;
+
+        private IUser _user;
+        
 
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
         public ClientController_C(string name)
         {
-            this.name = name;
-
             // Connects to the server
-            ws = new WebSocket("ws://10.131.189.224:8022/chat");
+            ws = new WebSocket("ws://192.168.2.2:8022/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
             ws.Connect();
@@ -56,14 +55,19 @@ namespace Client.Controller
                 case State.Login:
                     if (m.IsError)
                     {
-                        
+                        SignalSIFormObsever(1);
+                        MessageBox.Show(m.ErrorMessage);
                     }
                     else
                     {
-                        SignalSIFormObsever(true);
+                        SignalSIFormObsever(0);
                     }
+                    _user = m.User;
                     break;
                 case State.Logout:
+                    SignalHFormObserver(1);
+                    SignalSIFormObsever(2);
+                    
                     break;
                 case State.OpenChat:
                     break;
@@ -93,7 +97,12 @@ namespace Client.Controller
         {
             _cFormObserver.Add(o);
         }
-       
+
+        /// <summary>
+        /// A method that creates a new sign in mensaje and sends it to server.
+        /// </summary>
+        /// <param name="name">Username of account</param>
+        /// <param name="password">Password of account</param>
         public void SignIn(string name, string password)
         {
             if (ws.IsAlive)
@@ -107,6 +116,24 @@ namespace Client.Controller
             {
                 MessageBox.Show("Hunters server sucks I cant connect");
             }
+        }
+        /// <summary>
+        /// A method that creates a new sign out mensaje and sends it to server.
+        /// </summary>
+        public void SignOut()
+        {
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(State.Logout, _user);
+                string output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Hunters server sucks I cant connect");
+            }
+
         }
 
         public void AddContact(string name)
@@ -128,28 +155,27 @@ namespace Client.Controller
         {
             
         }
+
+
         private void SignalCFormObserver()
         {
 
         }
-        private void SignalHFormObserver()
+        private void SignalHFormObserver(int index)
         {
-            
+            //calls Update if index of [0]
+            //Calls SignOut if Index of [1]
+            _hFormObserver[index]();
         }
 
-        private void SignalSIFormObsever(bool successful)
+        private void SignalSIFormObsever(int index)
         {
-            //calls EventSuccessfulLogin if true index of [0]
-            if (successful)
-            {
-                SignInFormObserver s = _sIFormObserver[0];
-                s();
-            }
-            //calls EventUnsuccessfulLogin if false index of [1]
-            else
-            {
-                _sIFormObserver[1]();
-            }
+            //calls EventSuccessfulLogin if index of [0]
+            //Calls EventUnsuccessfulLogin if Index of [1]
+            //Calls SignOut if Index of [2]
+            _sIFormObserver[index]();
+           
+
         }
 
      

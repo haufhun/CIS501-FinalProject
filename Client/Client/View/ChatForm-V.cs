@@ -7,14 +7,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chat_CSLibrary;
 
 namespace Client
 {
     public partial class ChatForm : Form
     {
-        public ChatForm()
+
+        private IChatRoom _iChat;
+
+        public ChatForm(IChatRoom iChat)
         {
+            _iChat = iChat;
             InitializeComponent();
         }
+
     }
 }

@@ -34,7 +34,7 @@
             this.uxStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.uxStartChat = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.uxAddContact = new System.Windows.Forms.ToolStripButton();
             this.uxDeleteContact = new System.Windows.Forms.ToolStripButton();
             this.uxSignOut = new System.Windows.Forms.ToolStripButton();
             this.uxInfoLabel = new System.Windows.Forms.Label();
@@ -68,7 +68,7 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uxStartChat,
-            this.toolStripButton2,
+            this.uxAddContact,
             this.uxDeleteContact,
             this.uxSignOut});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
@@ -84,15 +84,17 @@
             this.uxStartChat.Name = "uxStartChat";
             this.uxStartChat.Size = new System.Drawing.Size(98, 24);
             this.uxStartChat.Text = "Start Chat";
+            this.uxStartChat.Click += new System.EventHandler(this.uxStartChat_Click);
             // 
-            // toolStripButton2
+            // uxAddContact
             // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(116, 24);
-            this.toolStripButton2.Text = "Add Contact";
-            this.toolStripButton2.ToolTipText = "uxAddContact";
+            this.uxAddContact.Image = ((System.Drawing.Image)(resources.GetObject("uxAddContact.Image")));
+            this.uxAddContact.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.uxAddContact.Name = "uxAddContact";
+            this.uxAddContact.Size = new System.Drawing.Size(116, 24);
+            this.uxAddContact.Text = "Add Contact";
+            this.uxAddContact.ToolTipText = "uxAddContact";
+            this.uxAddContact.Click += new System.EventHandler(this.uxAddContact_Click);
             // 
             // uxDeleteContact
             // 
@@ -101,6 +103,7 @@
             this.uxDeleteContact.Name = "uxDeleteContact";
             this.uxDeleteContact.Size = new System.Drawing.Size(132, 24);
             this.uxDeleteContact.Text = "Delete Contact";
+            this.uxDeleteContact.Click += new System.EventHandler(this.uxDeleteContact_Click);
             // 
             // uxSignOut
             // 
@@ -146,7 +149,7 @@
         private System.Windows.Forms.ColumnHeader uxStatus;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton uxStartChat;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton uxAddContact;
         private System.Windows.Forms.ToolStripButton uxDeleteContact;
         private System.Windows.Forms.ToolStripButton uxSignOut;
         private System.Windows.Forms.Label uxInfoLabel;
