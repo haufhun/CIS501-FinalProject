@@ -87,6 +87,7 @@ namespace Server.Model
 
             MyState = s;
             Contact = c;
+            User = user;
         }
 
         /// <summary>

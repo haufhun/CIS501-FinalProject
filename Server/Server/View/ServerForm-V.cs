@@ -2,13 +2,18 @@
 using System.Windows.Forms;
 using Server.Model;
 using Chat_CSLibrary;
+using static Server.Delegates;
 
 namespace Server.View
 {
     public partial class ServerForm : Form
     {
-        public ServerForm()
+        private InputHandler _handle;
+
+        public ServerForm(InputHandler h)
         {
+            _handle = h;
+
             InitializeComponent();
 
             listView1.Columns.Add("Time");
@@ -35,9 +40,29 @@ namespace Server.View
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(new User(new Contact("Hunter", Chat_CSLibrary.Status.Online), "password", "123"), false);
+            var m = new Mensaje(new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"), false);
 
-            SendEvent(m);
+            _handle(m, "1234");
+            uxUsernameTB.Clear();
+            uxPasswordTB.Clear();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
+
+            _handle(m, "1234");
+            uxContactTB.Clear();
+            uxUsernameTB.Clear();
+        }
+
+        private void uxAddCnctBtn_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(State.AddContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
+
+            _handle(m, "1234");
+            uxContactTB.Clear();
+            uxUsernameTB.Clear();
         }
     }
 }

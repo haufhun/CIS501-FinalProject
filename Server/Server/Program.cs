@@ -25,7 +25,7 @@ namespace Server
 
             var db = new ChatDb();
             var c = new ServerController(db);
-            var sf = new ServerForm();
+            var sf = new ServerForm(c.ChatDelegate);
 
             c.RegisterEventLog(sf.SendEvent);
 

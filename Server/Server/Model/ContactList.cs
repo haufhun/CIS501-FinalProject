@@ -27,9 +27,14 @@ namespace Server.Model
             _contacts = contacts;
         }
 
-        public void RemoveContact(string username)
+        public void Add(Contact c)
         {
-            throw new NotImplementedException();
+            _contacts.Add(c.Username, c);
+        }
+
+        public void Remove(string username)
+        {
+            _contacts.Remove(username);
         }
 
         public IEnumerable<IContact> GetAllContacts()
