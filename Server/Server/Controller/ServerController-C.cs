@@ -29,12 +29,12 @@ namespace Server.Controller
         /// <summary>
         /// A list of event observers to update the event log.
         /// </summary>
-        private List<EventLogObserver> _eventObserver;
+        private readonly List<EventLogObserver> _eventObserver;
 
         /// <summary>
         /// A list of observers to update the database tab.
         /// </summary>
-        private List<Observer> _observers;
+        private readonly List<Observer> _observers;
 
         /// <summary>
         /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
@@ -189,7 +189,7 @@ namespace Server.Controller
             }
 
             try { _send(m, sessionId); }
-            catch { }
+            catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name)); }
         }
 
         /// <summary>
@@ -197,10 +197,10 @@ namespace Server.Controller
         /// </summary>
         /// <param name="adder">The name of the user to be added.</param>
         /// <param name="toAdd">The name of the user that requested the add.</param>
-        public void AddContact(string toAdd, string adder)
+        private void AddContact(string toAdd, string adder)
         {
-            User a = _chatDb.LookupUser(adder);
-            User b = _chatDb.LookupUser(toAdd);
+            var a = _chatDb.LookupUser(adder);
+            var b = _chatDb.LookupUser(toAdd);
 
             if (b == null)
             {
@@ -231,10 +231,10 @@ namespace Server.Controller
         /// </summary>
         /// <param name="remover">The user requesting the remove.</param>
         /// <param name="removed">The user to be removed.</param>
-        public void RemoveContact(string removed, string remover)
+        private void RemoveContact(string removed, string remover)
         {
-            User a = _chatDb.LookupUser(remover);
-            User b = _chatDb.LookupUser(removed);
+            var a = _chatDb.LookupUser(remover);
+            var b = _chatDb.LookupUser(removed);
 
             if (b == null)
             {
@@ -264,15 +264,15 @@ namespace Server.Controller
             }
         }
 
-        public void CreateRoom()
+        private void CreateRoom()
         {
             throw new NotImplementedException();
         }
 
-        public void SendTextMessage(string roomId, ITextMessage msg)
+        private void SendTextMessage(string roomId, ITextMessage msg)
         {
-            ChatRoom room = _chatDb.LookupRoom(roomId);
-            List<string> activeIds = new List<string>();
+            var room = _chatDb.LookupRoom(roomId);
+            var activeIds = new List<string>();
             IMensaje m = null;
 
             if (room == null)
@@ -289,7 +289,7 @@ namespace Server.Controller
                     if (u.ContactInfo.OnlineStatus == Status.Offline)
                     {
                         //Notify all the other users that this user is offline
-                        string sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
+                        var sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
                         //room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
                     }
                     else
