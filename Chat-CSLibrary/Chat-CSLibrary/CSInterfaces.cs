@@ -74,7 +74,7 @@ namespace Chat_CSLibrary
     public interface IContactList
     {
         int Count { get; }
-        IEnumerable<IContact> GetAllContacts();
+        IEnumerable<IContact> GetAllContacts { get; }
         IContact GetContact(string username);
     }
     public interface ITextMessage
