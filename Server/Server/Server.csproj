@@ -33,8 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Chat-CSLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Chat-CSLibrary">
       <HintPath>..\..\Lib\Chat-CSLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -57,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ServerController-C.cs" />
+    <Compile Include="Delegates.cs" />
     <Compile Include="Model\ChatDB.cs" />
     <Compile Include="Model\ChatRoom.cs" />
     <Compile Include="Model\Contact.cs" />

@@ -5,25 +5,48 @@ using WebSocketSharp.Server;
 using Server.Model;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
+using static Server.Delegates;
 
 namespace Server.Controller
 {
-    //Delegate used to call the controller from the Chat WebSocketBehavior class
-    public delegate void ClientMessageHandler(IMensaje m, string sessionId);
-    //Delegate used to send a message back to the appropriate user
-    public delegate void SendMessageHandler(IMensaje m, List<string> sessionId);
+
 
     public class ServerController
     {
+        /// <summary>
+        /// The chat database holding the information about all Users and Chats.
+        /// </summary>
         private readonly ChatDb _chatDb;
 
+        /// <summary>
+        /// The web socket server service. Only need to start and stop this service.
+        /// </summary>
         private readonly WebSocketServer _wss;
 
+        /// <summary>
+        /// The delegate used to send a message to the Client.
+        /// </summary>
         private SendMessageHandler _send;
 
+        /// <summary>
+        /// A list of event observers to update the event log.
+        /// </summary>
+        private List<EventLogObserver> _eventObserver;
+
+        /// <summary>
+        /// A list of observers to update the database tab.
+        /// </summary>
+        private List<Observer> _observers;
+
+        /// <summary>
+        /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
+        /// </summary>
+        /// <param name="db">The chat database to be loaded.</param>
         public ServerController(ChatDb db)
         {
             _chatDb = db;
+            _eventObserver = new List<EventLogObserver>();
+            _observers = new List<Observer>();
 
             _wss = new WebSocketServer(8022);
 
@@ -34,21 +57,41 @@ namespace Server.Controller
             _wss.Start();
         }
 
+        /// <summary>
+        /// Factory method. Used to construct the chat for the WebSocketBehavior. Sets up the delegates for both receive and send between the Controller and the Chat.
+        /// </summary>
+        /// <returns>A new instance of the Chat class.</returns>
+        private Chat CreateChat()
+        {
+            var c = new Chat(ChatDelegate);
+            _send = c.Send;
+            return c;
+        }
+
+        /// <summary>
+        /// Deconstructor to turn off the web socket server.
+        /// </summary>
         ~ServerController()
         {
-            //Serialize and put away the DB so it can be reloaded on startup
+            //Need to serialize and put away the DB so it can be reloaded on startup
             _wss.Stop();
         }
 
-        private void ChatDelegate(IMensaje m, string sessionId)
+        /// <summary>
+        /// Delegate that will be called on a receive from the Chat imitating the client.
+        /// </summary>
+        /// <param name="m">The Mensaje object sent from the Client.</param>
+        /// <param name="sessionId">The session id of the Client.</param>
+        public void ChatDelegate(IMensaje m, string sessionId)
         {
+            SignalEventObserver(m);
+
             switch (m.MyState)
             {
                 case State.AddContact:
-                    _send(m, new List<string> {sessionId});
+                    AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.AddContactToChat:
-                    AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.Login:
                     //Must cast this to our User object so as to access the password.
@@ -59,6 +102,7 @@ namespace Server.Controller
                 case State.OpenChat:
                     break;
                 case State.RemoveContact:
+                    RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.SendTextMessage:
                     //SendTextMessage(m.ChatRoom.Id, m.Message);
@@ -66,61 +110,162 @@ namespace Server.Controller
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        }
-        private Chat CreateChat()
-        {
-            var c = new Chat(ChatDelegate);
-            _send = c.Send;
-            return c;
+
+            SignalObserver();
         }
 
+        /// <summary>
+        /// Registers a new EventLogObserver in the list.
+        /// </summary>
+        /// <param name="o">An event log observer.</param>
+        public void Register(EventLogObserver o)
+        {
+            _eventObserver.Add(o);
+        }
+
+        /// <summary>
+        /// Registers a new Observer.
+        /// </summary>
+        /// <param name="o">The observer method to be updated. Should be a method from the view.</param>
+        public void Register(Observer o)
+        {
+            _observers.Add(o);
+        }
+        
+        /// <summary>
+        /// Calls the list of event log observers and displays to the log the contents of a Mensaje.
+        /// </summary>
+        /// <param name="m">The Mensaje object.</param>
+        private void SignalEventObserver(IMensaje m)
+        {
+            foreach(EventLogObserver o in _eventObserver)
+            {
+                o(m);
+            }
+        }
+
+        /// <summary>
+        /// Calls the list of observers to update the database tab page.
+        /// </summary>
+        private void SignalObserver()
+        {
+            foreach(var o in _observers)
+            {
+                o();
+            }
+        }
+
+        /// <summary>
+        /// Looks up if a user exists, creating a new user if needed, or validates the password sent in.
+        /// </summary>
+        /// <param name="name">The name of the user.</param>
+        /// <param name="password">The password of the user.</param>
+        /// <param name="sessionId">The session id of the client.</param>
         private void Login(string name, string password, string sessionId)
         {
             var u = _chatDb.LookupUser(name);
+            Mensaje m;
 
             if (u == null)
             {
-                //create a new user
                 _chatDb.AddUser(name, password, sessionId);
-                _send(new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true), new List<string> {sessionId});
+
+                m = new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true);
+
+                SignalEventObserver(m);
             }
             else
             {
-                //validate password
                 if (u.IsValidPassword(password))
                 {
-                    //send valid sign in
                     u.ChangeSessionId(sessionId);
 
-                    _send(new Mensaje(u, false), new List<string> {sessionId});
+                    m = new Mensaje(u, false);
+                    SignalEventObserver(m);
                 }
                 else
                 {
-                    _send(new Mensaje("The password you entered is not valid"), new List<string> {sessionId});
-                    //send error message
+                    m = new Mensaje(State.Login, "The password you entered is not valid");
+                    SignalEventObserver(m);
                 }
             }
+
+            try { _send(m, sessionId); }
+            catch { }
         }
 
+        /// <summary>
+        /// Checks if the user to be added is null, if so sends an error to the Client, else puts both contacts into each other's lists.
+        /// </summary>
+        /// <param name="adder">The name of the user to be added.</param>
+        /// <param name="toAdd">The name of the user that requested the add.</param>
         public void AddContact(string toAdd, string adder)
         {
             User a = _chatDb.LookupUser(adder);
             User b = _chatDb.LookupUser(toAdd);
-            if(b!=null)
+
+            if (b == null)
             {
-                a.AddContact(toAdd);
-                _send(new Mensaje(State.AddContact, new Contact(b.ContactInfo.Username, Status.Offline), a), new List<string> { toAdd, adder });
+                var m = new Mensaje(State.AddContact, "This user does not exist");
+                SignalEventObserver(m);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
             }
             else
             {
-                _send(new Mensaje("This user does not exist"), new List<string>());
+                a.AddContact((Contact)b.ContactInfo);
+                var m = new Mensaje(State.AddContact, b.ContactInfo, a);
+                SignalEventObserver(m);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+
+                b.AddContact((Contact)a.ContactInfo);
+                var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
+                SignalEventObserver(m2);
+
+                if (b.ContactInfo.OnlineStatus == Status.Online)
+                {
+                    try { _send(m2, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online.")); }
+                }
             }
         }
 
-        public void RemoveContact(string name)
+        /// <summary>
+        /// Removes two users from being in each other's contact list.
+        /// </summary>
+        /// <param name="remover">The user requesting the remove.</param>
+        /// <param name="removed">The user to be removed.</param>
+        public void RemoveContact(string removed, string remover)
         {
-            throw new NotImplementedException();
+            User a = _chatDb.LookupUser(remover);
+            User b = _chatDb.LookupUser(removed);
+
+            if (b == null)
+            {
+                var m = new Mensaje(State.RemoveContact, "This user does not exist");
+                SignalEventObserver(m);
+                _send(m, a.SessionId);
+            }
+            else
+            {
+                a.RemoveContact((Contact)b.ContactInfo); 
+                var m = new Mensaje(State.RemoveContact, b.ContactInfo, a);
+                SignalEventObserver(m);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.RemoveContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+
+                b.RemoveContact((Contact)a.ContactInfo);
+                var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
+                SignalEventObserver(m2);
+
+                if (b.ContactInfo.OnlineStatus == Status.Online)
+                {
+                    _send(m2, b.SessionId);
+                }
+                else
+                {
+                    SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online."));
+                }
+            }
         }
+
         public void CreateRoom()
         {
             throw new NotImplementedException();
@@ -158,7 +303,7 @@ namespace Server.Controller
                 m = new Mensaje(room, msg);
             }
 
-            _send(m, activeIds);
+            //_send(m, activeIds);
         }
 
         public void AddContactToRoom(string name)
@@ -190,14 +335,11 @@ namespace Server.Controller
             _receive(m, ID);
         }
 
-        public void Send(IMensaje m, List<string> sessionIds)
+        public void Send(IMensaje m, string sessionId)
         {
             string message = JsonConvert.SerializeObject(m);
 
-            foreach (string s in sessionIds)
-            {
-                Sessions.SendTo(s, message);
-            }
+            Sessions.SendTo(sessionId, message);
             //This is what I imagine the send  function will look like, we might need more -- Calvin
             //The Sessions.Broadcast will send it to ALL of the clients. We don't want this, we want to only send it to a specific client. This will help us with that
             //So, we may need to add a ClientId field to the Mensaje and the User classes so they can know that. 
