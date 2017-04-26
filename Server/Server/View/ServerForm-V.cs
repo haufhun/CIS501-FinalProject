@@ -40,7 +40,8 @@ namespace Server.View
             {
                 uxLoginButton,
                 uxAddCnctBtn,
-                uxRmvCnctBtn
+                uxRmvCnctBtn,
+                uxCreateChatRoomBtn
             };
 
             _testingTextBoxes = new List<TextBox>
@@ -85,6 +86,12 @@ namespace Server.View
             _handle(m, "1234");
             uxContactTB.Clear();
             uxUsernameTB.Clear();
+        }
+
+        private void uxCreateChatRoomBtn_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new ChatRoom(new User(new Contact(uxUsernameTB.Text, Status.Online), ))
+
         }
 
         public void UpdateUserListView()
@@ -170,5 +177,6 @@ namespace Server.View
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
         }
+
     }
 }
