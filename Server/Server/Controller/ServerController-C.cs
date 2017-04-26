@@ -9,8 +9,6 @@ using static Server.Delegates;
 
 namespace Server.Controller
 {
-
-
     public class ServerController
     {
         /// <summary>

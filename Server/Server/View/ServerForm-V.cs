@@ -128,9 +128,9 @@ namespace Server.View
                 "<html>" + 
                 "<head><style>li { list-style-type: square; }</style></head>" +
                 "<body>" +
-                "<h1>Users:</h1><ul>" +
+                "<h1>Users:</h1><ul><details><summary>" +
                 userList + 
-                "</ul></body>" + 
+                "</summary></details></ul></body>" + 
                 "</html>";
         }
 

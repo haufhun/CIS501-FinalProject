@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.uxWebBrowser = new System.Windows.Forms.WebBrowser();
@@ -89,8 +89,7 @@
             this.uxWebBrowser.Name = "uxWebBrowser";
             this.uxWebBrowser.Size = new System.Drawing.Size(713, 315);
             this.uxWebBrowser.TabIndex = 1;
-            this.uxWebBrowser.Url = new System.Uri("https://www.codecademy.com/en/courses/learn-html-css/lessons/css-fonts/exercises/" +
-        "fonts-matter?action=resume", System.UriKind.Absolute);
+            this.uxWebBrowser.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // uxUsersListView
             // 
@@ -246,7 +245,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5});
+            listViewItem1});
             this.listView1.Location = new System.Drawing.Point(8, 6);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(950, 630);
