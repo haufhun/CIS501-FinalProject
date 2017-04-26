@@ -85,6 +85,7 @@ namespace Server.Controller
                 case State.OpenChat:
                     break;
                 case State.RemoveContact:
+                    RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.SendTextMessage:
                     //SendTextMessage(m.ChatRoom.Id, m.Message);
@@ -187,9 +188,28 @@ namespace Server.Controller
             }
         }
 
-        public void RemoveContact(string name)
+        public void RemoveContact(string remover, string removed)
         {
-            throw new NotImplementedException();
+            User a = _chatDb.LookupUser(remover);
+            User b = _chatDb.LookupUser(removed);
+
+            if(b==null)
+            {
+                var m = new Mensaje(State.RemoveContact, "This user does not exist");
+                SignalEventObserver(m);
+                _send(m, a.SessionId);
+            }
+            else
+            {
+                ContactList cl = (ContactList)a.ContactList;
+                cl.RemoveContact(b.ContactInfo.Username); //Not sure if this will actually remove b from user a's contact list.
+
+                ContactList cl2 = (ContactList)b.ContactList;
+                // I'm a little confused on the algorithm. My goal is to check if user b has user a as a contact,
+                // if it does, to delete remove it, but there is no method to remove a user in ContactList. The use of interfaces
+                // for IContactList and IUser makes this whole process rather confusing to me. I also think ContactList is going to need
+                // a RemoveContact method. -- Calvin
+            }
         }
         public void CreateRoom()
         {
