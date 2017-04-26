@@ -4,6 +4,8 @@ using Server.Model;
 using Chat_CSLibrary;
 using static Server.Delegates;
 using System.Collections.Generic;
+using System.Web.UI;
+using System.IO;
 
 namespace Server.View
 {
@@ -100,9 +102,9 @@ namespace Server.View
             uxUsersListView.EndUpdate();
         }
 
-        public void UpdateUserWebBrowser(List<string> s)
+        private void UpdateUserWebBrowser(IEnumerable<string> s)
         {
-            string userList = "";
+            var userList = "";
 
             foreach(var un in s)
             {
@@ -132,6 +134,20 @@ namespace Server.View
                 userList + 
                 "</details></ul></body>" + 
                 "</html>";
+        }
+
+        private void TestHtmlWriter(IEnumerable<string> s)
+        {
+            var stringWriter = new StringWriter();
+            using (var writer = new HtmlTextWriter(stringWriter))
+            {
+                writer.RenderBeginTag(HtmlTextWriterTag.Head);
+                    writer.RenderBeginTag(HtmlTextWriterTag.Style);
+                        writer.AddStyleAttribute(HtmlTextWriterStyle.ListStyleType, "square");
+                    writer.RenderEndTag(); //for style
+                writer.RenderEndTag(); //for head
+
+            }
         }
 
         private void uxUsersListView_SelectedIndexChanged(object sender, EventArgs e)
