@@ -264,9 +264,24 @@ namespace Server.Controller
             }
         }
 
-        private void CreateRoom()
+        private void CreateRoom(string adder, string added)
         {
-            throw new NotImplementedException();
+            User a = _chatDb.LookupUser(adder);
+            User b = _chatDb.LookupUser(added);
+
+            if (b == null)
+            {
+                _send(new Mensaje(State.OpenChat, "The user you want to chat with does not exist"), a.SessionId);
+            }
+            else if (b.ContactInfo.OnlineStatus == Status.Offline)
+            {
+                _send(new Mensaje(State.OpenChat, "The user you want to chat with is offline"), a.SessionId);
+            }
+            else {
+                ChatRoom c = _chatDb.CreateRoom();
+                _send(new Mensaje(c), a.SessionId);
+                _send(new Mensaje(c), b.SessionId);
+            }
         }
 
         private void SendTextMessage(string roomId, ITextMessage msg)

@@ -8,6 +8,7 @@ namespace Server.Model
     {
         private Dictionary<string, User> _users;
         private Dictionary<string, ChatRoom> _chatRooms;
+        private string _roomToMake;
 
         public IEnumerable<User> Users => _users.Values;
 
@@ -15,6 +16,7 @@ namespace Server.Model
         {
             _users = new Dictionary<string, User>();
             _chatRooms = new Dictionary<string, ChatRoom>();
+            _roomToMake = "0";
         }
 
         public ChatDb(Dictionary<string, User> users, Dictionary<string, ChatRoom> chatRooms)
@@ -22,6 +24,16 @@ namespace Server.Model
             //overload for JSON initializations
         }
 
+        public ChatRoom CreateRoom()
+        {
+            
+            _chatRooms.Add(_roomToMake, new ChatRoom(_roomToMake));
+            int x = Convert.ToInt32(_roomToMake);
+            x++;
+            _roomToMake = x.ToString();
+            return _chatRooms[(x - 1).ToString()];
+
+        }
         public ChatRoom LookupRoom(string id)
         {
             return _chatRooms.ContainsKey(id) ? _chatRooms[id] : null;
