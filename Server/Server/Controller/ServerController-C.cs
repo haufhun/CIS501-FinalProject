@@ -34,6 +34,11 @@ namespace Server.Controller
         private List<EventLogObserver> _eventObserver;
 
         /// <summary>
+        /// A list of observers to update the database tab.
+        /// </summary>
+        private List<Observer> _observers;
+
+        /// <summary>
         /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
         /// </summary>
         /// <param name="db">The chat database to be loaded.</param>
@@ -41,6 +46,7 @@ namespace Server.Controller
         {
             _chatDb = db;
             _eventObserver = new List<EventLogObserver>();
+            _observers = new List<Observer>();
 
             _wss = new WebSocketServer(8022);
 
@@ -62,6 +68,9 @@ namespace Server.Controller
             return c;
         }
 
+        /// <summary>
+        /// Deconstructor to turn off the web socket server.
+        /// </summary>
         ~ServerController()
         {
             //Need to serialize and put away the DB so it can be reloaded on startup
@@ -101,8 +110,28 @@ namespace Server.Controller
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            SignalObserver();
         }
 
+        /// <summary>
+        /// Registers a new EventLogObserver in the list.
+        /// </summary>
+        /// <param name="o">An event log observer.</param>
+        public void Register(EventLogObserver o)
+        {
+            _eventObserver.Add(o);
+        }
+
+        /// <summary>
+        /// Registers a new Observer.
+        /// </summary>
+        /// <param name="o">The observer method to be updated. Should be a method from the view.</param>
+        public void Register(Observer o)
+        {
+            _observers.Add(o);
+        }
+        
         /// <summary>
         /// Calls the list of event log observers and displays to the log the contents of a Mensaje.
         /// </summary>
@@ -116,12 +145,14 @@ namespace Server.Controller
         }
 
         /// <summary>
-        /// Registers a new EventLogObserver in the list.
+        /// Calls the list of observers to update the database tab page.
         /// </summary>
-        /// <param name="o">An event log observer.</param>
-        public void RegisterEventLog(EventLogObserver o)
+        private void SignalObserver()
         {
-            _eventObserver.Add(o);
+            foreach(var o in _observers)
+            {
+                o();
+            }
         }
 
         /// <summary>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Chat_CSLibrary;
-using Server.Model;
+﻿using Chat_CSLibrary;
 
 namespace Server
 {
@@ -12,6 +6,8 @@ namespace Server
     {
         //The delegate that will update the GUI application with information from the server
         public delegate void EventLogObserver(IMensaje m);
+        //Observer to update the information displayed in the Database tab.
+        public delegate void Observer();
         //The delegate that will handle a user interaction
         public delegate void InputHandler(IMensaje m, string s);
 
