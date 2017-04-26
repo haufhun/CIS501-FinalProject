@@ -23,6 +23,7 @@ namespace Client
             InitializeComponent();
         }
 
+
         private void uxSignIn_Click(object sender, EventArgs e)
         {       
             _sIHandler(uxUsernameTxt.Text, uxPassTxt.Text);

@@ -48,10 +48,10 @@ namespace Client
 
             c.HomeFormRegister(hForm.Update);
             c.SignInRegister(sIForm.EventSuccessfulLogin);
-
-
+           // sIForm.Show();
+            hForm.Show();
             Application.Run(sIForm);
-            //Application.Run(hForm);
+          //  Application.Run(hForm);
 
             //Application.Run(new ChatForm());
 

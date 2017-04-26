@@ -38,6 +38,9 @@ namespace Client.Model
             [JsonProperty]
             public string ErrorMessage { get; }
 
+            [JsonProperty]
+            public bool IsNewUser { get; }
+
             /// <summary>
             /// Constructor used to sign in/out a particular user.
             /// </summary>
@@ -143,6 +146,8 @@ namespace Client.Model
                 ContactList = contactList;
                 TextMessage = textMessage;
             }
+
+
         }
     }
 

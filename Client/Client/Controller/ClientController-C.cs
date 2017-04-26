@@ -30,7 +30,7 @@ namespace Client.Controller
             this.name = name;
 
             // Connects to the server
-            ws = new WebSocket("ws://192.168.2.4:8022/chat");
+            ws = new WebSocket("ws://10.131.189.224:8022/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
             ws.Connect();

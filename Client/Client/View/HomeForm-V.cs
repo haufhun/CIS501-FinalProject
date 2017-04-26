@@ -25,8 +25,10 @@ namespace Client.View
         {
             
             Hide();
-           // SignInForm s = new SignInForm();                                                                                                                                                  
-
+            
+            SignInForm s = new SignInForm(_sIHandler, this);
+            Hide();
+            s.Show();
         }
     }
 }
