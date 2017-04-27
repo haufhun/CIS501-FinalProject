@@ -201,6 +201,23 @@ namespace Server.Controller
             catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name)); }
         }
 
+        private void Logout(string username)
+        {
+            User u = _chatDb.LookupUser(username);
+
+            Contact c = (Contact)u.ContactInfo;
+            c.ChangeOnlineStatus(Status.Offline);
+            
+            foreach(Contact a in u.ContactList.Contacts)
+            {
+                User t = _chatDb.LookupUser(a.Username);
+                if (t != null)
+                {
+                    _send(new Mensaje((Contact)u.ContactInfo), t.SessionId);
+                }
+            }
+        }
+
         /// <summary>
         /// Checks if the user to be added is null, if so sends an error to the Client, else puts both contacts into each other's lists.
         /// </summary>

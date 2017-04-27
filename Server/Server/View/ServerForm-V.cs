@@ -217,5 +217,10 @@ namespace Server.View
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
         }
 
+        private void uxLogoutButton_Click(object sender, EventArgs e)
+        {
+            Mensaje m = new Mensaje(new Contact(uxUsernameTB.Text, Status.Offline));
+            _handle(m, "1234");
+        }
     }
 }
