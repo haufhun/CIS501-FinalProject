@@ -41,7 +41,7 @@ namespace Server.Model
         private User(string password, Contact contactInfo, ContactList contactList)
         {
             _password = password;
-            ContactInfo = contactInfo;
+            _contact = contactInfo;
             _contactList = contactList;
         }
 
