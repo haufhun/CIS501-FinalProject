@@ -96,6 +96,7 @@ namespace Server.Controller
                     Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
+                    Logout(m.Contact.Username);
                     break;
                 case State.OpenChat:
                     var otheruser = "";
@@ -212,7 +213,8 @@ namespace Server.Controller
                 User t = _chatDb.LookupUser(a.Username);
                 if (t != null)
                 {
-                    _send(new Mensaje((Contact)u.ContactInfo), t.SessionId);
+                    Mensaje m = new Mensaje((Contact) u.ContactInfo);
+                    try { _send(m, t.SessionId); } catch { }
                 }
             }
         }

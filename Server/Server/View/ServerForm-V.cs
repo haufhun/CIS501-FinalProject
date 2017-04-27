@@ -225,6 +225,7 @@ namespace Server.View
         {
             Mensaje m = new Mensaje(new Contact(uxUsernameTB.Text, Status.Offline));
             _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
         }
     }
 }
