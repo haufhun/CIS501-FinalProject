@@ -41,6 +41,15 @@ namespace Server.Model
         }
 
         /// <summary>
+        /// Used only for simulating the client.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public ChatRoom(string id)
+        {
+            Id = id;
+        }
+
+        /// <summary>
         /// Constructs a new ChatRoom. The client will set the id to null.
         /// </summary>
         /// <param name="user1">Participant one.</param>

@@ -113,7 +113,7 @@ namespace Server.Controller
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.SendTextMessage:
-                    //SendTextMessage(m.ChatRoom.Id, m.Message);
+                    SendTextMessage(m.ChatRoom.Id, m.TextMessage);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

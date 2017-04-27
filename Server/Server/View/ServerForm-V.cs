@@ -47,14 +47,17 @@ namespace Server.View
                 uxAddCnctBtn,
                 uxRmvCnctBtn,
                 uxCreateChatRoomBtn,
-                uxLogoutButton
+                uxLogoutButton,
+                uxSendMessageBtn
             };
 
             _testingTextBoxes = new List<TextBox>
             {
                 uxContactTB,
                 uxPasswordTB,
-                uxUsernameTB
+                uxUsernameTB, 
+                uxMessageTB,
+                uxChatRoomIdTB
             };
             _userLVSelected = new List<string>();
 
@@ -224,9 +227,17 @@ namespace Server.View
 
         private void uxLogoutButton_Click(object sender, EventArgs e)
         {
-            Mensaje m = new Mensaje(new Contact(uxUsernameTB.Text, Status.Offline));
+            var m = new Mensaje(new Contact(uxUsernameTB.Text, Status.Offline));
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
+        }
+
+        private void uxSendMessageBtn_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+
         }
     }
 }
