@@ -36,6 +36,7 @@ namespace Client
         }
         public void EventUnSuccessfulLogin()
         {
+            MessageBox.Show("Incorrect username or password. Please try again.");
             //_homeForm.Invoke(new MethodInvoker(_homeForm.Show));
             //this.Invoke(new MethodInvoker(this.Hide));
         }
