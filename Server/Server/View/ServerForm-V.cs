@@ -4,18 +4,20 @@ using Server.Model;
 using Chat_CSLibrary;
 using static Server.Delegates;
 using System.Collections.Generic;
+using System.Web.UI;
+using System.IO;
 
 namespace Server.View
 {
     public partial class ServerForm : Form
     {
-        private InputHandler _handle;
+        private readonly InputHandler _handle;
 
-        private ChatDb _db;
+        private readonly ChatDb _db;
 
-        private List<Button> _testingButtons;
+        private readonly List<Button> _testingButtons;
 
-        private List<TextBox> _testingTextBoxes;
+        private readonly List<TextBox> _testingTextBoxes;
 
         public ServerForm(ChatDb db, InputHandler h)
         {
@@ -38,7 +40,8 @@ namespace Server.View
             {
                 uxLoginButton,
                 uxAddCnctBtn,
-                uxRmvCnctBtn
+                uxRmvCnctBtn,
+                uxCreateChatRoomBtn
             };
 
             _testingTextBoxes = new List<TextBox>
@@ -52,19 +55,12 @@ namespace Server.View
             toolStripComboBox1.SelectedIndex = 0;
         }
 
-        public void SendEvent(IMensaje m)
-        {
-            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
-            listView1.Items.Add(lt);
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"), false);
 
             _handle(m, "1234");
-            uxUsernameTB.Clear();
-            uxPasswordTB.Clear();
+            foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -72,8 +68,7 @@ namespace Server.View
             var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
 
             _handle(m, "1234");
-            uxContactTB.Clear();
-            uxUsernameTB.Clear();
+            foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
         private void uxAddCnctBtn_Click(object sender, EventArgs e)
@@ -81,8 +76,24 @@ namespace Server.View
             var m = new Mensaje(State.AddContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
 
             _handle(m, "1234");
-            uxContactTB.Clear();
-            uxUsernameTB.Clear();
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+        }
+
+        private void uxCreateChatRoomBtn_Click(object sender, EventArgs e)
+        {
+            var u1 = new User(new Contact(uxUsernameTB.Text, Status.Online), null, null);
+            var u2 = new User(new Contact(uxContactTB.Text, Status.Online), null, null);
+
+            var m = new Mensaje(new ChatRoom(u1, u2), u1);
+
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+        }
+
+        public void SendEvent(IMensaje m)
+        {
+            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+            listView1.Items.Add(lt);
         }
 
         public void UpdateUserListView()
@@ -100,9 +111,9 @@ namespace Server.View
             uxUsersListView.EndUpdate();
         }
 
-        public void UpdateUserWebBrowser(List<string> s)
+        private void UpdateUserWebBrowser(IEnumerable<string> s)
         {
-            string userList = "";
+            var userList = "";
 
             foreach(var un in s)
             {
@@ -130,8 +141,22 @@ namespace Server.View
                 "<body>" +
                 "<h1>Users:</h1><ul>" +
                 userList + 
-                "</ul></body>" + 
+                "</details></ul></body>" + 
                 "</html>";
+        }
+
+        private void TestHtmlWriter(IEnumerable<string> s)
+        {
+            var stringWriter = new StringWriter();
+            using (var writer = new HtmlTextWriter(stringWriter))
+            {
+                writer.RenderBeginTag(HtmlTextWriterTag.Head);
+                    writer.RenderBeginTag(HtmlTextWriterTag.Style);
+                        writer.AddStyleAttribute(HtmlTextWriterStyle.ListStyleType, "square");
+                    writer.RenderEndTag(); //for style
+                writer.RenderEndTag(); //for head
+
+            }
         }
 
         private void uxUsersListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -154,5 +179,6 @@ namespace Server.View
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
         }
+
     }
 }
