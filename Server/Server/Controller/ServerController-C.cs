@@ -264,7 +264,7 @@ namespace Server.Controller
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    _send(m2, b.SessionId);
+                    try { _send(m2, b.SessionId); } catch { }
                 }
                 else
                 {

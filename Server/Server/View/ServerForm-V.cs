@@ -19,6 +19,8 @@ namespace Server.View
 
         private readonly List<TextBox> _testingTextBoxes;
 
+        private List<string> _userLVSelected;
+
         public ServerForm(ChatDb db, InputHandler h)
         {
             _handle = h;
@@ -36,6 +38,9 @@ namespace Server.View
             listView1.Columns.Add("Error Message");
             listView1.Columns.Add("Chat Room Id");
 
+            uxChatRoomListView.Columns.Add("Id");
+            uxChatRoomListView.Columns.Add("Users");
+
             _testingButtons = new List<Button>
             {
                 uxLoginButton,
@@ -50,9 +55,12 @@ namespace Server.View
                 uxPasswordTB,
                 uxUsernameTB
             };
+            _userLVSelected = new List<string>();
 
             toolStripComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             toolStripComboBox1.SelectedIndex = 0;
+
+            UpdateChatRoomWebBrowser();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -111,21 +119,21 @@ namespace Server.View
             uxUsersListView.EndUpdate();
         }
 
-        private void UpdateUserWebBrowser(IEnumerable<string> s)
+        public void UpdateUserWebBrowser()
         {
             var userList = "";
 
-            foreach(var un in s)
+            foreach(var un in _userLVSelected)
             {
                 var u = _db.LookupUser(un);
 
                 userList +=
-                    "<li><h2>" + u.ContactInfo.Username + "</h2></li>" +
-                    "<ul>" + "" +
+                    "<li>" + u.ContactInfo.Username + "</li>" +
+                    "<ul>" +
                     "<li>Password: " + u.Password + "</li>" +
                     "<li>Status: " + u.ContactInfo.OnlineStatus.ToString() + "</li>" +
-                    "<li><h3>ContactList:</h3></li>" + 
-                    "<ul>";
+                    "<li>ContactList:</li>" + 
+                       "<ul>";
 
                 foreach(var c in u.ContactList.Contacts)
                 {
@@ -135,41 +143,31 @@ namespace Server.View
                 userList += "</ul></ul>";
             }
 
-            uxWebBrowser.DocumentText = 
-                "<html>" + 
+            uxUsersWebBrowser.DocumentText =
+                "<html>" +
                 "<head><style>li { list-style-type: square; }</style></head>" +
                 "<body>" +
                 "<h1>Users:</h1><ul>" +
-                userList + 
-                "</details></ul></body>" + 
+                userList +
+                "</details></ul></body>" +
                 "</html>";
         }
 
-        private void TestHtmlWriter(IEnumerable<string> s)
+        public void UpdateChatRoomWebBrowser()
         {
-            var stringWriter = new StringWriter();
-            using (var writer = new HtmlTextWriter(stringWriter))
-            {
-                writer.RenderBeginTag(HtmlTextWriterTag.Head);
-                    writer.RenderBeginTag(HtmlTextWriterTag.Style);
-                        writer.AddStyleAttribute(HtmlTextWriterStyle.ListStyleType, "square");
-                    writer.RenderEndTag(); //for style
-                writer.RenderEndTag(); //for head
-
-            }
         }
 
         private void uxUsersListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             var lv = (ListView)sender;
-            var s = new List<string>();
+            _userLVSelected.Clear();
 
             foreach (ListViewItem lvi in lv.SelectedItems)
             {
-                s.Add(lvi.Text);
+                _userLVSelected.Add(lvi.Text);
             }
 
-            UpdateUserWebBrowser(s);
+            UpdateUserWebBrowser();
         }
 
         private void toolStripComboBox1_SelectedIndexChanged(object sender, EventArgs e)
