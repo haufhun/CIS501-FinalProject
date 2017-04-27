@@ -42,6 +42,7 @@ namespace Client.Model
             throw new NotImplementedException();
         }
 
+        public IEnumerable<IContact> Contacts { get; }
     }
     //class ContactList_M
     //{
