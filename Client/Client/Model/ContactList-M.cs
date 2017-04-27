@@ -42,7 +42,7 @@ namespace Client.Model
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IContact> Contacts { get; }
+        public IEnumerable<IContact> Contacts { get; } // had to add to iplement Icontact
     }
     //class ContactList_M
     //{

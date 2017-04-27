@@ -16,6 +16,8 @@ namespace Server.Model
 
         public int Count => _contacts.Values.Count;
 
+        public IEnumerable<IContact> Contacts => _contacts.Values;
+
         public ContactList()
         {
             _contacts = new Dictionary<string, IContact>();
@@ -27,19 +29,24 @@ namespace Server.Model
             _contacts = contacts;
         }
 
-        public void RemoveContact(string username)
+        public void Add(Contact c)
         {
-            throw new NotImplementedException();
+            _contacts.Add(c.Username, c);
         }
 
-        public IEnumerable<IContact> GetAllContacts()
+        public void Remove(string username)
         {
-            throw new NotImplementedException();
+            _contacts.Remove(username);
         }
 
+        /// <summary>
+        /// Returns the contact object of type IContact if the user exists. Otherwise, returns null.
+        /// </summary>
+        /// <param name="username">The name of the user to lookup.</param>
+        /// <returns></returns>
         public IContact GetContact(string username)
         {
-            throw new NotImplementedException();
+            return _contacts.ContainsKey(username) ? _contacts[username] : null;
         }
 
     }

@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace Server.Model
 {
@@ -36,6 +37,21 @@ namespace Server.Model
 
         [JsonProperty]
         public bool IsNewUser { get; }
+
+        public string [] ToArrayString()
+        {
+            return new string[]
+            {
+                DateTime.Now.ToString(),
+                !Equals(User, null) ? User.ContactInfo.Username : "null",
+                !Equals(User, null) ? ((User)User).SessionId : "null",
+                MyState.ToString(),
+                IsNewUser.ToString(),
+                IsError.ToString(),
+                !Equals(ErrorMessage, null) ? ErrorMessage.ToString() : "",
+                !Equals(ChatRoom, null) ? ChatRoom.Id : "",
+            };
+        }
 
         /// <summary>
         /// Constructor used to send a client a login message. Send true if a new user was created.
@@ -71,18 +87,21 @@ namespace Server.Model
 
             MyState = s;
             Contact = c;
+            User = user;
         }
 
         /// <summary>
-        /// Constructor used to opne a new chat room.
+        /// Constructor used to open a new chat room.
         /// </summary>
         /// <param name="chatroom">The chat room that must contain the two users that desire to create a chat room.</param>
-        public Mensaje(IChatRoom chatroom)
+        /// <param name="u">The user that is requesting the chat room to be opened.</param>
+        public Mensaje(IChatRoom chatroom, User u)
         {
             if (chatroom.Participants.Count() < 2) throw new NotSupportedException();
 
             MyState = State.OpenChat;
             ChatRoom = chatroom;
+            User = u;
         }
 
         /// <summary>
