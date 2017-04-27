@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chat_CSLibrary;
 using Client.Controller;
 using Client.View;
 
@@ -12,7 +13,7 @@ namespace Client
     //defines the type of method that handles HomeForm Events
     public delegate void HomeFormObserver();
     //defines the type of method that handles ChatForm Events
-    public delegate void ChatFormObserver();
+    public delegate void ChatFormObserver(IChatRoom chatRoom);
     //defines the type of method that handles SignInFormEvents
     public delegate void SignInFormObserver();
 
@@ -46,20 +47,22 @@ namespace Client
 
             c.MessageReceived += c.message;
 
+
             c.HomeFormRegister(hForm.UpdateView);
             c.HomeFormRegister(hForm.SignOut);
+
+            c.ChatFormRegister(hForm.StartChat);
 
             c.SignInRegister(sIForm.EventSuccessfulLogin);
             c.SignInRegister(sIForm.EventUnSuccessfulLogin);
             c.SignInRegister(sIForm.SignOut);
 
-           // sIForm.Show();
-            hForm.Show();
-           hForm.Visible = false;
-            Application.Run(sIForm);
-          //  Application.Run(hForm);
 
-            //Application.Run(new ChatForm());
+            hForm.Show();
+            hForm.Visible = false;
+
+            Application.Run(sIForm);
+
 
         }
     }

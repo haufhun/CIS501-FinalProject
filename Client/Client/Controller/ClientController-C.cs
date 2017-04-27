@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSocketSharp;
 using Chat_CSLibrary;
-//using System.Net.WebSockets;
+
 
 namespace Client.Controller
 {
@@ -70,6 +70,7 @@ namespace Client.Controller
                     
                     break;
                 case State.OpenChat:
+                    SignalCFormObserver(0);
                     break;
                 case State.RemoveContact:
                     break;
@@ -157,7 +158,7 @@ namespace Client.Controller
         }
 
 
-        private void SignalCFormObserver()
+        private void SignalCFormObserver(int index)
         {
 
         }
