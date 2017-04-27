@@ -31,7 +31,7 @@ namespace Server.Model
 
         public User(Contact contactInfo, string password, string sessionId)
         {
-            ContactInfo = contactInfo;
+            _contact = contactInfo;
             _password = password;
             SessionId = sessionId;
             _contactList = new ContactList();
