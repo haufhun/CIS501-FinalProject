@@ -8,15 +8,17 @@ namespace Server.Model
     {
         private Dictionary<string, User> _users;
         private Dictionary<string, ChatRoom> _chatRooms;
-        private string _roomToMake;
+        private string _nextRoomPos;
 
         public IEnumerable<User> Users => _users.Values;
+
+        public IEnumerable<ChatRoom> ChatRooms => _chatRooms.Values;
 
         public ChatDb()
         {
             _users = new Dictionary<string, User>();
             _chatRooms = new Dictionary<string, ChatRoom>();
-            _roomToMake = "0";
+            _nextRoomPos = "0";
         }
 
         public ChatDb(Dictionary<string, User> users, Dictionary<string, ChatRoom> chatRooms)
@@ -24,15 +26,13 @@ namespace Server.Model
             //overload for JSON initializations
         }
 
-        public ChatRoom CreateRoom()
+        public ChatRoom CreateRoom(User u1, User u2)
         {
-            
-            _chatRooms.Add(_roomToMake, new ChatRoom(_roomToMake));
-            int x = Convert.ToInt32(_roomToMake);
-            x++;
-            _roomToMake = x.ToString();
-            return _chatRooms[(x - 1).ToString()];
+            var cr = new ChatRoom(_nextRoomPos, u1, u2);
+            _chatRooms.Add(_nextRoomPos, cr);
+            _nextRoomPos = (Convert.ToInt32(_nextRoomPos) + 1).ToString();
 
+            return cr;
         }
         public ChatRoom LookupRoom(string id)
         {

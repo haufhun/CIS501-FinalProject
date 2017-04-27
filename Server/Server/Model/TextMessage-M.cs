@@ -45,5 +45,10 @@ namespace Server.Model
             Sender = sender;
             Time = time;
         }
+
+        public override string ToString()
+        {
+            return Time.ToLocalTime().ToString() + " " + Sender.Username + ":" + "\n" + Body;
+        }
     }
 }
