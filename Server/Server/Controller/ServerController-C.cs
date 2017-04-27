@@ -205,8 +205,7 @@ namespace Server.Controller
         {
             User u = _chatDb.LookupUser(username);
 
-            Contact c = (Contact)u.ContactInfo;
-            c.ChangeOnlineStatus(Status.Offline);
+            u.ChangeStatus(Status.Offline);
             
             foreach(Contact a in u.ContactList.Contacts)
             {
