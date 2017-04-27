@@ -60,6 +60,12 @@
     <Compile Include="Model\Mensaje.cs" />
     <Compile Include="Model\TextMessage.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="View\AddContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AddContactForm.Designer.cs">
+      <DependentUpon>AddContactForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ChatForm-V.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,6 +89,9 @@
     <Compile Include="View\SignInForm-V.Designer.cs">
       <DependentUpon>SignInForm-V.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\AddContactForm.resx">
+      <DependentUpon>AddContactForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ChatForm-V.resx">
       <DependentUpon>ChatForm-V.cs</DependentUpon>
     </EmbeddedResource>

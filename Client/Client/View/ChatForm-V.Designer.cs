@@ -38,7 +38,11 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.uxNameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.uxStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.uxColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uxColStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // messageLabel
@@ -121,11 +125,38 @@
             this.uxStatus.Text = "Status";
             this.uxStatus.Width = 119;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.uxColName,
+            this.uxColStatus});
+            this.dataGridView1.Location = new System.Drawing.Point(94, 99);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(169, 136);
+            this.dataGridView1.TabIndex = 10;
+            // 
+            // uxColName
+            // 
+            this.uxColName.HeaderText = "Name";
+            this.uxColName.Name = "uxColName";
+            this.uxColName.ReadOnly = true;
+            // 
+            // uxColStatus
+            // 
+            this.uxColStatus.HeaderText = "Status";
+            this.uxColStatus.Name = "uxColStatus";
+            this.uxColStatus.ReadOnly = true;
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 316);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.messageLabel);
@@ -135,6 +166,7 @@
             this.Text = "ChatForm";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,5 +183,8 @@
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader uxNameCol;
         private System.Windows.Forms.ColumnHeader uxStatus;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uxColName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uxColStatus;
     }
 }

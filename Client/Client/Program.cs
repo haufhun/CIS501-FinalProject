@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Chat_CSLibrary;
 using Client.Controller;
 using Client.View;
 
@@ -12,7 +13,7 @@ namespace Client
     //defines the type of method that handles HomeForm Events
     public delegate void HomeFormObserver();
     //defines the type of method that handles ChatForm Events
-    public delegate void ChatFormObserver();
+    public delegate void ChatFormObserver(IChatRoom chatRoom);
     //defines the type of method that handles SignInFormEvents
     public delegate void SignInFormObserver();
 
@@ -25,7 +26,7 @@ namespace Client
     // defines the type of method that handles a remove contact event
     public delegate void RemoveContactHandler(string name);
     // defines the type of method that handles an add contact to room event
-    public delegate void AddContactToRoomHandler(string name);
+    public delegate void AddContactToRoomHandler(IChatRoom chatRoom, string name);
     // defines the type of method that handles a create chat room event
     public delegate void CreateRoomHandler();
 
@@ -40,26 +41,28 @@ namespace Client
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ClientController_C c = new ClientController_C("tyler");
-            HomeForm hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateRoom);
+            ClientController_C c = new ClientController_C();
+            HomeForm hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateChatRoom);
             SignInForm sIForm = new SignInForm(c.SignIn, hForm);
 
             c.MessageReceived += c.message;
 
+
             c.HomeFormRegister(hForm.UpdateView);
             c.HomeFormRegister(hForm.SignOut);
+
+            c.ChatFormRegister(hForm.StartChat);
 
             c.SignInRegister(sIForm.EventSuccessfulLogin);
             c.SignInRegister(sIForm.EventUnSuccessfulLogin);
             c.SignInRegister(sIForm.SignOut);
 
-           // sIForm.Show();
-            hForm.Show();
-           hForm.Visible = false;
-            Application.Run(sIForm);
-          //  Application.Run(hForm);
 
-            //Application.Run(new ChatForm());
+            hForm.Show();
+            hForm.Visible = false;
+
+            Application.Run(sIForm);
+
 
         }
     }

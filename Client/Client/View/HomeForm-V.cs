@@ -40,18 +40,24 @@ namespace Client.View
         }
         public void StartChat(IChatRoom iChat)
         {
-            ChatForm c = new ChatForm(iChat);
+            var c = new ChatForm(iChat);
             c.Invoke(new MethodInvoker(c.Show));
 
         }
 
         private void uxAddContact_Click(object sender, System.EventArgs e)
         {
-            //_addCHandler(string name);
+            var addCForm = new AddContactForm();
+
+            if (addCForm.ShowDialog(this) == DialogResult.OK)
+            {
+                _addCHandler(addCForm.uxInfoTxt.Text);
+            }
         }
 
         private void uxDeleteContact_Click(object sender, System.EventArgs e)
         {
+            //look for contact selected in list view.../ gridview?
            // _removeCHandler(string name);
         }
 
