@@ -322,6 +322,7 @@ namespace Server.Controller
             {
                 //Send error
                 //m = new Mensaje(State.SendTextMessage, "The chat room no longer exists");
+                _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists"), msg.Sender.Username);
             }
             else
             {
@@ -338,13 +339,12 @@ namespace Server.Controller
                     else
                     {
                         activeIds.Add(u.SessionId);
+                        m = new Mensaje(room, msg);
+                        _send(m, u.ContactInfo.Username);
                     }
                 }
-
-                m = new Mensaje(room, msg);
             }
 
-            //_send(m, activeIds);
         }
 
         public void AddContactToRoom(string name)
