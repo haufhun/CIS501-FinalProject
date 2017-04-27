@@ -100,8 +100,12 @@ namespace Server.View
 
         public void SendEvent(IMensaje m)
         {
-            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
-            listView1.Items.Add(lt);
+            try
+            {
+                var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+                listView1.Items.Add(lt);
+            }
+            catch { }
         }
 
         public void UpdateUserListView()
