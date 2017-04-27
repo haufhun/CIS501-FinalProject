@@ -14,8 +14,8 @@ namespace Client.Model
         public class Mensaje : IMensaje
         {
             [JsonProperty]
-            //[JsonConverter(typeof(StringEnumConverter))]
-            public State MyState { get; }
+            [JsonConverter(typeof(StringEnumConverter))]
+            public State MyState { get; private set; }
 
             [JsonProperty]
             public IUser User { get; }
@@ -38,6 +38,9 @@ namespace Client.Model
             [JsonProperty]
             public string ErrorMessage { get; }
 
+            [JsonProperty]
+            public bool IsNewUser { get; }
+
             /// <summary>
             /// Constructor used to sign in/out a particular user.
             /// </summary>
@@ -59,7 +62,7 @@ namespace Client.Model
             /// <param name="user">The user to </param>
             public Mensaje(State s, IContact c, IUser user)
             {
-                if (s != State.AddContact || s != State.RemoveContact) throw new NotSupportedException();
+                if (s != State.AddContact && s != State.RemoveContact) throw new NotSupportedException();
 
                 MyState = s;
                 Contact = c;
@@ -143,6 +146,8 @@ namespace Client.Model
                 ContactList = contactList;
                 TextMessage = textMessage;
             }
+
+
         }
     }
 
