@@ -46,7 +46,8 @@ namespace Server.View
                 uxLoginButton,
                 uxAddCnctBtn,
                 uxRmvCnctBtn,
-                uxCreateChatRoomBtn
+                uxCreateChatRoomBtn,
+                uxLogoutButton
             };
 
             _testingTextBoxes = new List<TextBox>
