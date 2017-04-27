@@ -227,7 +227,7 @@ namespace Server.View
 
         private void uxLogoutButton_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(new Contact(uxUsernameTB.Text, Status.Offline));
+            var m = new Mensaje(State.Logout, new User(new Contact(uxUsernameTB.Text, Status.Offline), null, "1234"));
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
