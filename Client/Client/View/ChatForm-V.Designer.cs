@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChatForm));
             this.messageLabel = new System.Windows.Forms.Label();
-            this.messageTextBox = new System.Windows.Forms.TextBox();
+            this.uxMessageTextBox = new System.Windows.Forms.TextBox();
             this.messageListBox = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
@@ -41,6 +41,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.uxColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uxColStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uxSend = new System.Windows.Forms.Button();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -55,13 +56,13 @@
             this.messageLabel.TabIndex = 7;
             this.messageLabel.Text = "Message:";
             // 
-            // messageTextBox
+            // uxMessageTextBox
             // 
-            this.messageTextBox.Location = new System.Drawing.Point(471, 265);
-            this.messageTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.messageTextBox.Name = "messageTextBox";
-            this.messageTextBox.Size = new System.Drawing.Size(427, 22);
-            this.messageTextBox.TabIndex = 6;
+            this.uxMessageTextBox.Location = new System.Drawing.Point(471, 265);
+            this.uxMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.uxMessageTextBox.Name = "uxMessageTextBox";
+            this.uxMessageTextBox.Size = new System.Drawing.Size(427, 22);
+            this.uxMessageTextBox.TabIndex = 6;
             // 
             // messageListBox
             // 
@@ -110,7 +111,7 @@
             this.uxStatus});
             this.listView1.Location = new System.Drawing.Point(12, 38);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(355, 249);
+            this.listView1.Size = new System.Drawing.Size(355, 310);
             this.listView1.TabIndex = 8;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.Details;
@@ -133,10 +134,10 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.uxColName,
             this.uxColStatus});
-            this.dataGridView1.Location = new System.Drawing.Point(94, 99);
+            this.dataGridView1.Location = new System.Drawing.Point(44, 79);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(169, 136);
+            this.dataGridView1.Size = new System.Drawing.Size(259, 208);
             this.dataGridView1.TabIndex = 10;
             // 
             // uxColName
@@ -151,16 +152,27 @@
             this.uxColStatus.Name = "uxColStatus";
             this.uxColStatus.ReadOnly = true;
             // 
+            // uxSend
+            // 
+            this.uxSend.Location = new System.Drawing.Point(537, 310);
+            this.uxSend.Name = "uxSend";
+            this.uxSend.Size = new System.Drawing.Size(295, 38);
+            this.uxSend.TabIndex = 11;
+            this.uxSend.Text = "Send";
+            this.uxSend.UseVisualStyleBackColor = true;
+            this.uxSend.Click += new System.EventHandler(this.uxSend_Click);
+            // 
             // ChatForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 316);
+            this.ClientSize = new System.Drawing.Size(919, 360);
+            this.Controls.Add(this.uxSend);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.messageLabel);
-            this.Controls.Add(this.messageTextBox);
+            this.Controls.Add(this.uxMessageTextBox);
             this.Controls.Add(this.messageListBox);
             this.Name = "ChatForm";
             this.Text = "ChatForm";
@@ -175,7 +187,7 @@
         #endregion
 
         private System.Windows.Forms.Label messageLabel;
-        private System.Windows.Forms.TextBox messageTextBox;
+        private System.Windows.Forms.TextBox uxMessageTextBox;
         private System.Windows.Forms.ListBox messageListBox;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
@@ -186,5 +198,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn uxColName;
         private System.Windows.Forms.DataGridViewTextBoxColumn uxColStatus;
+        private System.Windows.Forms.Button uxSend;
     }
 }

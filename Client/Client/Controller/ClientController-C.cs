@@ -20,19 +20,21 @@ namespace Client.Controller
 
         private WebSocket ws;
 
-        private IUser _user;
+        //private field for Model chat database
+        private ChatDB _chatDB;
         
-
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
-        public ClientController_C()
+        public ClientController_C(ChatDB chatDb)
         {
+
             // Connects to the server
-            ws = new WebSocket("ws://192.168.0.12:8022/chat");
+            ws = new WebSocket("ws://192.168.1.82:8022/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
             ws.Connect();
+            _chatDB = chatDb;
         }
 
         // Makes sure to close the websocket when the controller is destructed
@@ -40,6 +42,7 @@ namespace Client.Controller
         {
             ws.Close();
         }
+
 
         public bool message(string e)
         {
@@ -49,18 +52,21 @@ namespace Client.Controller
             switch (m.MyState)
             {
                 case State.AddContact:
+                    
                     break;
 
                 case State.RemoveContact:
+
                     break;
 
                 case State.AddContactToChat:
+
                     break;
 
                 case State.Login:
                     SignalSIFormObsever(m.IsError ? 1 : 0);
-                    if (m.IsError) MessageBox.Show(m.ErrorMessage);
-                    _user = m.User;
+                    _chatDB.User = (User)m.User;
+                   
                     break;
 
                 case State.Logout:
@@ -73,6 +79,7 @@ namespace Client.Controller
                     break;
 
                 case State.SendTextMessage:
+
                     break;
 
                 default:
@@ -123,7 +130,7 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(State.Logout, _user);
+                var m = new Mensaje(State.Logout, _chatDB.User);
                 string output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
@@ -139,7 +146,7 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(State.AddContact, new Contact(name), _user);
+                var m = new Mensaje(State.AddContact, new Contact(name), _chatDB.User);
                 string output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
@@ -154,7 +161,7 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(State.RemoveContact, new Contact(name), _user); // maybe get contact from contact list dictionary in  a Database class??
+                var m = new Mensaje(State.RemoveContact, new Contact(name), _chatDB.User); // maybe get contact from contact list dictionary in  a Database class??
                 string output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
@@ -195,11 +202,27 @@ namespace Client.Controller
             }
         }
 
+        public void SendMessage(string message, IChatRoom chatRoom)
+        {
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(chatRoom, new TextMessage(message,new Contact(_chatDB.User.ContactInfo.Username)));
+                string output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
+        }
 
         private void SignalCFormObserver(int index, IChatRoom chatRoom)
         {
+            //Calls 
             _cFormObserver[index](chatRoom);
         }
+
         private void SignalHFormObserver(int index)
         {
             //calls Update if index of [0]
@@ -209,7 +232,7 @@ namespace Client.Controller
 
         private void SignalSIFormObsever(int index)
         {
-            //calls EventSuccessfulLogin if index of [0]
+            //Calls EventSuccessfulLogin if index of [0]
             //Calls EventUnsuccessfulLogin if Index of [1]
             //Calls SignOut if Index of [2]
             _sIFormObserver[index]();

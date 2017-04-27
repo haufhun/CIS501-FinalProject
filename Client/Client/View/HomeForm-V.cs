@@ -11,8 +11,9 @@ namespace Client.View
         private RemoveContactHandler _removeCHandler;
         private AddContactToRoomHandler _addCToRoomHandler;
         private CreateRoomHandler _createRoomHandler;
+        private SendMessageHandler _sendMessageHandler;
 
-        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr)
+        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm)
         {
             _sInHandler = sI;
             _sOutHandler = sO;
@@ -20,6 +21,7 @@ namespace Client.View
             _removeCHandler = rc;
             _addCToRoomHandler = acr;
             _createRoomHandler = cr;
+            _sendMessageHandler = sm;
 
             InitializeComponent();
         }
@@ -38,9 +40,10 @@ namespace Client.View
         {
             _createRoomHandler();
         }
+
         public void StartChat(IChatRoom iChat)
         {
-            var c = new ChatForm(iChat);
+            var c = new ChatForm(iChat, _sendMessageHandler);
             c.Invoke(new MethodInvoker(c.Show));
 
         }

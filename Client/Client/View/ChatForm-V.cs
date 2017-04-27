@@ -15,12 +15,20 @@ namespace Client
     {
 
         private IChatRoom _iChat;
+        private SendMessageHandler _sendMessageHandler;
 
-        public ChatForm(IChatRoom iChat)
+        public ChatForm(IChatRoom iChat , SendMessageHandler sm)
         {
             _iChat = iChat;
+            _sendMessageHandler = sm;
+
+
             InitializeComponent();
         }
 
+        private void uxSend_Click(object sender, EventArgs e)
+        {
+            _sendMessageHandler(uxMessageTextBox.Text, _iChat);
+        }
     }
 }
