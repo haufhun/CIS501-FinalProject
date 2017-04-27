@@ -25,9 +25,10 @@ namespace Server
 
             var db = new ChatDb();
             var c = new ServerController(db);
-            var sf = new ServerForm();
+            var sf = new ServerForm(db, c.ChatDelegate);
 
-            c.RegisterEventLog(sf.SendEvent);
+            c.Register(sf.SendEvent);
+            c.Register(sf.UpdateUserListView);
 
             Application.Run(sf);
         }

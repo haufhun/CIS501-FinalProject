@@ -9,6 +9,8 @@ namespace Server.Model
         private Dictionary<string, User> _users;
         private Dictionary<string, ChatRoom> _chatRooms;
 
+        public IEnumerable<User> Users => _users.Values;
+
         public ChatDb()
         {
             _users = new Dictionary<string, User>();

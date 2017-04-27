@@ -5,25 +5,38 @@ using WebSocketSharp.Server;
 using Server.Model;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
-using Server;
 using static Server.Delegates;
 
 namespace Server.Controller
 {
-    //Delegate used to call the controller from the Chat WebSocketBehavior class
-    public delegate void ClientMessageHandler(IMensaje m, string sessionId);
-    //Delegate used to send a message back to the appropriate user
-    public delegate void SendMessageHandler(IMensaje m, string sessionId);
+
 
     public class ServerController
     {
+        /// <summary>
+        /// The chat database holding the information about all Users and Chats.
+        /// </summary>
         private readonly ChatDb _chatDb;
 
+        /// <summary>
+        /// The web socket server service. Only need to start and stop this service.
+        /// </summary>
         private readonly WebSocketServer _wss;
 
+        /// <summary>
+        /// The delegate used to send a message to the Client.
+        /// </summary>
         private SendMessageHandler _send;
 
+        /// <summary>
+        /// A list of event observers to update the event log.
+        /// </summary>
         private List<EventLogObserver> _eventObserver;
+
+        /// <summary>
+        /// A list of observers to update the database tab.
+        /// </summary>
+        private List<Observer> _observers;
 
         /// <summary>
         /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
@@ -33,6 +46,7 @@ namespace Server.Controller
         {
             _chatDb = db;
             _eventObserver = new List<EventLogObserver>();
+            _observers = new List<Observer>();
 
             _wss = new WebSocketServer(8022);
 
@@ -54,6 +68,9 @@ namespace Server.Controller
             return c;
         }
 
+        /// <summary>
+        /// Deconstructor to turn off the web socket server.
+        /// </summary>
         ~ServerController()
         {
             //Need to serialize and put away the DB so it can be reloaded on startup
@@ -65,7 +82,7 @@ namespace Server.Controller
         /// </summary>
         /// <param name="m">The Mensaje object sent from the Client.</param>
         /// <param name="sessionId">The session id of the Client.</param>
-        private void ChatDelegate(IMensaje m, string sessionId)
+        public void ChatDelegate(IMensaje m, string sessionId)
         {
             SignalEventObserver(m);
 
@@ -93,8 +110,28 @@ namespace Server.Controller
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            SignalObserver();
         }
 
+        /// <summary>
+        /// Registers a new EventLogObserver in the list.
+        /// </summary>
+        /// <param name="o">An event log observer.</param>
+        public void Register(EventLogObserver o)
+        {
+            _eventObserver.Add(o);
+        }
+
+        /// <summary>
+        /// Registers a new Observer.
+        /// </summary>
+        /// <param name="o">The observer method to be updated. Should be a method from the view.</param>
+        public void Register(Observer o)
+        {
+            _observers.Add(o);
+        }
+        
         /// <summary>
         /// Calls the list of event log observers and displays to the log the contents of a Mensaje.
         /// </summary>
@@ -108,12 +145,14 @@ namespace Server.Controller
         }
 
         /// <summary>
-        /// Registers a new EventLogObserver in the list.
+        /// Calls the list of observers to update the database tab page.
         /// </summary>
-        /// <param name="o">An event log observer.</param>
-        public void RegisterEventLog(EventLogObserver o)
+        private void SignalObserver()
         {
-            _eventObserver.Add(o);
+            foreach(var o in _observers)
+            {
+                o();
+            }
         }
 
         /// <summary>
@@ -125,15 +164,15 @@ namespace Server.Controller
         private void Login(string name, string password, string sessionId)
         {
             var u = _chatDb.LookupUser(name);
+            Mensaje m;
 
             if (u == null)
             {
                 _chatDb.AddUser(name, password, sessionId);
 
-                var m = new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true);
+                m = new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true);
 
                 SignalEventObserver(m);
-                _send(m, sessionId );
             }
             else
             {
@@ -141,17 +180,18 @@ namespace Server.Controller
                 {
                     u.ChangeSessionId(sessionId);
 
-                    var m = new Mensaje(u, false);
+                    m = new Mensaje(u, false);
                     SignalEventObserver(m);
-                    _send(m,sessionId);
                 }
                 else
                 {
-                    var m = new Mensaje(State.Login, "The password you entered is not valid");
+                    m = new Mensaje(State.Login, "The password you entered is not valid");
                     SignalEventObserver(m);
-                    _send(m,sessionId);
                 }
             }
+
+            try { _send(m, sessionId); }
+            catch { }
         }
 
         /// <summary>
@@ -159,7 +199,7 @@ namespace Server.Controller
         /// </summary>
         /// <param name="adder">The name of the user to be added.</param>
         /// <param name="toAdd">The name of the user that requested the add.</param>
-        public void AddContact(string adder, string toAdd)
+        public void AddContact(string toAdd, string adder)
         {
             User a = _chatDb.LookupUser(adder);
             User b = _chatDb.LookupUser(toAdd);
@@ -168,32 +208,37 @@ namespace Server.Controller
             {
                 var m = new Mensaje(State.AddContact, "This user does not exist");
                 SignalEventObserver(m);
-                _send(m, a.SessionId);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
             }
             else
             {
-                a.AddContact(b.ContactInfo);
+                a.AddContact((Contact)b.ContactInfo);
                 var m = new Mensaje(State.AddContact, b.ContactInfo, a);
                 SignalEventObserver(m);
-                _send(m, a.SessionId);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
 
-                b.AddContact(a.ContactInfo);
+                b.AddContact((Contact)a.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
                 SignalEventObserver(m2);
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    _send(m2, b.SessionId);
+                    try { _send(m2, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online.")); }
                 }
             }
         }
 
-        public void RemoveContact(string remover, string removed)
+        /// <summary>
+        /// Removes two users from being in each other's contact list.
+        /// </summary>
+        /// <param name="remover">The user requesting the remove.</param>
+        /// <param name="removed">The user to be removed.</param>
+        public void RemoveContact(string removed, string remover)
         {
             User a = _chatDb.LookupUser(remover);
             User b = _chatDb.LookupUser(removed);
 
-            if(b==null)
+            if (b == null)
             {
                 var m = new Mensaje(State.RemoveContact, "This user does not exist");
                 SignalEventObserver(m);
@@ -201,16 +246,26 @@ namespace Server.Controller
             }
             else
             {
-                ContactList cl = (ContactList)a.ContactList;
-                cl.RemoveContact(b.ContactInfo.Username); //Not sure if this will actually remove b from user a's contact list.
+                a.RemoveContact((Contact)b.ContactInfo); 
+                var m = new Mensaje(State.RemoveContact, b.ContactInfo, a);
+                SignalEventObserver(m);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.RemoveContact, "The user " + a.ContactInfo.Username + " is not online.")); }
 
-                ContactList cl2 = (ContactList)b.ContactList;
-                // I'm a little confused on the algorithm. My goal is to check if user b has user a as a contact,
-                // if it does, to delete remove it, but there is no method to remove a user in ContactList. The use of interfaces
-                // for IContactList and IUser makes this whole process rather confusing to me. I also think ContactList is going to need
-                // a RemoveContact method. -- Calvin
+                b.RemoveContact((Contact)a.ContactInfo);
+                var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
+                SignalEventObserver(m2);
+
+                if (b.ContactInfo.OnlineStatus == Status.Online)
+                {
+                    _send(m2, b.SessionId);
+                }
+                else
+                {
+                    SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online."));
+                }
             }
         }
+
         public void CreateRoom()
         {
             throw new NotImplementedException();
