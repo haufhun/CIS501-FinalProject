@@ -26,7 +26,7 @@ namespace Client.Controller
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
-        public ClientController_C(string name)
+        public ClientController_C()
         {
             // Connects to the server
             ws = new WebSocket("ws://192.168.2.2:8022/chat");
@@ -50,33 +50,31 @@ namespace Client.Controller
             {
                 case State.AddContact:
                     break;
-                case State.AddContactToChat:
-                    break;
-                case State.Login:
-                    if (m.IsError)
-                    {
-                        SignalSIFormObsever(1);
-                        MessageBox.Show(m.ErrorMessage);
-                    }
-                    else
-                    {
-                        SignalSIFormObsever(0);
-                    }
-                    _user = m.User;
-                    break;
-                case State.Logout:
-                    SignalHFormObserver(1);
-                    SignalSIFormObsever(2);
-                    
-                    break;
-                case State.OpenChat:
-                    SignalCFormObserver(0);
-                    break;
+
                 case State.RemoveContact:
                     break;
-                case State.SendTextMessage:
-                    //SendTextMessage(m.ChatRoom.Id, m.Message);
+
+                case State.AddContactToChat:
                     break;
+
+                case State.Login:
+                    SignalSIFormObsever(m.IsError ? 1 : 0);
+                    if (m.IsError) MessageBox.Show(m.ErrorMessage);
+                    _user = m.User;
+                    break;
+
+                case State.Logout:
+                    SignalHFormObserver(1);
+                    SignalSIFormObsever(2);                  
+                    break;
+
+                case State.OpenChat:
+                    SignalCFormObserver(0, m.ChatRoom);
+                    break;
+
+                case State.SendTextMessage:
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -115,7 +113,7 @@ namespace Client.Controller
             }
             else
             {
-                MessageBox.Show("Hunters server sucks I cant connect");
+                MessageBox.Show("Cant connect to server!");
             }
         }
         /// <summary>
@@ -132,35 +130,75 @@ namespace Client.Controller
             }
             else
             {
-                MessageBox.Show("Hunters server sucks I cant connect");
+                MessageBox.Show("Cant connect to server!");
             }
 
         }
 
         public void AddContact(string name)
         {
-            
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(State.AddContact, new Contact(name), _user);
+                string output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
         }
 
         public void RemoveContact(string name)
         {
-            
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(State.RemoveContact, new Contact(name), _user); // maybe get contact from contact list dictionary in  a Database class??
+                string output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
         }
 
-        public void AddContactToRoom(string name)
+        public void AddContactToRoom(IChatRoom chatRoom, string name)
         {
-            
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(chatRoom, new Contact(name)); // maybe get contact from contact list dictionary in  a Database class??
+                string output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
         }
 
-        public void CreateRoom()
+        public void CreateChatRoom()
         {
-            
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(new ChatRoom(null));
+                string output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
         }
 
 
-        private void SignalCFormObserver(int index)
+        private void SignalCFormObserver(int index, IChatRoom chatRoom)
         {
-
+            _cFormObserver[index](chatRoom);
         }
         private void SignalHFormObserver(int index)
         {

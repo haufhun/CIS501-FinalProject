@@ -38,7 +38,11 @@
             this.uxDeleteContact = new System.Windows.Forms.ToolStripButton();
             this.uxSignOut = new System.Windows.Forms.ToolStripButton();
             this.uxInfoLabel = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.uxColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.uxColStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // listView1
@@ -73,7 +77,7 @@
             this.uxSignOut});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(639, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(526, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -101,8 +105,8 @@
             this.uxDeleteContact.Image = ((System.Drawing.Image)(resources.GetObject("uxDeleteContact.Image")));
             this.uxDeleteContact.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.uxDeleteContact.Name = "uxDeleteContact";
-            this.uxDeleteContact.Size = new System.Drawing.Size(132, 24);
-            this.uxDeleteContact.Text = "Delete Contact";
+            this.uxDeleteContact.Size = new System.Drawing.Size(142, 24);
+            this.uxDeleteContact.Text = "Remove Contact";
             this.uxDeleteContact.Click += new System.EventHandler(this.uxDeleteContact_Click);
             // 
             // uxSignOut
@@ -118,17 +122,46 @@
             // uxInfoLabel
             // 
             this.uxInfoLabel.AutoSize = true;
-            this.uxInfoLabel.Location = new System.Drawing.Point(393, 74);
+            this.uxInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uxInfoLabel.Location = new System.Drawing.Point(429, 135);
             this.uxInfoLabel.Name = "uxInfoLabel";
-            this.uxInfoLabel.Size = new System.Drawing.Size(112, 17);
+            this.uxInfoLabel.Size = new System.Drawing.Size(45, 20);
             this.uxInfoLabel.TabIndex = 4;
-            this.uxInfoLabel.Text = "Information label";
+            this.uxInfoLabel.Text = "info?";
+            this.uxInfoLabel.Visible = false;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.uxColName,
+            this.uxColStatus});
+            this.dataGridView1.Location = new System.Drawing.Point(99, 135);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(169, 136);
+            this.dataGridView1.TabIndex = 11;
+            // 
+            // uxColName
+            // 
+            this.uxColName.HeaderText = "Name";
+            this.uxColName.Name = "uxColName";
+            this.uxColName.ReadOnly = true;
+            // 
+            // uxColStatus
+            // 
+            this.uxColStatus.HeaderText = "Status";
+            this.uxColStatus.Name = "uxColStatus";
+            this.uxColStatus.ReadOnly = true;
             // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 390);
+            this.ClientSize = new System.Drawing.Size(526, 390);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.uxInfoLabel);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.listView1);
@@ -137,6 +170,7 @@
             this.Text = "Home";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -153,6 +187,9 @@
         private System.Windows.Forms.ToolStripButton uxDeleteContact;
         private System.Windows.Forms.ToolStripButton uxSignOut;
         private System.Windows.Forms.Label uxInfoLabel;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uxColName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn uxColStatus;
     }
 }
 
