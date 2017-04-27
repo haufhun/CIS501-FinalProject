@@ -54,6 +54,17 @@ namespace Server.Model
         }
 
         /// <summary>
+        /// Used only by the client simulation. Do not use on Server.
+        /// </summary>
+        /// <param name="cr"></param>
+        /// <param name="u"></param>
+        public Mensaje(State s, IUser u)
+        {
+            MyState = s;
+            User = u;
+        }
+
+        /// <summary>
         /// Constructor used to send a client a login message. Send true if a new user was created.
         /// </summary>
         /// <param name="user">The user to be signed in.</param>
