@@ -14,23 +14,22 @@ namespace Server
 {
     static class Program
     {
-        //The delegate that will update the GUI application with information from the server
-        public delegate void Observer();
-        //The delegate that will handle a user interaction
-        public delegate void InputHandler(IMensaje mensaje);
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            var db = new ChatDb();
-            var c = new ServerController(db);
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ServerForm());
+
+            var db = new ChatDb();
+            var c = new ServerController(db);
+            var sf = new ServerForm();
+
+            c.RegisterEventLog(sf.SendEvent);
+
+            Application.Run(sf);
         }
     }
 }

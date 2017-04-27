@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using Server.Model;
+using Chat_CSLibrary;
 
 namespace Server.View
 {
@@ -8,23 +11,33 @@ namespace Server.View
         {
             InitializeComponent();
 
-            //listView1.Columns.Add("Time");
-            //listView1.Columns.Add("Invoked by User");
-            //listView1.Columns.Add("Successful");
-            //listView1.Columns.Add("Message");
+            listView1.Columns.Add("Time");
+            listView1.Columns.Add("User");
+            listView1.Columns.Add("Session Id");
+            listView1.Columns.Add("State");
+            listView1.Columns.Add("New User?");
+            listView1.Columns.Add("Error?");
+            listView1.Columns.Add("Error Message");
+            listView1.Columns.Add("Chat Room Id");
+
+
             //listView1.Columns[1].Text = "First";
             //listView1.Columns[2].Text = "Second";
             //listView1.Columns[3].Text = "One index";
 
-            string[] row = { "Hey", "what's", "up", "yes" };
+        }
 
-            for (int i = 0; i < 20; i++)
-            {
-                var lt1 = new ListViewItem("Heyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-                listView1.Items.Add(lt1);
-            }
-            var lt = new ListViewItem("Hey1");
+        public void SendEvent(IMensaje m)
+        {
+            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
             listView1.Items.Add(lt);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new User(new Contact("Hunter", Chat_CSLibrary.Status.Online), "password", "123"), false);
+
+            SendEvent(m);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace Server.Model
 {
@@ -36,6 +37,21 @@ namespace Server.Model
 
         [JsonProperty]
         public bool IsNewUser { get; }
+
+        public string [] ToArrayString()
+        {
+            return new string[]
+            {
+                DateTime.Now.ToString(),
+                !Equals(User, null) ? User.ContactInfo.Username : "null",
+                !Equals(User, null) ? ((User)User).SessionId : "null",
+                MyState.ToString(),
+                IsNewUser.ToString(),
+                IsError.ToString(),
+                !Equals(ErrorMessage, null) ? ErrorMessage.ToString() : "",
+                !Equals(ChatRoom, null) ? ChatRoom.Id : "",
+            };
+        }
 
         /// <summary>
         /// Constructor used to send a client a login message. Send true if a new user was created.
