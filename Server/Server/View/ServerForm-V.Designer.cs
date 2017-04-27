@@ -56,6 +56,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
             this.uxLogoutButton = new System.Windows.Forms.Button();
+            this.uxSendTextBox = new System.Windows.Forms.TextBox();
+            this.uxTextLabel = new System.Windows.Forms.Label();
+            this.uxSendTextButton = new System.Windows.Forms.Button();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.uxEventLogTabPage.SuspendLayout();
@@ -134,6 +137,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.uxSendTextButton);
+            this.tabPage2.Controls.Add(this.uxTextLabel);
+            this.tabPage2.Controls.Add(this.uxSendTextBox);
             this.tabPage2.Controls.Add(this.uxLogoutButton);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.uxCreateChatRoomBtn);
@@ -362,13 +368,40 @@
             // 
             // uxLogoutButton
             // 
-            this.uxLogoutButton.Location = new System.Drawing.Point(428, 238);
+            this.uxLogoutButton.Location = new System.Drawing.Point(428, 239);
             this.uxLogoutButton.Name = "uxLogoutButton";
             this.uxLogoutButton.Size = new System.Drawing.Size(75, 23);
             this.uxLogoutButton.TabIndex = 15;
             this.uxLogoutButton.Text = "LogOut";
             this.uxLogoutButton.UseVisualStyleBackColor = true;
             this.uxLogoutButton.Click += new System.EventHandler(this.uxLogoutButton_Click);
+            // 
+            // uxSendTextBox
+            // 
+            this.uxSendTextBox.AcceptsReturn = true;
+            this.uxSendTextBox.Location = new System.Drawing.Point(169, 339);
+            this.uxSendTextBox.Name = "uxSendTextBox";
+            this.uxSendTextBox.Size = new System.Drawing.Size(213, 22);
+            this.uxSendTextBox.TabIndex = 16;
+            // 
+            // uxTextLabel
+            // 
+            this.uxTextLabel.AutoSize = true;
+            this.uxTextLabel.Location = new System.Drawing.Point(57, 339);
+            this.uxTextLabel.Name = "uxTextLabel";
+            this.uxTextLabel.Size = new System.Drawing.Size(72, 17);
+            this.uxTextLabel.TabIndex = 17;
+            this.uxTextLabel.Text = "Send Text";
+            // 
+            // uxSendTextButton
+            // 
+            this.uxSendTextButton.Location = new System.Drawing.Point(428, 339);
+            this.uxSendTextButton.Name = "uxSendTextButton";
+            this.uxSendTextButton.Size = new System.Drawing.Size(75, 23);
+            this.uxSendTextButton.TabIndex = 18;
+            this.uxSendTextButton.Text = "Send";
+            this.uxSendTextButton.UseVisualStyleBackColor = true;
+            this.uxSendTextButton.Click += new System.EventHandler(this.uxSendTextButton_Click);
             // 
             // ServerForm
             // 
@@ -422,6 +455,9 @@
         private System.Windows.Forms.ListView uxChatRoomListView;
         private System.Windows.Forms.WebBrowser uxChatMsgsWebBrowser;
         private System.Windows.Forms.Button uxLogoutButton;
+        private System.Windows.Forms.Button uxSendTextButton;
+        private System.Windows.Forms.Label uxTextLabel;
+        private System.Windows.Forms.TextBox uxSendTextBox;
     }
 }
 

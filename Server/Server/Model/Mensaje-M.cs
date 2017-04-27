@@ -46,7 +46,8 @@ namespace Server.Model
                 !Equals(User, null) ? User.ContactInfo.Username : "null",
                 !Equals(User, null) ? ((User)User).SessionId : "null",
                 MyState.ToString(),
-                IsNewUser.ToString(),
+                IsNewUs
+                er.ToString(),
                 IsError.ToString(),
                 !Equals(ErrorMessage, null) ? ErrorMessage.ToString() : "",
                 !Equals(ChatRoom, null) ? ChatRoom.Id : "",

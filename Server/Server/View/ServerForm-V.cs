@@ -227,5 +227,10 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
+
+        private void uxSendTextButton_Click(object sender, EventArgs e)
+        {
+            Mensaje m = new Mensaje(new ChatRoom("",""), );
+        }
     }
 }
