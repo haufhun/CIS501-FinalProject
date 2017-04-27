@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label7 = new System.Windows.Forms.Label();
             this.uxWebBrowser = new System.Windows.Forms.WebBrowser();
@@ -92,7 +92,7 @@
             this.uxWebBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.uxWebBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.uxWebBrowser.Name = "uxWebBrowser";
-            this.uxWebBrowser.Size = new System.Drawing.Size(951, 388);
+            this.uxWebBrowser.Size = new System.Drawing.Size(951, 342);
             this.uxWebBrowser.TabIndex = 1;
             this.uxWebBrowser.Url = new System.Uri("", System.UriKind.Relative);
             // 
@@ -101,7 +101,7 @@
             this.uxUsersListView.Location = new System.Drawing.Point(11, 50);
             this.uxUsersListView.Margin = new System.Windows.Forms.Padding(4);
             this.uxUsersListView.Name = "uxUsersListView";
-            this.uxUsersListView.Size = new System.Drawing.Size(265, 387);
+            this.uxUsersListView.Size = new System.Drawing.Size(265, 342);
             this.uxUsersListView.TabIndex = 0;
             this.uxUsersListView.UseCompatibleStateImageBehavior = false;
             this.uxUsersListView.View = System.Windows.Forms.View.List;
@@ -187,7 +187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(557, 30);
+            this.label4.Location = new System.Drawing.Point(585, 27);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(199, 17);
@@ -288,7 +288,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem2});
             this.listView1.Location = new System.Drawing.Point(11, 7);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.Name = "listView1";

@@ -98,6 +98,15 @@ namespace Server.Controller
                 case State.Logout:
                     break;
                 case State.OpenChat:
+                    var otheruser = "";
+                    foreach(var u in m.ChatRoom.Participants)
+                    {
+                        if (u.ContactInfo.Username != m.User.ContactInfo.Username)
+                        {
+                            otheruser = u.ContactInfo.Username;
+                        }
+                    }
+                    CreateRoom(m.User.ContactInfo.Username, otheruser);
                     break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
