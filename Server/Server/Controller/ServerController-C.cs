@@ -287,9 +287,10 @@ namespace Server.Controller
                 _send(new Mensaje(State.OpenChat, "The user you want to chat with is offline"), a.SessionId);
             }
             else {
-                ChatRoom c = _chatDb.CreateRoom();
-                _send(new Mensaje(c, b.ContactInfo), a.SessionId);
-                _send(new Mensaje(c, a.ContactInfo), b.SessionId);
+                var c = _chatDb.CreateRoom(a, b);
+
+                try { _send(new Mensaje(c, b.ContactInfo), a.SessionId); } catch { }
+                try { _send(new Mensaje(c, a.ContactInfo), b.SessionId); } catch { }
             }
         }
 

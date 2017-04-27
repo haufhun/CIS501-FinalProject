@@ -41,24 +41,13 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Default constructor that creates a new chat room. The client will set the id to null, but the server will set it to a unique id.
-        /// </summary>
-        /// <param name="id">The unique id associated with this chat room. Null if the client constructed it.</param>
-        public ChatRoom(string id)
-        {
-            Id = id;
-            _messages = new List<TextMessage>();
-            _users = new Dictionary<string, User>();
-        }
-
-        /// <summary>
-        /// Simulation of how the client should construct a Chat Room object. Do not use on Server.
+        /// Constructs a new ChatRoom. The client will set the id to null.
         /// </summary>
         /// <param name="user1">Participant one.</param>
         /// <param name="user2">Participant two.</param>
-        public ChatRoom(User user1, User user2)
+        public ChatRoom(string id, User user1, User user2)
         {
-            Id = null;
+            Id = id;
             _messages = new List<TextMessage>();
             _users = new Dictionary<string, User>
             {

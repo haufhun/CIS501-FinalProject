@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.uxChatRoomListView = new System.Windows.Forms.ListView();
             this.label7 = new System.Windows.Forms.Label();
@@ -281,7 +281,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem3});
             this.listView1.Location = new System.Drawing.Point(8, 6);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(950, 630);
@@ -331,7 +331,7 @@
             this.uxChatMsgsWebBrowser.Location = new System.Drawing.Point(233, 297);
             this.uxChatMsgsWebBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.uxChatMsgsWebBrowser.Name = "uxChatMsgsWebBrowser";
-            this.uxChatMsgsWebBrowser.Size = new System.Drawing.Size(250, 250);
+            this.uxChatMsgsWebBrowser.Size = new System.Drawing.Size(713, 250);
             this.uxChatMsgsWebBrowser.TabIndex = 4;
             // 
             // ServerForm

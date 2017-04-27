@@ -92,7 +92,7 @@ namespace Server.View
             var u1 = new User(new Contact(uxUsernameTB.Text, Status.Online), null, null);
             var u2 = new User(new Contact(uxContactTB.Text, Status.Online), null, null);
 
-            var m = new Mensaje(new ChatRoom(u1, u2), u1);
+            var m = new Mensaje(new ChatRoom(null, u1, u2), u1);
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
@@ -145,16 +145,55 @@ namespace Server.View
 
             uxUsersWebBrowser.DocumentText =
                 "<html>" +
-                "<head><style>li { list-style-type: square; }</style></head>" +
+                "<head>" + 
+                    "<style>li { list-style-type: square; }</style>" + 
+                "</head>" +
                 "<body>" +
-                "<h1>Users:</h1><ul>" +
-                userList +
-                "</details></ul></body>" +
+                    "<ul>" +
+                        userList +
+                    "</ul>" + 
+                "</body>" +
                 "</html>";
         }
 
         public void UpdateChatRoomWebBrowser()
         {
+            string chatList = "";
+
+
+            foreach(var cr in _db.ChatRooms)
+            {
+                string id = cr.Id;
+                chatList += "<li>" + id + "</li><ul>" +
+                            "<li>Participants</li>" + 
+                                    "<ul>";
+                
+                foreach (var u in cr.Participants)
+                {
+                    string n = u.ContactInfo.Username;
+                    chatList += "<li>" + n + "</li>";
+                }
+                chatList +=     "</ul>" +
+                            "<li>Messages:</li>" +
+                                "<ul>";
+
+                foreach(var m in cr.MessageHistory)
+                {
+                    chatList += "<li>" + m.ToString() + "</li>";
+                }
+
+                chatList += "</ul></ul>";
+            }
+
+            uxChatMsgsWebBrowser.DocumentText =
+                "<html>" +
+                "<head><style>li { list-style-type: square; }</style></head>" +
+                "<body>" +
+                "<div>ChatRooms:</div>" +
+                "<ul>" +
+                    chatList +
+                "</ul></body>" +
+                "</html>";
         }
 
         private void uxUsersListView_SelectedIndexChanged(object sender, EventArgs e)

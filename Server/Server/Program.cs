@@ -27,6 +27,7 @@ namespace Server
             //Observers
             c.Register(sf.UpdateUserListView);
             c.Register(sf.UpdateUserWebBrowser);
+            c.Register(sf.UpdateChatRoomWebBrowser);
 
             Application.Run(sf);
         }
