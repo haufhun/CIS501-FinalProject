@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Server.Controller;
 using Server.Model;
 using Server.View;
-using WebSocketSharp;
-using WebSocketSharp.Server;
-using Chat_CSLibrary;
 
 namespace Server
 {
@@ -27,8 +21,13 @@ namespace Server
             var c = new ServerController(db);
             var sf = new ServerForm(db, c.ChatDelegate);
 
+            //EventLogObservers
             c.Register(sf.SendEvent);
+
+            //Observers
             c.Register(sf.UpdateUserListView);
+            c.Register(sf.UpdateUserWebBrowser);
+            c.Register(sf.UpdateChatRoomWebBrowser);
 
             Application.Run(sf);
         }

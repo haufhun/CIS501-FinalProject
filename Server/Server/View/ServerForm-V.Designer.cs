@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.uxChatMsgsWebBrowser = new System.Windows.Forms.WebBrowser();
+            this.uxChatRoomListView = new System.Windows.Forms.ListView();
             this.label7 = new System.Windows.Forms.Label();
-            this.uxWebBrowser = new System.Windows.Forms.WebBrowser();
+            this.uxUsersWebBrowser = new System.Windows.Forms.WebBrowser();
             this.uxUsersListView = new System.Windows.Forms.ListView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.uxLogoutButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.uxCreateChatRoomBtn = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -53,6 +56,7 @@
             this.uxTabControl = new System.Windows.Forms.TabControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.uxEventLogTabPage.SuspendLayout();
@@ -62,8 +66,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.uxChatMsgsWebBrowser);
+            this.tabPage1.Controls.Add(this.uxChatRoomListView);
             this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.uxWebBrowser);
+            this.tabPage1.Controls.Add(this.uxUsersWebBrowser);
             this.tabPage1.Controls.Add(this.uxUsersListView);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
@@ -73,6 +79,26 @@
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Database";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // uxChatMsgsWebBrowser
+            // 
+            this.uxChatMsgsWebBrowser.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
+            this.uxChatMsgsWebBrowser.Location = new System.Drawing.Point(311, 366);
+            this.uxChatMsgsWebBrowser.Margin = new System.Windows.Forms.Padding(4);
+            this.uxChatMsgsWebBrowser.MinimumSize = new System.Drawing.Size(27, 25);
+            this.uxChatMsgsWebBrowser.Name = "uxChatMsgsWebBrowser";
+            this.uxChatMsgsWebBrowser.Size = new System.Drawing.Size(951, 308);
+            this.uxChatMsgsWebBrowser.TabIndex = 4;
+            // 
+            // uxChatRoomListView
+            // 
+            this.uxChatRoomListView.Location = new System.Drawing.Point(8, 366);
+            this.uxChatRoomListView.Margin = new System.Windows.Forms.Padding(4);
+            this.uxChatRoomListView.Name = "uxChatRoomListView";
+            this.uxChatRoomListView.Size = new System.Drawing.Size(265, 302);
+            this.uxChatRoomListView.TabIndex = 3;
+            this.uxChatRoomListView.UseCompatibleStateImageBehavior = false;
+            this.uxChatRoomListView.View = System.Windows.Forms.View.Details;
             // 
             // label7
             // 
@@ -84,24 +110,24 @@
             this.label7.TabIndex = 2;
             this.label7.Text = "Select any number of users to display";
             // 
-            // uxWebBrowser
+            // uxUsersWebBrowser
             // 
-            this.uxWebBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.uxUsersWebBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxWebBrowser.Location = new System.Drawing.Point(311, 50);
-            this.uxWebBrowser.Margin = new System.Windows.Forms.Padding(4);
-            this.uxWebBrowser.MinimumSize = new System.Drawing.Size(27, 25);
-            this.uxWebBrowser.Name = "uxWebBrowser";
-            this.uxWebBrowser.Size = new System.Drawing.Size(951, 342);
-            this.uxWebBrowser.TabIndex = 1;
-            this.uxWebBrowser.Url = new System.Uri("", System.UriKind.Relative);
+            this.uxUsersWebBrowser.Location = new System.Drawing.Point(311, 50);
+            this.uxUsersWebBrowser.Margin = new System.Windows.Forms.Padding(4);
+            this.uxUsersWebBrowser.MinimumSize = new System.Drawing.Size(27, 25);
+            this.uxUsersWebBrowser.Name = "uxUsersWebBrowser";
+            this.uxUsersWebBrowser.Size = new System.Drawing.Size(951, 288);
+            this.uxUsersWebBrowser.TabIndex = 1;
+            this.uxUsersWebBrowser.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // uxUsersListView
             // 
             this.uxUsersListView.Location = new System.Drawing.Point(11, 50);
             this.uxUsersListView.Margin = new System.Windows.Forms.Padding(4);
             this.uxUsersListView.Name = "uxUsersListView";
-            this.uxUsersListView.Size = new System.Drawing.Size(265, 342);
+            this.uxUsersListView.Size = new System.Drawing.Size(265, 287);
             this.uxUsersListView.TabIndex = 0;
             this.uxUsersListView.UseCompatibleStateImageBehavior = false;
             this.uxUsersListView.View = System.Windows.Forms.View.List;
@@ -109,6 +135,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label9);
+            this.tabPage2.Controls.Add(this.uxLogoutButton);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.uxCreateChatRoomBtn);
             this.tabPage2.Controls.Add(this.label6);
@@ -132,10 +160,20 @@
             this.tabPage2.Text = "Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // uxLogoutButton
+            // 
+            this.uxLogoutButton.Location = new System.Drawing.Point(449, 58);
+            this.uxLogoutButton.Name = "uxLogoutButton";
+            this.uxLogoutButton.Size = new System.Drawing.Size(100, 30);
+            this.uxLogoutButton.TabIndex = 15;
+            this.uxLogoutButton.Text = "LogOut";
+            this.uxLogoutButton.UseVisualStyleBackColor = true;
+            this.uxLogoutButton.Click += new System.EventHandler(this.uxLogoutButton_Click);
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(585, 163);
+            this.label8.Location = new System.Drawing.Point(587, 185);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(226, 17);
@@ -144,7 +182,7 @@
             // 
             // uxCreateChatRoomBtn
             // 
-            this.uxCreateChatRoomBtn.Location = new System.Drawing.Point(428, 157);
+            this.uxCreateChatRoomBtn.Location = new System.Drawing.Point(430, 181);
             this.uxCreateChatRoomBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxCreateChatRoomBtn.Name = "uxCreateChatRoomBtn";
             this.uxCreateChatRoomBtn.Size = new System.Drawing.Size(149, 28);
@@ -156,7 +194,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(585, 91);
+            this.label6.Location = new System.Drawing.Point(587, 114);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(226, 17);
@@ -165,7 +203,7 @@
             // 
             // uxAddCnctBtn
             // 
-            this.uxAddCnctBtn.Location = new System.Drawing.Point(428, 85);
+            this.uxAddCnctBtn.Location = new System.Drawing.Point(430, 108);
             this.uxAddCnctBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxAddCnctBtn.Name = "uxAddCnctBtn";
             this.uxAddCnctBtn.Size = new System.Drawing.Size(149, 28);
@@ -177,7 +215,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(585, 127);
+            this.label5.Location = new System.Drawing.Point(587, 150);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(226, 17);
@@ -250,7 +288,7 @@
             // 
             // uxRmvCnctBtn
             // 
-            this.uxRmvCnctBtn.Location = new System.Drawing.Point(428, 121);
+            this.uxRmvCnctBtn.Location = new System.Drawing.Point(430, 144);
             this.uxRmvCnctBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxRmvCnctBtn.Name = "uxRmvCnctBtn";
             this.uxRmvCnctBtn.Size = new System.Drawing.Size(149, 28);
@@ -288,7 +326,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.listView1.Location = new System.Drawing.Point(11, 7);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.Name = "listView1";
@@ -334,6 +372,16 @@
             this.toolStripComboBox1.ToolTipText = "Sets if the testing page is enabled or not.";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(585, 65);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(107, 17);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "Fill in username";
+            // 
             // ServerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -361,7 +409,7 @@
 
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.WebBrowser uxWebBrowser;
+        private System.Windows.Forms.WebBrowser uxUsersWebBrowser;
         private System.Windows.Forms.ListView uxUsersListView;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label label6;
@@ -383,6 +431,10 @@
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
         private System.Windows.Forms.Button uxCreateChatRoomBtn;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ListView uxChatRoomListView;
+        private System.Windows.Forms.WebBrowser uxChatMsgsWebBrowser;
+        private System.Windows.Forms.Button uxLogoutButton;
+        private System.Windows.Forms.Label label9;
     }
 }
 

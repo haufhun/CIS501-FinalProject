@@ -96,6 +96,7 @@ namespace Server.Controller
                     Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
+                    Logout(m.Contact.Username);
                     break;
                 case State.OpenChat:
                     var otheruser = "";
@@ -201,6 +202,23 @@ namespace Server.Controller
             catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name)); }
         }
 
+        private void Logout(string username)
+        {
+            User u = _chatDb.LookupUser(username);
+
+            u.ChangeStatus(Status.Offline);
+            
+            foreach(Contact a in u.ContactList.Contacts)
+            {
+                User t = _chatDb.LookupUser(a.Username);
+                if (t != null)
+                {
+                    Mensaje m = new Mensaje((Contact) u.ContactInfo);
+                    try { _send(m, t.SessionId); } catch { }
+                }
+            }
+        }
+
         /// <summary>
         /// Checks if the user to be added is null, if so sends an error to the Client, else puts both contacts into each other's lists.
         /// </summary>
@@ -264,7 +282,7 @@ namespace Server.Controller
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    _send(m2, b.SessionId);
+                    try { _send(m2, b.SessionId); } catch { }
                 }
                 else
                 {
@@ -287,9 +305,10 @@ namespace Server.Controller
                 _send(new Mensaje(State.OpenChat, "The user you want to chat with is offline"), a.SessionId);
             }
             else {
-                ChatRoom c = _chatDb.CreateRoom();
-                _send(new Mensaje(c, b.ContactInfo), a.SessionId);
-                _send(new Mensaje(c, a.ContactInfo), b.SessionId);
+                var c = _chatDb.CreateRoom(a, b);
+
+                try { _send(new Mensaje(c, b.ContactInfo), a.SessionId); } catch { }
+                try { _send(new Mensaje(c, a.ContactInfo), b.SessionId); } catch { }
             }
         }
 
