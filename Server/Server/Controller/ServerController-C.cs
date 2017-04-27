@@ -96,7 +96,7 @@ namespace Server.Controller
                     Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
-                    Logout(m.Contact.Username);
+                    Logout(m.User.ContactInfo.Username);
                     break;
                 case State.OpenChat:
                     var otheruser = "";
