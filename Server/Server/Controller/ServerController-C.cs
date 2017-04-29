@@ -347,9 +347,27 @@ namespace Server.Controller
 
         }
 
-        public void AddContactToRoom(string name)
+        public void AddContactToRoom(string adderSessionId, string name, string roomId)
         {
-            throw new NotImplementedException();
+            User u = _chatDb.LookupUser(name);
+            if (u != null)
+            {
+                if (u.ContactInfo.OnlineStatus == Status.Online)
+                {
+                    ChatRoom c = _chatDb.LookupRoom(roomId);
+                    c.AddParticipant(u);
+                    _send(new Mensaje(c, u), u.SessionId);
+                }
+                else
+                {
+                    _send(new Mensaje(State.AddContactToChat, "The user you would like to add is not online"), adderSessionId);
+                }
+            }
+            else
+            {
+                _send(new Mensaje(State.AddContactToChat, "The user you would like to add does not exist"), adderSessionId);
+            }
+
         }
     }
 
