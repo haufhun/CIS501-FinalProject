@@ -30,6 +30,7 @@ namespace Server.Model
 
         public IEnumerable<IUser> Participants => _users.Values;
 
+
         /// <summary>
         /// Used for Json.
         /// </summary>

@@ -188,7 +188,7 @@ namespace Server.Controller
                 if (u.IsValidPassword(password))
                 {
                     u.ChangeSessionId(sessionId);
-
+                    u.ChangeStatus(Status.Online);
                     m = new Mensaje(u, false);
                     SignalEventObserver(m);
                 }
