@@ -15,11 +15,16 @@ namespace Server.Model
         private List<TextMessage> _messages;
 
         [JsonProperty]
+        private ContactList _contacts;
+
+        [JsonProperty]
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
         public string Id { get; }
 
         [JsonProperty]
         private Dictionary<string, User> _users;
+
+        public IContactList Contacts => _contacts;
 
         public IEnumerable<ITextMessage> MessageHistory => _messages;
 
@@ -32,11 +37,12 @@ namespace Server.Model
         /// <param name="id"></param>
         /// <param name="users"></param>
         [JsonConstructor]
-        private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users)
+        private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users, ContactList c)
         {
             _messages = msgs;
             Id = id;
             _users = users;
+            _contacts = c;
         }
 
         /// <summary>
@@ -51,6 +57,7 @@ namespace Server.Model
         /// <summary>
         /// Constructs a new ChatRoom. The client will set the id to null.
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="user1">Participant one.</param>
         /// <param name="user2">Participant two.</param>
         public ChatRoom(string id, User user1, User user2)
@@ -62,6 +69,7 @@ namespace Server.Model
                 {user1.ContactInfo.Username, user1},
                 {user2.ContactInfo.Username, user2}
             };
+            _contacts = new ContactList();
         }
 
         public void AddParticipant(User u)
@@ -80,33 +88,27 @@ namespace Server.Model
 
         public IEnumerable<User> GetOnlineParticipants()
         {
-            var s = new List<User>();
-
-            foreach (var u in _users.Values)
-            {
-                if (u.ContactInfo.OnlineStatus == Status.Online)
-                {
-                    s.Add(u);
-                }
-            }
-
-            return s;
+            return _users.Values.Where(u => u.ContactInfo.OnlineStatus == Status.Online).ToList();
         }
 
         public List<User> GetOfflineParticipants()
         {
-            //Find all the users that have a status of offline. only for the server.
-            var s = new List<User>();
+            return _users.Values.Where(u => u.ContactInfo.OnlineStatus == Status.Offline).ToList();
+        }
 
-            foreach (var u in _users.Values)
+        public void RemoveContact(string user)
+        {
+            _contacts.Remove(user);
+        }
+
+        public void UpdateContactList()
+        {
+            var c = new ContactList();
+
+            foreach (var u in _users)
             {
-                if(u.ContactInfo.OnlineStatus == Status.Offline)
-                {
-                    s.Add(u);
-                }
+                
             }
-
-            return s;
         }
     }
 }

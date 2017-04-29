@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Server.Model
 {
@@ -129,7 +130,7 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Constructor used to add a contact to a chat room.
+        /// Constructor used to add a contact to a chat room. This is what the client should use.
         /// </summary>
         /// <param name="s">The status of the message being sent.</param>
         /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
@@ -139,6 +140,19 @@ namespace Server.Model
             MyState = State.AddContactToChat;
             ChatRoom = chatroom;
             Contact = c;
+        }
+
+        /// <summary>
+        /// Construcotr used to send to a client an updated chatroom. State must be something to do with the chatroom.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chatroom"></param>
+        public Mensaje(State s, IChatRoom chatroom)
+        {
+            if(s != State.AddContactToChat || s != State.OpenChat || s != State.SendTextMessage) throw new InvalidConstraintException();
+
+            MyState = s;
+            ChatRoom = chatroom;
         }
 
         /// <summary>
