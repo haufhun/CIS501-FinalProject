@@ -191,7 +191,7 @@ namespace Server.View
                 
                 foreach (var u in cr.Participants)
                 {
-                    chatList += "<li>" + u.ContactInfo.Username + "</li>";
+                    chatList += "<li>" + u.ContactInfo.Username + " (<em>" + u.ContactInfo.OnlineStatus + "</em>)</li>";
                 }
                 chatList += "</ul>" +
                             "<li>ContactList:</li>" +
