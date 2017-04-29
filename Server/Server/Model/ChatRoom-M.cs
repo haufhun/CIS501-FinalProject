@@ -15,7 +15,7 @@ namespace Server.Model
         private List<TextMessage> _messages;
 
         [JsonProperty]
-        private ContactList _contacts;
+        private ContactList _contactsToAdd;
 
         [JsonProperty]
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
@@ -24,7 +24,7 @@ namespace Server.Model
         [JsonProperty]
         private Dictionary<string, User> _users;
 
-        public IContactList Contacts => _contacts;
+        public IContactList ContactsToAdd => _contactsToAdd;
 
         public IEnumerable<ITextMessage> MessageHistory => _messages;
 
@@ -42,7 +42,7 @@ namespace Server.Model
             _messages = msgs;
             Id = id;
             _users = users;
-            _contacts = c;
+            _contactsToAdd = c;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Server.Model
                 {user1.ContactInfo.Username, user1},
                 {user2.ContactInfo.Username, user2}
             };
-            _contacts = new ContactList();
+            _contactsToAdd = new ContactList();
         }
 
         public void AddParticipant(User u)
@@ -98,7 +98,7 @@ namespace Server.Model
 
         public void RemoveContact(string user)
         {
-            _contacts.Remove(user);
+            _contactsToAdd.Remove(user);
         }
 
         public void UpdateContactList()

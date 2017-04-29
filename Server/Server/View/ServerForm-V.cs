@@ -180,28 +180,36 @@ namespace Server.View
 
         public void UpdateChatRoomWebBrowser()
         {
-            string chatList = "";
-
+            var chatList = "";
 
             foreach(var cr in _db.ChatRooms)
             {
-                string id = cr.Id;
+                var id = cr.Id;
                 chatList += "<li>" + id + "</li><ul>" +
                             "<li>Participants</li>" + 
                                     "<ul>";
                 
                 foreach (var u in cr.Participants)
                 {
-                    string n = u.ContactInfo.Username;
-                    chatList += "<li>" + n + "</li>";
+                    chatList += "<li>" + u.ContactInfo.Username + "</li>";
                 }
-                chatList +=     "</ul>" +
+                chatList += "</ul>" +
+                            "<li>ContactList:</li>" +
+                            "<ul>";
+
+                foreach (var c in cr.ContactsToAdd.Contacts)
+                {
+                    chatList += "<li>" + c.Username + " (<em>" + c.OnlineStatus + "</em>)</li>";
+                }
+
+                chatList += "</ul>" +
                             "<li>Messages:</li>" +
                                 "<ul>";
 
                 foreach(var m in cr.MessageHistory)
                 {
-                    chatList += "<li>" + m.ToString() + "</li>";
+                    //Does the ToString automatically!
+                    chatList += "<li>" + m + "</li>";
                 }
 
                 chatList += "</ul></ul>";

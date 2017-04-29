@@ -308,7 +308,7 @@ namespace Server.Controller
             else
             {
                 var cr = _chatDb.CreateRoom(a, b);
-                var cl = (ContactList) cr.Contacts;
+                var cl = (ContactList) cr.ContactsToAdd;
 
                 foreach (var c in a.ContactList.Contacts)
                 {
@@ -362,7 +362,7 @@ namespace Server.Controller
             {
                 var cr = _chatDb.LookupRoom(roomId);
 
-                foreach (var c in cr.Contacts.Contacts)
+                foreach (var c in cr.ContactsToAdd.Contacts)
                 {
                     //Remove a contact IF the user we are adding is not friends with them
                     if (user.ContactList.GetContact(c.Username) == null)
