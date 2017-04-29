@@ -15,11 +15,16 @@ namespace Server.Model
         private List<TextMessage> _messages;
 
         [JsonProperty]
+        private ContactList _contactsToAdd;
+
+        [JsonProperty]
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
         public string Id { get; }
 
         [JsonProperty]
         private Dictionary<string, User> _users;
+
+        public IContactList ContactsToAdd => _contactsToAdd;
 
         public IEnumerable<ITextMessage> MessageHistory => _messages;
 
@@ -33,16 +38,27 @@ namespace Server.Model
         /// <param name="id"></param>
         /// <param name="users"></param>
         [JsonConstructor]
-        private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users)
+        private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users, ContactList c)
         {
             _messages = msgs;
             Id = id;
             _users = users;
+            _contactsToAdd = c;
+        }
+
+        /// <summary>
+        /// Used only for simulating the client.
+        /// </summary>
+        /// <param name="id">The id.</param>
+        public ChatRoom(string id)
+        {
+            Id = id;
         }
 
         /// <summary>
         /// Constructs a new ChatRoom. The client will set the id to null.
         /// </summary>
+        /// <param name="id"></param>
         /// <param name="user1">Participant one.</param>
         /// <param name="user2">Participant two.</param>
         public ChatRoom(string id, User user1, User user2)
@@ -54,6 +70,7 @@ namespace Server.Model
                 {user1.ContactInfo.Username, user1},
                 {user2.ContactInfo.Username, user2}
             };
+            _contactsToAdd = new ContactList();
         }
 
         public void AddParticipant(User u)
@@ -67,13 +84,32 @@ namespace Server.Model
         /// <param name="message"></param>
         public void AddMessage(TextMessage message)
         {
-            throw new NotImplementedException();
+            _messages.Add(message);
         }
 
-        public IEnumerable<IContact> GetOfflineParticipants()
+        public IEnumerable<User> GetOnlineParticipants()
         {
-            //Find all the users that have a status of offline. only for the server.
-            throw new NotImplementedException();
+            return _users.Values.Where(u => u.ContactInfo.OnlineStatus == Status.Online).ToList();
+        }
+
+        public List<User> GetOfflineParticipants()
+        {
+            return _users.Values.Where(u => u.ContactInfo.OnlineStatus == Status.Offline).ToList();
+        }
+
+        public void RemoveContact(string user)
+        {
+            _contactsToAdd.Remove(user);
+        }
+
+        public void UpdateContactList()
+        {
+            var c = new ContactList();
+
+            foreach (var u in _users)
+            {
+                
+            }
         }
     }
 }

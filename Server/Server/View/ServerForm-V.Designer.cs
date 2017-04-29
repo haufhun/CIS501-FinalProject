@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.uxChatMsgsWebBrowser = new System.Windows.Forms.WebBrowser();
             this.uxChatRoomListView = new System.Windows.Forms.ListView();
@@ -36,6 +36,7 @@
             this.uxUsersWebBrowser = new System.Windows.Forms.WebBrowser();
             this.uxUsersListView = new System.Windows.Forms.ListView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
             this.uxLogoutButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.uxCreateChatRoomBtn = new System.Windows.Forms.Button();
@@ -56,7 +57,12 @@
             this.uxTabControl = new System.Windows.Forms.TabControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.uxSendMessageBtn = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.uxChatRoomIdTB = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.uxMessageTB = new System.Windows.Forms.TextBox();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.uxEventLogTabPage.SuspendLayout();
@@ -135,6 +141,12 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.uxMessageTB);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.uxChatRoomIdTB);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.uxSendMessageBtn);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.uxLogoutButton);
             this.tabPage2.Controls.Add(this.label8);
@@ -160,6 +172,16 @@
             this.tabPage2.Text = "Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(585, 65);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(107, 17);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "Fill in username";
+            // 
             // uxLogoutButton
             // 
             this.uxLogoutButton.Location = new System.Drawing.Point(449, 58);
@@ -173,7 +195,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(587, 185);
+            this.label8.Location = new System.Drawing.Point(587, 223);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(226, 17);
@@ -182,7 +204,7 @@
             // 
             // uxCreateChatRoomBtn
             // 
-            this.uxCreateChatRoomBtn.Location = new System.Drawing.Point(430, 181);
+            this.uxCreateChatRoomBtn.Location = new System.Drawing.Point(430, 219);
             this.uxCreateChatRoomBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxCreateChatRoomBtn.Name = "uxCreateChatRoomBtn";
             this.uxCreateChatRoomBtn.Size = new System.Drawing.Size(149, 28);
@@ -326,7 +348,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
             this.listView1.Location = new System.Drawing.Point(11, 7);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.Name = "listView1";
@@ -372,15 +394,62 @@
             this.toolStripComboBox1.ToolTipText = "Sets if the testing page is enabled or not.";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
             // 
-            // label9
+            // label10
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(585, 65);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(107, 17);
-            this.label9.TabIndex = 16;
-            this.label9.Text = "Fill in username";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(587, 272);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(220, 17);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "Fill in ChatRoomID and Username";
+            // 
+            // uxSendMessageBtn
+            // 
+            this.uxSendMessageBtn.Location = new System.Drawing.Point(430, 268);
+            this.uxSendMessageBtn.Margin = new System.Windows.Forms.Padding(4);
+            this.uxSendMessageBtn.Name = "uxSendMessageBtn";
+            this.uxSendMessageBtn.Size = new System.Drawing.Size(149, 28);
+            this.uxSendMessageBtn.TabIndex = 17;
+            this.uxSendMessageBtn.Text = "Send Message";
+            this.uxSendMessageBtn.UseVisualStyleBackColor = true;
+            this.uxSendMessageBtn.Click += new System.EventHandler(this.uxSendMessageBtn_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(56, 225);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(93, 17);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "Chat Room Id";
+            // 
+            // uxChatRoomIdTB
+            // 
+            this.uxChatRoomIdTB.Location = new System.Drawing.Point(169, 225);
+            this.uxChatRoomIdTB.Margin = new System.Windows.Forms.Padding(4);
+            this.uxChatRoomIdTB.Name = "uxChatRoomIdTB";
+            this.uxChatRoomIdTB.Size = new System.Drawing.Size(132, 22);
+            this.uxChatRoomIdTB.TabIndex = 19;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(56, 274);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 17);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "Chat Message";
+            // 
+            // uxMessageTB
+            // 
+            this.uxMessageTB.Location = new System.Drawing.Point(169, 274);
+            this.uxMessageTB.Margin = new System.Windows.Forms.Padding(4);
+            this.uxMessageTB.Name = "uxMessageTB";
+            this.uxMessageTB.Size = new System.Drawing.Size(132, 22);
+            this.uxMessageTB.TabIndex = 21;
             // 
             // ServerForm
             // 
@@ -435,6 +504,12 @@
         private System.Windows.Forms.WebBrowser uxChatMsgsWebBrowser;
         private System.Windows.Forms.Button uxLogoutButton;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox uxMessageTB;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox uxChatRoomIdTB;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button uxSendMessageBtn;
     }
 }
 

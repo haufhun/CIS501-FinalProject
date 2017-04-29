@@ -47,14 +47,17 @@ namespace Server.View
                 uxAddCnctBtn,
                 uxRmvCnctBtn,
                 uxCreateChatRoomBtn,
-                uxLogoutButton
+                uxLogoutButton,
+                uxSendMessageBtn
             };
 
             _testingTextBoxes = new List<TextBox>
             {
                 uxContactTB,
                 uxPasswordTB,
-                uxUsernameTB
+                uxUsernameTB, 
+                uxMessageTB,
+                uxChatRoomIdTB
             };
             _userLVSelected = new List<string>();
 
@@ -95,6 +98,20 @@ namespace Server.View
 
             var m = new Mensaje(new ChatRoom(null, u1, u2), u1);
 
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+        }
+
+        private void uxSendMessageBtn_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+
+        }
+        private void uxLogoutButton_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(State.Logout, new User(new Contact(uxUsernameTB.Text, Status.Offline), null, "1234"));
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
@@ -163,28 +180,36 @@ namespace Server.View
 
         public void UpdateChatRoomWebBrowser()
         {
-            string chatList = "";
-
+            var chatList = "";
 
             foreach(var cr in _db.ChatRooms)
             {
-                string id = cr.Id;
+                var id = cr.Id;
                 chatList += "<li>" + id + "</li><ul>" +
                             "<li>Participants</li>" + 
                                     "<ul>";
                 
                 foreach (var u in cr.Participants)
                 {
-                    string n = u.ContactInfo.Username;
-                    chatList += "<li>" + n + "</li>";
+                    chatList += "<li>" + u.ContactInfo.Username + " (<em>" + u.ContactInfo.OnlineStatus + "</em>)</li>";
                 }
-                chatList +=     "</ul>" +
+                chatList += "</ul>" +
+                            "<li>ContactList:</li>" +
+                            "<ul>";
+
+                foreach (var c in cr.ContactsToAdd.Contacts)
+                {
+                    chatList += "<li>" + c.Username + " (<em>" + c.OnlineStatus + "</em>)</li>";
+                }
+
+                chatList += "</ul>" +
                             "<li>Messages:</li>" +
                                 "<ul>";
 
                 foreach(var m in cr.MessageHistory)
                 {
-                    chatList += "<li>" + m.ToString() + "</li>";
+                    //Does the ToString automatically!
+                    chatList += "<li>" + m + "</li>";
                 }
 
                 chatList += "</ul></ul>";
@@ -220,13 +245,6 @@ namespace Server.View
 
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
-        }
-
-        private void uxLogoutButton_Click(object sender, EventArgs e)
-        {
-            Mensaje m = new Mensaje(new Contact(uxUsernameTB.Text, Status.Offline));
-            _handle(m, "1234");
-            foreach (var tb in _testingTextBoxes) tb.Clear();
         }
     }
 }
