@@ -90,6 +90,7 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.AddContactToChat:
+                    AddContactToRoom(sessionId, m.User.ContactInfo.Username, m.ChatRoom.Id);
                     break;
                 case State.Login:
                     //Must cast this to our User object so as to access the password.
@@ -345,6 +346,15 @@ namespace Server.Controller
                     ChatRoom c = _chatDb.LookupRoom(roomId);
                     c.AddParticipant(u);
                     _send(new Mensaje(c, u), u.SessionId);
+                    foreach(User x in c.Participants)
+                    {
+                        if(x.ContactList.GetContact(name)==null)
+                        {
+                            x.AddContact((Contact) u.ContactInfo);
+                            //Maybe send to the user that there's a new contact that's in the room:
+                            //_send(new Mensaje(State.AddContactToChat, "Contact"+u.ContactInfo.Username + " has been added to your contacts"), x.SessionId);
+                        }
+                    }
                 }
                 else
                 {
