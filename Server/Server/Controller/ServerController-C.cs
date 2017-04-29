@@ -96,7 +96,7 @@ namespace Server.Controller
                     Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
-                    Logout(m.Contact.Username);
+                    Logout(m.User.ContactInfo.Username);
                     break;
                 case State.OpenChat:
                     var otheruser = "";
@@ -113,7 +113,7 @@ namespace Server.Controller
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.SendTextMessage:
-                    SendTextMessage(m.ChatRoom.Id, m.TextMessage);
+                    SendTextMessage(m.ChatRoom.Id, m.TextMessage, sessionId);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -226,21 +226,21 @@ namespace Server.Controller
         /// <param name="toAdd">The name of the user that requested the add.</param>
         private void AddContact(string toAdd, string adder)
         {
-            var a = _chatDb.LookupUser(adder);
-            var b = _chatDb.LookupUser(toAdd);
+            var a = _chatDb.LookupUser(toAdd);
+            var b = _chatDb.LookupUser(adder);
 
-            if (b == null)
+            if (a == null)
             {
-                var m = new Mensaje(State.AddContact, "This user does not exist");
+                var m = new Mensaje(State.AddContact, "The user " + toAdd + " does not exist");
                 SignalEventObserver(m);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
             }
             else
             {
                 a.AddContact((Contact)b.ContactInfo);
                 var m = new Mensaje(State.AddContact, b.ContactInfo, a);
                 SignalEventObserver(m);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+                try { _send(m, a.SessionId); } catch { }
 
                 b.AddContact((Contact)a.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
@@ -248,7 +248,7 @@ namespace Server.Controller
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    try { _send(m2, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online.")); }
+                    try { _send(m2, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
                 }
             }
         }
@@ -312,39 +312,27 @@ namespace Server.Controller
             }
         }
 
-        private void SendTextMessage(string roomId, ITextMessage msg)
+        private void SendTextMessage(string roomId, ITextMessage msg, string sessionId)
         {
             var room = _chatDb.LookupRoom(roomId);
-            var activeIds = new List<string>();
             IMensaje m = null;
 
             if (room == null)
             {
-                //Send error
-                //m = new Mensaje(State.SendTextMessage, "The chat room no longer exists");
-                _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists"), msg.Sender.Username);
+                try { _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists"), sessionId); }
+                catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + msg.Sender.Username + " is not online.")); }
             }
             else
             {
-                //We need to implement the GetAllUsers in the Class Library
-                foreach (var user in room.Participants)
+                var cr = _chatDb.LookupRoom(roomId);
+                cr.AddMessage((TextMessage)msg);
+
+                foreach (var u in room.GetOnlineParticipants())
                 {
-                    var u = (User) user;
-                    if (u.ContactInfo.OnlineStatus == Status.Offline)
-                    {
-                        //Notify all the other users that this user is offline
-                        var sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
-                        //room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
-                    }
-                    else
-                    {
-                        activeIds.Add(u.SessionId);
-                        m = new Mensaje(room, msg);
-                        _send(m, u.ContactInfo.Username);
-                    }
+                    m = new Mensaje(room, msg);
+                    try { _send(m, u.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + u.ContactInfo.Username + " is not online.")); }
                 }
             }
-
         }
 
         public void AddContactToRoom(string adderSessionId, string name, string roomId)

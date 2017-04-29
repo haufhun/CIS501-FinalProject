@@ -76,13 +76,38 @@ namespace Server.Model
         /// <param name="message"></param>
         public void AddMessage(TextMessage message)
         {
-            throw new NotImplementedException();
+            _messages.Add(message);
         }
 
-        public IEnumerable<IContact> GetOfflineParticipants()
+        public IEnumerable<User> GetOnlineParticipants()
+        {
+            var s = new List<User>();
+
+            foreach (var u in _users.Values)
+            {
+                if (u.ContactInfo.OnlineStatus == Status.Online)
+                {
+                    s.Add(u);
+                }
+            }
+
+            return s;
+        }
+
+        public List<User> GetOfflineParticipants()
         {
             //Find all the users that have a status of offline. only for the server.
-            throw new NotImplementedException();
+            var s = new List<User>();
+
+            foreach (var u in _users.Values)
+            {
+                if(u.ContactInfo.OnlineStatus == Status.Offline)
+                {
+                    s.Add(u);
+                }
+            }
+
+            return s;
         }
     }
 }

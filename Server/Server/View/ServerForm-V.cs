@@ -102,6 +102,20 @@ namespace Server.View
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
+        private void uxSendMessageBtn_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+
+        }
+        private void uxLogoutButton_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(State.Logout, new User(new Contact(uxUsernameTB.Text, Status.Offline), null, "1234"));
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+        }
+
         public void SendEvent(IMensaje m)
         {
             try
@@ -223,21 +237,6 @@ namespace Server.View
 
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
-        }
-
-        private void uxLogoutButton_Click(object sender, EventArgs e)
-        {
-            var m = new Mensaje(State.Logout, new User(new Contact(uxUsernameTB.Text, Status.Offline), null, "1234"));
-            _handle(m, "1234");
-            foreach (var tb in _testingTextBoxes) tb.Clear();
-        }
-
-        private void uxSendMessageBtn_Click(object sender, EventArgs e)
-        {
-            var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
-            _handle(m, "1234");
-            foreach (var tb in _testingTextBoxes) tb.Clear();
-
         }
     }
 }
