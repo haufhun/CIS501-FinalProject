@@ -131,7 +131,7 @@ namespace Server.View
             if (uxUsersListView.InvokeRequired)
             {
                 Invoke(new MethodInvoker(delegate { uxUsersListView.BeginUpdate(); }));
-                uxUsersListView.Clear();
+                Invoke(new MethodInvoker(delegate { uxUsersListView.Clear(); }));
 
                 foreach (var u in _db.Users)
                 {
@@ -151,6 +151,7 @@ namespace Server.View
                     var li = new ListViewItem(s);
                     uxUsersListView.Items.Add(li);
                 }
+                uxUsersListView.EndUpdate();
             }
         }
 
