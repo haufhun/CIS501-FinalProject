@@ -90,13 +90,14 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.AddContactToChat:
+                    AddContactToRoom(sessionId, m.User.ContactInfo.Username, m.ChatRoom.Id);
                     break;
                 case State.Login:
                     //Must cast this to our User object so as to access the password.
                     Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
-                    Logout(m.Contact.Username);
+                    Logout(m.User.ContactInfo.Username);
                     break;
                 case State.OpenChat:
                     var otheruser = "";
@@ -113,7 +114,7 @@ namespace Server.Controller
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.SendTextMessage:
-                    //SendTextMessage(m.ChatRoom.Id, m.Message);
+                    SendTextMessage(m.ChatRoom.Id, m.TextMessage, sessionId);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -187,7 +188,7 @@ namespace Server.Controller
                 if (u.IsValidPassword(password))
                 {
                     u.ChangeSessionId(sessionId);
-
+                    u.ChangeStatus(Status.Online);
                     m = new Mensaje(u, false);
                     SignalEventObserver(m);
                 }
@@ -226,21 +227,21 @@ namespace Server.Controller
         /// <param name="toAdd">The name of the user that requested the add.</param>
         private void AddContact(string toAdd, string adder)
         {
-            var a = _chatDb.LookupUser(adder);
-            var b = _chatDb.LookupUser(toAdd);
+            var a = _chatDb.LookupUser(toAdd);
+            var b = _chatDb.LookupUser(adder);
 
-            if (b == null)
+            if (a == null)
             {
-                var m = new Mensaje(State.AddContact, "This user does not exist");
+                var m = new Mensaje(State.AddContact, "The user " + toAdd + " does not exist");
                 SignalEventObserver(m);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
             }
             else
             {
                 a.AddContact((Contact)b.ContactInfo);
                 var m = new Mensaje(State.AddContact, b.ContactInfo, a);
                 SignalEventObserver(m);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+                try { _send(m, a.SessionId); } catch { }
 
                 b.AddContact((Contact)a.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
@@ -248,7 +249,7 @@ namespace Server.Controller
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    try { _send(m2, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online.")); }
+                    try { _send(m2, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
                 }
             }
         }
@@ -293,8 +294,8 @@ namespace Server.Controller
 
         private void CreateRoom(string adder, string added)
         {
-            User a = _chatDb.LookupUser(adder);
-            User b = _chatDb.LookupUser(added);
+            var a = _chatDb.LookupUser(adder);
+            var b = _chatDb.LookupUser(added);
 
             if (b == null)
             {
@@ -304,52 +305,81 @@ namespace Server.Controller
             {
                 _send(new Mensaje(State.OpenChat, "The user you want to chat with is offline"), a.SessionId);
             }
-            else {
-                var c = _chatDb.CreateRoom(a, b);
-
-                try { _send(new Mensaje(c, b.ContactInfo), a.SessionId); } catch { }
-                try { _send(new Mensaje(c, a.ContactInfo), b.SessionId); } catch { }
-            }
-        }
-
-        private void SendTextMessage(string roomId, ITextMessage msg)
-        {
-            var room = _chatDb.LookupRoom(roomId);
-            var activeIds = new List<string>();
-            IMensaje m = null;
-
-            if (room == null)
-            {
-                //Send error
-                //m = new Mensaje(State.SendTextMessage, "The chat room no longer exists");
-            }
             else
             {
-                //We need to implement the GetAllUsers in the Class Library
-                foreach (var user in room.Participants)
+                var cr = _chatDb.CreateRoom(a, b);
+                var cl = (ContactList) cr.ContactsToAdd;
+
+                foreach (var c in a.ContactList.Contacts)
                 {
-                    var u = (User) user;
-                    if (u.ContactInfo.OnlineStatus == Status.Offline)
+                    if (b.ContactList.GetContact(c.Username) != null)
                     {
-                        //Notify all the other users that this user is offline
-                        var sessionId = u.SessionId; //Need to add this. This is the Id associated with the user that we can use to communicate to them
-                        //room.RemoveUser(u.ContactInfo.Username); //Need to implement this method as well removes a user from a chat room
-                    }
-                    else
-                    {
-                        activeIds.Add(u.SessionId);
+                        //means if cl is not null, then go ahead and do the add operation.
+                        cl?.Add(c as Contact);
                     }
                 }
 
-                m = new Mensaje(room, msg);
+                try { _send(new Mensaje(State.OpenChat, cr), a.SessionId); } catch { }
+                try { _send(new Mensaje(State.OpenChat, cr), b.SessionId); } catch { }
             }
-
-            //_send(m, activeIds);
         }
 
-        public void AddContactToRoom(string name)
+        private void SendTextMessage(string roomId, ITextMessage msg, string sessionId)
         {
-            throw new NotImplementedException();
+            var room = _chatDb.LookupRoom(roomId);
+
+            if (room == null)
+            {
+                try { _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists"), sessionId); }
+                catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + msg.Sender.Username + " is not online.")); }
+            }
+            else
+            {
+                var cr = _chatDb.LookupRoom(roomId);
+                cr.AddMessage((TextMessage)msg);
+
+                foreach (var u in room.GetOnlineParticipants())
+                {
+                    try { _send(new Mensaje(State.SendTextMessage, room), u.SessionId); }
+                    catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + u.ContactInfo.Username + " is not online.")); }
+                }
+            }
+        }
+
+        private void AddContactToRoom(string adderSessionId, string name, string roomId)
+        {
+
+            var user = _chatDb.LookupUser(name);
+
+            if (user == null)
+            {
+                _send(new Mensaje(State.AddContactToChat, "The user you would like to add does not exist"), adderSessionId);
+            }
+            else if (user.ContactInfo.OnlineStatus == Status.Offline)
+            {
+                _send(new Mensaje(State.AddContactToChat, "The user you would like to add is not online"), adderSessionId);
+            }
+            else
+            {
+                var cr = _chatDb.LookupRoom(roomId);
+
+                foreach (var c in cr.ContactsToAdd.Contacts)
+                {
+                    //Remove a contact IF the user we are adding is not friends with them
+                    if (user.ContactList.GetContact(c.Username) == null)
+                    {
+                        cr.RemoveContact(c.Username);
+                    }
+                }
+
+                _send(new Mensaje(State.OpenChat, cr), user.SessionId);
+                cr.AddParticipant(user);
+
+                foreach (var u in cr.Participants)
+                {
+                    _send(new Mensaje(State.AddContactToChat, cr), user.SessionId);
+                }
+            }
         }
     }
 
