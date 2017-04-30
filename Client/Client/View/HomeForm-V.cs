@@ -38,7 +38,7 @@ namespace Client.View
 
         private void uxStartChat_Click(object sender, System.EventArgs e)
         {
-            _createRoomHandler();
+           // _createRoomHandler(string username); pass in username from list view
         }
 
         public void StartChat(IChatRoom iChat)

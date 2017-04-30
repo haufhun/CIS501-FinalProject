@@ -30,7 +30,7 @@ namespace Client.Controller
         {
 
             // Connects to the server
-            ws = new WebSocket("ws://192.168.1.82:8022/chat");
+            ws = new WebSocket("ws://192.168.0.12:8022/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
             ws.Connect();
@@ -52,24 +52,37 @@ namespace Client.Controller
             switch (m.MyState)
             {
                 case State.AddContact:
+                    //If is error then will send error
+                    //add contatct state
+                    //Contact of person trying to add
+                    //and user back with updated 
+                    //update the user is the easiest way
                     
                     break;
 
                 case State.RemoveContact:
-
+                    // remove contact state 
+                    // contact of person trying to remove
+                    //and user back with updated contact list
+                    //
                     break;
 
                 case State.AddContactToChat:
-
+                    // state open chat- this will be for the person gettting added. if will contain IChat. has list of messages and contacts
+                    //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
+                    //
                     break;
 
                 case State.Login:
+                    
+                    // if contact is null im signing in if it isnt null update that contacts status in friends list.//ADD THIS
                     SignalSIFormObsever(m.IsError ? 1 : 0);
                     _chatDB.User = (User)m.User;
                    
                     break;
-
+                    
                 case State.Logout:
+                    // if contact is null im signing out if it isnt null update that contacts status in friends list. ///ADD THIS
                     SignalHFormObserver(1);
                     SignalSIFormObsever(2);                  
                     break;
@@ -79,7 +92,7 @@ namespace Client.Controller
                     break;
 
                 case State.SendTextMessage:
-
+                    // a Chatroom // get most recent text message object and populates it.
                     break;
 
                 default:
@@ -114,7 +127,7 @@ namespace Client.Controller
             if (ws.IsAlive)
             {
                 var m = new Mensaje(State.Login, new User(name, password));
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -131,7 +144,7 @@ namespace Client.Controller
             if (ws.IsAlive)
             {
                 var m = new Mensaje(State.Logout, _chatDB.User);
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -147,7 +160,7 @@ namespace Client.Controller
             if (ws.IsAlive)
             {
                 var m = new Mensaje(State.AddContact, new Contact(name), _chatDB.User);
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -162,7 +175,7 @@ namespace Client.Controller
             if (ws.IsAlive)
             {
                 var m = new Mensaje(State.RemoveContact, new Contact(name), _chatDB.User); // maybe get contact from contact list dictionary in  a Database class??
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -171,28 +184,26 @@ namespace Client.Controller
                 MessageBox.Show("Cant connect to server!");
             }
         }
+        public void CreateChatRoom(string name)
+        {
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(_chatDB.User, _chatDB.User.ContactList.GetContact(name)); 
+                var output = JsonConvert.SerializeObject(m);
 
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
+        }
         public void AddContactToRoom(IChatRoom chatRoom, string name)
         {
             if (ws.IsAlive)
             {
                 var m = new Mensaje(chatRoom, new Contact(name)); // maybe get contact from contact list dictionary in  a Database class??
-                string output = JsonConvert.SerializeObject(m);
-
-                ws.Send(output);
-            }
-            else
-            {
-                MessageBox.Show("Cant connect to server!");
-            }
-        }
-
-        public void CreateChatRoom()
-        {
-            if (ws.IsAlive)
-            {
-                var m = new Mensaje(new ChatRoom(null));
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -206,8 +217,8 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(chatRoom, new TextMessage(message,new Contact(_chatDB.User.ContactInfo.Username)));
-                string output = JsonConvert.SerializeObject(m);
+                var m = new Mensaje(chatRoom, new TextMessage(message, _chatDB.User.ContactInfo)); 
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
