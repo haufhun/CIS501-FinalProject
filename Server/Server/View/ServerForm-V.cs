@@ -128,17 +128,31 @@ namespace Server.View
 
         public void UpdateUserListView()
         {
-            uxUsersListView.BeginUpdate();
-            uxUsersListView.Clear();
-
-            foreach (var u in _db.Users)
+            if (uxUsersListView.InvokeRequired)
             {
-                string[] s = { u.ContactInfo.Username };
-                var li = new ListViewItem(s);
-                uxUsersListView.Items.Add(li);
-            }
+                Invoke(new MethodInvoker(delegate { uxUsersListView.BeginUpdate(); }));
+                Invoke(new MethodInvoker(delegate { uxUsersListView.Clear(); }));
 
-            uxUsersListView.EndUpdate();
+                foreach (var u in _db.Users)
+                {
+                    string[] s = { u.ContactInfo.Username };
+                    var li = new ListViewItem(s);
+                    Invoke(new MethodInvoker(delegate { uxUsersListView.Items.Add(li); }));
+                }
+                Invoke(new MethodInvoker(delegate { uxUsersListView.EndUpdate(); }));
+            }
+            else
+            {
+                uxUsersListView.BeginUpdate();
+                uxUsersListView.Clear();
+                foreach (var u in _db.Users)
+                {
+                    string[] s = { u.ContactInfo.Username };
+                    var li = new ListViewItem(s);
+                    uxUsersListView.Items.Add(li);
+                }
+                uxUsersListView.EndUpdate();
+            }
         }
 
         public void UpdateUserWebBrowser()

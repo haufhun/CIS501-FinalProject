@@ -348,6 +348,7 @@ namespace Server.Controller
 
         private void AddContactToRoom(string adderSessionId, string name, string roomId)
         {
+
             var user = _chatDb.LookupUser(name);
 
             if (user == null)
