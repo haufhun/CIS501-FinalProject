@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using Chat_CSLibrary;
+using Newtonsoft.Json;
 
 namespace Server.Model
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class ChatDb
     {
+        [JsonProperty]
         private Dictionary<string, User> _users;
         private Dictionary<string, ChatRoom> _chatRooms;
         private string _nextRoomPos;

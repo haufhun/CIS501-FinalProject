@@ -72,7 +72,16 @@ namespace Server.Controller
         ~ServerController()
         {
             //Need to serialize and put away the DB so it can be reloaded on startup
+            //StoreUsers();
             _wss.Stop();
+        }
+
+        public void StoreUsers()
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter("UserFile.txt"))
+            {
+                file.WriteLine(JsonConvert.SerializeObject(_chatDb));
+            }
         }
 
         /// <summary>
