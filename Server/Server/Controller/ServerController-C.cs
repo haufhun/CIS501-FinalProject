@@ -123,6 +123,14 @@ namespace Server.Controller
             SignalObserver();
         }
 
+        public void StoreUsers()
+        {
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter("UserFile.txt"))
+            {
+                file.WriteLine(JsonConvert.SerializeObject(_chatDb));
+            }
+        }
+
         /// <summary>
         /// Registers a new EventLogObserver in the list.
         /// </summary>
