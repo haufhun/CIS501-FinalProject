@@ -12,12 +12,15 @@ namespace Client.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class TextMessage : ITextMessage
     {
+        //
         [JsonProperty]
         public string Body { get; }
 
+        //
         [JsonProperty]
         public IContact Sender { get; }
 
+        //
         [JsonProperty]
         public DateTime Time { get; } 
 

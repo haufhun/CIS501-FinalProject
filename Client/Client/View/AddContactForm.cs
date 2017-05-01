@@ -12,6 +12,9 @@ namespace Client.View
 {
     public partial class AddContactForm : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public AddContactForm()
         {
             InitializeComponent();

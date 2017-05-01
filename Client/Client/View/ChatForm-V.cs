@@ -13,10 +13,16 @@ namespace Client
 {
     public partial class ChatForm : Form
     {
-
+        //
         private IChatRoom _iChat;
+        //
         private SendMessageHandler _sendMessageHandler;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iChat"></param>
+        /// <param name="sm"></param>
         public ChatForm(IChatRoom iChat , SendMessageHandler sm)
         {
             _iChat = iChat;
@@ -26,6 +32,11 @@ namespace Client
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxSend_Click(object sender, EventArgs e)
         {
             _sendMessageHandler(uxMessageTextBox.Text, _iChat);
