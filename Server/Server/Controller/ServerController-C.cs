@@ -246,22 +246,21 @@ namespace Server.Controller
             {
                 var m = new Mensaje(State.AddContact, "The user " + toAdd + " does not exist");
                 SignalEventObserver(m, LogStatus.Send);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Error sending message to " + adder), LogStatus.Internal); }
+                try { _send(m, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder), LogStatus.Internal); }
             }
             else
             {
-                a.AddContact((Contact)b.ContactInfo);
-                var m = new Mensaje(State.AddContact, b.ContactInfo, a);
-                SignalEventObserver(m, LogStatus.Send);
-                try { _send(m, a.SessionId); } catch { }
-
                 b.AddContact((Contact)a.ContactInfo);
-                m = new Mensaje(State.AddContact, a.ContactInfo, b);
+                var m = new Mensaje(State.AddContact, a.ContactInfo, b);
                 SignalEventObserver(m, LogStatus.Send);
+                try { _send(m, b.SessionId); } catch (Exception e) { System.Windows.Forms.MessageBox.Show(e.ToString()); }
+                a.AddContact((Contact)b.ContactInfo);
+                var m2 = new Mensaje(State.AddContact, b.ContactInfo, a);
+                SignalEventObserver(m2, LogStatus.Send);
 
-                if (b.ContactInfo.OnlineStatus == Status.Online)
+                if (a.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    try { _send(m, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online."), LogStatus.Internal); }
+                    try { _send(m2, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder ), LogStatus.Internal); }
                 }
             }
         }
