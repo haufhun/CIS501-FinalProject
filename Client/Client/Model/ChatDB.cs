@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Chat_CSLibrary;
 namespace Client.Model
 {
-    class ChatDB
+    public class ChatDB
     {
         public ChatDB()
         {

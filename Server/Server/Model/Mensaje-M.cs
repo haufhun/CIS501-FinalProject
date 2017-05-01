@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Server.Model
 {
@@ -54,6 +55,17 @@ namespace Server.Model
         }
 
         /// <summary>
+        /// Used only by the client simulation. Do not use on Server.
+        /// </summary>
+        /// <param name="cr"></param>
+        /// <param name="u"></param>
+        public Mensaje(State s, IUser u)
+        {
+            MyState = s;
+            User = u;
+        }
+
+        /// <summary>
         /// Constructor used to send a client a login message. Send true if a new user was created.
         /// </summary>
         /// <param name="user">The user to be signed in.</param>
@@ -69,10 +81,19 @@ namespace Server.Model
         /// Used to send to other clients that a particular contact is logged out.
         /// </summary>
         /// <param name="c">The contact that was logged out.</param>
-        public Mensaje(Contact c)
+        public Mensaje(State s, IContact c)
         {
-            MyState = State.Logout;
+            MyState = s;
             Contact = c;
+        }
+
+        /// <summary>
+        /// Used to send to the Client that they signed out correctly.
+        /// </summary>
+        /// <param name="s"></param>
+        public Mensaje(State s)
+        {
+            MyState = s;
         }
 
         /// <summary>
@@ -118,7 +139,7 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Constructor used to add a contact to a chat room.
+        /// Constructor used to add a contact to a chat room. This is what the client should use.
         /// </summary>
         /// <param name="s">The status of the message being sent.</param>
         /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
@@ -128,6 +149,19 @@ namespace Server.Model
             MyState = State.AddContactToChat;
             ChatRoom = chatroom;
             Contact = c;
+        }
+
+        /// <summary>
+        /// Construcotr used to send to a client an updated chatroom. State must be something to do with the chatroom.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chatroom"></param>
+        public Mensaje(State s, IChatRoom chatroom)
+        {
+            if(s != State.AddContactToChat || s != State.OpenChat || s != State.SendTextMessage) throw new InvalidConstraintException();
+
+            MyState = s;
+            ChatRoom = chatroom;
         }
 
         /// <summary>
@@ -175,5 +209,6 @@ namespace Server.Model
             TextMessage = textMessage;
         }
 
+        
     }
 }

@@ -12,13 +12,9 @@ namespace Client.View
 {
     public partial class AddContactForm : Form
     {
-
         public AddContactForm()
         {
-
             InitializeComponent();
-
-            
         }
     }
 }
