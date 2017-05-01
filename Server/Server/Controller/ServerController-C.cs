@@ -115,9 +115,9 @@ namespace Server.Controller
             SignalObserver();
         }
 
-        public void StoreUsers()
+        public void StoreUsers(string path)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter("UserFile.txt"))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
             }

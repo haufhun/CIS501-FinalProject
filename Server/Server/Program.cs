@@ -17,8 +17,11 @@ namespace Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            string folder = System.IO.Path.GetFullPath(@"..\..\") + "Lib";
+            System.IO.Directory.CreateDirectory(folder);
+            string path = System.IO.Path.Combine(folder, "UserFile.txt");
 
-            var db = LoadUsers() ?? new ChatDb();
+            var db = LoadUsers(path) ?? new ChatDb();
             var c = new ServerController(db);
             var sf = new ServerForm(db, c.ChatDelegate);
 
@@ -31,17 +34,22 @@ namespace Server
             c.Register(sf.UpdateChatRoomWebBrowser);
 
             Application.Run(sf);
-            c.StoreUsers();
+            MessageBox.Show(path);
+            c.StoreUsers(path);
         }
 
-        private static ChatDb LoadUsers()
+        private static ChatDb LoadUsers(string path)
         {
-            using (System.IO.StreamReader file = new System.IO.StreamReader("UserFile.txt"))
+            if (System.IO.File.Exists(path))
             {
-                string s = file.ReadLine();
-                ChatDb c = JsonConvert.DeserializeObject<ChatDb>(s);
-                return c;
+                using (System.IO.StreamReader file = new System.IO.StreamReader(path))
+                {
+                    string s = file.ReadLine();
+                    ChatDb c = JsonConvert.DeserializeObject<ChatDb>(s);
+                    return c;
+                }
             }
+            else return null;
 
         }
     }
