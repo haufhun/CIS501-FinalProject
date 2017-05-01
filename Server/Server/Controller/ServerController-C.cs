@@ -246,7 +246,7 @@ namespace Server.Controller
             {
                 var m = new Mensaje(State.AddContact, "The user " + toAdd + " does not exist");
                 SignalEventObserver(m);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
+                try { _send(m, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
             }
             else
             {
