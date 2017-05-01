@@ -66,6 +66,7 @@ namespace Client.Model
 
                 MyState = s;
                 Contact = c;
+                User = user;
             }
 
             /// <summary>
