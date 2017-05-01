@@ -165,7 +165,7 @@ namespace Server.Model
 //////////////////////// Client constructors. Only for testing.
 
         /// <summary>
-        /// Used only by the client simulation. Do not use on Server.
+        /// Login/Logout sent by server
         /// </summary>
         /// <param name="cr"></param>
         /// <param name="u"></param>

@@ -70,7 +70,7 @@ namespace Server.View
 
         private void uxLoginButton_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"), false);
+            var m = new Mensaje(State.Login, new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"));
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
