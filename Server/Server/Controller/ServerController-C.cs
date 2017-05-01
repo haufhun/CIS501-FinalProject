@@ -80,7 +80,7 @@ namespace Server.Controller
         /// </summary>
         /// <param name="m">The Mensaje object sent from the Client.</param>
         /// <param name="sessionId">The session id of the Client.</param>
-        public void ChatDelegate(IMensaje m, string sessionId)
+        internal void ChatDelegate(IMensaje m, string sessionId)
         {
             SignalEventObserver(m, LogStatus.Receive);
 
@@ -100,7 +100,8 @@ namespace Server.Controller
                     Logout(m.User.ContactInfo.Username);
                     break;
                 case State.OpenChat:
-                    CreateRoom(m.Contact.Username, m.Contact.Username);
+                    //Need to talk with Tyler. Can't remember if this is correct or not.
+                    CreateRoom(m.User.ContactInfo.Username, m.Contact.Username);
                     break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
@@ -115,8 +116,17 @@ namespace Server.Controller
             SignalObserver();
         }
 
+        /// <summary>
+        /// Puts all the users into OfflineMode, and then stores into a text file.
+        /// </summary>
+        /// <param name="path">The path to wehre we want to store the file.</param>
         public void StoreUsers(string path)
         {
+            foreach(var c in _chatDb.Users)
+            {
+                c.ChangeStatus(Status.Offline);
+            }
+
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
@@ -136,7 +146,7 @@ namespace Server.Controller
         /// Registers a new Observer.
         /// </summary>
         /// <param name="o">The observer method to be updated. Should be a method from the view.</param>
-        public void Register(Observer o)
+        internal void Register(Observer o)
         {
             _observers.Add(o);
         }

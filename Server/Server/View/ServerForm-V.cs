@@ -82,7 +82,6 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
         private void uxRmvCnctBtn_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
@@ -90,7 +89,6 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
         private void uxCreateChatRoomBtn_Click(object sender, EventArgs e)
         {
             var u1 = new User(new Contact(uxUsernameTB.Text, Status.Online), null, null);
@@ -101,7 +99,6 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
         private void uxSendMessageBtn_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
@@ -118,8 +115,10 @@ namespace Server.View
 
         public void SendEvent(IMensaje m, LogStatus s)
         {
-            var ms = new List<string>(((Mensaje)m).ToArrayString());
-            ms.Add(s.ToString());
+            var ms = new List<string>(((Mensaje)m).ToArrayString())
+            {
+                s.ToString()
+            };
             var lt = new ListViewItem(ms.ToArray());
 
             if (uxUsersListView.InvokeRequired)
@@ -131,7 +130,6 @@ namespace Server.View
                 listView1.Items.Add(lt);
             }
         }
-
         public void UpdateUserListView()
         {
             if (uxUsersListView.InvokeRequired)
@@ -160,7 +158,6 @@ namespace Server.View
                 uxUsersListView.EndUpdate();
             }
         }
-
         public void UpdateUserWebBrowser()
         {
             var userList = string.Empty;
@@ -197,7 +194,6 @@ namespace Server.View
                 "</body>" +
                 "</html>";
         }
-
         public void UpdateChatRoomWebBrowser()
         {
             var chatList = "";
