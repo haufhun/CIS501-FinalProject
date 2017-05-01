@@ -4,6 +4,8 @@ using Server.Controller;
 using Server.Model;
 using Server.View;
 using Newtonsoft.Json;
+using System.IO;
+using System.Threading;
 
 namespace Server
 {
@@ -17,8 +19,11 @@ namespace Server
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            string folder = Path.GetFullPath(@"..\..\") + "Lib";
+            System.IO.Directory.CreateDirectory(folder);
+            string path = Path.Combine(folder, "UserFile.txt");
 
-            var db = LoadUsers() ?? new ChatDb();
+            var db = LoadUsers(path) ?? new ChatDb();
             var c = new ServerController(db);
             var sf = new ServerForm(db, c.ChatDelegate);
 
@@ -31,21 +36,29 @@ namespace Server
             c.Register(sf.UpdateChatRoomWebBrowser);
 
             Application.Run(sf);
-            c.StoreUsers();
+
+            var thread = new Thread(
+                () =>
+                {
+                    MessageBox.Show("Closing the server, this may take a second. Click okay to close...");
+                });
+            thread.Start();
+
+            c.StoreUsers(path);
         }
 
-        private static ChatDb LoadUsers()
+        private static ChatDb LoadUsers(string path)
         {
-            if (System.IO.File.Exists("UserFile.txt"))
+            if (File.Exists(path))
             {
-                using (System.IO.StreamReader file = new System.IO.StreamReader("UserFile.txt"))
+                using (StreamReader file = new StreamReader(path))
                 {
                     string s = file.ReadLine();
-                    ChatDb c = JsonConvert.DeserializeObject<ChatDb>(s);
+                    var c = JsonConvert.DeserializeObject<ChatDb>(s);
                     return c;
                 }
             }
-            else return null;
+            return null;
 
         }
     }

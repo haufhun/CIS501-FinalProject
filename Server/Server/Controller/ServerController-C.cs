@@ -82,7 +82,7 @@ namespace Server.Controller
         /// <param name="sessionId">The session id of the Client.</param>
         public void ChatDelegate(IMensaje m, string sessionId)
         {
-            SignalEventObserver(m);
+            SignalEventObserver(m, LogStatus.Receive);
 
             switch (m.MyState)
             {
@@ -115,9 +115,9 @@ namespace Server.Controller
             SignalObserver();
         }
 
-        public void StoreUsers()
+        public void StoreUsers(string path)
         {
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter("UserFile.txt"))
+            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
             }
@@ -145,11 +145,11 @@ namespace Server.Controller
         /// Calls the list of event log observers and displays to the log the contents of a Mensaje.
         /// </summary>
         /// <param name="m">The Mensaje object.</param>
-        private void SignalEventObserver(IMensaje m)
+        private void SignalEventObserver(IMensaje m, LogStatus s)
         {
             foreach(EventLogObserver o in _eventObserver)
             {
-                o(m);
+                o(m, s);
             }
         }
 
@@ -181,7 +181,7 @@ namespace Server.Controller
 
                 m = new Mensaje(new User(new Contact(name, Status.Online), password, sessionId), true);
 
-                SignalEventObserver(m);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else
             {
@@ -190,7 +190,7 @@ namespace Server.Controller
                     u.ChangeSessionId(sessionId);
                     u.ChangeStatus(Status.Online);
                     m = new Mensaje(u, false);
-                    SignalEventObserver(m);
+                    SignalEventObserver(m, LogStatus.Send);
 
                     foreach (var c in u.ContactList.Contacts)
                     {
@@ -204,12 +204,12 @@ namespace Server.Controller
                 else
                 {
                     m = new Mensaje(State.Login, "The password you entered is not valid");
-                    SignalEventObserver(m);
+                    SignalEventObserver(m, LogStatus.Send);
                 }
             }
 
             try { _send(m, sessionId); }
-            catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name)); }
+            catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name), LogStatus.Send); }
         }
 
         private void Logout(string username)
@@ -245,22 +245,22 @@ namespace Server.Controller
             if (a == null)
             {
                 var m = new Mensaje(State.AddContact, "The user " + toAdd + " does not exist");
-                SignalEventObserver(m);
-                try { _send(m, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
+                SignalEventObserver(m, LogStatus.Send);
+                try { _send(m, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder), LogStatus.Internal); }
             }
             else
             {
                 b.AddContact((Contact)a.ContactInfo);
                 var m = new Mensaje(State.AddContact, a.ContactInfo, b);
-                SignalEventObserver(m);
-                try { _send(m, b.SessionId); } catch (Exception e){ System.Windows.Forms.MessageBox.Show(e.ToString()); }
+                SignalEventObserver(m, LogStatus.Send);
+                try { _send(m, b.SessionId); } catch (Exception e) { System.Windows.Forms.MessageBox.Show(e.ToString()); }
                 a.AddContact((Contact)b.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, b.ContactInfo, a);
-                SignalEventObserver(m2);
+                SignalEventObserver(m2, LogStatus.Send);
 
                 if (a.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    try { _send(m2, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + adder + " is not online.")); }
+                    try { _send(m2, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder ), LogStatus.Internal); }
                 }
             }
         }
@@ -278,19 +278,19 @@ namespace Server.Controller
             if (b == null)
             {
                 var m = new Mensaje(State.RemoveContact, "This user does not exist");
-                SignalEventObserver(m);
+                SignalEventObserver(m, LogStatus.Send);
                 _send(m, a.SessionId);
             }
             else
             {
                 a.RemoveContact((Contact)b.ContactInfo); 
                 var m = new Mensaje(State.RemoveContact, b.ContactInfo, a);
-                SignalEventObserver(m);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.RemoveContact, "The user " + a.ContactInfo.Username + " is not online.")); }
+                SignalEventObserver(m, LogStatus.Send);
+                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.RemoveContact, "The user " + a.ContactInfo.Username + " is not online."), LogStatus.Send); }
 
                 b.RemoveContact((Contact)a.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
-                SignalEventObserver(m2);
+                SignalEventObserver(m2, LogStatus.Send);
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
@@ -298,7 +298,7 @@ namespace Server.Controller
                 }
                 else
                 {
-                    SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online."));
+                    SignalEventObserver(new Mensaje(State.AddContact, "The user " + b.ContactInfo.Username + " is not online."), LogStatus.Internal);
                 }
             }
         }
@@ -342,7 +342,7 @@ namespace Server.Controller
             if (room == null)
             {
                 try { _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists"), sessionId); }
-                catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + msg.Sender.Username + " is not online.")); }
+                catch { SignalEventObserver(new Mensaje(State.AddContact, "Error sending to " + msg.Sender.Username), LogStatus.Internal); }
             }
             else
             {
@@ -352,7 +352,7 @@ namespace Server.Controller
                 foreach (var u in room.GetOnlineParticipants())
                 {
                     try { _send(new Mensaje(State.SendTextMessage, room), u.SessionId); }
-                    catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + u.ContactInfo.Username + " is not online.")); }
+                    catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + u.ContactInfo.Username + " is not online."), LogStatus.Internal); }
                 }
             }
         }
