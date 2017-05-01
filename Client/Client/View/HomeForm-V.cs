@@ -33,7 +33,8 @@ namespace Client.View
 
         public void SignOut()
         {
-            Hide();
+            this.Invoke(new MethodInvoker(this.Hide));
+            // Hide();
         }
 
         private void uxStartChat_Click(object sender, System.EventArgs e)
