@@ -14,53 +14,46 @@ namespace Client.Model
         [JsonProperty]
         private Dictionary<string, IContact> _contacts;
 
-        public int Count => _contacts.Values.Count;
-
-        public ContactList()
-        {
-            _contacts = new Dictionary<string, IContact>();
-        }
-
         [JsonConstructor]
         private ContactList(Dictionary<string, IContact> contacts)
         {
             _contacts = contacts;
         }
 
-        public void RemoveContact(string username)
+        public IEnumerable<IContact> Contacts { get; } // had to add to iplement Icontact
+        
+       // public Dictionary<string, Contact> MyContacts { get; set; }
+
+        public int Count => _contacts.Values.Count;
+
+        public ContactList()
         {
-            throw new NotImplementedException();
+            _contacts = new Dictionary<string,IContact>();
         }
 
-        public IEnumerable<IContact> GetAllContacts()
-        {
-            throw new NotImplementedException();
-        }
+        public Dictionary<string, IContact> GetAllContacts => _contacts;
 
         public IContact GetContact(string username)
         {
-            throw new NotImplementedException();
+            if (_contacts.ContainsKey(username))
+                return _contacts[username];
+            else
+                return null;
         }
 
-        public IEnumerable<IContact> Contacts { get; } // had to add to iplement Icontact
+        public void AddContact(Contact c)
+        {
+            if(!_contacts.ContainsKey(c.Username))
+                _contacts.Add(c.Username, c);
+        }
+
+        public void RemoveContact(Contact c)
+        {
+            if (_contacts.ContainsKey(c.Username))
+                _contacts.Remove(c.Username);
+        }
+
+
+
     }
-    //class ContactList_M
-    //{
-    //    private Dictionary<string, Contact> _contacts = new Dictionary<string, Contact>();
-
-    //    void AddContact(string name)
-    //    {
-
-    //    }
-
-    //    void RemoveContact(string name)
-    //    {
-
-    //    }
-
-    //    public void UpdateForm()
-    //    {
-
-    //    }
-    //}
 }

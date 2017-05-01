@@ -67,7 +67,8 @@ namespace Client.Controller
                     //User back with updated contact list
                     if (!m.IsError)
                     {
-                        _chatDB.User = (User) m.User;
+                        
+                        _chatDB.User.AddContact((Contact)m.Contact);
                         SignalHFormObserver(0);
                     }
                     else
@@ -81,7 +82,7 @@ namespace Client.Controller
                     //
                     if (!m.IsError)
                     {
-                        _chatDB.User = (User)m.User;
+                        _chatDB.User.RemoveContact((Contact)m.Contact);
                         SignalHFormObserver(0);
                     }
                     else

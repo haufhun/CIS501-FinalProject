@@ -126,14 +126,14 @@ namespace Client.View
         /// </summary>
         public void UpdateView()
         {
-            uxListView.BeginUpdate();
-            foreach (var c in _chatDb.User.ContactList.Contacts)
+            Invoke(new MethodInvoker(uxListView.BeginUpdate));
+            foreach (var c in _chatDb.User.GetAllContacts().Values)
             {
                 string[] iteminfo = { c.Username, c.OnlineStatus.ToString() };
                 var item = new ListViewItem(iteminfo);
-                uxListView.Items.Add(item);
+                Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
-            uxListView.EndUpdate();
+           
         }
 
         /// <summary>

@@ -14,26 +14,18 @@ namespace Client.Model
         [JsonProperty]
         private string _password;
 
-        //Maybe we need this as a JsonProperty? Do we need this SessionId if the client sends us info?
+        [JsonProperty]
+        private ContactList _contactList;
+
+        [JsonProperty]
+        private Contact _contact;
+
 
         //
-        [JsonProperty]
-        public IContact ContactInfo { get; }
-
+        public IContact ContactInfo => _contact;
         //
-        [JsonProperty]
-        public IContactList ContactList { get; }
+        public IContactList ContactList => _contactList;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        public User(string username, string password)
-        {
-            _password = password;
-            ContactInfo = new Contact(username);
-        }
 
         /// <summary>
         /// 
@@ -45,27 +37,60 @@ namespace Client.Model
         private User(string password, Contact contactInfo, ContactList contactList)
         {
             _password = password;
-            ContactInfo = contactInfo;
-            ContactList = contactList;
+            _contact = contactInfo;
+            _contactList = contactList;
         }
+
+        public ContactList MyContactList { get; set; }
+        public Contact MyContact { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="username"></param>
         /// <param name="password"></param>
-        /// <returns></returns>
-        public bool IsValidPassword(string password)
+        public User(string username, string password)
         {
-            return _password == password;
+            _password = password;
+            _contact = new Contact(username);
+            _contactList = new ContactList();
+        }
+
+       /* public User()
+        {
+            MyContactList = new ContactList();
+            MyContact = new Contact(null);
+        }*/
+
+        public Dictionary<string, Contact> GetAllContacts()
+        {
+            var cL = (ContactList)ContactList;
+            //return cL.GetAllContacts;
+            return null;
         }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="username"></param>
-        public void AddContact(string username)
+        public void AddContact(Contact c)
         {
-            throw new NotImplementedException();
+            if(ContactList == null)
+                _contactList = new ContactList();
+            var cL = (ContactList)ContactList;
+            cL.AddContact(c);
+            _contactList = cL;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="c"></param>
+        public void RemoveContact(Contact c)
+        {
+            var cL = (ContactList)ContactList;
+            cL.RemoveContact(c);
+            _contactList = cL;
         }
 
         /// <summary>
@@ -76,5 +101,6 @@ namespace Client.Model
         {
             throw new NotImplementedException();
         }
+
     }
 }
