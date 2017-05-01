@@ -18,9 +18,7 @@ namespace Server
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var db = LoadUsers();
-            if (db == null)
-            { db = new ChatDb(); }
+            var db = LoadUsers() ?? new ChatDb();
             var c = new ServerController(db);
             var sf = new ServerForm(db, c.ChatDelegate);
 

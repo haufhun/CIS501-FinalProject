@@ -100,15 +100,7 @@ namespace Server.Controller
                     Logout(m.User.ContactInfo.Username);
                     break;
                 case State.OpenChat:
-                    var otheruser = "";
-                    foreach(var u in m.ChatRoom.Participants)
-                    {
-                        if (u.ContactInfo.Username != m.User.ContactInfo.Username)
-                        {
-                            otheruser = u.ContactInfo.Username;
-                        }
-                    }
-                    CreateRoom(m.User.ContactInfo.Username, otheruser);
+                    CreateRoom(m.Contact.Username, m.Contact.Username);
                     break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
@@ -199,6 +191,15 @@ namespace Server.Controller
                     u.ChangeStatus(Status.Online);
                     m = new Mensaje(u, false);
                     SignalEventObserver(m);
+
+                    foreach (var c in u.ContactList.Contacts)
+                    {
+                        if (c.OnlineStatus == Status.Online)
+                        {
+                            _send(new Mensaje(State.Login, c), _chatDb.LookupUser(c.Username).SessionId);
+                        }
+                    }
+                    //Implement sending to each user that is in this user's contactlist
                 }
                 else
                 {
@@ -213,16 +214,19 @@ namespace Server.Controller
 
         private void Logout(string username)
         {
-            User u = _chatDb.LookupUser(username);
+            var u = _chatDb.LookupUser(username);
 
             u.ChangeStatus(Status.Offline);
+
+            _send(new Mensaje(State.Logout), u.SessionId);
             
-            foreach(Contact a in u.ContactList.Contacts)
+            foreach(var contact in u.ContactList.Contacts)
             {
-                User t = _chatDb.LookupUser(a.Username);
+                var a = (Contact) contact;
+                var t = _chatDb.LookupUser(a.Username);
                 if (t != null)
                 {
-                    Mensaje m = new Mensaje((Contact) u.ContactInfo);
+                    var m = new Mensaje(State.Logout, u.ContactInfo);
                     try { _send(m, t.SessionId); } catch { }
                 }
             }
@@ -383,9 +387,9 @@ namespace Server.Controller
                 _send(new Mensaje(State.OpenChat, cr), user.SessionId);
                 cr.AddParticipant(user);
 
-                foreach (var u in cr.Participants)
+                foreach (var u in cr.GetOnlineParticipants())
                 {
-                    _send(new Mensaje(State.AddContactToChat, cr), user.SessionId);
+                    _send(new Mensaje(State.AddContactToChat, cr), ((User)u).SessionId);
                 }
             }
         }
