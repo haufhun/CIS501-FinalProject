@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Chat_CSLibrary;
 using Client.Controller;
+using Client.Model;
 using Client.View;
 
 namespace Client
@@ -28,7 +29,9 @@ namespace Client
     // defines the type of method that handles an add contact to room event
     public delegate void AddContactToRoomHandler(IChatRoom chatRoom, string name);
     // defines the type of method that handles a create chat room event
-    public delegate void CreateRoomHandler();
+    public delegate void CreateRoomHandler(string name);
+    //
+    public delegate void SendMessageHandler(string message, IChatRoom chatRoom);
 
     static class Program
     {
@@ -40,16 +43,19 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            ClientController_C c = new ClientController_C();
-            HomeForm hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateChatRoom);
-            SignInForm sIForm = new SignInForm(c.SignIn, hForm);
+            var chatDB = new ChatDB();
+            var c = new ClientController_C(chatDB);
+            var aCForm = new AddContactForm();
+            var hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateChatRoom, c.SendMessage, chatDB, aCForm);
+            var sIForm = new SignInForm(c.SignIn, hForm);
 
             c.MessageReceived += c.message;
 
 
             c.HomeFormRegister(hForm.UpdateView);
             c.HomeFormRegister(hForm.SignOut);
+            c.HomeFormRegister(hForm.AddContact);
+            c.HomeFormRegister(hForm.RemoveContact);
 
             c.ChatFormRegister(hForm.StartChat);
 
@@ -60,6 +66,9 @@ namespace Client
 
             hForm.Show();
             hForm.Visible = false;
+
+            //aCForm.Show();
+            //aCForm.Visible = false;
 
             Application.Run(sIForm);
 

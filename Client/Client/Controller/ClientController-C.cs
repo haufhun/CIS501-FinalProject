@@ -12,67 +12,120 @@ namespace Client.Controller
 {
     class ClientController_C
     {
+        //
         private List<SignInFormObserver> _sIFormObserver = new List<SignInFormObserver>();
-
+        //
         private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
-
+        //
         private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
-
+        //
         private WebSocket ws;
-
-        private IUser _user;
-        
-
+        //private field for Model chat database
+        private ChatDB _chatDB;  
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
-        public ClientController_C()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatDb"></param>
+        public ClientController_C(ChatDB chatDb)
         {
+
             // Connects to the server
-            ws = new WebSocket("ws://192.168.0.12:8022/chat");
+            ws = new WebSocket("ws://192.168.2.2:8022/chat");
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
             ws.Connect();
+            _chatDB = chatDb;
         }
 
-        // Makes sure to close the websocket when the controller is destructed
+        /// <summary>
+        /// Makes sure to close the websocket when the controller is destructed
+        /// </summary>
         ~ClientController_C()
         {
             ws.Close();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
         public bool message(string e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
             //Deserialize this first, don't just pass a new instance...
+
             var m = JsonConvert.DeserializeObject<Mensaje>(e);
             switch (m.MyState)
             {
                 case State.AddContact:
+                    
+                    //Contact of person trying to add Or
+                    //User back with updated contact list
+                    if (!m.IsError)
+                    {
+                        _chatDB.User = (User) m.User;
+                        SignalHFormObserver(0);
+                    }
+                    else
+                        MessageBox.Show(m.ErrorMessage);
+
                     break;
 
                 case State.RemoveContact:
+                    // contact of person trying to remove Or
+                    //user back with updated contact list
+                    //
+                    if (!m.IsError)
+                    {
+                        _chatDB.User = (User)m.User;
+                        SignalHFormObserver(0);
+                    }
+                    else
+                        MessageBox.Show(m.ErrorMessage);
+                    
                     break;
 
                 case State.AddContactToChat:
+                    // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
+                    //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
+                    SignalCFormObserver(1, m.ChatRoom);
                     break;
 
                 case State.Login:
+                    
+                    // if contact is null im signing in if it isnt null update that contacts status in friends list.//ADD THIS
                     SignalSIFormObsever(m.IsError ? 1 : 0);
-                    if (m.IsError) MessageBox.Show(m.ErrorMessage);
-                    _user = m.User;
+                    _chatDB.User = (User)m.User;
                     break;
-
+                    
                 case State.Logout:
-                    SignalHFormObserver(1);
-                    SignalSIFormObsever(2);                  
+                    // if contact is null im signing out if it isnt null update that contacts status in friends list. ///ADD THIS
+
+                    if (m.IsError)
+                        MessageBox.Show(m.ErrorMessage);
+                    else
+                    {
+
+                        SignalHFormObserver(1);
+                        SignalSIFormObsever(2);
+                    }
                     break;
 
                 case State.OpenChat:
-                    SignalCFormObserver(0, m.ChatRoom);
+                    if (m.IsError)
+                        MessageBox.Show(m.ErrorMessage);
+                    else
+                    {
+                        SignalCFormObserver(0, m.ChatRoom);
+                    }
                     break;
 
                 case State.SendTextMessage:
+                    // a Chatroom // get most recent text message object and populates it.
                     break;
 
                 default:
@@ -81,17 +134,28 @@ namespace Client.Controller
             return true;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
         public void SignInRegister(SignInFormObserver o)
         {
             _sIFormObserver.Add(o);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
         public void HomeFormRegister(HomeFormObserver o)
         {
             _hFormObserver.Add(o);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="o"></param>
         public void ChatFormRegister(ChatFormObserver o)
         {
             _cFormObserver.Add(o);
@@ -107,7 +171,7 @@ namespace Client.Controller
             if (ws.IsAlive)
             {
                 var m = new Mensaje(State.Login, new User(name, password));
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -123,8 +187,8 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(State.Logout, _user);
-                string output = JsonConvert.SerializeObject(m);
+                var m = new Mensaje(State.Logout, _chatDB.User);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -135,12 +199,16 @@ namespace Client.Controller
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         public void AddContact(string name)
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(State.AddContact, new Contact(name), _user);
-                string output = JsonConvert.SerializeObject(m);
+                var m = new Mensaje(State.AddContact, new Contact(name), _chatDB.User);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -150,12 +218,16 @@ namespace Client.Controller
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
         public void RemoveContact(string name)
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(State.RemoveContact, new Contact(name), _user); // maybe get contact from contact list dictionary in  a Database class??
-                string output = JsonConvert.SerializeObject(m);
+                var m = new Mensaje(State.RemoveContact, new Contact(name), _chatDB.User); // maybe get contact from contact list dictionary in  a Database class??
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -165,12 +237,36 @@ namespace Client.Controller
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        public void CreateChatRoom(string name)
+        {
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(_chatDB.User, _chatDB.User.ContactList.GetContact(name)); 
+                var output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatRoom"></param>
+        /// <param name="name"></param>
         public void AddContactToRoom(IChatRoom chatRoom, string name)
         {
             if (ws.IsAlive)
             {
                 var m = new Mensaje(chatRoom, new Contact(name)); // maybe get contact from contact list dictionary in  a Database class??
-                string output = JsonConvert.SerializeObject(m);
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -180,12 +276,17 @@ namespace Client.Controller
             }
         }
 
-        public void CreateChatRoom()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="chatRoom"></param>
+        public void SendMessage(string message, IChatRoom chatRoom)
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(new ChatRoom(null));
-                string output = JsonConvert.SerializeObject(m);
+                var m = new Mensaje(chatRoom, new TextMessage(message, _chatDB.User.ContactInfo)); 
+                var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
             }
@@ -195,23 +296,45 @@ namespace Client.Controller
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index">
+        ///  Calls the start chat method from homeform if index of [0]
+        /// </param>
+        /// <param name="chatRoom"> Current chatroom that is needed. </param>
         private void SignalCFormObserver(int index, IChatRoom chatRoom)
         {
+            
             _cFormObserver[index](chatRoom);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index">
+        ///  Calls Update if index of [0]
+        ///  Calls SignOut if Index of [1]
+        ///  Calls AddContact if index is [2]
+        ///  Calls RemoveContact if index is [3]
+        /// </param>
         private void SignalHFormObserver(int index)
         {
-            //calls Update if index of [0]
-            //Calls SignOut if Index of [1]
+
             _hFormObserver[index]();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="index"> 
+        ///  Calls EventSuccessfulLogin if index of [0]
+        ///  Calls EventUnsuccessfulLogin if Index of [1]
+        ///  Calls SignOut if Index of [2]
+        /// </param>
         private void SignalSIFormObsever(int index)
         {
-            //calls EventSuccessfulLogin if index of [0]
-            //Calls EventUnsuccessfulLogin if Index of [1]
-            //Calls SignOut if Index of [2]
+            
             _sIFormObserver[index]();
            
 

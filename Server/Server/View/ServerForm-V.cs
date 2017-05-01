@@ -46,14 +46,18 @@ namespace Server.View
                 uxLoginButton,
                 uxAddCnctBtn,
                 uxRmvCnctBtn,
-                uxCreateChatRoomBtn
+                uxCreateChatRoomBtn,
+                uxLogoutButton,
+                uxSendMessageBtn
             };
 
             _testingTextBoxes = new List<TextBox>
             {
                 uxContactTB,
                 uxPasswordTB,
-                uxUsernameTB
+                uxUsernameTB, 
+                uxMessageTB,
+                uxChatRoomIdTB
             };
             _userLVSelected = new List<string>();
 
@@ -63,25 +67,24 @@ namespace Server.View
             UpdateChatRoomWebBrowser();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void uxLoginButton_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"), false);
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void uxAddCnctBtn_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
+            var m = new Mensaje(State.AddContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
-        private void uxAddCnctBtn_Click(object sender, EventArgs e)
+        private void uxRmvCnctBtn_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(State.AddContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
+            var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
@@ -98,34 +101,66 @@ namespace Server.View
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
+        private void uxSendMessageBtn_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+
+        }
+        private void uxLogoutButton_Click(object sender, EventArgs e)
+        {
+            var m = new Mensaje(State.Logout, new User(new Contact(uxUsernameTB.Text, Status.Offline), null, "1234"));
+            _handle(m, "1234");
+            foreach (var tb in _testingTextBoxes) tb.Clear();
+        }
+
         public void SendEvent(IMensaje m)
         {
-            try
+            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+
+            if (uxUsersListView.InvokeRequired)
             {
-                var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+                Invoke(new MethodInvoker(delegate { listView1.Items.Add(lt); }));
+            }
+            else
+            {
                 listView1.Items.Add(lt);
             }
-            catch { }
         }
 
         public void UpdateUserListView()
         {
-            uxUsersListView.BeginUpdate();
-            uxUsersListView.Clear();
-
-            foreach (var u in _db.Users)
+            if (uxUsersListView.InvokeRequired)
             {
-                string[] s = { u.ContactInfo.Username };
-                var li = new ListViewItem(s);
-                uxUsersListView.Items.Add(li);
-            }
+                Invoke(new MethodInvoker(delegate { uxUsersListView.BeginUpdate(); }));
+                Invoke(new MethodInvoker(delegate { uxUsersListView.Clear(); }));
 
-            uxUsersListView.EndUpdate();
+                foreach (var u in _db.Users)
+                {
+                    string[] s = { u.ContactInfo.Username };
+                    var li = new ListViewItem(s);
+                    Invoke(new MethodInvoker(delegate { uxUsersListView.Items.Add(li); }));
+                }
+                Invoke(new MethodInvoker(delegate { uxUsersListView.EndUpdate(); }));
+            }
+            else
+            {
+                uxUsersListView.BeginUpdate();
+                uxUsersListView.Clear();
+                foreach (var u in _db.Users)
+                {
+                    string[] s = { u.ContactInfo.Username };
+                    var li = new ListViewItem(s);
+                    uxUsersListView.Items.Add(li);
+                }
+                uxUsersListView.EndUpdate();
+            }
         }
 
         public void UpdateUserWebBrowser()
         {
-            var userList = "";
+            var userList = string.Empty;
 
             foreach(var un in _userLVSelected)
             {
@@ -141,7 +176,7 @@ namespace Server.View
 
                 foreach(var c in u.ContactList.Contacts)
                 {
-                    userList += "<li>" + c.Username + " (<em>" + c.OnlineStatus.ToString() + "</em>)</li>";
+                    userList += "<li>" + c.Username + " (<em>" + c.OnlineStatus + "</em>)</li>";
                 }
 
                 userList += "</ul></ul>";
@@ -162,28 +197,36 @@ namespace Server.View
 
         public void UpdateChatRoomWebBrowser()
         {
-            string chatList = "";
-
+            var chatList = "";
 
             foreach(var cr in _db.ChatRooms)
             {
-                string id = cr.Id;
+                var id = cr.Id;
                 chatList += "<li>" + id + "</li><ul>" +
                             "<li>Participants</li>" + 
                                     "<ul>";
                 
                 foreach (var u in cr.Participants)
                 {
-                    string n = u.ContactInfo.Username;
-                    chatList += "<li>" + n + "</li>";
+                    chatList += "<li>" + u.ContactInfo.Username + " (<em>" + u.ContactInfo.OnlineStatus + "</em>)</li>";
                 }
-                chatList +=     "</ul>" +
+                chatList += "</ul>" +
+                            "<li>ContactList:</li>" +
+                            "<ul>";
+
+                foreach (var c in cr.ContactsToAdd.Contacts)
+                {
+                    chatList += "<li>" + c.Username + " (<em>" + c.OnlineStatus + "</em>)</li>";
+                }
+
+                chatList += "</ul>" +
                             "<li>Messages:</li>" +
                                 "<ul>";
 
                 foreach(var m in cr.MessageHistory)
                 {
-                    chatList += "<li>" + m.ToString() + "</li>";
+                    //Does the ToString automatically!
+                    chatList += "<li>" + m + "</li>";
                 }
 
                 chatList += "</ul></ul>";
@@ -220,6 +263,5 @@ namespace Server.View
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
         }
-
     }
 }

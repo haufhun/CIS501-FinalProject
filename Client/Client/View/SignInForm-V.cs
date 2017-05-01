@@ -13,9 +13,16 @@ namespace Client
 {
     public partial class SignInForm : Form
     {
+        //
         private HomeForm _homeForm;
+        //
         private SignInHandler _sIHandler;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="homeForm"></param>
         public SignInForm(SignInHandler s, HomeForm homeForm)
         {
             _sIHandler = s;
@@ -23,22 +30,38 @@ namespace Client
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxSignIn_Click(object sender, EventArgs e)
         {       
             _sIHandler(uxUsernameTxt.Text, uxPassTxt.Text);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void EventSuccessfulLogin()
         {
             _homeForm.Invoke(new MethodInvoker(_homeForm.Show));
             this.Invoke(new MethodInvoker(this.Hide));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void EventUnSuccessfulLogin()
         {
+            MessageBox.Show("Incorrect username or password. Please try again.");
             //_homeForm.Invoke(new MethodInvoker(_homeForm.Show));
             //this.Invoke(new MethodInvoker(this.Hide));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void SignOut()
         {
             this.Invoke(new MethodInvoker(this.Show));
