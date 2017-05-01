@@ -37,6 +37,7 @@ namespace Server.View
             listView1.Columns.Add("Error?");
             listView1.Columns.Add("Error Message");
             listView1.Columns.Add("Chat Room Id");
+            listView1.Columns.Add("Send/Receive");
 
             uxChatRoomListView.Columns.Add("Id");
             uxChatRoomListView.Columns.Add("Users");
@@ -115,9 +116,11 @@ namespace Server.View
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
-        public void SendEvent(IMensaje m)
+        public void SendEvent(IMensaje m, LogStatus s)
         {
-            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+            var ms = new List<string>(((Mensaje)m).ToArrayString());
+            ms.Add(s.ToString());
+            var lt = new ListViewItem(ms.ToArray());
 
             if (uxUsersListView.InvokeRequired)
             {

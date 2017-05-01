@@ -5,7 +5,7 @@ namespace Server
     public class Delegates
     {
         //The delegate that will update the GUI application with information from the server
-        public delegate void EventLogObserver(IMensaje m);
+        public delegate void EventLogObserver(IMensaje m, LogStatus s);
         //Observer to update the information displayed in the Database tab.
         public delegate void Observer();
         //The delegate that will handle a user interaction
@@ -16,5 +16,12 @@ namespace Server
         //Delegate used to send a message back to the appropriate user
         public delegate void SendMessageHandler(IMensaje m, string sessionId);
 
+    }
+
+    public enum LogStatus
+    {
+        Receive,
+        Send,
+        Internal
     }
 }
