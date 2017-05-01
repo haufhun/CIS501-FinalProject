@@ -30,7 +30,7 @@ namespace Client
     public delegate void AddContactToRoomHandler(IChatRoom chatRoom, string name);
     // defines the type of method that handles a create chat room event
     public delegate void CreateRoomHandler(string name);
-
+    //
     public delegate void SendMessageHandler(string message, IChatRoom chatRoom);
 
     static class Program
@@ -54,6 +54,8 @@ namespace Client
 
             c.HomeFormRegister(hForm.UpdateView);
             c.HomeFormRegister(hForm.SignOut);
+            c.HomeFormRegister(hForm.AddContact);
+            c.HomeFormRegister(hForm.RemoveContact);
 
             c.ChatFormRegister(hForm.StartChat);
 

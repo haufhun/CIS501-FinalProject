@@ -8,14 +8,24 @@ namespace Client.Model
 {
     public class ChatDB
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ChatDB()
         {
             User = new User(null, null);
             ChatRooms = new Dictionary<string, ChatRoom>();
 
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public User User { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Dictionary<string, ChatRoom> ChatRooms { get; set; }
 
         //public ChatDB(Dictionary<string, User> users, Dictionary<string, ChatRoom> chatRooms)

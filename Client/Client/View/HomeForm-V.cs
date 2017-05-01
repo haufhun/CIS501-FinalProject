@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Chat_CSLibrary;
 using Client.Model;
 
@@ -16,6 +17,18 @@ namespace Client.View
         private ChatDB _chatDb;
         private AddContactForm _aCForm;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sI"></param>
+        /// <param name="sO"></param>
+        /// <param name="ac"></param>
+        /// <param name="rc"></param>
+        /// <param name="acr"></param>
+        /// <param name="cr"></param>
+        /// <param name="sm"></param>
+        /// <param name="chatDb"></param>
+        /// <param name="aCForm"></param>
         public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm, ChatDB chatDb, AddContactForm aCForm)
         {
             _sInHandler = sI;
@@ -32,29 +45,31 @@ namespace Client.View
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxSignOut_Click(object sender, System.EventArgs e)
         {
             _sOutHandler();
         }
 
-        public void SignOut()
-        {
-            this.Invoke(new MethodInvoker(this.Hide));
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxStartChat_Click(object sender, System.EventArgs e)
         {
             _createRoomHandler("username");// pass in username from list view
         }
 
-        public void StartChat(IChatRoom iChat)
-        {
-            var c = new ChatForm(iChat, _sendMessageHandler);
-            c.Invoke(new MethodInvoker(c.Show));
-
-        }
-
-      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxAddContact_Click(object sender, System.EventArgs e)
         {
             _aCForm.ShowDialog();
@@ -65,33 +80,68 @@ namespace Client.View
             }
 
         }
-        public void AddContact()
-        {
-            uxListView.BeginUpdate();
 
-            uxListView.EndUpdate();
-            //populate list view from user
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxDeleteContact_Click(object sender, System.EventArgs e)
         {
-            
-            //look for contact selected in list view..
             if (uxListView.SelectedItems.Count > 0)
                 _removeCHandler(uxListView.SelectedItems[0].SubItems[0].ToString());
             else
                 MessageBox.Show("Please select a contact to remove!");
-        }   
-        public void removeContact()
-        {
-            uxListView.BeginUpdate();
-            var item = new ListViewItem();
-                //populate list view from user
-           // _chatDb.User;
-            uxListView.EndUpdate();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="iChat"></param>
+        public void StartChat(IChatRoom iChat)
+        {
+            var c = new ChatForm(iChat, _sendMessageHandler);
+            c.Invoke(new MethodInvoker(c.Show));
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void AddContact()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void RemoveContact()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void UpdateView()
         {
-            throw new System.NotImplementedException();
+            uxListView.BeginUpdate();
+            foreach (var c in _chatDb.User.ContactList.Contacts)
+            {
+                string[] iteminfo = { c.Username, c.OnlineStatus.ToString() };
+                var item = new ListViewItem(iteminfo);
+                uxListView.Items.Add(item);
+            }
+            uxListView.EndUpdate();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SignOut()
+        {
+            this.Invoke(new MethodInvoker(this.Hide));
         }
     }
 }
