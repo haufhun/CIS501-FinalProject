@@ -36,12 +36,16 @@ namespace Server
 
         private static ChatDb LoadUsers()
         {
-            using (System.IO.StreamReader file = new System.IO.StreamReader("UserFile.txt"))
+            if (System.IO.File.Exists("UserFile.txt"))
             {
-                string s = file.ReadLine();
-                ChatDb c = JsonConvert.DeserializeObject<ChatDb>(s);
-                return c;
+                using (System.IO.StreamReader file = new System.IO.StreamReader("UserFile.txt"))
+                {
+                    string s = file.ReadLine();
+                    ChatDb c = JsonConvert.DeserializeObject<ChatDb>(s);
+                    return c;
+                }
             }
+            else return null;
 
         }
     }
