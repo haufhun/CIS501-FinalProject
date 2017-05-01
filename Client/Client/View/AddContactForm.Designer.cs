@@ -28,52 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.uxTxt = new System.Windows.Forms.TextBox();
             this.uxAdd = new System.Windows.Forms.Button();
-            this.uxInfoTxt = new System.Windows.Forms.TextBox();
-            this.uxInfoLabel = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // uxTxt
+            // 
+            this.uxTxt.Location = new System.Drawing.Point(27, 86);
+            this.uxTxt.Name = "uxTxt";
+            this.uxTxt.Size = new System.Drawing.Size(270, 22);
+            this.uxTxt.TabIndex = 2;
             // 
             // uxAdd
             // 
             this.uxAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.uxAdd.Location = new System.Drawing.Point(99, 88);
+            this.uxAdd.Location = new System.Drawing.Point(104, 133);
             this.uxAdd.Name = "uxAdd";
-            this.uxAdd.Size = new System.Drawing.Size(103, 42);
-            this.uxAdd.TabIndex = 9;
+            this.uxAdd.Size = new System.Drawing.Size(114, 56);
+            this.uxAdd.TabIndex = 1;
             this.uxAdd.Text = "Add";
             this.uxAdd.UseVisualStyleBackColor = true;
-            this.uxAdd.Visible = false;
             // 
-            // uxInfoTxt
+            // label1
             // 
-            this.uxInfoTxt.Location = new System.Drawing.Point(20, 50);
-            this.uxInfoTxt.Name = "uxInfoTxt";
-            this.uxInfoTxt.Size = new System.Drawing.Size(261, 22);
-            this.uxInfoTxt.TabIndex = 8;
-            this.uxInfoTxt.Visible = false;
-            // 
-            // uxInfoLabel
-            // 
-            this.uxInfoLabel.AutoSize = true;
-            this.uxInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uxInfoLabel.Location = new System.Drawing.Point(17, 17);
-            this.uxInfoLabel.Name = "uxInfoLabel";
-            this.uxInfoLabel.Size = new System.Drawing.Size(274, 20);
-            this.uxInfoLabel.TabIndex = 7;
-            this.uxInfoLabel.Text = "Please enter a contact name to add";
-            this.uxInfoLabel.Visible = false;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(23, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(274, 20);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Please enter a contact name to add";
             // 
             // AddContactForm
             // 
             this.AcceptButton = this.uxAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(310, 152);
+            this.ClientSize = new System.Drawing.Size(349, 211);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.uxTxt);
             this.Controls.Add(this.uxAdd);
-            this.Controls.Add(this.uxInfoTxt);
-            this.Controls.Add(this.uxInfoLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
             this.Name = "AddContactForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Contact";
@@ -83,8 +79,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label uxInfoLabel;
-        public System.Windows.Forms.TextBox uxInfoTxt;
-        public System.Windows.Forms.Button uxAdd;
+        private System.Windows.Forms.Button uxAdd;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox uxTxt;
     }
 }

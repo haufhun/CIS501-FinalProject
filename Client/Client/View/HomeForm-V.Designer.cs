@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("kjjjj");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeForm));
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.uxListView = new System.Windows.Forms.ListView();
             this.uxNameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.uxStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -38,24 +39,23 @@
             this.uxDeleteContact = new System.Windows.Forms.ToolStripButton();
             this.uxSignOut = new System.Windows.Forms.ToolStripButton();
             this.uxInfoLabel = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.uxColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.uxColStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
-            // listView1
+            // uxListView
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.uxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.uxNameCol,
             this.uxStatus});
-            this.listView1.Location = new System.Drawing.Point(12, 37);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(355, 314);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
+            this.uxListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem1});
+            this.uxListView.Location = new System.Drawing.Point(12, 37);
+            this.uxListView.MultiSelect = false;
+            this.uxListView.Name = "uxListView";
+            this.uxListView.Size = new System.Drawing.Size(355, 314);
+            this.uxListView.TabIndex = 1;
+            this.uxListView.UseCompatibleStateImageBehavior = false;
+            this.uxListView.View = System.Windows.Forms.View.Details;
             // 
             // uxNameCol
             // 
@@ -130,47 +130,19 @@
             this.uxInfoLabel.Text = "info?";
             this.uxInfoLabel.Visible = false;
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToOrderColumns = true;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.uxColName,
-            this.uxColStatus});
-            this.dataGridView1.Location = new System.Drawing.Point(99, 135);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(169, 136);
-            this.dataGridView1.TabIndex = 11;
-            // 
-            // uxColName
-            // 
-            this.uxColName.HeaderText = "Name";
-            this.uxColName.Name = "uxColName";
-            this.uxColName.ReadOnly = true;
-            // 
-            // uxColStatus
-            // 
-            this.uxColStatus.HeaderText = "Status";
-            this.uxColStatus.Name = "uxColStatus";
-            this.uxColStatus.ReadOnly = true;
-            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 390);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.uxInfoLabel);
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.uxListView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "HomeForm";
             this.Text = "Home";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,7 +150,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView uxListView;
         private System.Windows.Forms.ColumnHeader uxNameCol;
         private System.Windows.Forms.ColumnHeader uxStatus;
         private System.Windows.Forms.ToolStrip toolStrip1;
@@ -187,9 +159,6 @@
         private System.Windows.Forms.ToolStripButton uxDeleteContact;
         private System.Windows.Forms.ToolStripButton uxSignOut;
         private System.Windows.Forms.Label uxInfoLabel;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn uxColName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn uxColStatus;
     }
 }
 

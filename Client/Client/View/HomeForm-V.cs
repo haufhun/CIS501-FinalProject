@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using Chat_CSLibrary;
+using Client.Model;
 
 namespace Client.View
 {
@@ -12,9 +13,10 @@ namespace Client.View
         private AddContactToRoomHandler _addCToRoomHandler;
         private CreateRoomHandler _createRoomHandler;
         private SendMessageHandler _sendMessageHandler;
-        private  AddContactForm _aCForm;
+        private ChatDB _chatDb;
+        private AddContactForm _aCForm;
 
-        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm, AddContactForm aCForm)
+        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm, ChatDB chatDb, AddContactForm aCForm)
         {
             _sInHandler = sI;
             _sOutHandler = sO;
@@ -23,9 +25,11 @@ namespace Client.View
             _addCToRoomHandler = acr;
             _createRoomHandler = cr;
             _sendMessageHandler = sm;
+            _chatDb = chatDb;
             _aCForm = aCForm;
 
             InitializeComponent();
+
         }
 
         private void uxSignOut_Click(object sender, System.EventArgs e)
@@ -50,27 +54,41 @@ namespace Client.View
 
         }
 
+      
         private void uxAddContact_Click(object sender, System.EventArgs e)
         {
-            //var addCForm = new AddContactForm();
+            _aCForm.ShowDialog();
 
-            _aCForm.Invoke(new MethodInvoker(_aCForm.Show));
-
-            // not working for some reason...
-            _addCHandler("tyler");
-            /*if (_aCForm.DialogResult == DialogResult.OK)
+            if (_aCForm.DialogResult == DialogResult.OK)
             {
-               _addCHandler(_aCForm.uxInfoTxt.Text);
-            }*/
+               _addCHandler(_aCForm.uxTxt.Text);
+            }
 
         }
+        public void AddContact()
+        {
+            uxListView.BeginUpdate();
 
+            uxListView.EndUpdate();
+            //populate list view from user
+        }
         private void uxDeleteContact_Click(object sender, System.EventArgs e)
         {
-            //look for contact selected in list view.../ gridview?
-           // _removeCHandler(string name);
+            
+            //look for contact selected in list view..
+            if (uxListView.SelectedItems.Count > 0)
+                _removeCHandler(uxListView.SelectedItems[0].SubItems[0].ToString());
+            else
+                MessageBox.Show("Please select a contact to remove!");
+        }   
+        public void removeContact()
+        {
+            uxListView.BeginUpdate();
+            var item = new ListViewItem();
+                //populate list view from user
+           // _chatDb.User;
+            uxListView.EndUpdate();
         }
-
         public void UpdateView()
         {
             throw new System.NotImplementedException();
