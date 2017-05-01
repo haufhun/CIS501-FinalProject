@@ -81,10 +81,19 @@ namespace Server.Model
         /// Used to send to other clients that a particular contact is logged out.
         /// </summary>
         /// <param name="c">The contact that was logged out.</param>
-        public Mensaje(Contact c)
+        public Mensaje(State s, IContact c)
         {
-            MyState = State.Logout;
+            MyState = s;
             Contact = c;
+        }
+
+        /// <summary>
+        /// Used to send to the Client that they signed out correctly.
+        /// </summary>
+        /// <param name="s"></param>
+        public Mensaje(State s)
+        {
+            MyState = s;
         }
 
         /// <summary>
@@ -200,5 +209,6 @@ namespace Server.Model
             TextMessage = textMessage;
         }
 
+        
     }
 }

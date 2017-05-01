@@ -67,25 +67,24 @@ namespace Server.View
             UpdateChatRoomWebBrowser();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void uxLoginButton_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"), false);
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void uxAddCnctBtn_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
+            var m = new Mensaje(State.AddContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
-        private void uxAddCnctBtn_Click(object sender, EventArgs e)
+        private void uxRmvCnctBtn_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(State.AddContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
+            var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
@@ -118,12 +117,16 @@ namespace Server.View
 
         public void SendEvent(IMensaje m)
         {
-            try
+            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+
+            if (uxUsersListView.InvokeRequired)
             {
-                var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+                Invoke(new MethodInvoker(delegate { listView1.Items.Add(lt); }));
+            }
+            else
+            {
                 listView1.Items.Add(lt);
             }
-            catch { }
         }
 
         public void UpdateUserListView()
@@ -157,7 +160,7 @@ namespace Server.View
 
         public void UpdateUserWebBrowser()
         {
-            var userList = "";
+            var userList = string.Empty;
 
             foreach(var un in _userLVSelected)
             {
@@ -173,7 +176,7 @@ namespace Server.View
 
                 foreach(var c in u.ContactList.Contacts)
                 {
-                    userList += "<li>" + c.Username + " (<em>" + c.OnlineStatus.ToString() + "</em>)</li>";
+                    userList += "<li>" + c.Username + " (<em>" + c.OnlineStatus + "</em>)</li>";
                 }
 
                 userList += "</ul></ul>";
