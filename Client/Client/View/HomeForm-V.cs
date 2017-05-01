@@ -12,8 +12,9 @@ namespace Client.View
         private AddContactToRoomHandler _addCToRoomHandler;
         private CreateRoomHandler _createRoomHandler;
         private SendMessageHandler _sendMessageHandler;
+        private  AddContactForm _aCForm;
 
-        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm)
+        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm, AddContactForm aCForm)
         {
             _sInHandler = sI;
             _sOutHandler = sO;
@@ -22,6 +23,7 @@ namespace Client.View
             _addCToRoomHandler = acr;
             _createRoomHandler = cr;
             _sendMessageHandler = sm;
+            _aCForm = aCForm;
 
             InitializeComponent();
         }
@@ -34,12 +36,11 @@ namespace Client.View
         public void SignOut()
         {
             this.Invoke(new MethodInvoker(this.Hide));
-            // Hide();
         }
 
         private void uxStartChat_Click(object sender, System.EventArgs e)
         {
-           // _createRoomHandler(string username); pass in username from list view
+            _createRoomHandler("username");// pass in username from list view
         }
 
         public void StartChat(IChatRoom iChat)
@@ -51,12 +52,17 @@ namespace Client.View
 
         private void uxAddContact_Click(object sender, System.EventArgs e)
         {
-            var addCForm = new AddContactForm();
+            //var addCForm = new AddContactForm();
 
-            if (addCForm.ShowDialog(this) == DialogResult.OK)
+            _aCForm.Invoke(new MethodInvoker(_aCForm.Show));
+
+            // not working for some reason...
+            _addCHandler("tyler");
+            /*if (_aCForm.DialogResult == DialogResult.OK)
             {
-                _addCHandler(addCForm.uxInfoTxt.Text);
-            }
+               _addCHandler(_aCForm.uxInfoTxt.Text);
+            }*/
+
         }
 
         private void uxDeleteContact_Click(object sender, System.EventArgs e)

@@ -35,6 +35,7 @@
             // 
             // uxAdd
             // 
+            this.uxAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.uxAdd.Location = new System.Drawing.Point(99, 88);
             this.uxAdd.Name = "uxAdd";
             this.uxAdd.Size = new System.Drawing.Size(103, 42);
@@ -82,9 +83,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button uxAdd;
         private System.Windows.Forms.Label uxInfoLabel;
         public System.Windows.Forms.TextBox uxInfoTxt;
+        public System.Windows.Forms.Button uxAdd;
     }
 }

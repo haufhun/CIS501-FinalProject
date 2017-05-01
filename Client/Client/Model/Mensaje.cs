@@ -136,7 +136,7 @@ namespace Client.Model
             /// <param name="contact"></param>
             [JsonConstructor]
             private Mensaje(State s, User user, ChatRoom chatRoom, Contact contact, ContactList contactList,
-                TextMessage textMessage, bool isError, string errorMessage)
+                TextMessage textMessage, bool isError, string errorMessage, bool isNewUser)
             {
                 MyState = s;
                 User = user;
@@ -144,6 +144,10 @@ namespace Client.Model
                 Contact = contact;
                 ContactList = contactList;
                 TextMessage = textMessage;
+                IsError = isError;
+                ErrorMessage = errorMessage;
+                IsNewUser = isNewUser;
+
             }
 
 

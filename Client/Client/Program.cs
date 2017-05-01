@@ -45,7 +45,8 @@ namespace Client
             Application.SetCompatibleTextRenderingDefault(false);
             var chatDB = new ChatDB();
             var c = new ClientController_C(chatDB);
-            var hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateChatRoom, c.SendMessage);
+            var aCForm = new AddContactForm();
+            var hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateChatRoom, c.SendMessage,aCForm);
             var sIForm = new SignInForm(c.SignIn, hForm);
 
             c.MessageReceived += c.message;
@@ -63,6 +64,9 @@ namespace Client
 
             hForm.Show();
             hForm.Visible = false;
+
+            aCForm.Show();
+            aCForm.Visible = false;
 
             Application.Run(sIForm);
 
