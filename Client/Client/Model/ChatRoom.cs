@@ -11,28 +11,64 @@ namespace Client.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class ChatRoom : IChatRoom
     {
+        //[JsonProperty]
+        //private List<TextMessage> _messages;
+
+        //[JsonProperty]
+        ////We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
+        //public string Id { get; }
+
+        //public IEnumerable<ITextMessage> MessageHistory => _messages;
+
+        //public IEnumerable<IUser> Participants => _users.Values;
+
+        //private Dictionary<string, User> _users;
+
+
+
+        ///// <summary>
+        ///// Used for Json.
+        ///// </summary>
+        ///// <param name="msgs"></param>
+        ///// <param name="list"></param>
+        //private ChatRoom(List<TextMessage> msgs, string id)
+        //{
+        //    _messages = msgs;
+        //    Id = id;
+        //}
         [JsonProperty]
         private List<TextMessage> _messages;
+
+        [JsonProperty]
+        private ContactList _contactsToAdd;
 
         [JsonProperty]
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
         public string Id { get; }
 
+        [JsonProperty]
+        private Dictionary<string, User> _users;
+
+        public IContactList ContactsToAdd => _contactsToAdd;
+
         public IEnumerable<ITextMessage> MessageHistory => _messages;
 
         public IEnumerable<IUser> Participants => _users.Values;
 
-        private Dictionary<string, User> _users;
 
         /// <summary>
         /// Used for Json.
         /// </summary>
         /// <param name="msgs"></param>
-        /// <param name="list"></param>
-        private ChatRoom(List<TextMessage> msgs, string id)
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        [JsonConstructor]
+        private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users, ContactList c)
         {
             _messages = msgs;
             Id = id;
+            _users = users;
+            _contactsToAdd = c;
         }
 
         /// <summary>
