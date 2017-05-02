@@ -12,34 +12,66 @@ namespace Server.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class Mensaje : IMensaje
     {
+        /// <summary>
+        /// The state of this Mensaje, which is used to determine which course of action to take.
+        /// </summary>
         [JsonProperty]
         [JsonConverter(typeof(StringEnumConverter))]
         public State MyState { get; private set; }
 
+        //Each of the following properties can be used differently based on the State
+
+        /// <summary>
+        /// The User
+        /// </summary>
         [JsonProperty]
         public IUser User { get; }
 
+        /// <summary>
+        /// The ChatRoom
+        /// </summary>
         [JsonProperty]
         public IChatRoom ChatRoom { get; }
 
+        /// <summary>
+        /// The Contact
+        /// </summary>
         [JsonProperty]
         public IContact Contact { get; }
 
+        /// <summary>
+        /// The ContactList
+        /// </summary>
         [JsonProperty]
         public IContactList ContactList { get; }
 
+        /// <summary>
+        /// The TextMessage (only used when a message is sent)
+        /// </summary>
         [JsonProperty]
         public ITextMessage TextMessage { get;  }
 
+        /// <summary>
+        /// Indicates that an error occurred
+        /// </summary>
         [JsonProperty]
         public bool IsError { get; }
 
+        /// <summary>
+        /// The message associated with the error
+        /// </summary>
         [JsonProperty]
         public string ErrorMessage { get; }
 
+        /// <summary>
+        /// Indicates whether the user is new
+        /// </summary>
         [JsonProperty]
         public bool IsNewUser { get; }
 
+        /// <summary>
+        /// Used to make the Mensaje readable
+        /// </summary>
         public IEnumerable<string> ArrayString => new[]
         {
             DateTime.Now.ToString(CultureInfo.CurrentCulture),
@@ -68,29 +100,29 @@ namespace Server.Model
         /// <summary>
         /// Logout
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="s">The state, should be set to Logout</param>
         public Mensaje(State s)
         {
             MyState = s;
         }
 
-            /// <summary>
-            /// Login/Logout to other contacts
-            /// </summary>
-            /// <param name="s"></param>
-            /// <param name="cl"></param>
-            public Mensaje(State s, IContactList cl)
-                {
-                    MyState = s;
-                    ContactList = cl;
-                }
+        /// <summary>
+        /// Login/Logout to other contacts
+        /// </summary>
+        /// <param name="s">The state of this message</param>
+        /// <param name="cl">The list of contacts</param>
+        public Mensaje(State s, IContactList cl)
+            {
+                MyState = s;
+                ContactList = cl;
+            }
 
         /// <summary>
         /// Add/Remove Contact
         /// </summary>
         /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
-        /// <param name="c"></param>
-        /// <param name="user">The user to </param>
+        /// <param name="c">The contact to be added/removed</param>
+        /// <param name="user">The user that adds/removes</param>
         public Mensaje(State s, IContact c, IUser user)
         {
             if (s != State.AddContact && s != State.RemoveContact) throw new NotSupportedException();
