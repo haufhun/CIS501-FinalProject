@@ -89,7 +89,7 @@ namespace Client.View
         private void uxDeleteContact_Click(object sender, System.EventArgs e)
         {
             if (uxListView.SelectedItems.Count > 0)
-                _removeCHandler(uxListView.SelectedItems[0].SubItems[0].ToString());
+                _removeCHandler(uxListView.SelectedItems[0].SubItems[0].Text);
             else
                 MessageBox.Show("Please select a contact to remove!");
         }
@@ -126,7 +126,9 @@ namespace Client.View
         /// </summary>
         public void UpdateView()
         {
+            
             Invoke(new MethodInvoker( uxListView.BeginUpdate));
+            Invoke(new MethodInvoker(uxListView.Items.Clear));
             foreach (var c in _chatDb.User.ContactList.Contacts)
             {
                 string[] iteminfo = { c.Username, c.OnlineStatus.ToString() };

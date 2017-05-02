@@ -99,7 +99,9 @@ namespace Client.Controller
                     
                     // if contact is null im signing in if it isnt null update that contacts status in friends list.//ADD THIS
                     SignalSIFormObsever(m.IsError ? 1 : 0);
+
                     _chatDB.User = (User)m.User;
+                    SignalHFormObserver(0);
                     break;
                     
                 case State.Logout:
