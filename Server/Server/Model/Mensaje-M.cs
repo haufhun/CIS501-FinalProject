@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Chat_CSLibrary;
 using Newtonsoft.Json.Converters;
-using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 
 namespace Server.Model
 {
@@ -39,22 +40,19 @@ namespace Server.Model
         [JsonProperty]
         public bool IsNewUser { get; }
 
-        public string [] ToArrayString()
+        public IEnumerable<string> ArrayString => new[]
         {
-            return new string[]
-            {
-                DateTime.Now.ToString(),
-                !Equals(User, null) ? User.ContactInfo.Username : "null",
-                !Equals(User, null) ? ((User)User).SessionId : "null",
-                MyState.ToString(),
-                IsNewUser.ToString(),
-                IsError.ToString(),
-                !Equals(ErrorMessage, null) ? ErrorMessage.ToString() : "",
-                !Equals(ChatRoom, null) ? ChatRoom.Id : "",
-            };
-        }
+            DateTime.Now.ToString(CultureInfo.CurrentCulture),
+            !Equals(User, null) ? User.ContactInfo.Username : "null",
+            !Equals(User, null) ? ((User)User).SessionId : "null",
+            MyState.ToString(),
+            IsNewUser.ToString(),
+            IsError.ToString(),
+            !Equals(ErrorMessage, null) ? ErrorMessage.ToString() : "",
+            !Equals(ChatRoom, null) ? ChatRoom.Id : "",
+        };
 
-        
+
         /// <summary>
         /// Login
         /// </summary>
@@ -79,12 +77,13 @@ namespace Server.Model
             /// <summary>
             /// Login/Logout to other contacts
             /// </summary>
-            /// <param name="c">The contact that logged in/out.</param>
-            public Mensaje(State s, IContact c)
-            {
-                MyState = s;
-                Contact = c;
-            }
+            /// <param name="s"></param>
+            /// <param name="cl"></param>
+            public Mensaje(State s, IContactList cl)
+                {
+                    MyState = s;
+                    ContactList = cl;
+                }
 
         /// <summary>
         /// Add/Remove Contact
@@ -138,7 +137,6 @@ namespace Server.Model
         }
 
 
-
         /// <summary>
         /// This constructor is ONLY to be used by Json in order to deserialize.
         /// </summary>
@@ -167,7 +165,7 @@ namespace Server.Model
         /// <summary>
         /// Login/Logout sent by server
         /// </summary>
-        /// <param name="cr"></param>
+        /// <param name="s"></param>
         /// <param name="u"></param>
         public Mensaje(State s, IUser u)
         {
@@ -192,7 +190,6 @@ namespace Server.Model
         /// <summary>
         /// Constructor used to send a message to a chat room.
         /// </summary>
-        /// <param name="s">The status of the message being sent.</param>
         /// <param name="chatroom">The chat room object that the message should be sent to.</param>
         /// <param name="msg">The text message that is to be sent in the chat room.</param>
         public Mensaje(IChatRoom chatroom, ITextMessage msg)
@@ -205,7 +202,6 @@ namespace Server.Model
         /// <summary>
         /// Constructor used to add a contact to a chat room. This is what the client should use.
         /// </summary>
-        /// <param name="s">The status of the message being sent.</param>
         /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
         /// <param name="c">The contact to be added to the chat room.</param>
         public Mensaje(IChatRoom chatroom, IContact c)

@@ -206,7 +206,7 @@ namespace Server.Controller
                     {
                         if (c.OnlineStatus == Status.Online)
                         {
-                            _send(new Mensaje(State.Login, c), _chatDb.LookupUser(c.Username).SessionId);
+                            _send(new Mensaje(State.Login, _chatDb.LookupUser(c.Username).ContactList), _chatDb.LookupUser(c.Username).SessionId);
                         }
                     }
                     //Implement sending to each user that is in this user's contactlist
@@ -229,9 +229,7 @@ namespace Server.Controller
         private void Logout(string username)
         {
             var u = _chatDb.LookupUser(username);
-
             u.ChangeStatus(Status.Offline);
-
             _send(new Mensaje(State.Logout), u.SessionId);
             
             foreach(var contact in u.ContactList.Contacts)
@@ -241,7 +239,7 @@ namespace Server.Controller
 
                 if (t == null) continue;
 
-                var m = new Mensaje(State.Logout, t);
+                var m = new Mensaje(State.Logout, t.ContactList);
                 try { _send(m, t.SessionId); } catch { }
             }
         }
