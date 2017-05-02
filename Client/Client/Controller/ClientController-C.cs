@@ -41,7 +41,9 @@ namespace Client.Controller
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                    webIp = "ws://" + ip.ToString() +":8022/chat";
+                    break;
                 }
+                
             }
            //ws = new WebSocket("ws://192.168.0.12:8022/chat");
            ws = new WebSocket(webIp);

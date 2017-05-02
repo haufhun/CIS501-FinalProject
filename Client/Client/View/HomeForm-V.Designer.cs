@@ -52,7 +52,8 @@
             this.uxListView.Location = new System.Drawing.Point(12, 37);
             this.uxListView.MultiSelect = false;
             this.uxListView.Name = "uxListView";
-            this.uxListView.Size = new System.Drawing.Size(355, 314);
+            this.uxListView.Size = new System.Drawing.Size(383, 377);
+            this.uxListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.uxListView.TabIndex = 1;
             this.uxListView.UseCompatibleStateImageBehavior = false;
             this.uxListView.View = System.Windows.Forms.View.Details;
@@ -134,13 +135,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(526, 390);
+            this.ClientSize = new System.Drawing.Size(526, 453);
             this.Controls.Add(this.uxInfoLabel);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.uxListView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(544, 437);
+            this.MinimumSize = new System.Drawing.Size(544, 500);
             this.Name = "HomeForm";
             this.Text = "Home";
             this.toolStrip1.ResumeLayout(false);

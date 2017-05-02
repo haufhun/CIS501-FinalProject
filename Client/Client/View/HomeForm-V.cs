@@ -134,7 +134,10 @@ namespace Client.View
         /// </summary>
         public void SignOut()
         {
-            this.Invoke(new MethodInvoker(this.Hide));
+            if(InvokeRequired)
+                this.Invoke(new MethodInvoker(this.Hide));
+            else
+                this.Hide();
         }
 
         public void PrintErrorMessage(string message)
@@ -156,8 +159,34 @@ namespace Client.View
                 Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
             Invoke(new MethodInvoker(uxListView.EndUpdate));
+
+            Invoke(new MethodInvoker(UpdateHeaderName));
         }
 
+        private void UpdateHeaderName()
+        {
+            this.Text = "User: " + _chatDb.User.ContactInfo.Username + "           Status: " + _chatDb.User.ContactInfo.OnlineStatus;
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            switch (MessageBox.Show(this, "Are you sure you want to sign out and exit?", "Confirm Sign Out", MessageBoxButtons.YesNo))
+            {
+                case DialogResult.No:
+                    e.Cancel = true;
+                    break;
+                case DialogResult.Yes:
+                    _sOutHandler();
+                    e.Cancel = true;
+                    break;
+                default:
+                    break;
+            }
+        }
 
     }
 }
