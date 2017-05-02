@@ -46,6 +46,7 @@
             this.uxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.uxNameCol,
             this.uxStatus});
+            this.uxListView.FullRowSelect = true;
             this.uxListView.Location = new System.Drawing.Point(12, 37);
             this.uxListView.MultiSelect = false;
             this.uxListView.Name = "uxListView";
