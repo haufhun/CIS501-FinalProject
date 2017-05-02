@@ -92,20 +92,6 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Changes the ids of the users
-        /// </summary>
-        internal void ChangeIds()
-        {
-            var temp = new Dictionary<string, User>();
-
-            foreach(var u in _users.Values)
-            {
-                temp.Add(u.ContactInfo.Username, u);
-            }
-            _users = temp;
-        }
-
-        /// <summary>
         /// Looks up a user associated with the given username and returns it if ite exists, otherwise null.
         /// </summary>
         /// <param name="username">The name of the  user to be searched</param>
@@ -113,11 +99,6 @@ namespace Server.Model
         public User LookupUser(string username)
         {
             return _users.ContainsKey(username) ? _users[username] : null;
-        }
-
-        public void CreateUser(string username, string password)
-        {
-
         }
 
         /// <summary>
