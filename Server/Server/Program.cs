@@ -32,7 +32,7 @@ namespace Server
                 {
                     path = o.FileName;
                 }
-                db = LoadUsers(path) ?? new ChatDb(); //Hopefully this is what we want
+                db = LoadUsers(path) ?? new ChatDb();
             }
             else db = new ChatDb();
 
