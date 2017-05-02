@@ -57,9 +57,9 @@ namespace Server.Model
             SessionId = newId;
         }
 
-        public void AddContact(Contact c)
+        public bool AddContact(Contact c)
         {
-            _contactList.Add(c);
+            return _contactList.Add(c);
         }
 
         public void RemoveContact(Contact c)

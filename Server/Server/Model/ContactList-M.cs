@@ -27,24 +27,15 @@ namespace Server.Model
         private ContactList(Dictionary<string, Contact> contacts)
         {
             _contacts = contacts;
-            //if (contacts == null)
-            //{
-            //    _contacts = new Dictionary<string, IContact>();
-            //}
-            //else
-            //{
-            //    var temp = new Dictionary<string, IContact>();
-            //    foreach (var c in contacts.Values)
-            //    {
-            //        temp.Add(c.Username, c);
-            //    }
-            //    _contacts = temp;
-            //}
         }
 
-        public void Add(Contact c)
+        public bool Add(Contact c)
         {
+            if (_contacts.ContainsKey(c.Username))
+                return false;
+
             _contacts.Add(c.Username, c);
+            return true;
         }
 
         public void Remove(string username)
