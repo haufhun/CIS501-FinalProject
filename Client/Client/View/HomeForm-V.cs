@@ -132,9 +132,9 @@ namespace Client.View
         }
 
         /// <summary>
-        /// 
+        /// This method handls sending text messages
         /// </summary>
-        /// <param name="chatRoom"></param>
+        /// <param name="chatRoom">Object chatRoom being passed in</param>
         /// <param name="cForm">The chatForm to update the view on</param>
         public void SendTextMessage(ChatRoom chatRoom, ChatForm cForm)
         {
