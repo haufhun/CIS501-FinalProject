@@ -9,7 +9,7 @@ namespace Client.Model
     public class ChatDB
     {
         /// <summary>
-        /// 
+        /// Holds the User information database.
         /// </summary>
         public ChatDB()
         {
@@ -19,12 +19,12 @@ namespace Client.Model
         }
 
         /// <summary>
-        /// 
+        /// This gets and sets the User objects.
         /// </summary>
         public User User { get; set; }
 
         /// <summary>
-        /// 
+        /// This gets and sets the Chatroom and places it into a Dictionary. ContactList of chatroom. 
         /// </summary>
         public Dictionary<string, ChatRoom> ChatRooms { get; set; }
 

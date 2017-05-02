@@ -12,23 +12,23 @@ namespace Client.Model
     public class ChatRoom : IChatRoom
     {
         [JsonProperty]
+        //This variable holds the list of messages.
         private List<TextMessage> _messages;
-
         [JsonProperty]
         //We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
-        public string Id { get; }
-
+        public string Id { get; }     
+        //This holds all thge messages in the chatroom.
         public IEnumerable<ITextMessage> MessageHistory => _messages;
-
+        //Holds the participants and info in the chatroom.
         public IEnumerable<IUser> Participants => _users.Values;
-
+        //This sictionary stores the users
         private Dictionary<string, User> _users;
 
         /// <summary>
-        /// Used for Json.
+        /// Used for Json. Constructor for the class ChatRoom.
         /// </summary>
-        /// <param name="msgs"></param>
-        /// <param name="list"></param>
+        /// <param name="msgs">The messages in chatroom</param>
+        /// <param name="id">id to accesses ChatRoom</param>
         private ChatRoom(List<TextMessage> msgs, string id)
         {
             _messages = msgs;

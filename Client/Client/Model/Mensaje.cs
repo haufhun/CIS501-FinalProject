@@ -15,30 +15,31 @@ namespace Client.Model
         {
             [JsonProperty]
             [JsonConverter(typeof(StringEnumConverter))]
+            //Gets the state for the user (Offline or Online)
             public State MyState { get; private set; }
-
             [JsonProperty]
+            //Gets the user object
             public IUser User { get; }
-
             [JsonProperty]
+            //Gets the Chatroom for Mensaje
             public IChatRoom ChatRoom { get; }
-
             [JsonProperty]
+            //This will be the getter for the Contact class
             public IContact Contact { get; }
-
             [JsonProperty]
+            //This will get the contact list
             public IContactList ContactList { get; }
-
             [JsonProperty]
+            //This will get the messages
             public ITextMessage TextMessage { get; }
-
             [JsonProperty]
-            public bool IsError { get; }
-
+            //Getter for the errr checking
+            public bool IsError { get; } 
             [JsonProperty]
+            //Will get the correct error message
             public string ErrorMessage { get; }
-
             [JsonProperty]
+            //Gets the result of checking if a new user was entered
             public bool IsNewUser { get; }
 
             /// <summary>
@@ -58,8 +59,8 @@ namespace Client.Model
             /// Constructor used to add/remove a contact to a user's contact list.
             /// </summary>
             /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
-            /// <param name="c"></param>
-            /// <param name="user">The user to </param>
+            /// <param name="c">The contact object for the message </param>
+            /// <param name="user">The user object for the message </param>
             public Mensaje(State s, IContact c, IUser user)
             {
                 if (s != State.AddContact && s != State.RemoveContact) throw new NotSupportedException();
@@ -98,7 +99,7 @@ namespace Client.Model
             /// </summary>
             /// <param name="s">The status of the message being sent.</param>
             /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
-            /// <param name="c">The contact to be added to the chat room.</param>
+            /// <param name="c">The contact to be added to the chat room.</param> 
             public Mensaje(IChatRoom chatroom, IContact c)
             {
                 MyState = State.AddContactToChat;
