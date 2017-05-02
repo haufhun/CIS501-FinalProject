@@ -41,7 +41,7 @@ namespace Client.Model
 
         public IContact GetContact(string username)
         {
-            throw new NotImplementedException();
+            return _contacts[username];
         }
 
     }

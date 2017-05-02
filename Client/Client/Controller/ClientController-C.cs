@@ -83,11 +83,7 @@ namespace Client.Controller
                     
                     break;
 
-                case State.AddContactToChat:
-                    // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
-                    //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    SignalCFormObserver(1, m.ChatRoom);
-                    break;
+
 
                 case State.Login:
                     //If m.ContactList is null (this) is signing in.
@@ -137,6 +133,13 @@ namespace Client.Controller
                         SignalCFormObserver(0, m.ChatRoom);
                     else
                         MessageBox.Show(m.ErrorMessage);
+
+                    break;
+
+                case State.AddContactToChat:
+                    // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
+                    //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
+                    SignalCFormObserver(1, m.ChatRoom);
 
                     break;
 
