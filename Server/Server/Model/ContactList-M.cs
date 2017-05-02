@@ -29,9 +29,13 @@ namespace Server.Model
             _contacts = contacts;
         }
 
-        public void Add(Contact c)
+        public bool Add(Contact c)
         {
+            if (_contacts.ContainsKey(c.Username))
+                return false;
+
             _contacts.Add(c.Username, c);
+            return true;
         }
 
         public void Remove(string username)

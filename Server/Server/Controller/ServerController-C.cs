@@ -264,17 +264,36 @@ namespace Server.Controller
             }
             else
             {
-                b.AddContact((Contact)a.ContactInfo);
+                if (!b.AddContact((Contact) a.ContactInfo))
+                {
+                    _send(new Mensaje(State.AddContact, "The contact " + toAdd +" already exists."), a.SessionId);
+                    return;
+                }
                 var m = new Mensaje(State.AddContact, a.ContactInfo, b);
                 SignalEventObserver(m, LogStatus.Send);
-                try { _send(m, b.SessionId); } catch (Exception e) { System.Windows.Forms.MessageBox.Show(e.ToString()); }
-                a.AddContact((Contact)b.ContactInfo);
+                try
+                {
+                    _send(m, b.SessionId);
+                }
+                catch (Exception e)
+                {
+                    System.Windows.Forms.MessageBox.Show(e.ToString());
+                }
+                a.AddContact((Contact) b.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, b.ContactInfo, a);
                 SignalEventObserver(m2, LogStatus.Send);
 
                 if (a.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    try { _send(m2, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder ), LogStatus.Internal); }
+                    try
+                    {
+                        _send(m2, a.SessionId);
+                    }
+                    catch
+                    {
+                        SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder),
+                            LogStatus.Internal);
+                    }
                 }
             }
         }
