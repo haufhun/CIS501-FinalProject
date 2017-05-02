@@ -162,14 +162,14 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    SignalCFormObserver(2, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm);
+                    SignalCFormObserver(2, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
 
                     break;
 
                 case State.SendTextMessage:
 
                     _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
-                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm);
+                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm[m.ChatRoom.Id]);
                     // a Chatroom // get most recent text message object and populates it.
                     break;
 
