@@ -49,32 +49,9 @@ namespace Client.Model
             _contactList = contactList;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        public bool IsValidPassword(string password)
+        public void UpdateContactList(ContactList cl)
         {
-            return _password == password;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="username"></param>
-        public void AddContact(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newStatus"></param>
-        public void ChangeStatus(Status newStatus)
-        {
-            throw new NotImplementedException();
+            _contactList = cl;
         }
     }
 }

@@ -56,15 +56,12 @@ namespace Client.Controller
         public bool message(string e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
-            //Deserialize this first, don't just pass a new instance...
 
             var m = JsonConvert.DeserializeObject<Mensaje>(e);
+
             switch (m.MyState)
             {
-                case State.AddContact:
-                    
-                    //Contact of person trying to add Or
-                    //User back with updated contact list
+                case State.AddContact:        
                     if (!m.IsError)
                     {
                         _chatDB.User = (User) m.User;
@@ -76,9 +73,6 @@ namespace Client.Controller
                     break;
 
                 case State.RemoveContact:
-                    // contact of person trying to remove Or
-                    //user back with updated contact list
-                    //
                     if (!m.IsError)
                     {
                         _chatDB.User = (User)m.User;
@@ -95,17 +89,19 @@ namespace Client.Controller
                     SignalCFormObserver(1, m.ChatRoom);
                     break;
 
-                case State.Login:       
-                    // if contact is null im signing in if it isnt null update that contacts status in friends list.
+                case State.Login:
+                    //If m.ContactList is null (this) is signing in.
+                    //If it isnt null update (this) contact list.
                     if (!m.IsError)
                     {
-                        if (Equals(m.User, null))
+                        if (Equals(m.ContactList, null))
                         {
+                            _chatDB.User = (User)m.User;
                             SignalSIFormObsever(0);
                         }
                         else
-                        {
-                            _chatDB.User = (User) m.User;
+                        {                          
+                            _chatDB.User.UpdateContactList((ContactList) m.ContactList);
                             SignalHFormObserver(0);
                         }
                     }
@@ -115,8 +111,8 @@ namespace Client.Controller
                     break;
                     
                 case State.Logout:
-                    // if contact is null im signing out if it isnt null update that contacts status in friends list. ///ADD THIS
-                    
+                    //If m.user is null (this) is signing out 
+                    //If it isnt null update (this) contact list.
                     if (!m.IsError)
                     {
                         if (Equals(m.User, null))
