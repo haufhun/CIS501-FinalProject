@@ -23,7 +23,8 @@ namespace Client.Controller
         //WebSocket private field
         private WebSocket ws;
         //private field for Model chat database
-        private ChatDB _chatDB;  
+        private ChatDB _chatDB;
+ 
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
@@ -34,7 +35,7 @@ namespace Client.Controller
         public ClientController_C(ChatDB chatDb)
         {
             string webIp = "ws://192.168.0.0:8022/chat";
-            // Connects to the server
+
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
@@ -45,7 +46,7 @@ namespace Client.Controller
                 }
                 
             }
-           ws = new WebSocket("ws://192.168.2.3:8022/chat");
+           ws = new WebSocket("ws://192.168.2.4:8022/chat");
            //ws = new WebSocket(webIp);
 
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
@@ -150,7 +151,7 @@ namespace Client.Controller
                     {
                         _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom)m.ChatRoom);
                         
-                        SignalCFormObserver(0, (ChatRoom)m.ChatRoom);
+                        SignalCFormObserver(0, (ChatRoom)m.ChatRoom, null);
                         
                     }
                     else
@@ -161,11 +162,14 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    SignalCFormObserver(1, (ChatRoom)m.ChatRoom);
+                    SignalCFormObserver(2, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
 
                     break;
 
                 case State.SendTextMessage:
+
+                    _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm[m.ChatRoom.Id]);
                     // a Chatroom // get most recent text message object and populates it.
                     break;
 
@@ -302,7 +306,7 @@ namespace Client.Controller
         /// </summary>
         /// <param name="chatRoom"></param>
         /// <param name="name"></param>
-        public void AddContactToRoom(IChatRoom chatRoom, string name)
+        public void AddContactToRoom(ChatRoom chatRoom, string name)
         {
             if (ws.IsAlive)
             {
@@ -322,7 +326,7 @@ namespace Client.Controller
         /// </summary>
         /// <param name="message"></param>
         /// <param name="chatRoom"></param>
-        public void SendMessage(string message, IChatRoom chatRoom)
+        public void SendMessage(string message, ChatRoom chatRoom, ChatForm cForm)
         {
             if (ws.IsAlive)
             {
@@ -330,6 +334,7 @@ namespace Client.Controller
                 var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
+
             }
             else
             {
@@ -344,10 +349,10 @@ namespace Client.Controller
         ///  Calls the start chat method from homeform if index of [0]
         /// </param>
         /// <param name="chatRoom"> Current chatroom that is needed. </param>
-        private void SignalCFormObserver(int index, ChatRoom chatRoom)
+        private void SignalCFormObserver(int index, ChatRoom chatRoom, ChatForm cForm)
         {
             
-            _cFormObserver[index](chatRoom);
+            _cFormObserver[index](chatRoom, cForm);
         }
 
         /// <summary>

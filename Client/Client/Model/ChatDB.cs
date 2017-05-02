@@ -21,6 +21,11 @@ namespace Client.Model
         /// <summary>
         /// 
         /// </summary>
+        public Dictionary<string,ChatForm> CurrentChatForm { get; set; }
+        
+        /// <summary>
+        /// 
+        /// </summary>
         public ChatDB()
         {
             User = new User(null, null);

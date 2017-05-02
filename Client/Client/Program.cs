@@ -14,7 +14,7 @@ namespace Client
     //defines the type of method that handles HomeForm Events
     public delegate void HomeFormObserver();
     //defines the type of method that handles ChatForm Events
-    public delegate void ChatFormObserver(ChatRoom chatRoom);
+    public delegate void ChatFormObserver(ChatRoom chatRoom, ChatForm cForm);
     //defines the type of method that handles SignInFormEvents
     public delegate void SignInFormObserver();
 
@@ -31,7 +31,7 @@ namespace Client
     // defines the type of method that handles a create chat room event
     public delegate void CreateRoomHandler(string name);
     //
-    public delegate void SendMessageHandler(string message, IChatRoom chatRoom);
+    public delegate void SendMessageHandler(string message, ChatRoom chatRoom, ChatForm cForm);
 
     static class Program
     {
@@ -61,6 +61,7 @@ namespace Client
                 c.HomeFormRegister(hForm.RemoveContact);
 
                 c.ChatFormRegister(hForm.StartChat);
+                c.ChatFormRegister(hForm.SendTextMessage);
 
                 c.SignInRegister(sIForm.EventSuccessfulLogin);
                 c.SignInRegister(sIForm.EventUnSuccessfulLogin);

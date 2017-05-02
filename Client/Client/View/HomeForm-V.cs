@@ -115,20 +115,36 @@ namespace Client.View
         ///  
         /// </summary>
         /// <param name="chatRoom"></param>
-        public void StartChat(ChatRoom chatRoom)
+        /// <param name="chatForm">Should be null when Calling StartChat</param>
+        public void StartChat(ChatRoom chatRoom, ChatForm chatForm)
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
                 var cForm = new ChatForm(chatRoom, _sendMessageHandler, _chatDb);
+                _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm); 
 
 
-
-                cForm.TopMost = true;
                 cForm.Show();
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
             })); 
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="chatRoom"></param>
+        /// <param name="cForm">The chatForm to update the view on</param>
+        public void SendTextMessage(ChatRoom chatRoom, ChatForm cForm)
+        {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+
+
+                cForm.UpdateContactView(chatRoom.Id);
+                cForm.UpdateMessageView(chatRoom.Id);
+            }));
         }
 
         /// <summary>

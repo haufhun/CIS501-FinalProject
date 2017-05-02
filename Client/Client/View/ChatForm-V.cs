@@ -45,8 +45,9 @@ namespace Client
         /// <param name="e"></param>
         private void uxSend_Click(object sender, EventArgs e)
         {
+
+            _sendMessageHandler(uxMessageTextBox.Text, _Chat, this);
             uxMessageTextBox.Text = "";
-            _sendMessageHandler(uxMessageTextBox.Text, _Chat);
         }
 
         public void UpdateContactView(string id)
@@ -75,9 +76,9 @@ namespace Client
             Invoke(new MethodInvoker(uxMessageListBox.Items.Clear));
             foreach (var m in chatRoom.MessageHistory)
             {
-                    string[] iteminfo = {m.Sender +": " + m.Body};
+                    string[] iteminfo = {m.Sender.Username +": " + m.Body};
                     var item = new ListViewItem(iteminfo);
-                    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item); }));
+                    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item.Text); }));
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));
         }
