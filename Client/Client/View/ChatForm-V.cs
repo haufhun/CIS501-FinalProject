@@ -14,19 +14,19 @@ namespace Client
 {
     public partial class ChatForm : Form
     {
-        //
+        // Variable for accessing the chatroom
         private ChatRoom _Chat;
-        //
+        // Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
-
+        // Variable to read the Chat Database
         private readonly ChatDB _chatDb;
 
         /// <summary>
-        /// 
+        /// This method initializes the Chat form
         /// </summary>
-        /// <param name="iChat"></param>
-        /// <param name="sm"></param>
-        /// <param name="chatDb"></param>
+        /// <param name="iChat">Chatroom object passed in</param>
+        /// <param name="sm">Handler to send message passed in</param>
+        /// <param name="chatDb">Database for Chat to be passed in and read</param>
         public ChatForm(ChatRoom Chat, SendMessageHandler sm, ChatDB chatDb)
         {
             _Chat = Chat;
@@ -39,7 +39,7 @@ namespace Client
         }
 
         /// <summary>
-        /// 
+        /// Method to handle the send button pressed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -63,7 +63,10 @@ namespace Client
             }
             Invoke(new MethodInvoker(uxListView.EndUpdate));
         }
-
+        /// <summary>
+        /// This method will update the messages being viewed
+        /// </summary>
+        /// <param name="id"></param>
         public void UpdateMessageView(string id)
         {
             var chatRoom = _chatDb.ChatRooms[id];
