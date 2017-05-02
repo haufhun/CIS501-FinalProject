@@ -115,14 +115,14 @@ namespace Client.Controller
                     //If it isnt null update (this) contact list.
                     if (!m.IsError)
                     {
-                        if (Equals(m.User, null))
+                        if (Equals(m.ContactList, null))
                         {
                             SignalHFormObserver(1);
                             SignalSIFormObsever(2);
                         }
                         else
                         {
-                            _chatDB.User = (User)m.User;
+                            _chatDB.User.UpdateContactList((ContactList) m.ContactList);
                             SignalHFormObserver(0);
                         }
 
