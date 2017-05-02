@@ -111,7 +111,7 @@ namespace Client.View
             this.Invoke(new MethodInvoker(delegate ()
             {
                 var cForm = new ChatForm(chatRoom, _sendMessageHandler, _chatDb);
-
+                _chatDb.CurrentChatForm = cForm;
 
 
                 //cForm.TopMost = true;

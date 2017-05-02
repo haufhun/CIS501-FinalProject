@@ -24,7 +24,7 @@ namespace Client.Controller
         private WebSocket ws;
         //private field for Model chat database
         private ChatDB _chatDB;
-        private ChatForm _currentChatForm;  
+ 
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
@@ -162,14 +162,14 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    SignalCFormObserver(2, (ChatRoom) m.ChatRoom, _currentChatForm);
+                    SignalCFormObserver(2, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm);
 
                     break;
 
                 case State.SendTextMessage:
 
                     _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
-                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _currentChatForm);
+                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm);
                     // a Chatroom // get most recent text message object and populates it.
                     break;
 
@@ -334,7 +334,7 @@ namespace Client.Controller
                 var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
-                _currentChatForm = cForm;
+
             }
             else
             {
