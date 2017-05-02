@@ -58,7 +58,7 @@ namespace Client
             c.HomeFormRegister(hForm.RemoveContact);
 
             c.ChatFormRegister(hForm.StartChat);
-
+            
             c.SignInRegister(sIForm.EventSuccessfulLogin);
             c.SignInRegister(sIForm.EventUnSuccessfulLogin);
             c.SignInRegister(sIForm.SignOut);

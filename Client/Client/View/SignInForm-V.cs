@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Client.Model;
 using Client.View;
 
 namespace Client
@@ -17,16 +18,19 @@ namespace Client
         private HomeForm _homeForm;
         //
         private SignInHandler _sIHandler;
+        
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="s"></param>
         /// <param name="homeForm"></param>
+        /// <param name="chatDb"></param>
         public SignInForm(SignInHandler s, HomeForm homeForm)
         {
             _sIHandler = s;
             this._homeForm = homeForm;
+
             InitializeComponent();
         }
 
