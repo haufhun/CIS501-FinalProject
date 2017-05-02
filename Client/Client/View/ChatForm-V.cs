@@ -75,9 +75,9 @@ namespace Client
             Invoke(new MethodInvoker(uxMessageListBox.Items.Clear));
             foreach (var m in chatRoom.MessageHistory)
             {
-                    string[] iteminfo = {m.Sender +": " + m.Body};
+                    string[] iteminfo = {m.Sender.Username +": " + m.Body};
                     var item = new ListViewItem(iteminfo);
-                    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item); }));
+                    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item.Text); }));
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));
         }
