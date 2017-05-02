@@ -97,33 +97,52 @@ namespace Client.Controller
 
                 case State.Login:
                     
-                    // if contact is null im signing in if it isnt null update that contacts status in friends list.//ADD THIS
+                    // if contact is null im signing in if it isnt null update that contacts status in friends list.
                     SignalSIFormObsever(m.IsError ? 1 : 0);
-
-                    _chatDB.User = (User)m.User;
-                    SignalHFormObserver(0);
+                    if (!m.IsError)
+                    {
+                        if (Equals(m.User, null))
+                        {
+                            SignalSIFormObsever(0);
+                        }
+                        else
+                        {
+                            _chatDB.User = (User) m.User;
+                            SignalHFormObserver(0);
+                        }
+                    }
+                    else
+                        SignalSIFormObsever(1);
+                    
                     break;
                     
                 case State.Logout:
                     // if contact is null im signing out if it isnt null update that contacts status in friends list. ///ADD THIS
-
-                    if (m.IsError)
-                        MessageBox.Show(m.ErrorMessage);
-                    else
+                    
+                    if (!m.IsError)
                     {
+                        if (Equals(m.User, null))
+                        {
+                            SignalHFormObserver(1);
+                            SignalSIFormObsever(2);
+                        }
+                        else
+                        {
+                            _chatDB.User = (User)m.User;
+                            SignalHFormObserver(0);
+                        }
 
-                        SignalHFormObserver(1);
-                        SignalSIFormObsever(2);
                     }
+                    else
+                        MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.OpenChat:
-                    if (m.IsError)
-                        MessageBox.Show(m.ErrorMessage);
-                    else
-                    {
+                    if (!m.IsError)
                         SignalCFormObserver(0, m.ChatRoom);
-                    }
+                    else
+                        MessageBox.Show(m.ErrorMessage);
+
                     break;
 
                 case State.SendTextMessage:
