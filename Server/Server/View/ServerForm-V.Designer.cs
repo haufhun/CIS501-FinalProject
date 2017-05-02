@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.uxChatMsgsWebBrowser = new System.Windows.Forms.WebBrowser();
             this.uxChatRoomListView = new System.Windows.Forms.ListView();
@@ -63,6 +63,7 @@
             this.uxTabControl = new System.Windows.Forms.TabControl();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.uxEventLogTabPage.SuspendLayout();
@@ -130,13 +131,16 @@
             // 
             // uxUsersListView
             // 
+            this.uxUsersListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+            this.uxUsersListView.FullRowSelect = true;
             this.uxUsersListView.Location = new System.Drawing.Point(11, 50);
             this.uxUsersListView.Margin = new System.Windows.Forms.Padding(4);
             this.uxUsersListView.Name = "uxUsersListView";
-            this.uxUsersListView.Size = new System.Drawing.Size(265, 287);
+            this.uxUsersListView.Size = new System.Drawing.Size(262, 287);
             this.uxUsersListView.TabIndex = 0;
             this.uxUsersListView.UseCompatibleStateImageBehavior = false;
-            this.uxUsersListView.View = System.Windows.Forms.View.List;
+            this.uxUsersListView.View = System.Windows.Forms.View.Details;
             this.uxUsersListView.SelectedIndexChanged += new System.EventHandler(this.uxUsersListView_SelectedIndexChanged);
             // 
             // tabPage2
@@ -405,7 +409,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.GridLines = true;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem9});
             this.listView1.Location = new System.Drawing.Point(11, 7);
             this.listView1.Margin = new System.Windows.Forms.Padding(4);
             this.listView1.Name = "listView1";
@@ -450,6 +454,11 @@
             this.toolStripComboBox1.Text = "<Error!>";
             this.toolStripComboBox1.ToolTipText = "Sets if the testing page is enabled or not.";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectedIndexChanged);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Users";
+            this.columnHeader1.Width = 189;
             // 
             // ServerForm
             // 
@@ -510,6 +519,7 @@
         private System.Windows.Forms.TextBox uxChatRoomIdTB;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button uxSendMessageBtn;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 
