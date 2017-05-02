@@ -122,9 +122,14 @@ namespace Server.Controller
         /// <param name="path">The path to wehre we want to store the file.</param>
         public void StoreUsers(string path)
         {
-            foreach(var c in _chatDb.Users)
+            foreach(var u in _chatDb.Users)
             {
-                c.ChangeStatus(Status.Offline);
+                u.ChangeStatus(Status.Offline);
+                foreach (var contact in u.ContactList.Contacts)
+                {
+                    var c = (Contact) contact;
+                    c.ChangeOnlineStatus(Status.Offline);
+                }
             }
 
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
