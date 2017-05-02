@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 using System.Windows.Forms;
 using Client.Model;
 using Newtonsoft.Json;
@@ -12,13 +14,13 @@ namespace Client.Controller
 {
     class ClientController_C
     {
-        //
+        //Observer for the Sign-In Form
         private List<SignInFormObserver> _sIFormObserver = new List<SignInFormObserver>();
-        //
+        //Observer for the Home Form
         private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
-        //
+        //Observer for the Chat Room Form
         private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
-        //
+        //WebSocket private field
         private WebSocket ws;
         //private field for Model chat database
         private ChatDB _chatDB;  
@@ -26,16 +28,29 @@ namespace Client.Controller
         public event Message MessageReceived;
 
         /// <summary>
-        /// 
+        /// Constructor for Controller
         /// </summary>
-        /// <param name="chatDb"></param>
+        /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
         {
-
+            string webIp = "ws://192.168.0.0:8022/chat";
             // Connects to the server
-            ws = new WebSocket("ws://192.168.1.143:8022/chat");
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                   webIp = "ws://" + ip.ToString() +":8022/chat";
+                    break;
+                }
+                
+            }
+           //ws = new WebSocket("ws://192.168.0.12:8022/chat");
+           ws = new WebSocket(webIp);
+
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
+            //throw new Exception("Local IP Address Not Found!");
             ws.Connect();
             _chatDB = chatDb;
         }
@@ -61,6 +76,49 @@ namespace Client.Controller
 
             switch (m.MyState)
             {
+                case State.Login:
+                    //If m.ContactList is null (this) is signing in.
+                    //If it isnt null update (this) contact list.
+                    if (!m.IsError)
+                    {
+                        if (Equals(m.ContactList, null))
+                        {
+                            _chatDB.User = (User)m.User;
+                            SignalSIFormObsever(0);
+                            SignalHFormObserver(0);
+                        }
+                        else
+                        {
+                            _chatDB.User.UpdateContactList((ContactList)m.ContactList);
+                            SignalHFormObserver(0);
+                        }
+                    }
+                    else
+                        SignalSIFormObsever(1);
+
+                    break;
+
+                case State.Logout:
+                    //If m.user is null (this) is signing out 
+                    //If it isnt null update (this) contact list.
+                    if (!m.IsError)
+                    {
+                        if (Equals(m.ContactList, null))
+                        {
+                            SignalHFormObserver(1);
+                            SignalSIFormObsever(2);
+                        }
+                        else
+                        {
+                            _chatDB.User.UpdateContactList((ContactList)m.ContactList);
+                            SignalHFormObserver(0);
+                        }
+
+                    }
+                    else
+                        MessageBox.Show(m.ErrorMessage);
+                    break;
+
                 case State.AddContact:        
                     if (!m.IsError)
                     {
@@ -83,54 +141,13 @@ namespace Client.Controller
                     
                     break;
 
-
-
-                case State.Login:
-                    //If m.ContactList is null (this) is signing in.
-                    //If it isnt null update (this) contact list.
-                    if (!m.IsError)
-                    {
-                        if (Equals(m.ContactList, null))
-                        {
-                            _chatDB.User = (User)m.User;
-                            SignalSIFormObsever(0);
-                            SignalHFormObserver(0);
-                        }
-                        else
-                        {                          
-                            _chatDB.User.UpdateContactList((ContactList) m.ContactList);
-                            SignalHFormObserver(0);
-                        }
-                    }
-                    else
-                        SignalSIFormObsever(1);
-                    
-                    break;
-                    
-                case State.Logout:
-                    //If m.user is null (this) is signing out 
-                    //If it isnt null update (this) contact list.
-                    if (!m.IsError)
-                    {
-                        if (Equals(m.ContactList, null))
-                        {
-                            SignalHFormObserver(1);
-                            SignalSIFormObsever(2);
-                        }
-                        else
-                        {
-                            _chatDB.User.UpdateContactList((ContactList) m.ContactList);
-                            SignalHFormObserver(0);
-                        }
-
-                    }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-                    break;
-
                 case State.OpenChat:
                     if (!m.IsError)
+                    {
+                        _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom)m.ChatRoom);
                         SignalCFormObserver(0, m.ChatRoom);
+                        
+                    }
                     else
                         MessageBox.Show(m.ErrorMessage);
 
