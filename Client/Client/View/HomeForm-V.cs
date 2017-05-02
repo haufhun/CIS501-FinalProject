@@ -62,7 +62,10 @@ namespace Client.View
         /// <param name="e"></param>
         private void uxStartChat_Click(object sender, System.EventArgs e)
         {
-            _createRoomHandler("username");// pass in username from list view
+            if (uxListView.SelectedItems.Count > 0)
+                _createRoomHandler(uxListView.SelectedItems[0].SubItems[0].Text);
+            else
+                MessageBox.Show("Please select a contact to chat with!");
         }
 
         /// <summary>
@@ -105,8 +108,9 @@ namespace Client.View
         /// <param name="iChat"></param>
         public void StartChat(IChatRoom iChat)
         {
-            var c = new ChatForm(iChat, _sendMessageHandler);
-            c.Invoke(new MethodInvoker(c.Show));
+            var c = new ChatForm(iChat, _sendMessageHandler, _chatDb);
+            c.Show();
+            //c.Invoke(new MethodInvoker(c.Show));
 
         }
 
@@ -125,7 +129,18 @@ namespace Client.View
         {
             throw new NotImplementedException();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SignOut()
+        {
+            this.Invoke(new MethodInvoker(this.Hide));
+        }
 
+        public void PrintErrorMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -143,12 +158,6 @@ namespace Client.View
             Invoke(new MethodInvoker(uxListView.EndUpdate));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void SignOut()
-        {
-            this.Invoke(new MethodInvoker(this.Hide));
-        }
+
     }
 }

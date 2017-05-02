@@ -11,6 +11,16 @@ namespace Client.Model
         /// <summary>
         /// 
         /// </summary>
+        public User User { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<string, ChatRoom> ChatRooms { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public ChatDB()
         {
             User = new User(null, null);
@@ -18,15 +28,7 @@ namespace Client.Model
 
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public User User { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public Dictionary<string, ChatRoom> ChatRooms { get; set; }
 
         //public ChatDB(Dictionary<string, User> users, Dictionary<string, ChatRoom> chatRooms)
         //{
