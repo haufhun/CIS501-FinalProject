@@ -31,6 +31,7 @@
             this.uxTxt = new System.Windows.Forms.TextBox();
             this.uxAdd = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.uxCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uxTxt
@@ -43,7 +44,7 @@
             // uxAdd
             // 
             this.uxAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.uxAdd.Location = new System.Drawing.Point(104, 133);
+            this.uxAdd.Location = new System.Drawing.Point(27, 134);
             this.uxAdd.Name = "uxAdd";
             this.uxAdd.Size = new System.Drawing.Size(114, 56);
             this.uxAdd.TabIndex = 1;
@@ -60,12 +61,23 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Please enter a contact name to add";
             // 
+            // uxCancel
+            // 
+            this.uxCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.uxCancel.Location = new System.Drawing.Point(186, 134);
+            this.uxCancel.Name = "uxCancel";
+            this.uxCancel.Size = new System.Drawing.Size(111, 56);
+            this.uxCancel.TabIndex = 4;
+            this.uxCancel.Text = "Cancel";
+            this.uxCancel.UseVisualStyleBackColor = true;
+            // 
             // AddContactForm
             // 
             this.AcceptButton = this.uxAdd;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(349, 211);
+            this.Controls.Add(this.uxCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxTxt);
             this.Controls.Add(this.uxAdd);
@@ -82,5 +94,6 @@
         private System.Windows.Forms.Button uxAdd;
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox uxTxt;
+        private System.Windows.Forms.Button uxCancel;
     }
 }
