@@ -50,8 +50,12 @@ namespace Client.Controller
 
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 
-            //throw new Exception("Local IP Address Not Found!");
             ws.Connect();
+            if (!ws.IsAlive)
+            {
+                throw new Exception("Cant connect to server!");
+            }
+
             _chatDB = chatDb;
         }
 
@@ -145,7 +149,8 @@ namespace Client.Controller
                     if (!m.IsError)
                     {
                         _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom)m.ChatRoom);
-                        SignalCFormObserver(0, m.ChatRoom);
+                        
+                        SignalCFormObserver(0, (ChatRoom)m.ChatRoom);
                         
                     }
                     else
@@ -156,7 +161,7 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    SignalCFormObserver(1, m.ChatRoom);
+                    SignalCFormObserver(1, (ChatRoom)m.ChatRoom);
 
                     break;
 
@@ -339,7 +344,7 @@ namespace Client.Controller
         ///  Calls the start chat method from homeform if index of [0]
         /// </param>
         /// <param name="chatRoom"> Current chatroom that is needed. </param>
-        private void SignalCFormObserver(int index, IChatRoom chatRoom)
+        private void SignalCFormObserver(int index, ChatRoom chatRoom)
         {
             
             _cFormObserver[index](chatRoom);

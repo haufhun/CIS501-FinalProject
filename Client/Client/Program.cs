@@ -14,7 +14,7 @@ namespace Client
     //defines the type of method that handles HomeForm Events
     public delegate void HomeFormObserver();
     //defines the type of method that handles ChatForm Events
-    public delegate void ChatFormObserver(IChatRoom chatRoom);
+    public delegate void ChatFormObserver(ChatRoom chatRoom);
     //defines the type of method that handles SignInFormEvents
     public delegate void SignInFormObserver();
 
@@ -27,7 +27,7 @@ namespace Client
     // defines the type of method that handles a remove contact event
     public delegate void RemoveContactHandler(string name);
     // defines the type of method that handles an add contact to room event
-    public delegate void AddContactToRoomHandler(IChatRoom chatRoom, string name);
+    public delegate void AddContactToRoomHandler(ChatRoom chatRoom, string name);
     // defines the type of method that handles a create chat room event
     public delegate void CreateRoomHandler(string name);
     //
@@ -43,34 +43,36 @@ namespace Client
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var chatDB = new ChatDB();
-            var c = new ClientController_C(chatDB);
-            var aCForm = new AddContactForm();
-            var hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,c.CreateChatRoom, c.SendMessage, chatDB, aCForm);
-            var sIForm = new SignInForm(c.SignIn, hForm);
+            try
+            {
+                var chatDB = new ChatDB();
+                var c = new ClientController_C(chatDB);
+                var aCForm = new AddContactForm();
+                var hForm = new HomeForm(c.SignIn, c.SignOut, c.AddContact, c.RemoveContact, c.AddContactToRoom,
+                    c.CreateChatRoom, c.SendMessage, chatDB, aCForm);
+                var sIForm = new SignInForm(c.SignIn, hForm);
 
-            c.MessageReceived += c.message;
-
-
-            c.HomeFormRegister(hForm.UpdateView);
-            c.HomeFormRegister(hForm.SignOut);
-            c.HomeFormRegister(hForm.AddContact);
-            c.HomeFormRegister(hForm.RemoveContact);
-
-            c.ChatFormRegister(hForm.StartChat);
-            
-            c.SignInRegister(sIForm.EventSuccessfulLogin);
-            c.SignInRegister(sIForm.EventUnSuccessfulLogin);
-            c.SignInRegister(sIForm.SignOut);
+                c.MessageReceived += c.message;
 
 
-            hForm.Show();
-            hForm.Visible = false;
+                c.HomeFormRegister(hForm.UpdateView);
+                c.HomeFormRegister(hForm.SignOut);
+                c.HomeFormRegister(hForm.AddContact);
+                c.HomeFormRegister(hForm.RemoveContact);
 
-            //aCForm.Show();
-            //aCForm.Visible = false;
+                c.ChatFormRegister(hForm.StartChat);
 
-            Application.Run(sIForm);
+                c.SignInRegister(sIForm.EventSuccessfulLogin);
+                c.SignInRegister(sIForm.EventUnSuccessfulLogin);
+                c.SignInRegister(sIForm.SignOut);
+
+
+                hForm.Show();
+                hForm.Visible = false;
+                Application.Run(sIForm);
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
+
 
 
         }

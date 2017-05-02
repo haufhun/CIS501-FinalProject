@@ -105,13 +105,13 @@ namespace Client.View
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="iChat"></param>
-        public void StartChat(IChatRoom iChat)
+        /// <param name="chatRoom"></param>
+        public void StartChat(ChatRoom chatRoom)
         {
-            var c = new ChatForm(iChat, _sendMessageHandler, _chatDb);
+            var c = new ChatForm(chatRoom, _sendMessageHandler, _chatDb);
             c.Show();
-            //c.Invoke(new MethodInvoker(c.Show));
-
+            c.UpdateContactView(chatRoom.Id);
+            c.UpdateMessageView(chatRoom.Id);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Client.View
 
         private void UpdateHeaderName()
         {
-            this.Text = "User: " + _chatDb.User.ContactInfo.Username + "           Status: " + _chatDb.User.ContactInfo.OnlineStatus;
+            this.Text = "Home - " + _chatDb.User.ContactInfo.Username + "          Status: " + _chatDb.User.ContactInfo.OnlineStatus;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)

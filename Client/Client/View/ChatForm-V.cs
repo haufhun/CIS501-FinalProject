@@ -15,9 +15,10 @@ namespace Client
     public partial class ChatForm : Form
     {
         //
-        private IChatRoom _iChat;
+        private ChatRoom _Chat;
         //
         private SendMessageHandler _sendMessageHandler;
+
         private readonly ChatDB _chatDb;
 
         /// <summary>
@@ -26,9 +27,9 @@ namespace Client
         /// <param name="iChat"></param>
         /// <param name="sm"></param>
         /// <param name="chatDb"></param>
-        public ChatForm(IChatRoom iChat, SendMessageHandler sm, ChatDB chatDb)
+        public ChatForm(ChatRoom Chat, SendMessageHandler sm, ChatDB chatDb)
         {
-            _iChat = iChat;
+            _Chat = Chat;
             _sendMessageHandler = sm;
             _chatDb = chatDb;
 
@@ -44,32 +45,36 @@ namespace Client
         /// <param name="e"></param>
         private void uxSend_Click(object sender, EventArgs e)
         {
-            _sendMessageHandler(uxMessageTextBox.Text, _iChat);
+            uxMessageTextBox.Text = "";
+            _sendMessageHandler(uxMessageTextBox.Text, _Chat);
         }
 
-        public void UpdateView(string id)
+        public void UpdateContactView(string id)
         {
+            var chatRoom = _chatDb.ChatRooms[id];
+
             Invoke(new MethodInvoker(uxListView.BeginUpdate));
             Invoke(new MethodInvoker(uxListView.Items.Clear));
-            var chatRoom = _chatDb.ChatRooms[id];
             foreach (var c in chatRoom.ContactsToAdd.Contacts)
             {
-                    string[] iteminfo = { c.Username, c.OnlineStatus.ToString()};
-                    var item = new ListViewItem(iteminfo);
-                    Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));             
+                string[] iteminfo = {c.Username, c.OnlineStatus.ToString()};
+                var item = new ListViewItem(iteminfo);
+                Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
             Invoke(new MethodInvoker(uxListView.EndUpdate));
+        }
+
+        public void UpdateMessageView(string id)
+        {
+            var chatRoom = _chatDb.ChatRooms[id];
 
             Invoke(new MethodInvoker(uxMessageListBox.BeginUpdate));
             Invoke(new MethodInvoker(uxMessageListBox.Items.Clear));
-            foreach (var c in _chatDb.ChatRooms)
+            foreach (var m in chatRoom.MessageHistory)
             {
-                if (c.Key == id)
-                {
-                    string[] iteminfo = {c.Value.MessageHistory.ToString()};
+                    string[] iteminfo = {m.Sender +": " + m.Body};
                     var item = new ListViewItem(iteminfo);
                     Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item); }));
-                }
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));
         }
