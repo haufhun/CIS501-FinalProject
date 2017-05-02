@@ -95,10 +95,8 @@ namespace Client.Controller
                     SignalCFormObserver(1, m.ChatRoom);
                     break;
 
-                case State.Login:
-                    
+                case State.Login:       
                     // if contact is null im signing in if it isnt null update that contacts status in friends list.
-                    SignalSIFormObsever(m.IsError ? 1 : 0);
                     if (!m.IsError)
                     {
                         if (Equals(m.User, null))
