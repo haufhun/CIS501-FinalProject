@@ -114,7 +114,7 @@ namespace Client.View
 
 
 
-                cForm.TopMost = true;
+                //cForm.TopMost = true;
                 cForm.Show();
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
@@ -122,14 +122,13 @@ namespace Client.View
 
         }
 
-        public void SendTextMessage(ChatRoom chatRoom, ChatForm chatForm)
+        public void SendTextMessage(ChatRoom chatRoom, ChatForm cForm)
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                var cForm = chatForm;
 
-                cForm.TopMost = true;
-                cForm.Show();
+
+               // cForm.TopMost = true;
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
             }));
