@@ -20,24 +20,29 @@ namespace Server
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            string folder = Path.GetFullPath(@"..\..\") + "Lib";
-            System.IO.Directory.CreateDirectory(folder);
-            string path = Path.Combine(folder, "UserFile.txt");
+            var folder = Path.GetFullPath(@"..\..\") + "Lib";
+            Directory.CreateDirectory(folder);
+            var path = Path.Combine(folder, "UserFile.txt");
 
             ChatDb db;
-            DialogResult result = MessageBox.Show("Would you like to select a user file to load?", "", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Would you like to select a user file to load?", "", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 var o = new OpenFileDialog();
-                while (o.ShowDialog() != DialogResult.OK)
+                if (o.ShowDialog() == DialogResult.OK)
                 {
-                    path = o.FileName;
+                    db = LoadUsers(path) ?? new ChatDb();
                 }
-                db = LoadUsers(path) ?? new ChatDb();
+                else
+                {
+                    db = new ChatDb();
+                }
             }
-            else db = new ChatDb();
+            else
+            {
+                db = new ChatDb();
+            }
 
-            db = LoadUsers(path) ?? new ChatDb();
             var c = new ServerController(db);
             var sf = new ServerForm(db, c.ChatDelegate);
 
@@ -68,6 +73,8 @@ namespace Server
             using (var file = new StreamReader(path))
             {
                 var s = file.ReadLine();
+                if (s == null) return null;
+
                 var c = JsonConvert.DeserializeObject<ChatDb>(s);
                 return c;
             }

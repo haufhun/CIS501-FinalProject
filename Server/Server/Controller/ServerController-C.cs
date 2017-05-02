@@ -132,7 +132,7 @@ namespace Server.Controller
                 }
             }
 
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            using (var file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
             }
@@ -155,11 +155,12 @@ namespace Server.Controller
         {
             _observers.Add(o);
         }
-        
+
         /// <summary>
         /// Calls the list of event log observers and displays to the log the contents of a Mensaje.
         /// </summary>
         /// <param name="m">The Mensaje object.</param>
+        /// <param name="s"></param>
         private void SignalEventObserver(IMensaje m, LogStatus s)
         {
             foreach(EventLogObserver o in _eventObserver)
@@ -224,7 +225,7 @@ namespace Server.Controller
             }
 
             try { _send(m, sessionId); }
-            catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name), LogStatus.Send); }
+            catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name), LogStatus.Internal); }
         }
 
         /// <summary>
@@ -245,7 +246,8 @@ namespace Server.Controller
                 if (t == null) continue;
 
                 var m = new Mensaje(State.Logout, t.ContactList);
-                try { _send(m, t.SessionId); } catch { }
+                try { _send(m, t.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.Logout, "Could not logout the user " + username), LogStatus.Internal); }
             }
         }
 
@@ -263,7 +265,8 @@ namespace Server.Controller
             {
                 var m = new Mensaje(State.AddContact, "The user " + toAdd + " does not exist");
                 SignalEventObserver(m, LogStatus.Send);
-                try { _send(m, b.SessionId); } catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder), LogStatus.Internal); }
+                try { _send(m, b.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder), LogStatus.Internal); }
             }
             else
             {
@@ -274,30 +277,18 @@ namespace Server.Controller
                 }
                 var m = new Mensaje(State.AddContact, a.ContactInfo, b);
                 SignalEventObserver(m, LogStatus.Send);
-                try
-                {
-                    _send(m, b.SessionId);
-                }
-                catch (Exception e)
-                {
-                    System.Windows.Forms.MessageBox.Show(e.ToString());
-                }
+
+                try { _send(m, b.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + toAdd), LogStatus.Internal); }
                 a.AddContact((Contact) b.ContactInfo);
+
                 var m2 = new Mensaje(State.AddContact, b.ContactInfo, a);
                 SignalEventObserver(m2, LogStatus.Send);
 
-                if (a.ContactInfo.OnlineStatus == Status.Online)
-                {
-                    try
-                    {
-                        _send(m2, a.SessionId);
-                    }
-                    catch
-                    {
-                        SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder),
-                            LogStatus.Internal);
-                    }
-                }
+                if (a.ContactInfo.OnlineStatus != Status.Online) return;
+
+                try { _send(m2, a.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.AddContact, "Could not send to user " + adder), LogStatus.Internal); }
             }
         }
 
@@ -322,7 +313,8 @@ namespace Server.Controller
                 a.RemoveContact((Contact)b.ContactInfo); 
                 var m = new Mensaje(State.RemoveContact, b.ContactInfo, a);
                 SignalEventObserver(m, LogStatus.Send);
-                try { _send(m, a.SessionId); } catch { SignalEventObserver(new Mensaje(State.RemoveContact, "The user " + a.ContactInfo.Username + " is not online."), LogStatus.Send); }
+                try { _send(m, a.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.RemoveContact, "The user " + a.ContactInfo.Username + " is not online."), LogStatus.Internal); }
 
                 b.RemoveContact((Contact)a.ContactInfo);
                 var m2 = new Mensaje(State.AddContact, a.ContactInfo, b);
@@ -330,7 +322,8 @@ namespace Server.Controller
 
                 if (b.ContactInfo.OnlineStatus == Status.Online)
                 {
-                    try { _send(m2, b.SessionId); } catch { }
+                    try { _send(m2, b.SessionId); }
+                    catch { SignalEventObserver(new Mensaje(State.RemoveContact, "Could not send to user " + b.ContactInfo.Username), LogStatus.Internal); }
                 }
                 else
                 {
@@ -352,11 +345,15 @@ namespace Server.Controller
 
             if (b == null)
             {
-                _send(new Mensaje(State.OpenChat, "The user you want to chat with does not exist"), a.SessionId);
+                var m = (new Mensaje(State.OpenChat, "The user " + added + " does not exist"));
+                _send (m, a.SessionId);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else if (b.ContactInfo.OnlineStatus == Status.Offline)
             {
-                _send(new Mensaje(State.OpenChat, "The user you want to chat with is offline"), a.SessionId);
+                var m = (new Mensaje(State.OpenChat, "The user" + added + " you want to chat with is offline"));
+                _send(m, a.SessionId);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else
             {
@@ -368,12 +365,15 @@ namespace Server.Controller
                     if (b.ContactList.GetContact(c.Username) != null)
                     {
                         //means if cl is not null, then go ahead and do the add operation.
-                        cl?.Add(c as Contact);
+                        cl.Add(c as Contact);
                     }
                 }
 
-                try { _send(new Mensaje(State.OpenChat, cr), a.SessionId); } catch { }
-                try { _send(new Mensaje(State.OpenChat, cr), b.SessionId); } catch { }
+                try { _send(new Mensaje(State.OpenChat, cr), a.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.OpenChat, "Error sending to client " + a.ContactInfo.Username), LogStatus.Internal ); }
+
+                try { _send(new Mensaje(State.OpenChat, cr), b.SessionId); }
+                catch { SignalEventObserver(new Mensaje(State.OpenChat, "Error sending to client " + b.ContactInfo.Username), LogStatus.Internal); }
             }
         }
 
@@ -443,7 +443,7 @@ namespace Server.Controller
 
                 foreach (var u in cr.GetOnlineParticipants())
                 {
-                    _send(new Mensaje(State.AddContactToChat, cr), ((User)u).SessionId);
+                    _send(new Mensaje(State.AddContactToChat, cr), u.SessionId);
                 }
             }
         }
