@@ -12,13 +12,13 @@ namespace Client.Controller
 {
     class ClientController_C
     {
-        //
+        //Observer for the Sign-In Form
         private List<SignInFormObserver> _sIFormObserver = new List<SignInFormObserver>();
-        //
+        //Observer for the Home Form
         private List<HomeFormObserver> _hFormObserver = new List<HomeFormObserver>();
-        //
+        //Observer for the Chat Room Form
         private List<ChatFormObserver> _cFormObserver = new List<ChatFormObserver>();
-        //
+        //WebSocket private field
         private WebSocket ws;
         //private field for Model chat database
         private ChatDB _chatDB;  
@@ -26,9 +26,9 @@ namespace Client.Controller
         public event Message MessageReceived;
 
         /// <summary>
-        /// 
+        /// Constructor for Controller
         /// </summary>
-        /// <param name="chatDb"></param>
+        /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
         {
 
