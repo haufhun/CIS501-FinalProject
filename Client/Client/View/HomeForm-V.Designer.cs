@@ -43,9 +43,12 @@
             // 
             // uxListView
             // 
+            this.uxListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.uxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.uxNameCol,
             this.uxStatus});
+            this.uxListView.FullRowSelect = true;
             this.uxListView.Location = new System.Drawing.Point(12, 37);
             this.uxListView.MultiSelect = false;
             this.uxListView.Name = "uxListView";
@@ -84,7 +87,7 @@
             this.uxStartChat.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.uxStartChat.Name = "uxStartChat";
             this.uxStartChat.Size = new System.Drawing.Size(98, 24);
-            this.uxStartChat.Text = "Start Chat";
+            this.uxStartChat.Text = "&Start Chat";
             this.uxStartChat.Click += new System.EventHandler(this.uxStartChat_Click);
             // 
             // uxAddContact
@@ -93,7 +96,7 @@
             this.uxAddContact.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.uxAddContact.Name = "uxAddContact";
             this.uxAddContact.Size = new System.Drawing.Size(116, 24);
-            this.uxAddContact.Text = "Add Contact";
+            this.uxAddContact.Text = "&Add Contact";
             this.uxAddContact.ToolTipText = "uxAddContact";
             this.uxAddContact.Click += new System.EventHandler(this.uxAddContact_Click);
             // 
@@ -103,7 +106,7 @@
             this.uxDeleteContact.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.uxDeleteContact.Name = "uxDeleteContact";
             this.uxDeleteContact.Size = new System.Drawing.Size(142, 24);
-            this.uxDeleteContact.Text = "Remove Contact";
+            this.uxDeleteContact.Text = "&Remove Contact";
             this.uxDeleteContact.Click += new System.EventHandler(this.uxDeleteContact_Click);
             // 
             // uxSignOut
@@ -136,6 +139,8 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.uxListView);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(544, 437);
             this.Name = "HomeForm";
             this.Text = "Home";
             this.toolStrip1.ResumeLayout(false);

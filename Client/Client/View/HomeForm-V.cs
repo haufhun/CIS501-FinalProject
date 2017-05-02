@@ -76,8 +76,13 @@ namespace Client.View
 
             if (_aCForm.DialogResult == DialogResult.OK)
             {
-               _addCHandler(_aCForm.uxTxt.Text);
+                _addCHandler(_aCForm.uxTxt.Text);
             }
+            else
+            {
+                _aCForm.Hide();            
+            }
+            _aCForm.uxTxt.Text = "";
 
         }
 
