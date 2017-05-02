@@ -54,6 +54,9 @@
             // 
             // uxMessageTextBox
             // 
+            this.uxMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.uxMessageTextBox.Location = new System.Drawing.Point(471, 265);
             this.uxMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.uxMessageTextBox.Name = "uxMessageTextBox";
@@ -62,6 +65,9 @@
             // 
             // uxMessageListBox
             // 
+            this.uxMessageListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.uxMessageListBox.FormattingEnabled = true;
             this.uxMessageListBox.ItemHeight = 16;
             this.uxMessageListBox.Location = new System.Drawing.Point(391, 39);
@@ -102,12 +108,14 @@
             // 
             // uxListView
             // 
+            this.uxListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.uxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.uxNameCol,
             this.uxStatus});
             this.uxListView.Location = new System.Drawing.Point(12, 38);
             this.uxListView.Name = "uxListView";
-            this.uxListView.Size = new System.Drawing.Size(355, 310);
+            this.uxListView.Size = new System.Drawing.Size(369, 310);
             this.uxListView.TabIndex = 8;
             this.uxListView.UseCompatibleStateImageBehavior = false;
             this.uxListView.View = System.Windows.Forms.View.Details;
@@ -124,6 +132,9 @@
             // 
             // uxSend
             // 
+            this.uxSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.uxSend.Location = new System.Drawing.Point(537, 310);
             this.uxSend.Name = "uxSend";
             this.uxSend.Size = new System.Drawing.Size(295, 38);

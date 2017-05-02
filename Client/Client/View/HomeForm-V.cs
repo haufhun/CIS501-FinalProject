@@ -167,6 +167,7 @@ namespace Client.View
         {
             this.Text = "User: " + _chatDb.User.ContactInfo.Username + "           Status: " + _chatDb.User.ContactInfo.OnlineStatus;
         }
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
