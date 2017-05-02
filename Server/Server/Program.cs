@@ -27,9 +27,9 @@ namespace Server
                 OpenFileDialog o = new OpenFileDialog();
                 while (o.ShowDialog() != DialogResult.OK)
                 {
-                    path = o.FileName;                    
+                    path = o.FileName;                   
                 }
-                db = LoadUsers(path) ?? new ChatDb();
+                db = LoadUsers(path) ?? new ChatDb(); //Hopefully this is what we want
             }
             else db = new ChatDb();
 
