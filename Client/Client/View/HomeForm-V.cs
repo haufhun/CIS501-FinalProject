@@ -7,28 +7,37 @@ namespace Client.View
 {
     public partial class HomeForm : Form
     {
+        //Handler for sign in
         private SignInHandler _sInHandler;
+        //Handler for sign out
         private SignOutHandler _sOutHandler;
+        //Handler for add contact
         private AddContactHandler _addCHandler;
+        //Handler for removing a contact
         private RemoveContactHandler _removeCHandler;
+        //Handler to add contact to chat room
         private AddContactToRoomHandler _addCToRoomHandler;
+        //Handler for creating a chat room
         private CreateRoomHandler _createRoomHandler;
+        //Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
+        //private field variable for chat database
         private ChatDB _chatDb;
+        //private field for add contact form
         private AddContactForm _aCForm;
 
         /// <summary>
-        /// 
+        /// This is where the homeform will be initialized
         /// </summary>
-        /// <param name="sI"></param>
-        /// <param name="sO"></param>
-        /// <param name="ac"></param>
-        /// <param name="rc"></param>
-        /// <param name="acr"></param>
-        /// <param name="cr"></param>
-        /// <param name="sm"></param>
-        /// <param name="chatDb"></param>
-        /// <param name="aCForm"></param>
+        /// <param name="sI">Sign in handler</param>
+        /// <param name="sO">Sign out handler</param>
+        /// <param name="ac">Add Contact handler</param>
+        /// <param name="rc">Remove Contact handler</param>
+        /// <param name="acr">Add Contact to Chatroom handler</param>
+        /// <param name="cr">Create a chatroom handler</param>
+        /// <param name="sm">Handler to send message</param>
+        /// <param name="chatDb">Chat Database to be read</param>
+        /// <param name="aCForm">Add Contact form to access</param>
         public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm, ChatDB chatDb, AddContactForm aCForm)
         {
             _sInHandler = sI;
@@ -46,7 +55,7 @@ namespace Client.View
         }
 
         /// <summary>
-        /// 
+        /// This handles the sign out button press
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -56,7 +65,7 @@ namespace Client.View
         }
 
         /// <summary>
-        /// 
+        /// This handles the button press to start the chat
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -69,7 +78,7 @@ namespace Client.View
         }
 
         /// <summary>
-        /// 
+        /// This handles the button press for adding a contact
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -90,7 +99,7 @@ namespace Client.View
         }
 
         /// <summary>
-        /// 
+        /// This handles the button press for deleting a contact
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -103,7 +112,7 @@ namespace Client.View
         }
 
         /// <summary>
-        /// 
+        ///  
         /// </summary>
         /// <param name="chatRoom"></param>
         /// <param name="chatForm">Should be null when Calling StartChat</param>
@@ -154,7 +163,7 @@ namespace Client.View
             throw new NotImplementedException();
         }
         /// <summary>
-        /// 
+        /// This method controls what happens in the View for sign out
         /// </summary>
         public void SignOut()
         {
@@ -163,13 +172,16 @@ namespace Client.View
             else
                 this.Hide();
         }
-
+        /// <summary>
+        /// This prints out the error message on a message box
+        /// </summary>
+        /// <param name="message">The error message to be printed</param>
         public void PrintErrorMessage(string message)
         {
             MessageBox.Show(message);
         }
         /// <summary>
-        /// 
+        /// This updates the View info
         /// </summary>
         public void UpdateView()
         {
@@ -186,12 +198,17 @@ namespace Client.View
 
             Invoke(new MethodInvoker(UpdateHeaderName));
         }
-
+        /// <summary>
+        /// This method updates the header name in the View
+        /// </summary>
         private void UpdateHeaderName()
         {
             this.Text = "Home - " + _chatDb.User.ContactInfo.Username + "          Status: " + _chatDb.User.ContactInfo.OnlineStatus;
         }
-
+        /// <summary>
+        /// This method handles what happens upon form closing
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
