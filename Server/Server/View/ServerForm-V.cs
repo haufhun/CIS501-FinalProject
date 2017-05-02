@@ -115,7 +115,7 @@ namespace Server.View
 
         public void SendEvent(IMensaje m, LogStatus s)
         {
-            var ms = new List<string>(((Mensaje)m).ToArrayString())
+            var ms = new List<string>(((Mensaje)m).ArrayString)
             {
                 s.ToString()
             };
