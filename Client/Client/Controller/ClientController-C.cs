@@ -98,6 +98,7 @@ namespace Client.Controller
                         {
                             _chatDB.User = (User)m.User;
                             SignalSIFormObsever(0);
+                            SignalHFormObserver(0);
                         }
                         else
                         {                          
