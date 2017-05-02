@@ -210,9 +210,13 @@ namespace Server.Controller
 
                     foreach (var c in u.ContactList.Contacts)
                     {
+                        //Change the user that is logging-in to offline for each person that has him as a contact.
+                        var tempUser = _chatDb.LookupUser(c.Username);
+                        ((Contact)tempUser.ContactList.GetContact(u.ContactInfo.Username)).ChangeOnlineStatus(Status.Online);
+
                         if (c.OnlineStatus == Status.Online)
                         {
-                            _send(new Mensaje(State.Login, _chatDb.LookupUser(c.Username).ContactList), _chatDb.LookupUser(c.Username).SessionId);
+                            _send(new Mensaje(State.Login, tempUser.ContactList), tempUser.SessionId);
                         }
                     }
                     //Implement sending to each user that is in this user's contactlist
@@ -242,8 +246,10 @@ namespace Server.Controller
             {
                 var a = (Contact) contact;
                 var t = _chatDb.LookupUser(a.Username);
-
                 if (t == null) continue;
+                
+                //Change the user that is logging-in to offline for each person that has him as a contact.
+                ((Contact)t.ContactList.GetContact(u.ContactInfo.Username)).ChangeOnlineStatus(Status.Online);
 
                 var m = new Mensaje(State.Logout, t.ContactList);
                 try { _send(m, t.SessionId); }
