@@ -46,7 +46,7 @@ namespace Client
         private void uxSend_Click(object sender, EventArgs e)
         {
             uxMessageTextBox.Text = "";
-            _sendMessageHandler(uxMessageTextBox.Text, _Chat);
+            _sendMessageHandler(uxMessageTextBox.Text, _Chat, this);
         }
 
         public void UpdateContactView(string id)

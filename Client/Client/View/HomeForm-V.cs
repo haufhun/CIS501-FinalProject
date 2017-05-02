@@ -106,7 +106,7 @@ namespace Client.View
         /// 
         /// </summary>
         /// <param name="chatRoom"></param>
-        public void StartChat(ChatRoom chatRoom)
+        public void StartChat(ChatRoom chatRoom, ChatForm chatForm)
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
@@ -120,6 +120,19 @@ namespace Client.View
                 cForm.UpdateMessageView(chatRoom.Id);
             })); 
 
+        }
+
+        public void SendTextMessage(ChatRoom chatRoom, ChatForm chatForm)
+        {
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                var cForm = chatForm;
+
+                cForm.TopMost = true;
+                cForm.Show();
+                cForm.UpdateContactView(chatRoom.Id);
+                cForm.UpdateMessageView(chatRoom.Id);
+            }));
         }
 
         /// <summary>
