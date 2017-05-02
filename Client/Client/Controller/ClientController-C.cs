@@ -45,8 +45,8 @@ namespace Client.Controller
                 }
                 
             }
-           //ws = new WebSocket("ws://192.168.0.12:8022/chat");
-           ws = new WebSocket(webIp);
+           ws = new WebSocket("ws://192.168.2.3:8022/chat");
+           //ws = new WebSocket(webIp);
 
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
 

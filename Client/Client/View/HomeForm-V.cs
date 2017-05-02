@@ -108,10 +108,18 @@ namespace Client.View
         /// <param name="chatRoom"></param>
         public void StartChat(ChatRoom chatRoom)
         {
-            var c = new ChatForm(chatRoom, _sendMessageHandler, _chatDb);
-            c.Show();
-            c.UpdateContactView(chatRoom.Id);
-            c.UpdateMessageView(chatRoom.Id);
+            this.Invoke(new MethodInvoker(delegate ()
+            {
+                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _chatDb);
+
+
+
+                cForm.TopMost = true;
+                cForm.Show();
+                cForm.UpdateContactView(chatRoom.Id);
+                cForm.UpdateMessageView(chatRoom.Id);
+            })); 
+
         }
 
         /// <summary>
