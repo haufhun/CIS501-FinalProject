@@ -14,15 +14,15 @@ namespace Client.Model
         [JsonProperty]
         private string _password;
 
-        //Maybe we need this as a JsonProperty? Do we need this SessionId if the client sends us info?
-
-        //
         [JsonProperty]
-        public IContact ContactInfo { get; }
+        private ContactList _contactList;
 
-        //
         [JsonProperty]
-        public IContactList ContactList { get; }
+        private Contact _contactInfo;
+
+        public IContact ContactInfo => _contactInfo;
+
+        public IContactList ContactList => _contactList;
 
         /// <summary>
         /// 
@@ -32,7 +32,7 @@ namespace Client.Model
         public User(string username, string password)
         {
             _password = password;
-            ContactInfo = new Contact(username);
+            _contactInfo = new Contact(username);
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace Client.Model
         private User(string password, Contact contactInfo, ContactList contactList)
         {
             _password = password;
-            ContactInfo = contactInfo;
-            ContactList = contactList;
+            _contactInfo = contactInfo;
+            _contactList = contactList;
         }
 
         /// <summary>

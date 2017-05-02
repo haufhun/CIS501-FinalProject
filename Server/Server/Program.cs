@@ -53,8 +53,11 @@ namespace Server
             {
                 using (StreamReader file = new StreamReader(path))
                 {
-                    string s = file.ReadLine();
-                    var c = JsonConvert.DeserializeObject<ChatDb>(s);
+                    var s = file.ReadLine();
+                    ChatDb c = null;
+
+                    if (s != null) c = JsonConvert.DeserializeObject<ChatDb>(s);
+
                     return c;
                 }
             }
