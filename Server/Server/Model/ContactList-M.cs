@@ -12,7 +12,7 @@ namespace Server.Model
     public class ContactList : IContactList
     {
         [JsonProperty]
-        private Dictionary<string, IContact> _contacts;
+        private Dictionary<string, Contact> _contacts;
 
         public int Count => _contacts.Values.Count;
 
@@ -20,11 +20,11 @@ namespace Server.Model
 
         public ContactList()
         {
-            _contacts = new Dictionary<string, IContact>();
+            _contacts = new Dictionary<string, Contact>();
         }
 
         [JsonConstructor]
-        private ContactList(Dictionary<string, IContact> contacts)
+        private ContactList(Dictionary<string, Contact> contacts)
         {
             _contacts = contacts;
         }

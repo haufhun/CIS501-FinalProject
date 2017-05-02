@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using Chat_CSLibrary;
+using Newtonsoft.Json;
 
 namespace Server.Model
 {
+    [JsonObject(MemberSerialization.OptIn)]
     public class ChatDb
     {
+        [JsonProperty]
         private Dictionary<string, User> _users;
+
         private Dictionary<string, ChatRoom> _chatRooms;
+
         private string _nextRoomPos;
 
         public IEnumerable<User> Users => _users.Values;
@@ -17,6 +22,18 @@ namespace Server.Model
         public ChatDb()
         {
             _users = new Dictionary<string, User>();
+            _chatRooms = new Dictionary<string, ChatRoom>();
+            _nextRoomPos = "0";
+        }
+
+        /// <summary>
+        /// Used only for Json.
+        /// </summary>
+        /// <param name="users"></param>
+        [JsonConstructor]
+        private ChatDb(Dictionary<string, User> users)
+        {
+            _users = users;
             _chatRooms = new Dictionary<string, ChatRoom>();
             _nextRoomPos = "0";
         }
@@ -37,6 +54,17 @@ namespace Server.Model
         public ChatRoom LookupRoom(string id)
         {
             return _chatRooms.ContainsKey(id) ? _chatRooms[id] : null;
+        }
+
+        internal void ChangeIds()
+        {
+            var temp = new Dictionary<string, User>();
+
+            foreach(var u in _users.Values)
+            {
+                temp.Add(u.ContactInfo.Username, u);
+            }
+            _users = temp;
         }
 
         public User LookupUser(string username)

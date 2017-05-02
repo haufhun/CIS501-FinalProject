@@ -37,6 +37,7 @@ namespace Server.View
             listView1.Columns.Add("Error?");
             listView1.Columns.Add("Error Message");
             listView1.Columns.Add("Chat Room Id");
+            listView1.Columns.Add("Send/Receive");
 
             uxChatRoomListView.Columns.Add("Id");
             uxChatRoomListView.Columns.Add("Users");
@@ -69,7 +70,7 @@ namespace Server.View
 
         private void uxLoginButton_Click(object sender, EventArgs e)
         {
-            var m = new Mensaje(new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"), false);
+            var m = new Mensaje(State.Login, new User(new Contact(uxUsernameTB.Text, Status.Online), uxPasswordTB.Text, "1234"));
 
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
@@ -81,7 +82,6 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
         private void uxRmvCnctBtn_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(State.RemoveContact, new Contact(uxContactTB.Text, Status.Online), new User(new Contact(uxUsernameTB.Text, Status.Online), null, "1234"));
@@ -89,7 +89,6 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
         private void uxCreateChatRoomBtn_Click(object sender, EventArgs e)
         {
             var u1 = new User(new Contact(uxUsernameTB.Text, Status.Online), null, null);
@@ -100,7 +99,6 @@ namespace Server.View
             _handle(m, "1234");
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
-
         private void uxSendMessageBtn_Click(object sender, EventArgs e)
         {
             var m = new Mensaje(new ChatRoom(uxChatRoomIdTB.Text), new TextMessage(uxMessageTB.Text, new Contact(uxUsernameTB.Text, Status.Online)));
@@ -115,9 +113,13 @@ namespace Server.View
             foreach (var tb in _testingTextBoxes) tb.Clear();
         }
 
-        public void SendEvent(IMensaje m)
+        public void SendEvent(IMensaje m, LogStatus s)
         {
-            var lt = new ListViewItem(((Mensaje)m).ToArrayString());
+            var ms = new List<string>(((Mensaje)m).ToArrayString())
+            {
+                s.ToString()
+            };
+            var lt = new ListViewItem(ms.ToArray());
 
             if (uxUsersListView.InvokeRequired)
             {
@@ -128,7 +130,6 @@ namespace Server.View
                 listView1.Items.Add(lt);
             }
         }
-
         public void UpdateUserListView()
         {
             if (uxUsersListView.InvokeRequired)
@@ -157,7 +158,6 @@ namespace Server.View
                 uxUsersListView.EndUpdate();
             }
         }
-
         public void UpdateUserWebBrowser()
         {
             var userList = string.Empty;
@@ -194,7 +194,6 @@ namespace Server.View
                 "</body>" +
                 "</html>";
         }
-
         public void UpdateChatRoomWebBrowser()
         {
             var chatList = "";

@@ -20,20 +20,8 @@ namespace Server
             string folder = System.IO.Path.GetFullPath(@"..\..\") + "Lib";
             System.IO.Directory.CreateDirectory(folder);
             string path = System.IO.Path.Combine(folder, "UserFile.txt");
-            ChatDb db;
-            DialogResult result = MessageBox.Show("Would you like to select a user file to load?","", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                OpenFileDialog o = new OpenFileDialog();
-                while (o.ShowDialog() != DialogResult.OK)
-                {
-                    path = o.FileName;                   
-                }
-                db = LoadUsers(path) ?? new ChatDb(); //Hopefully this is what we want
-            }
-            else db = new ChatDb();
 
-           
+            var db = LoadUsers(path) ?? new ChatDb();
             var c = new ServerController(db);
             var sf = new ServerForm(db, c.ChatDelegate);
 
