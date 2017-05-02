@@ -27,19 +27,6 @@ namespace Server.Model
         private ContactList(Dictionary<string, Contact> contacts)
         {
             _contacts = contacts;
-            //if (contacts == null)
-            //{
-            //    _contacts = new Dictionary<string, IContact>();
-            //}
-            //else
-            //{
-            //    var temp = new Dictionary<string, IContact>();
-            //    foreach (var c in contacts.Values)
-            //    {
-            //        temp.Add(c.Username, c);
-            //    }
-            //    _contacts = temp;
-            //}
         }
 
         public void Add(Contact c)
