@@ -238,11 +238,11 @@ namespace Server.Controller
             {
                 var a = (Contact) contact;
                 var t = _chatDb.LookupUser(a.Username);
-                if (t != null)
-                {
-                    var m = new Mensaje(State.Logout, u.ContactInfo);
-                    try { _send(m, t.SessionId); } catch { }
-                }
+
+                if (t == null) continue;
+
+                var m = new Mensaje(State.Logout, t);
+                try { _send(m, t.SessionId); } catch { }
             }
         }
 
