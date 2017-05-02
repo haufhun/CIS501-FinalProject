@@ -132,7 +132,7 @@ namespace Server.Controller
                 }
             }
 
-            using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
+            using (var file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
             }
