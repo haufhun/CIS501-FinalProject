@@ -117,6 +117,15 @@ namespace Server.Controller
 
         public void StoreUsers(string path)
         {
+            foreach(var u in _chatDb.Users)
+            {
+                u.ChangeStatus(Status.Offline);
+                foreach(var contact in u.ContactList.Contacts)
+                {
+                    var c = (Contact)contact;
+                    c.ChangeOnlineStatus(Status.Offline);
+                }
+            }
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
