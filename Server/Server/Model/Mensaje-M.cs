@@ -54,19 +54,9 @@ namespace Server.Model
             };
         }
 
+        
         /// <summary>
-        /// Used only by the client simulation. Do not use on Server.
-        /// </summary>
-        /// <param name="cr"></param>
-        /// <param name="u"></param>
-        public Mensaje(State s, IUser u)
-        {
-            MyState = s;
-            User = u;
-        }
-
-        /// <summary>
-        /// Constructor used to send a client a login message. Send true if a new user was created.
+        /// Login
         /// </summary>
         /// <param name="user">The user to be signed in.</param>
         /// <param name="isNewUser">If the user was a new user or not.</param>
@@ -78,17 +68,7 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Used to send to other clients that a particular contact is logged out.
-        /// </summary>
-        /// <param name="c">The contact that was logged out.</param>
-        public Mensaje(State s, IContact c)
-        {
-            MyState = s;
-            Contact = c;
-        }
-
-        /// <summary>
-        /// Used to send to the Client that they signed out correctly.
+        /// Logout
         /// </summary>
         /// <param name="s"></param>
         public Mensaje(State s)
@@ -96,8 +76,18 @@ namespace Server.Model
             MyState = s;
         }
 
+            /// <summary>
+            /// Login/Logout to other contacts
+            /// </summary>
+            /// <param name="c">The contact that logged in/out.</param>
+            public Mensaje(State s, IContact c)
+            {
+                MyState = s;
+                Contact = c;
+            }
+
         /// <summary>
-        /// Constructor used to add/remove a contact to a user's contact list.
+        /// Add/Remove Contact
         /// </summary>
         /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
         /// <param name="c"></param>
@@ -111,6 +101,80 @@ namespace Server.Model
             User = user;
         }
 
+        /// <summary>
+        /// Open Chat/Send Message/Add Contact to chat. Send an OpenChat to a User that has been added to an existing ChatRoom.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chatroom"></param>
+        public Mensaje(State s, IChatRoom chatroom)
+        {
+            if (s != State.AddContactToChat || s != State.OpenChat || s != State.SendTextMessage) throw new InvalidConstraintException();
+
+            MyState = s;
+            ChatRoom = chatroom;
+        }
+
+
+        /// <summary>
+        /// Constructor that creates an error message based on an error message alone.
+        /// </summary>
+        /// <param name="errorMessage">The message details.</param>
+        public Mensaje(string errorMessage)
+        {
+            IsError = true;
+            ErrorMessage = errorMessage;
+        }
+
+        /// <summary>
+        /// Constructor that creates an error message with a status and a message.
+        /// </summary>
+        /// <param name="s">The status that the error occurred in.</param>
+        /// <param name="errorMessage">The message details.</param>
+        public Mensaje(State s, string errorMessage)
+        {
+            MyState = s;
+            IsError = true;
+            ErrorMessage = errorMessage;
+        }
+
+
+
+        /// <summary>
+        /// This constructor is ONLY to be used by Json in order to deserialize.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="user">The user to be passed. Can be null.</param>
+        /// <param name="c">The contact to be passed. Can be null.</param>
+        /// <param name="chatRoom">The chat room to be passed. Can be null.</param>
+        /// <param name="contact"></param>
+        /// <param name="contactList"></param>
+        /// <param name="textMessage"></param>
+        /// <param name="isError"></param>
+        /// <param name="errorMessage"></param>
+        [JsonConstructor]
+        private Mensaje(State s, User user, ChatRoom chatRoom, Contact contact, ContactList contactList, TextMessage textMessage, bool isError, string errorMessage)
+        {
+            MyState = s;
+            User = user;
+            ChatRoom = chatRoom;
+            Contact = contact;
+            ContactList = contactList;
+            TextMessage = textMessage;
+        }
+
+//////////////////////// Client constructors. Only for testing.
+
+        /// <summary>
+        /// Login/Logout sent by server
+        /// </summary>
+        /// <param name="cr"></param>
+        /// <param name="u"></param>
+        public Mensaje(State s, IUser u)
+        {
+            MyState = s;
+            User = u;
+        }
+        
         /// <summary>
         /// Constructor used to open a new chat room.
         /// </summary>
@@ -150,65 +214,5 @@ namespace Server.Model
             ChatRoom = chatroom;
             Contact = c;
         }
-
-        /// <summary>
-        /// Construcotr used to send to a client an updated chatroom. State must be something to do with the chatroom.
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="chatroom"></param>
-        public Mensaje(State s, IChatRoom chatroom)
-        {
-            if(s != State.AddContactToChat || s != State.OpenChat || s != State.SendTextMessage) throw new InvalidConstraintException();
-
-            MyState = s;
-            ChatRoom = chatroom;
-        }
-
-        /// <summary>
-        /// Constructor that creates an error message based on an error message alone.
-        /// </summary>
-        /// <param name="errorMessage">The message details.</param>
-        public Mensaje(string errorMessage)
-        {
-            IsError = true;
-            ErrorMessage = errorMessage;
-        }
-
-        /// <summary>
-        /// Constructor that creates an error message with a status and a message.
-        /// </summary>
-        /// <param name="s">The status that the error occurred in.</param>
-        /// <param name="errorMessage">The message details.</param>
-        public Mensaje(State s, string errorMessage)
-        {
-            MyState = s;
-            IsError = true;
-            ErrorMessage = errorMessage;
-        }
-
-        /// <summary>
-        /// This constructor is ONLY to be used by Json in order to deserialize.
-        /// </summary>
-        /// <param name="s"></param>
-        /// <param name="user">The user to be passed. Can be null.</param>
-        /// <param name="c">The contact to be passed. Can be null.</param>
-        /// <param name="chatRoom">The chat room to be passed. Can be null.</param>
-        /// <param name="contact"></param>
-        /// <param name="contactList"></param>
-        /// <param name="textMessage"></param>
-        /// <param name="isError"></param>
-        /// <param name="errorMessage"></param>
-        [JsonConstructor]
-        private Mensaje(State s, User user, ChatRoom chatRoom, Contact contact, ContactList contactList, TextMessage textMessage, bool isError, string errorMessage)
-        {
-            MyState = s;
-            User = user;
-            ChatRoom = chatRoom;
-            Contact = contact;
-            ContactList = contactList;
-            TextMessage = textMessage;
-        }
-
-        
     }
 }

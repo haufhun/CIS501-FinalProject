@@ -80,7 +80,7 @@ namespace Server.Controller
         /// </summary>
         /// <param name="m">The Mensaje object sent from the Client.</param>
         /// <param name="sessionId">The session id of the Client.</param>
-        public void ChatDelegate(IMensaje m, string sessionId)
+        internal void ChatDelegate(IMensaje m, string sessionId)
         {
             SignalEventObserver(m, LogStatus.Receive);
 
@@ -100,7 +100,8 @@ namespace Server.Controller
                     Logout(m.User.ContactInfo.Username);
                     break;
                 case State.OpenChat:
-                    CreateRoom(m.Contact.Username, m.Contact.Username);
+                    //Need to talk with Tyler. Can't remember if this is correct or not.
+                    CreateRoom(m.User.ContactInfo.Username, m.Contact.Username);
                     break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
@@ -115,8 +116,17 @@ namespace Server.Controller
             SignalObserver();
         }
 
+        /// <summary>
+        /// Puts all the users into OfflineMode, and then stores into a text file.
+        /// </summary>
+        /// <param name="path">The path to wehre we want to store the file.</param>
         public void StoreUsers(string path)
         {
+            foreach(var c in _chatDb.Users)
+            {
+                c.ChangeStatus(Status.Offline);
+            }
+
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(path))
             {
                 file.WriteLine(JsonConvert.SerializeObject(_chatDb));
@@ -136,7 +146,7 @@ namespace Server.Controller
         /// Registers a new Observer.
         /// </summary>
         /// <param name="o">The observer method to be updated. Should be a method from the view.</param>
-        public void Register(Observer o)
+        internal void Register(Observer o)
         {
             _observers.Add(o);
         }
@@ -212,6 +222,10 @@ namespace Server.Controller
             catch { SignalEventObserver(new Mensaje(State.Login, "Could not login the user " + name), LogStatus.Send); }
         }
 
+        /// <summary>
+        /// Sets a user's status to offline and notiffies each of the user's contacts that it is now offline.
+        /// </summary>
+        /// <param name="username">The username of the person logging out</param>
         private void Logout(string username)
         {
             var u = _chatDb.LookupUser(username);
@@ -303,6 +317,12 @@ namespace Server.Controller
             }
         }
 
+        /// <summary>
+        /// Creates a chat room with two users if both users exist and are online. Notifies both users that they are
+        /// now in a chat room.
+        /// </summary>
+        /// <param name="adder">The username of the person creating the room</param>
+        /// <param name="added">The username of the person who is being added to the room.</param>
         private void CreateRoom(string adder, string added)
         {
             var a = _chatDb.LookupUser(adder);
@@ -335,6 +355,13 @@ namespace Server.Controller
             }
         }
 
+        /// <summary>
+        /// Sends a text message from a sender to a chat room and notifies all users in the room that a text
+        /// has been sent. Checks to make sure the room exists
+        /// </summary>
+        /// <param name="roomId">The id of the chatroom</param>
+        /// <param name="msg">The text message to be sent</param>
+        /// <param name="sessionId">The sessionId of the sender</param>
         private void SendTextMessage(string roomId, ITextMessage msg, string sessionId)
         {
             var room = _chatDb.LookupRoom(roomId);
@@ -357,6 +384,12 @@ namespace Server.Controller
             }
         }
 
+        /// <summary>
+        /// Adds a user to a ChatRoom if the room and the user being added both exist.
+        /// </summary>
+        /// <param name="adderSessionId">The session id of the person adding someone to the room</param>
+        /// <param name="name">The username of the person being added to the room</param>
+        /// <param name="roomId">The id of the room</param>
         private void AddContactToRoom(string adderSessionId, string name, string roomId)
         {
 
@@ -396,8 +429,15 @@ namespace Server.Controller
 
     public class Chat : WebSocketBehavior
     {
+        /// <summary>
+        /// The handler that is set to refer to the controller
+        /// </summary>
         private readonly ClientMessageHandler _receive;
 
+        /// <summary>
+        /// The constructor that sets _receive to the given value
+        /// </summary>
+        /// <param name="a">The handler being passed in</param>
         public Chat(ClientMessageHandler a)
         {
             _receive = a;
@@ -408,6 +448,11 @@ namespace Server.Controller
 
         }
 
+        /// <summary>
+        /// Receives a string from the websocket, deserializes it, and calls the 
+        /// ClientMessageHandler to perform a function.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnMessage(MessageEventArgs e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
@@ -416,7 +461,12 @@ namespace Server.Controller
             var m = JsonConvert.DeserializeObject<Mensaje>(e.Data);
             _receive(m, ID);
         }
-
+        
+        /// <summary>
+        /// Sends an IMensaje object through the websocket to the user with the given sessionId.
+        /// </summary>
+        /// <param name="m">The object to be sent</param>
+        /// <param name="sessionId">The id of the user to which the object is sent</param>
         public void Send(IMensaje m, string sessionId)
         {
             string message = JsonConvert.SerializeObject(m);
