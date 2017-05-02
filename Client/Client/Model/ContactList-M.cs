@@ -12,17 +12,19 @@ namespace Client.Model
     public class ContactList : IContactList
     {
         [JsonProperty]
-        private Dictionary<string, IContact> _contacts;
+        private Dictionary<string, Contact> _contacts;
 
         public int Count => _contacts.Values.Count;
 
+        public IEnumerable<IContact> Contacts => _contacts.Values; // had to add to iplement Icontact
+
         public ContactList()
         {
-            _contacts = new Dictionary<string, IContact>();
+            _contacts = new Dictionary<string, Contact>();
         }
 
         [JsonConstructor]
-        private ContactList(Dictionary<string, IContact> contacts)
+        private ContactList(Dictionary<string, Contact> contacts)
         {
             _contacts = contacts;
         }
@@ -42,7 +44,6 @@ namespace Client.Model
             throw new NotImplementedException();
         }
 
-        public IEnumerable<IContact> Contacts { get; } // had to add to iplement Icontact
     }
     //class ContactList_M
     //{
