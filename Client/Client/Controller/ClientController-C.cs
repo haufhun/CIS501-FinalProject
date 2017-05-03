@@ -29,7 +29,7 @@ namespace Client.Controller
         public event Message MessageReceived;
 
         /// <summary>
-        /// Constructor for Controller
+        /// Sets up the controller for functionality of the project. 
         /// </summary>
         /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
@@ -195,27 +195,27 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// Register for the sign in with the controller
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The Observer for sign in form passed in</param>
         public void SignInRegister(SignInFormObserver o)
         {
             _sIFormObserver.Add(o);
         }
 
         /// <summary>
-        /// 
+        /// Register for the homeform in the controller
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The Observer for the home form passed in</param>
         public void HomeFormRegister(HomeFormObserver o)
         {
             _hFormObserver.Add(o);
         }
 
         /// <summary>
-        /// 
+        /// Register for the chat form in the controller
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The Observer for the chat form passed in</param>
         public void ChatFormRegister(ChatFormObserver o)
         {
             _cFormObserver.Add(o);
@@ -260,9 +260,9 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method that creates a new add contact mensaje and sends it to server
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Contact name passed in</param>
         public void AddContact(string name)
         {
             if (ws.IsAlive)
@@ -279,9 +279,9 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method that creates a new remove contact mensaje and sends it to server
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Contact name passed in</param>
         public void RemoveContact(string name)
         {
             if (ws.IsAlive)
@@ -298,7 +298,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method that creates a chat room mensaje and sends it to server
         /// </summary>
         /// <param name="name"></param>
         public void CreateChatRoom(string name)
