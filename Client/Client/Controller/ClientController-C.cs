@@ -35,7 +35,7 @@ namespace Client.Controller
         /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
         {
-            // Dummy ip just in cause auto-ip does not retreive an ip adress.
+            // Dummy ip just in cause auto-ip does not retreive an ip address.
             var webIp = "ws://192.168.0.0:8022/chat";
             var autoIP = "192.168.0.0";
 
@@ -50,8 +50,8 @@ namespace Client.Controller
                 }
 
             }
-            //ws = new WebSocket("ws://192.168.2.8:8022/chat"); // uncomment this to set ip yourself
-            ws = new WebSocket(webIp); // comment this out to set ip yourself
+
+            ws = new WebSocket(webIp);
 
             ws.OnMessage += (sender, e) =>{ MessageReceived?.Invoke(e.Data); };
 
@@ -128,14 +128,6 @@ namespace Client.Controller
                         {
                             _chatDB.User.UpdateContactList((ContactList)m.ContactList);
                             SignalHFormObserver(0);
-
-                            //foreach (var c in _chatDB.ChatForms)
-                            //{
-                            //    c.Value.ChatRoom.ContactsToAdd = m.ContactList;
-                            //    /// work herer
-                                
-                            //    SignalCFormObserver(1, _chatDB.ChatRooms[c.Key], c.Value);
-                            //}
                         }
                     }
                     else
@@ -157,9 +149,6 @@ namespace Client.Controller
                         {
                             _chatDB.User.UpdateContactList((ContactList)m.ContactList);
                             SignalHFormObserver(0);
-
-                            //foreach (var c in _chatDB.ChatForms)
-                            //    SignalCFormObserver(1, _chatDB.ChatRooms[c.Key], c.Value);
                         }
 
                     }
@@ -167,6 +156,7 @@ namespace Client.Controller
                     break;
 
                 case State.AddContact:        
+                    // Removes the contact from friends list
                     if (!m.IsError)
                     {
                         _chatDB.User = (User) m.User;
@@ -176,6 +166,7 @@ namespace Client.Controller
                     break;
 
                 case State.RemoveContact:
+                    // Removes the contact from friends list
                     if (!m.IsError)
                     {
                         _chatDB.User = (User)m.User;
@@ -185,6 +176,8 @@ namespace Client.Controller
                     break;
 
                 case State.OpenChat:
+                    // Takes care of opening a chatroom with two users.
+                    // State OpenChat when adding to chat room- this will be for the person getting added. It will contain IChat and has list of messages and contacts.
                     if (!m.IsError)
                     {
                         if (!_chatDB.ChatRooms.ContainsKey(m.ChatRoom.Id))
@@ -198,6 +191,7 @@ namespace Client.Controller
                     else MessageBox.Show(m.ErrorMessage);
                     break;
                 case State.CloseChat:
+                    // Closes the chatroom
                     if (!m.IsError)
                     {
                         MessageBox.Show("Closing because someone ended the chat.");
@@ -211,8 +205,8 @@ namespace Client.Controller
                     else MessageBox.Show(m.ErrorMessage);
                     break;
                 case State.AddContactToChat:
-                    // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
-                    //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
+                    // State OpenChat- this will be for the person getting added to chat room. It will contain IChat and has list of messages and contacts.
+                    // State AddContactToChat when adding to chat room - this will be for current users in chatroom it will contain IChat with updated contact list to update the views
                     if (!m.IsError)
                     {
                         _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
@@ -222,11 +216,11 @@ namespace Client.Controller
                     break;
 
                 case State.SendTextMessage:
+                    // Get most recent text message object and updates chatforms.
                     if (!m.IsError)
                     {
                         _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
                         SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.ChatForms[m.ChatRoom.Id]);
-                        // a Chatroom // get most recent text message object and populates it.
                     }
                     else MessageBox.Show(m.ErrorMessage);
                     break;

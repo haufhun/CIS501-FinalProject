@@ -111,7 +111,6 @@
     <EmbeddedResource Include="View\SignInForm-V.resx">
       <DependentUpon>SignInForm-V.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
