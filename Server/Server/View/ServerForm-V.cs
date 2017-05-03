@@ -39,8 +39,7 @@ namespace Server.View
             listView1.Columns.Add("Chat Room Id");
             listView1.Columns.Add("Send/Receive");
 
-            uxChatRoomListView.Columns.Add("Id");
-            uxChatRoomListView.Columns.Add("Users");
+
 
             _testingButtons = new List<Button>
             {
@@ -261,6 +260,11 @@ namespace Server.View
 
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
