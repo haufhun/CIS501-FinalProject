@@ -46,7 +46,8 @@ namespace Client.Controller
                 }
                 
             }
-           ws = new WebSocket("ws://192.168.2.4:8022/chat");
+           ws = new WebSocket("ws://192.168.2.3:8022/chat");
+
            //ws = new WebSocket(webIp);
 
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
@@ -151,6 +152,7 @@ namespace Client.Controller
                     {
                         _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom)m.ChatRoom);
                         
+
                         SignalCFormObserver(0, (ChatRoom)m.ChatRoom, null);
                         
                     }
@@ -170,6 +172,7 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
+
                     _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom)m.ChatRoom;
                     SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
 

@@ -259,5 +259,10 @@ namespace Server.View
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
         }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
