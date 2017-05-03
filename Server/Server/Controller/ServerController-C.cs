@@ -365,6 +365,12 @@ namespace Server.Controller
                 _send(m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
+            else if (!a.ContactList.Contacts.Contains(b.ContactInfo))
+            {
+                var m = (new Mensaje(State.OpenChat, "The user" + added + " you want to chat with is not one of your contacts"));
+                _send(m, a.SessionId);
+                SignalEventObserver(m, LogStatus.Send);
+            }
             else
             {
                 var cr = _chatDb.CreateRoom(a, b);
