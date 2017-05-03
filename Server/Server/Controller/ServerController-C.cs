@@ -218,8 +218,9 @@ namespace Server.Controller
                         ((Contact)cr.ContactsToAdd.GetContact(name)).ChangeOnlineStatus(Status.Online);
                         var m2 = new Mensaje(State.AddContactToChat, cr);
 
-                        foreach (User user in cr.Participants)
+                        foreach (var user1 in cr.Participants)
                         {
+                            var user = (User) user1;
                             _send(m2, user.SessionId);
                         }
                     }
@@ -257,8 +258,23 @@ namespace Server.Controller
             var u = _chatDb.LookupUser(username);
             u.ChangeStatus(Status.Offline);
             _send(new Mensaje(State.Logout), u.SessionId);
-            
-            foreach(var contact in u.ContactList.Contacts)
+
+            var list = (from cr in _chatDb.ChatRooms where cr.ContactsToAdd.GetContact(username) != null select cr).ToList();
+
+            foreach (var cr in list)
+            {
+                ((Contact)cr.ContactsToAdd.GetContact(username)).ChangeOnlineStatus(Status.Offline);
+                var m2 = new Mensaje(State.AddContactToChat, cr);
+
+                foreach (var user1 in cr.Participants)
+                {
+                    var user = (User)user1;
+                    _send(m2, user.SessionId);
+                }
+            }
+
+
+            foreach (var contact in u.ContactList.Contacts)
             {
                 var a = (Contact) contact;
                 var t = _chatDb.LookupUser(a.Username);
