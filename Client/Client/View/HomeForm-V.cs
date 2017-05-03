@@ -37,6 +37,7 @@ namespace Client.View
         /// <param name="rc">Remove Contact handler</param>
         /// <param name="acr">Add Contact to Chatroom handler</param>
         /// <param name="cr">Create a chatroom handler</param>
+        /// <param name="closeRoomHandler">Create a close chatroom handler</param>
         /// <param name="sm">Handler to send message</param>
         /// <param name="chatDb">Chat Database to be read</param>
         /// <param name="aCForm">Add Contact form to access</param>
@@ -119,7 +120,7 @@ namespace Client.View
         /// <summary>
         ///  This handles what to do with StartChat
         /// </summary>
-        /// <param name="chatRoom"></param>
+        /// <param name="chatRoom">Chatroom to be passed</param>
         /// <param name="chatForm">Should be null when Calling StartChat</param>
         public void StartChat(ChatRoom chatRoom, ChatForm chatForm)
         {
