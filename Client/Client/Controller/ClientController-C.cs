@@ -345,7 +345,8 @@ namespace Client.Controller
         /// 
         /// </summary>
         /// <param name="index">
-        ///  Calls the start chat method from homeform if index of [0]
+        ///  Calls the StartChat method from homeform if index of [0]
+        ///  Calls the SendTextmessage method from homeForm if index of [1]
         /// </param>
         /// <param name="chatRoom"> Current chatroom that is needed. </param>
         private void SignalCFormObserver(int index, ChatRoom chatRoom, ChatForm cForm)
