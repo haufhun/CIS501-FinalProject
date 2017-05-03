@@ -98,7 +98,7 @@ namespace Server.Controller
                     Login(m.User.ContactInfo.Username, ((User)m.User).Password, sessionId);
                     break;
                 case State.Logout:
-                    Logout(m.User.ContactInfo.Username);
+                    Logout(m.User.ContactInfo.Username, sessionId);
                     break;
                 case State.OpenChat:
                     //Need to talk with Tyler. Can't remember if this is correct or not.
@@ -253,11 +253,21 @@ namespace Server.Controller
         /// Sets a user's status to offline and notiffies each of the user's contacts that it is now offline.
         /// </summary>
         /// <param name="username">The username of the person logging out</param>
-        private void Logout(string username)
+        /// <param name="sessionId"></param>
+        private void Logout(string username, string sessionId)
         {
             var u = _chatDb.LookupUser(username);
+            if (u == null)
+            {
+                var m = new Mensaje(State.Logout, "Couldn't find you as a user in the database. You hacked this somewhow.");
+                _send(m, sessionId);
+                SignalEventObserver(m, LogStatus.Internal);
+                return;
+            }
             u.ChangeStatus(Status.Offline);
-            _send(new Mensaje(State.Logout), u.SessionId);
+            var m3 = new Mensaje(State.Logout);
+            _send(m3, sessionId);
+            SignalEventObserver(m3, LogStatus.Send);
 
             var list = (from cr in _chatDb.ChatRooms where cr.ContactsToAdd.GetContact(username) != null select cr).ToList();
 
@@ -413,10 +423,20 @@ namespace Server.Controller
                     }
                 }
 
-                try { _send(new Mensaje(State.OpenChat, cr), a.SessionId); }
+                try
+                {
+                    var m = new Mensaje(State.OpenChat, cr);
+                    _send(m, a.SessionId);
+                    SignalEventObserver(m, LogStatus.Send);
+                }
                 catch { SignalEventObserver(new Mensaje(State.OpenChat, "Error sending to client " + a.ContactInfo.Username), LogStatus.Internal ); }
 
-                try { _send(new Mensaje(State.OpenChat, cr), b.SessionId); }
+                try
+                {
+                    var m = new Mensaje(State.OpenChat, cr);
+                    _send(m, b.SessionId);
+                    SignalEventObserver(m, LogStatus.Send);
+                }
                 catch { SignalEventObserver(new Mensaje(State.OpenChat, "Error sending to client " + b.ContactInfo.Username), LogStatus.Internal); }
             }
         }
@@ -512,12 +532,17 @@ namespace Server.Controller
                     cr.RemoveContact(s);
                 }
 
-                _send(new Mensaje(State.OpenChat, cr), user.SessionId);
+                var m = new Mensaje(State.OpenChat, cr);
+                _send(m, user.SessionId);
+                SignalEventObserver(m, LogStatus.Send);
+
                 cr.AddParticipant(user);
 
                 foreach (var u in cr.GetOnlineParticipants())
                 {
-                    _send(new Mensaje(State.AddContactToChat, cr), u.SessionId);
+                    m = new Mensaje(State.AddContactToChat, cr);
+                   _send(m, u.SessionId);
+                    SignalEventObserver(m, LogStatus.Send);
                 }
             }
         }
