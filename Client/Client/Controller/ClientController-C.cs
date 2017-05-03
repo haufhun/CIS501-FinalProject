@@ -300,7 +300,7 @@ namespace Client.Controller
         /// <summary>
         /// A method that creates a chat room mensaje and sends it to server
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Contact name passed in</param>
         public void CreateChatRoom(string name)
         {
             if (ws.IsAlive)
@@ -315,7 +315,10 @@ namespace Client.Controller
                 MessageBox.Show("Cant connect to server!");
             }
         }
-
+        /// <summary>
+        /// A method that creates a close chat room mensaje and sends it to server
+        /// </summary>
+        /// <param name="cRoom">Chatroom object passed in</param>
         public void CloseChatRoom(ChatRoom cRoom)
         {
             if (ws.IsAlive)
@@ -331,10 +334,10 @@ namespace Client.Controller
             }
         }
         /// <summary>
-        /// 
+        /// This method creates a mensaje for adding a contact to the chat room and sends it to server
         /// </summary>
-        /// <param name="chatRoom"></param>
-        /// <param name="name"></param>
+        /// <param name="chatRoom">Chatroom passed in</param>
+        /// <param name="name">Name of the contact passed in</param>
         public void AddContactToRoom(ChatRoom chatRoom, string name)
         {
             if (ws.IsAlive)
@@ -351,10 +354,11 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method to create a mensaje for sending a message and sends it the server
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="chatRoom"></param>
+        /// <param name="message">Message to be sent passed in</param>
+        /// <param name="chatRoom">Chatroom passed in</param>
+        /// <param name="cForm">This is Chatform passed in</param>
         public void SendMessage(string message, ChatRoom chatRoom, ChatForm cForm)
         {
             if (ws.IsAlive)
@@ -371,7 +375,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// This method signals the CForm Observer
         /// </summary>
         /// <param name="index">
         ///  Calls the StartChat method from homeform if index of [0]
@@ -385,7 +389,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method to signal the home form Observer
         /// </summary>
         /// <param name="index">
         ///  Calls Update if index of [0]
@@ -400,7 +404,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method to signal the Sign in Form Observer
         /// </summary>
         /// <param name="index"> 
         ///  Calls EventSuccessfulLogin if index of [0]
