@@ -61,6 +61,12 @@ namespace Client
                 MessageBox.Show("Please select a contact to add to the chat room!");
            
         }
+
+        private void uxEndChat_Click(object sender, EventArgs e)
+        {
+
+        }
+
         public void UpdateContactView(string id)
         {
             var chatRoom = _chatDb.ChatRooms[id];
