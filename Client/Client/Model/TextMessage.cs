@@ -9,6 +9,9 @@ using Chat_CSLibrary;
 
 namespace Client.Model
 {
+    /// <summary>
+    /// This holds the information for TextMessage in the Model
+    /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class TextMessage : ITextMessage
     {

@@ -112,5 +112,14 @@ namespace Server.Model
             var u = new User(new Contact(username, Status.Online), password, sessionId);
             _users.Add(username, u);
         }
+
+        /// <summary>
+        /// Removes the chat room from the dictionary of Chat Rooms.
+        /// </summary>
+        /// <param name="chatId">The id of the chat room to be removed.</param>
+        public void RemoveRoom(string chatId)
+        {
+            _chatRooms.Remove(chatId);
+        }
     }
 }

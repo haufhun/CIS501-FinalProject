@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Server.Model;
@@ -40,7 +41,7 @@ namespace Server.Controller
         /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
         /// </summary>
         /// <param name="db">The chat database to be loaded.</param>
-        public ServerController(ChatDb db)
+        internal ServerController(ChatDb db)
         {
             _chatDb = db;
             _eventObserver = new List<EventLogObserver>();
@@ -90,7 +91,7 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.AddContactToChat:
-                    AddContactToRoom(sessionId, m.User.ContactInfo.Username, m.ChatRoom.Id);
+                    AddContactToRoom(sessionId, m.Contact.Username, m.ChatRoom.Id);
                     break;
                 case State.Login:
                     //Must cast this to our User object so as to access the password.
@@ -102,6 +103,9 @@ namespace Server.Controller
                 case State.OpenChat:
                     //Need to talk with Tyler. Can't remember if this is correct or not.
                     CreateRoom(m.Contact.Username, m.Contact.Username);
+                    break;
+                case State.CloseChat:
+                    CloseRoom(m.ChatRoom.Id, sessionId);
                     break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
@@ -120,7 +124,7 @@ namespace Server.Controller
         /// Puts all the users into OfflineMode, and then stores into a text file.
         /// </summary>
         /// <param name="path">The path to wehre we want to store the file.</param>
-        public void StoreUsers(string path)
+        internal void StoreUsers(string path)
         {
             foreach(var u in _chatDb.Users)
             {
@@ -142,7 +146,7 @@ namespace Server.Controller
         /// Registers a new EventLogObserver in the list.
         /// </summary>
         /// <param name="o">An event log observer.</param>
-        public void Register(EventLogObserver o)
+        internal void Register(EventLogObserver o)
         {
             _eventObserver.Add(o);
         }
@@ -382,6 +386,34 @@ namespace Server.Controller
                 catch { SignalEventObserver(new Mensaje(State.OpenChat, "Error sending to client " + b.ContactInfo.Username), LogStatus.Internal); }
             }
         }
+        
+        /// <summary>
+        /// Closes the given chat room.
+        /// </summary>
+        /// <param name="chatId">The id of the chat room to be closed.</param>
+        /// <param name="sessionId">The session id of the client leaving the chat room.</param>
+        private void CloseRoom(string chatId, string sessionId)
+        {
+            var cr = _chatDb.LookupRoom(chatId);
+            if (cr == null)
+            {
+                var m = new Mensaje(State.CloseChat, "The chat room does not exist.");
+                _send(m, sessionId);
+                SignalEventObserver(m, LogStatus.Internal);
+                return;
+            }
+
+            var list = (from u in cr.Participants where u.ContactInfo.OnlineStatus == Status.Online select ((User)u).SessionId).ToList();
+
+            _chatDb.RemoveRoom(chatId);
+
+            foreach (var s in list)
+            {
+                var m = new Mensaje(State.CloseChat, cr);
+                _send(m, s);
+                SignalEventObserver(m, LogStatus.Send);
+            }
+        }
 
         /// <summary>
         /// Sends a text message from a sender to a chat room and notifies all users in the room that a text
@@ -425,23 +457,25 @@ namespace Server.Controller
 
             if (user == null)
             {
-                _send(new Mensaje(State.AddContactToChat, "The user you would like to add does not exist"), adderSessionId);
+                var m = new Mensaje(State.AddContactToChat, "The user" + name + " does not exist");
+                _send(m, adderSessionId);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else if (user.ContactInfo.OnlineStatus == Status.Offline)
             {
-                _send(new Mensaje(State.AddContactToChat, "The user you would like to add is not online"), adderSessionId);
+                var m = new Mensaje(State.AddContactToChat, "The user you would like to add is not online");
+                _send(m, adderSessionId);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else
             {
                 var cr = _chatDb.LookupRoom(roomId);
 
-                foreach (var c in cr.ContactsToAdd.Contacts)
+                var list = (from c in cr.ContactsToAdd.Contacts where user.ContactList.GetContact(c.Username) == null select c.Username).ToList();
+
+                foreach (var s in list)
                 {
-                    //Remove a contact IF the user we are adding is not friends with them
-                    if (user.ContactList.GetContact(c.Username) == null)
-                    {
-                        cr.RemoveContact(c.Username);
-                    }
+                    cr.RemoveContact(s);
                 }
 
                 _send(new Mensaje(State.OpenChat, cr), user.SessionId);

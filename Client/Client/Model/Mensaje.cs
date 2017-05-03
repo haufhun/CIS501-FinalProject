@@ -90,6 +90,15 @@ namespace Client.Model
             }
 
             /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="cRoom"></param>
+            public Mensaje(IChatRoom cRoom)
+            {
+                MyState = State.CloseChat;
+                ChatRoom = cRoom;
+            }
+            /// <summary>
             /// Constructor used to send a message to a chat room.
             /// </summary>
             /// <param name="s">The status of the message being sent.</param>

@@ -33,7 +33,7 @@
             this.uxMessageTextBox = new System.Windows.Forms.TextBox();
             this.uxMessageListBox = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.uxAddContact = new System.Windows.Forms.ToolStripButton();
             this.uxEndChat = new System.Windows.Forms.ToolStripButton();
             this.uxListView = new System.Windows.Forms.ListView();
             this.uxNameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,10 +45,11 @@
             // messageLabel
             // 
             this.messageLabel.AutoSize = true;
+            this.messageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.messageLabel.Location = new System.Drawing.Point(388, 269);
             this.messageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.messageLabel.Name = "messageLabel";
-            this.messageLabel.Size = new System.Drawing.Size(69, 17);
+            this.messageLabel.Size = new System.Drawing.Size(99, 25);
             this.messageLabel.TabIndex = 7;
             this.messageLabel.Text = "Message:";
             // 
@@ -57,10 +58,11 @@
             this.uxMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxMessageTextBox.Location = new System.Drawing.Point(471, 265);
+            this.uxMessageTextBox.Location = new System.Drawing.Point(495, 265);
             this.uxMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.uxMessageTextBox.Multiline = true;
             this.uxMessageTextBox.Name = "uxMessageTextBox";
-            this.uxMessageTextBox.Size = new System.Drawing.Size(427, 22);
+            this.uxMessageTextBox.Size = new System.Drawing.Size(434, 38);
             this.uxMessageTextBox.TabIndex = 6;
             // 
             // uxMessageListBox
@@ -73,29 +75,30 @@
             this.uxMessageListBox.Location = new System.Drawing.Point(391, 39);
             this.uxMessageListBox.Margin = new System.Windows.Forms.Padding(4);
             this.uxMessageListBox.Name = "uxMessageListBox";
-            this.uxMessageListBox.Size = new System.Drawing.Size(507, 212);
+            this.uxMessageListBox.Size = new System.Drawing.Size(538, 212);
             this.uxMessageListBox.TabIndex = 5;
             // 
             // toolStrip1
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton2,
+            this.uxAddContact,
             this.uxEndChat});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(919, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(950, 27);
             this.toolStrip1.TabIndex = 9;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton2
+            // uxAddContact
             // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(214, 24);
-            this.toolStripButton2.Text = "Add Contact To Chat Room";
-            this.toolStripButton2.ToolTipText = "uxAddContact";
+            this.uxAddContact.Image = ((System.Drawing.Image)(resources.GetObject("uxAddContact.Image")));
+            this.uxAddContact.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.uxAddContact.Name = "uxAddContact";
+            this.uxAddContact.Size = new System.Drawing.Size(214, 24);
+            this.uxAddContact.Text = "Add Contact To Chat Room";
+            this.uxAddContact.ToolTipText = "uxAddContact";
+            this.uxAddContact.Click += new System.EventHandler(this.uxAddContact_Click);
             // 
             // uxEndChat
             // 
@@ -105,6 +108,7 @@
             this.uxEndChat.Name = "uxEndChat";
             this.uxEndChat.Size = new System.Drawing.Size(92, 24);
             this.uxEndChat.Text = "End Chat";
+            this.uxEndChat.Click += new System.EventHandler(this.uxEndChat_Click);
             // 
             // uxListView
             // 
@@ -132,12 +136,11 @@
             // 
             // uxSend
             // 
-            this.uxSend.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.uxSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.uxSend.Location = new System.Drawing.Point(537, 310);
             this.uxSend.Name = "uxSend";
-            this.uxSend.Size = new System.Drawing.Size(295, 38);
+            this.uxSend.Size = new System.Drawing.Size(326, 38);
             this.uxSend.TabIndex = 11;
             this.uxSend.Text = "Send";
             this.uxSend.UseVisualStyleBackColor = true;
@@ -145,15 +148,17 @@
             // 
             // ChatForm
             // 
+            this.AcceptButton = this.uxSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(919, 360);
+            this.ClientSize = new System.Drawing.Size(950, 360);
             this.Controls.Add(this.uxSend);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.uxListView);
             this.Controls.Add(this.messageLabel);
             this.Controls.Add(this.uxMessageTextBox);
             this.Controls.Add(this.uxMessageListBox);
+            this.MinimumSize = new System.Drawing.Size(968, 407);
             this.Name = "ChatForm";
             this.Text = "ChatForm";
             this.toolStrip1.ResumeLayout(false);
@@ -169,7 +174,7 @@
         private System.Windows.Forms.TextBox uxMessageTextBox;
         private System.Windows.Forms.ListBox uxMessageListBox;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton uxAddContact;
         private System.Windows.Forms.ToolStripButton uxEndChat;
         private System.Windows.Forms.ListView uxListView;
         private System.Windows.Forms.ColumnHeader uxNameCol;
