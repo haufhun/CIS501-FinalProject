@@ -160,7 +160,9 @@ namespace Client.Controller
                     break;
                 case State.CloseChat:
                     MessageBox.Show("Closing Chat Form because someone doesnt wanna talk to you anymore");
-                    var c = new MethodInvoker(delegate { _chatDB.CurrentChatForm[m.ChatRoom.Id].Close(); });
+
+                    var cForm = _chatDB.CurrentChatForm[m.ChatRoom.Id];
+                    cForm.Invoke(new MethodInvoker(cForm.Close)); 
 
                     _chatDB.CurrentChatForm.Remove(m.ChatRoom.Id);
                     _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
