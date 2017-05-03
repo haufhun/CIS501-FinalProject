@@ -117,7 +117,9 @@
             this.uxListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.uxNameCol,
             this.uxStatus});
+            this.uxListView.FullRowSelect = true;
             this.uxListView.Location = new System.Drawing.Point(12, 38);
+            this.uxListView.MultiSelect = false;
             this.uxListView.Name = "uxListView";
             this.uxListView.Size = new System.Drawing.Size(369, 325);
             this.uxListView.TabIndex = 8;
