@@ -75,26 +75,49 @@ namespace Server.Model
             _contactList = contactList;
         }
 
+        /// <summary>
+        /// Checks to see if the given password matches this user's password. Returns true if so,
+        /// false otherwise.
+        /// </summary>
+        /// <param name="password">The password to be checked</param>
+        /// <returns>True if they match, false if they do not</returns>
         public bool IsValidPassword(string password)
         {
             return _password == password;
         }
 
+        /// <summary>
+        /// Changes this user's session id to the given value.
+        /// </summary>
+        /// <param name="newId">The new session id</param>
         public void ChangeSessionId(string newId)
         {
             SessionId = newId;
         }
 
+        /// <summary>
+        /// Adds a contact to this user's contact list.
+        /// </summary>
+        /// <param name="c">The contact to be added</param>
+        /// <returns>True if the contact was added, false otherwise</returns>
         public bool AddContact(Contact c)
         {
             return _contactList.Add(c);
         }
 
+        /// <summary>
+        /// Removes the given contact from this user's contact list.
+        /// </summary>
+        /// <param name="c">The contact to be removed</param>
         public void RemoveContact(Contact c)
         {
             _contactList.Remove(c.Username);
         }
 
+        /// <summary>
+        /// Changes this user's online status to the value of the parameter.
+        /// </summary>
+        /// <param name="newStatus">The user's new online status</param>
         public void ChangeStatus(Status newStatus)
         {
             _contactInfo.ChangeOnlineStatus(newStatus);

@@ -19,6 +19,7 @@ namespace Client
         // Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
         private AddContactToRoomHandler _addCToRoomHandler;
+        private CloseRoomHandler _closeRoomHandler;
         // Variable to read the Chat Database
         private readonly ChatDB _chatDb;
 
@@ -28,13 +29,15 @@ namespace Client
         /// <param name="Chat"></param>
         /// <param name="sm">Handler to send message passed in</param>
         /// <param name="addCToRoomHandler"></param>
+        /// <param name="closeRoomHandler"></param>
         /// <param name="chatDb">Database for Chat to be passed in and read</param>
         /// <param name="iChat">Chatroom object passed in</param>
-        public ChatForm(ChatRoom Chat, SendMessageHandler sm, AddContactToRoomHandler addCToRoomHandler, ChatDB chatDb)
+        public ChatForm(ChatRoom Chat, SendMessageHandler sm, AddContactToRoomHandler addCToRoomHandler, CloseRoomHandler closeRoomHandler, ChatDB chatDb)
         {
             _chatRoom = Chat;
             _sendMessageHandler = sm;
             _addCToRoomHandler = addCToRoomHandler;
+            _closeRoomHandler = closeRoomHandler;
             _chatDb = chatDb;
 
 
@@ -61,12 +64,15 @@ namespace Client
                 MessageBox.Show("Please select a contact to add to the chat room!");
            
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uxEndChat_Click(object sender, EventArgs e)
         {
-
+            _closeRoomHandler(_chatRoom);
         }
-
         public void UpdateContactView(string id)
         {
             var chatRoom = _chatDb.ChatRooms[id];

@@ -39,9 +39,6 @@ namespace Server.View
             listView1.Columns.Add("Chat Room Id");
             listView1.Columns.Add("Send/Receive");
 
-            uxChatRoomListView.Columns.Add("Id");
-            uxChatRoomListView.Columns.Add("Users");
-
             _testingButtons = new List<Button>
             {
                 uxLoginButton,

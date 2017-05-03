@@ -41,7 +41,7 @@ namespace Server.Controller
         /// Takes a Chat database in and constructs a new Server Controller. Creates the WebSocket Server and the Chat service.
         /// </summary>
         /// <param name="db">The chat database to be loaded.</param>
-        public ServerController(ChatDb db)
+        internal ServerController(ChatDb db)
         {
             _chatDb = db;
             _eventObserver = new List<EventLogObserver>();
@@ -104,6 +104,9 @@ namespace Server.Controller
                     //Need to talk with Tyler. Can't remember if this is correct or not.
                     CreateRoom(m.User.ContactInfo.Username, m.Contact.Username);
                     break;
+                case State.CloseChat:
+                    CloseRoom(m.ChatRoom.Id, sessionId);
+                    break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
@@ -121,7 +124,7 @@ namespace Server.Controller
         /// Puts all the users into OfflineMode, and then stores into a text file.
         /// </summary>
         /// <param name="path">The path to wehre we want to store the file.</param>
-        public void StoreUsers(string path)
+        internal void StoreUsers(string path)
         {
             foreach(var u in _chatDb.Users)
             {
@@ -143,7 +146,7 @@ namespace Server.Controller
         /// Registers a new EventLogObserver in the list.
         /// </summary>
         /// <param name="o">An event log observer.</param>
-        public void Register(EventLogObserver o)
+        internal void Register(EventLogObserver o)
         {
             _eventObserver.Add(o);
         }
@@ -381,6 +384,34 @@ namespace Server.Controller
 
                 try { _send(new Mensaje(State.OpenChat, cr), b.SessionId); }
                 catch { SignalEventObserver(new Mensaje(State.OpenChat, "Error sending to client " + b.ContactInfo.Username), LogStatus.Internal); }
+            }
+        }
+        
+        /// <summary>
+        /// Closes the given chat room.
+        /// </summary>
+        /// <param name="chatId">The id of the chat room to be closed.</param>
+        /// <param name="sessionId">The session id of the client leaving the chat room.</param>
+        private void CloseRoom(string chatId, string sessionId)
+        {
+            var cr = _chatDb.LookupRoom(chatId);
+            if (cr == null)
+            {
+                var m = new Mensaje(State.CloseChat, "The chat room does not exist.");
+                _send(m, sessionId);
+                SignalEventObserver(m, LogStatus.Internal);
+                return;
+            }
+
+            var list = (from u in cr.Participants where u.ContactInfo.OnlineStatus == Status.Online select ((User)u).SessionId).ToList();
+
+            _chatDb.RemoveRoom(chatId);
+
+            foreach (var s in list)
+            {
+                var m = new Mensaje(State.CloseChat, cr);
+                _send(m, s);
+                SignalEventObserver(m, LogStatus.Send);
             }
         }
 

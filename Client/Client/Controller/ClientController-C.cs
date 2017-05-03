@@ -158,7 +158,12 @@ namespace Client.Controller
                         MessageBox.Show(m.ErrorMessage);
 
                     break;
-
+                case State.CloseChat:
+                    MessageBox.Show("Closing Chat Form because someone doesnt wanna talk to you anymore");
+                    _chatDB.CurrentChatForm[m.ChatRoom.Id].Close();// might need to be invoked
+                    _chatDB.CurrentChatForm.Remove(m.ChatRoom.Id);
+                    _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
+                    break;
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
@@ -301,6 +306,20 @@ namespace Client.Controller
             }
         }
 
+        public void CloseChatRoom(ChatRoom cRoom)
+        {
+            if (ws.IsAlive)
+            {
+                var m = new Mensaje(cRoom);
+                var output = JsonConvert.SerializeObject(m);
+
+                ws.Send(output);
+            }
+            else
+            {
+                MessageBox.Show("Cant connect to server!");
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
