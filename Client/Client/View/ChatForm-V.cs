@@ -47,6 +47,16 @@ namespace Client
         }
 
         /// <summary>
+        /// maybe dont need
+        /// </summary>
+        public ChatRoom ChatRoom
+        {
+            get { return _chatRoom; }
+            set { _chatRoom = value; }
+        }
+
+
+        /// <summary>
         /// Method to handle the send button pressed
         /// </summary>
         /// <param name="sender"></param>

@@ -104,5 +104,14 @@ namespace Client.Model
             //Find all the users that have a status of offline. only for the server.
             throw new NotImplementedException();
         }
+
+        public void UpdateContactListStatus(Status s)
+        {
+            foreach (var contact in _contactsToAdd.Contacts)
+            {
+               var c = (Contact) contact;
+                c.ChangeOnlineStatus(s);
+            }
+        }
     }
 }
