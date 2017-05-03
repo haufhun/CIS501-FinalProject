@@ -90,18 +90,19 @@ namespace Chat_CSLibrary
     }
     public enum State
     {
-        AddContact,
-        AddContactToChat,
         Login,
         Logout,
-        OpenChat,
+        AddContact,
         RemoveContact,
-        SendTextMessage
+        OpenChat,
+        CloseChat,
+        AddContactToChat,
+        SendTextMessage,
     }
 
     public enum Status
     {
         Offline,
         Online
-    }
+    } 
 }
