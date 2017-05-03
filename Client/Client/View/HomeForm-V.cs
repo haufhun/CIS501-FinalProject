@@ -124,12 +124,12 @@ namespace Client.View
             this.Invoke(new MethodInvoker(delegate ()
             {
                 ChatForm cForm;
-                if (!_chatDb.CurrentChatForm.ContainsKey(chatRoom.Id))
+                if (!_chatDb.ChatForms.ContainsKey(chatRoom.Id))
                 {
                      cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler, _chatDb);
-                    _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm);
+                    _chatDb.ChatForms.Add(chatRoom.Id, cForm);
                 }
-                else cForm = _chatDb.CurrentChatForm[chatRoom.Id];
+                else cForm = _chatDb.ChatForms[chatRoom.Id];
 
 
 
@@ -149,8 +149,6 @@ namespace Client.View
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-
-
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
             }));

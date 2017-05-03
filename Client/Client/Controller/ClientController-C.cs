@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
@@ -34,6 +35,7 @@ namespace Client.Controller
         /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
         {
+
             string webIp = "ws://192.168.0.0:8022/chat";
 
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -41,15 +43,15 @@ namespace Client.Controller
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                   webIp = "ws://" + ip.ToString() +":8022/chat";
+                    webIp = "ws://" + ip.ToString() + ":8022/chat";
                     break;
                 }
-                
-            }
-           ws = new WebSocket("ws://192.168.2.8:8022/chat");
-           //ws = new WebSocket(webIp);
 
-            ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
+            }
+            //ws = new WebSocket("ws://192.168.2.8:8022/chat"); // uncomment this to set ip yourself
+            ws = new WebSocket(webIp); // comment this out to set ip yourself
+
+            ws.OnMessage += (sender, e) =>{ MessageReceived?.Invoke(e.Data); };
 
             ws.Connect();
             if (!ws.IsAlive)
@@ -96,6 +98,14 @@ namespace Client.Controller
                         {
                             _chatDB.User.UpdateContactList((ContactList)m.ContactList);
                             SignalHFormObserver(0);
+
+                            //foreach (var c in _chatDB.ChatForms)
+                            //{
+                            //    c.Value.ChatRoom.ContactsToAdd = m.ContactList;
+                            //    /// work herer
+                                
+                            //    SignalCFormObserver(1, _chatDB.ChatRooms[c.Key], c.Value);
+                            //}
                         }
                     }
                     else
@@ -117,6 +127,9 @@ namespace Client.Controller
                         {
                             _chatDB.User.UpdateContactList((ContactList)m.ContactList);
                             SignalHFormObserver(0);
+
+                            //foreach (var c in _chatDB.ChatForms)
+                            //    SignalCFormObserver(1, _chatDB.ChatRooms[c.Key], c.Value);
                         }
 
                     }
@@ -159,10 +172,10 @@ namespace Client.Controller
                     {
                         MessageBox.Show("Someone ended the chat form.");
 
-                        var cForm = _chatDB.CurrentChatForm[m.ChatRoom.Id];
+                        var cForm = _chatDB.ChatForms[m.ChatRoom.Id];
                         cForm.Invoke(new MethodInvoker(cForm.Close));
 
-                        _chatDB.CurrentChatForm.Remove(m.ChatRoom.Id);
+                        _chatDB.ChatForms.Remove(m.ChatRoom.Id);
                         _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
                     }
                     else MessageBox.Show(m.ErrorMessage);
@@ -173,7 +186,7 @@ namespace Client.Controller
                     if (!m.IsError)
                     {
                         _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
-                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
+                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.ChatForms[m.ChatRoom.Id]);
                     }
                     else MessageBox.Show(m.ErrorMessage);
                     break;
@@ -182,7 +195,7 @@ namespace Client.Controller
                     if (!m.IsError)
                     {
                         _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
-                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
+                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.ChatForms[m.ChatRoom.Id]);
                         // a Chatroom // get most recent text message object and populates it.
                     }
                     else MessageBox.Show(m.ErrorMessage);
