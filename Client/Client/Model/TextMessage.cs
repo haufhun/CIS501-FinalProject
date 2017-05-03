@@ -9,26 +9,29 @@ using Chat_CSLibrary;
 
 namespace Client.Model
 {
+    /// <summary>
+    /// This holds the information for TextMessage in the Model
+    /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class TextMessage : ITextMessage
     {
-        //
+        //Getter for the Body of the message
         [JsonProperty]
         public string Body { get; }
 
-        //
+        //Getter for the sender of the message
         [JsonProperty]
         public IContact Sender { get; }
 
-        //
+        //Gets the time of the message
         [JsonProperty]
         public DateTime Time { get; }
         /// <summary>
         /// Used for Json.
         /// </summary>
-        /// <param name="body"></param>
-        /// <param name="sender"></param>
-        /// <param name="time"></param>
+        /// <param name="body">The body of the message</param>
+        /// <param name="sender">The contact sending the message</param>
+        /// <param name="time">The time the message is sent</param>
         [JsonConstructor]
         private TextMessage(string body, Contact sender, DateTime time)
         {
@@ -39,8 +42,8 @@ namespace Client.Model
         /// <summary>
         /// Use this when constructing a new TextMessage object.
         /// </summary>
-        /// <param name="body"></param>
-        /// <param name="sender"></param>
+        /// <param name="body">Body of the message</param>
+        /// <param name="sender">Contact sending the message</param>
         public TextMessage(string body, IContact sender)
         {
             Body = body;
@@ -48,7 +51,10 @@ namespace Client.Model
             Time = DateTime.Now;
         }
 
-
+        /// <summary>
+        /// The time of the message being sent.
+        /// </summary>
+        /// <returns>Format changing of the time</returns>
         public override string ToString()
         {
             return Time.ToLocalTime().ToString() + " " + Sender.Username + ":" + "\n" + Body;

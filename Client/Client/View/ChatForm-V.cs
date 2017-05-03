@@ -14,22 +14,30 @@ namespace Client
 {
     public partial class ChatForm : Form
     {
-        //
-        private IChatRoom _iChat;
-        //
+        // Variable for accessing the chatroom
+        private ChatRoom _chatRoom;
+        // Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
+        private AddContactToRoomHandler _addCToRoomHandler;
+        private CloseRoomHandler _closeRoomHandler;
+        // Variable to read the Chat Database
         private readonly ChatDB _chatDb;
 
         /// <summary>
-        /// 
+        /// This method initializes the Chat form
         /// </summary>
-        /// <param name="iChat"></param>
-        /// <param name="sm"></param>
-        /// <param name="chatDb"></param>
-        public ChatForm(IChatRoom iChat, SendMessageHandler sm, ChatDB chatDb)
+        /// <param name="Chat"></param>
+        /// <param name="sm">Handler to send message passed in</param>
+        /// <param name="addCToRoomHandler"></param>
+        /// <param name="closeRoomHandler"></param>
+        /// <param name="chatDb">Database for Chat to be passed in and read</param>
+        /// <param name="iChat">Chatroom object passed in</param>
+        public ChatForm(ChatRoom Chat, SendMessageHandler sm, AddContactToRoomHandler addCToRoomHandler, CloseRoomHandler closeRoomHandler, ChatDB chatDb)
         {
-            _iChat = iChat;
+            _chatRoom = Chat;
             _sendMessageHandler = sm;
+            _addCToRoomHandler = addCToRoomHandler;
+            _closeRoomHandler = closeRoomHandler;
             _chatDb = chatDb;
 
 
@@ -38,40 +46,69 @@ namespace Client
         }
 
         /// <summary>
-        /// 
+        /// Method to handle the send button pressed
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void uxSend_Click(object sender, EventArgs e)
         {
-            _sendMessageHandler(uxMessageTextBox.Text, _iChat);
-        }
 
-        public void UpdateView(string id)
+            _sendMessageHandler(uxMessageTextBox.Text, _chatRoom, this);
+            uxMessageTextBox.Text = "";
+        }
+        private void uxAddContact_Click(object sender, EventArgs e)
         {
+            if (uxListView.SelectedItems.Count > 0)
+                _addCToRoomHandler(_chatRoom, uxListView.SelectedItems[0].SubItems[0].Text);
+            else
+                MessageBox.Show("Please select a contact to add to the chat room!");
+           
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void uxEndChat_Click(object sender, EventArgs e)
+        {
+            _closeRoomHandler(_chatRoom);
+        }
+        public void UpdateContactView(string id)
+        {
+            var chatRoom = _chatDb.ChatRooms[id];
+
             Invoke(new MethodInvoker(uxListView.BeginUpdate));
             Invoke(new MethodInvoker(uxListView.Items.Clear));
-            var chatRoom = _chatDb.ChatRooms[id];
             foreach (var c in chatRoom.ContactsToAdd.Contacts)
             {
-                    string[] iteminfo = { c.Username, c.OnlineStatus.ToString()};
-                    var item = new ListViewItem(iteminfo);
-                    Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));             
+                string[] iteminfo = {c.Username, c.OnlineStatus.ToString()};
+                var item = new ListViewItem(iteminfo);
+                Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
             Invoke(new MethodInvoker(uxListView.EndUpdate));
 
+            var users = _chatDb.ChatRooms[id].Participants.Aggregate("ChatRoom -   ", (current, u) => current + ("{" + u.ContactInfo.Username + "}  "));
+            this.Text = users;
+        }
+        /// <summary>
+        /// This method will update the messages being viewed
+        /// </summary>
+        /// <param name="id"></param>
+        public void UpdateMessageView(string id)
+        {
+            var chatRoom = _chatDb.ChatRooms[id];
+
             Invoke(new MethodInvoker(uxMessageListBox.BeginUpdate));
             Invoke(new MethodInvoker(uxMessageListBox.Items.Clear));
-            foreach (var c in _chatDb.ChatRooms)
+            foreach (var m in chatRoom.MessageHistory)
             {
-                if (c.Key == id)
-                {
-                    string[] iteminfo = {c.Value.MessageHistory.ToString()};
+                    string[] iteminfo = {m.Sender.Username +": " + m.Body};
                     var item = new ListViewItem(iteminfo);
-                    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item); }));
-                }
+                    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item.Text); }));
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));
         }
+
+
     }
 }

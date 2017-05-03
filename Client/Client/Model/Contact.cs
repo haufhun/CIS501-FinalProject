@@ -12,13 +12,21 @@ namespace Client.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class Contact : IContact
     {
+        
+        //Getter and setter for online status of contact
         [JsonProperty]
         [JsonConverter(typeof(StringEnumConverter))]
         public Status OnlineStatus { get; private set; }
 
+        //Getter and setter for username of Contact
         [JsonProperty]
         public string Username { get; private set; }
 
+        /// <summary>
+        /// This method initializes Contact with username and status
+        /// </summary>
+        /// <param name="username">Username passed in</param>
+        /// <param name="s">Status of contact passed in</param>
         [JsonConstructor]
        private Contact(string username, Status s)
         {
@@ -26,11 +34,19 @@ namespace Client.Model
             Username = username;
         }
 
+        /// <summary>
+        /// This method initializes Contact with username
+        /// </summary>
+        /// <param name="username">Username passed in</param>
         public Contact(string username)
         {
             Username = username;
         }
 
+        /// <summary>
+        /// This method updates the online status of a Contact
+        /// </summary>
+        /// <param name="newStatus"></param>
         public void ChangeOnlineStatus(Status newStatus)
         {
             OnlineStatus = newStatus;

@@ -13,7 +13,7 @@ namespace Client.View
     public partial class AddContactForm : Form
     {
         /// <summary>
-        /// 
+        /// Initializes the form for adding a contact
         /// </summary>
         public AddContactForm()
         {

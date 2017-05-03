@@ -13,31 +13,40 @@ namespace Client.Model
         [JsonObject(MemberSerialization.OptIn)]
         public class Mensaje : IMensaje
         {
+            //Gets and sets the state (Offline or Online)
             [JsonProperty]
             [JsonConverter(typeof(StringEnumConverter))]
             public State MyState { get; private set; }
 
+            //Gets the user info
             [JsonProperty]
             public IUser User { get; }
-
+            
+            //Gets the chatroom info
             [JsonProperty]
             public IChatRoom ChatRoom { get; }
 
+            //Gets the Contact info
             [JsonProperty]
             public IContact Contact { get; }
 
+            //Gets the ContactList
             [JsonProperty]
             public IContactList ContactList { get; }
 
+            //Gets the message
             [JsonProperty]
             public ITextMessage TextMessage { get; }
 
             [JsonProperty]
+            //Gets error if detected
             public bool IsError { get; }
 
+            //Gets the error message
             [JsonProperty]
             public string ErrorMessage { get; }
 
+            //Gets information about whether the user is new
             [JsonProperty]
             public bool IsNewUser { get; }
 
@@ -58,8 +67,8 @@ namespace Client.Model
             /// Constructor used to add/remove a contact to a user's contact list.
             /// </summary>
             /// <param name="s">The status of the message being sent. This should be AddContact or RemoveContact</param>
-            /// <param name="c"></param>
-            /// <param name="user">The user to </param>
+            /// <param name="c">The contact passed in</param>
+            /// <param name="user">The user passed in </param>
             public Mensaje(State s, IContact c, IUser user)
             {
                 if (s != State.AddContact && s != State.RemoveContact) throw new NotSupportedException();
@@ -69,21 +78,31 @@ namespace Client.Model
                 User = user;
             }
 
-            /// <summary>
-            /// Constructor used to opne a new chat room.
-            /// </summary>
-            /// <param name="chatroom">The chat room that must contain the two users that desire to create a chat room.</param>
-            public Mensaje(IUser user, IContact c)
+        /// <summary>
+        /// Constructor used to opne a new chat room.
+        /// </summary>
+        /// <param name="user">User passed in</param>
+        /// <param name="c">Contact passed in</param>
+        public Mensaje(IUser user, IContact c)
             {
                 User = user;
                 Contact = c;
                 MyState = State.OpenChat;
             }
 
+        /// <summary>
+        ///  This initializes Mensaje when a chatroom is passed in
+        /// </summary>
+        /// <param name="cRoom">The chat room that must contain the two users that desire to create a chat room.</param>
+        public Mensaje(IChatRoom cRoom)
+            {
+                MyState = State.CloseChat;
+                ChatRoom = cRoom;
+            }
             /// <summary>
             /// Constructor used to send a message to a chat room.
             /// </summary>
-            /// <param name="s">The status of the message being sent.</param>
+            ///// <param name="s">The status of the message being sent.</param>
             /// <param name="chatroom">The chat room object that the message should be sent to.</param>
             /// <param name="msg">The text message that is to be sent in the chat room.</param>
             public Mensaje(IChatRoom chatroom, ITextMessage msg)
