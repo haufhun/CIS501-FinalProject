@@ -48,6 +48,7 @@
             // 
             this.uxPassTxt.Location = new System.Drawing.Point(27, 165);
             this.uxPassTxt.Name = "uxPassTxt";
+            this.uxPassTxt.PasswordChar = '*';
             this.uxPassTxt.Size = new System.Drawing.Size(207, 22);
             this.uxPassTxt.TabIndex = 1;
             // 
