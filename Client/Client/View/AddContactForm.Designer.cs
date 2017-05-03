@@ -39,7 +39,7 @@
             this.uxTxt.Location = new System.Drawing.Point(27, 86);
             this.uxTxt.Name = "uxTxt";
             this.uxTxt.Size = new System.Drawing.Size(270, 22);
-            this.uxTxt.TabIndex = 2;
+            this.uxTxt.TabIndex = 0;
             // 
             // uxAdd
             // 

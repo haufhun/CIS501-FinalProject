@@ -44,9 +44,10 @@
             // 
             // messageLabel
             // 
+            this.messageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.messageLabel.AutoSize = true;
             this.messageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.messageLabel.Location = new System.Drawing.Point(388, 269);
+            this.messageLabel.Location = new System.Drawing.Point(388, 276);
             this.messageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.messageLabel.Name = "messageLabel";
             this.messageLabel.Size = new System.Drawing.Size(99, 25);
@@ -55,10 +56,9 @@
             // 
             // uxMessageTextBox
             // 
-            this.uxMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.uxMessageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxMessageTextBox.Location = new System.Drawing.Point(495, 265);
+            this.uxMessageTextBox.Location = new System.Drawing.Point(495, 272);
             this.uxMessageTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.uxMessageTextBox.Multiline = true;
             this.uxMessageTextBox.Name = "uxMessageTextBox";
@@ -119,7 +119,7 @@
             this.uxStatus});
             this.uxListView.Location = new System.Drawing.Point(12, 38);
             this.uxListView.Name = "uxListView";
-            this.uxListView.Size = new System.Drawing.Size(369, 310);
+            this.uxListView.Size = new System.Drawing.Size(369, 325);
             this.uxListView.TabIndex = 8;
             this.uxListView.UseCompatibleStateImageBehavior = false;
             this.uxListView.View = System.Windows.Forms.View.Details;
@@ -136,9 +136,8 @@
             // 
             // uxSend
             // 
-            this.uxSend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxSend.Location = new System.Drawing.Point(537, 310);
+            this.uxSend.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.uxSend.Location = new System.Drawing.Point(537, 325);
             this.uxSend.Name = "uxSend";
             this.uxSend.Size = new System.Drawing.Size(326, 38);
             this.uxSend.TabIndex = 11;
@@ -151,7 +150,7 @@
             this.AcceptButton = this.uxSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(950, 360);
+            this.ClientSize = new System.Drawing.Size(950, 375);
             this.Controls.Add(this.uxSend);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.uxListView);

@@ -122,8 +122,13 @@ namespace Client
             Invoke(new MethodInvoker(uxMessageListBox.Items.Clear));
             foreach (var m in chatRoom.MessageHistory)
             {
-                    string[] iteminfo = {m.Sender.Username +": " + m.Body};
-                    var item = new ListViewItem(iteminfo);
+                //if (DateTime.Now.ToShortTimeString() != m.Time.ToShortTimeString())
+                //{
+                //    var dateItem = new ListViewItem("\t\t" + m.Time.ToShortTimeString());
+                //    Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(dateItem.Text); }));
+                //}
+                    string[] itemInfo = { m.Time.ToShortTimeString()+ "\t" +m.Sender.Username +": " + m.Body };
+                    var item = new ListViewItem(itemInfo);
                     Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item.Text); }));
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));

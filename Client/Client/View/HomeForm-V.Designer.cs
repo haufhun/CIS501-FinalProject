@@ -139,7 +139,7 @@
             this.Controls.Add(this.uxInfoLabel);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.uxListView);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(544, 1000);
             this.MinimumSize = new System.Drawing.Size(544, 500);
             this.Name = "HomeForm";
             this.Text = "Home";

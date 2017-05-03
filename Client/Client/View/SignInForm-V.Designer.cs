@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.uxSignIn = new System.Windows.Forms.Button();
             this.uxInfoLabel = new System.Windows.Forms.Label();
+            this.uxExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // uxUsernameTxt
@@ -70,7 +71,7 @@
             // 
             // uxSignIn
             // 
-            this.uxSignIn.Location = new System.Drawing.Point(77, 219);
+            this.uxSignIn.Location = new System.Drawing.Point(27, 219);
             this.uxSignIn.Name = "uxSignIn";
             this.uxSignIn.Size = new System.Drawing.Size(97, 49);
             this.uxSignIn.TabIndex = 4;
@@ -88,19 +89,31 @@
             this.uxInfoLabel.TabIndex = 5;
             this.uxInfoLabel.Text = "Please Sign In";
             // 
+            // uxExit
+            // 
+            this.uxExit.Location = new System.Drawing.Point(137, 219);
+            this.uxExit.Name = "uxExit";
+            this.uxExit.Size = new System.Drawing.Size(97, 49);
+            this.uxExit.TabIndex = 6;
+            this.uxExit.Text = "Exit";
+            this.uxExit.UseVisualStyleBackColor = true;
+            this.uxExit.Click += new System.EventHandler(this.uxExit_Click);
+            // 
             // SignInForm
             // 
             this.AcceptButton = this.uxSignIn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 280);
+            this.ClientSize = new System.Drawing.Size(262, 286);
+            this.Controls.Add(this.uxExit);
             this.Controls.Add(this.uxInfoLabel);
             this.Controls.Add(this.uxSignIn);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.uxPassTxt);
             this.Controls.Add(this.uxUsernameTxt);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "SignInForm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -115,5 +128,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button uxSignIn;
         private System.Windows.Forms.Label uxInfoLabel;
+        private System.Windows.Forms.Button uxExit;
     }
 }

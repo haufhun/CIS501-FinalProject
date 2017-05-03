@@ -101,7 +101,7 @@ namespace Client.View
                 _aCForm.Hide();
             }
             _aCForm.uxTxt.Text = "";
-
+            _aCForm.uxTxt.Select();
         }
 
         /// <summary>
@@ -111,8 +111,18 @@ namespace Client.View
         /// <param name="e"></param>
         private void uxDeleteContact_Click(object sender, System.EventArgs e)
         {
+          
             if (uxListView.SelectedItems.Count > 0)
-                _removeCHandler(uxListView.SelectedItems[0].SubItems[0].Text);
+            {
+                switch (MessageBox.Show(this, "Are you sure you want to delete '" + uxListView.SelectedItems[0].SubItems[0].Text + "' off your friends list?", "Confirm Removal", MessageBoxButtons.YesNo))
+                {
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Yes:
+                        _removeCHandler(uxListView.SelectedItems[0].SubItems[0].Text);
+                        break;
+                }
+            }
             else
                 MessageBox.Show("Please select a contact to remove!");
         }
@@ -240,8 +250,6 @@ namespace Client.View
                 case DialogResult.Yes:
                     _sOutHandler();
                     e.Cancel = true;
-                    break;
-                default:
                     break;
             }
         }
