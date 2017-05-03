@@ -65,6 +65,7 @@ namespace Client
         public void SignOut()
         {
             this.Invoke(new MethodInvoker(this.Show));
+            this.Invoke(new MethodInvoker(delegate{ this.uxPassTxt.Text = "";}));
         }
 
         /// <summary>

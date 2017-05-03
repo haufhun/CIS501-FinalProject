@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using WebSocketSharp;
 using Chat_CSLibrary;
+using Client.View;
 
 
 namespace Client.Controller
@@ -25,7 +26,6 @@ namespace Client.Controller
         private WebSocket ws;
         //private field for Model chat database
         private ChatDB _chatDB;
- 
         // Event for when a message is received from the server
         public event Message MessageReceived;
 
@@ -35,14 +35,16 @@ namespace Client.Controller
         /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
         {
-
-            string webIp = "ws://192.168.0.0:8022/chat";
+            // Dummy ip just in cause auto-ip does not retreive an ip adress.
+            var webIp = "ws://192.168.0.0:8022/chat";
+            var autoIP = "192.168.0.0";
 
             var host = Dns.GetHostEntry(Dns.GetHostName());
             foreach (var ip in host.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
+                    autoIP = ip.ToString();
                     webIp = "ws://" + ip.ToString() + ":8022/chat";
                     break;
                 }
@@ -56,7 +58,34 @@ namespace Client.Controller
             ws.Connect();
             if (!ws.IsAlive)
             {
-                throw new Exception("Cant connect to server!");
+                var setIPForm = new AddContactForm
+                {
+                    Text = "Set IP",
+                    label1 = {Text = "Could not auto connect. Please input\rthe IP address of the server."},
+                    uxAdd = {Text = "Connect"},
+                    uxCancel = {Text = "Exit"},
+                    uxTxt = {Text = autoIP }
+                };
+
+                setIPForm.ShowDialog();
+
+                switch (setIPForm.DialogResult)
+                {
+                    case DialogResult.OK:
+                        ws = new WebSocket("ws://" + setIPForm.uxTxt.Text + ":8022/chat");
+                        ws.OnMessage += (sender, e) => { MessageReceived?.Invoke(e.Data); };
+                        ws.Connect();
+                        if (!ws.IsAlive) { throw new Exception("Cant connect to server! Exiting program..."); }
+
+                        break;
+                    case DialogResult.Cancel:
+                                setIPForm.Close();
+                                throw new Exception("Exiting program...");
+                        break;
+                }
+
+                
+           
             }
             _chatDB = chatDb;
 
@@ -115,7 +144,7 @@ namespace Client.Controller
                     break;
 
                 case State.Logout:
-                    //If m.user is null (this) is signing out 
+                    //If m.contact list is null (this) is signing out 
                     //If it isnt null update (this) contact list.
                     if (!m.IsError)
                     {
