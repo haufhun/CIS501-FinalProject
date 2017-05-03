@@ -120,8 +120,7 @@ namespace Client.Controller
                         }
 
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.AddContact:        
@@ -130,9 +129,7 @@ namespace Client.Controller
                         _chatDB.User = (User) m.User;
                         SignalHFormObserver(0);
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.RemoveContact:
@@ -141,9 +138,7 @@ namespace Client.Controller
                         _chatDB.User = (User)m.User;
                         SignalHFormObserver(0);
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-                    
+                    else MessageBox.Show(m.ErrorMessage);                  
                     break;
 
                 case State.OpenChat:
@@ -154,31 +149,40 @@ namespace Client.Controller
                         SignalCFormObserver(0, (ChatRoom)m.ChatRoom, null);
                         
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
                 case State.CloseChat:
-                    MessageBox.Show("Someone ended the chat form.");
+                    if (!m.IsError)
+                    {
+                        MessageBox.Show("Someone ended the chat form.");
 
-                    var cForm = _chatDB.CurrentChatForm[m.ChatRoom.Id];
-                    cForm.Invoke(new MethodInvoker(cForm.Close)); 
+                        var cForm = _chatDB.CurrentChatForm[m.ChatRoom.Id];
+                        cForm.Invoke(new MethodInvoker(cForm.Close));
 
-                    _chatDB.CurrentChatForm.Remove(m.ChatRoom.Id);
-                    _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
+                        _chatDB.CurrentChatForm.Remove(m.ChatRoom.Id);
+                        _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
+                    }
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom)m.ChatRoom;
-                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
-
+                    if (!m.IsError)
+                    {
+                        _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
+                    }
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.SendTextMessage:
-                    _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
-                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm[m.ChatRoom.Id]);
-                    // a Chatroom // get most recent text message object and populates it.
+                    if (!m.IsError)
+                    {
+                        _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
+                        // a Chatroom // get most recent text message object and populates it.
+                    }
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 default:
