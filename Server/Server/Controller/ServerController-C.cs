@@ -90,7 +90,7 @@ namespace Server.Controller
                     AddContact(m.Contact.Username, m.User.ContactInfo.Username);
                     break;
                 case State.AddContactToChat:
-                    AddContactToRoom(sessionId, m.User.ContactInfo.Username, m.ChatRoom.Id);
+                    AddContactToRoom(sessionId, m.Contact.Username, m.ChatRoom.Id);
                     break;
                 case State.Login:
                     //Must cast this to our User object so as to access the password.
