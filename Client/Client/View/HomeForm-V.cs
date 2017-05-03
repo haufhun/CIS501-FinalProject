@@ -115,7 +115,7 @@ namespace Client.View
         }
 
         /// <summary>
-        ///  
+        ///  This handles what to do with StartChat
         /// </summary>
         /// <param name="chatRoom"></param>
         /// <param name="chatForm">Should be null when Calling StartChat</param>
