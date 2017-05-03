@@ -103,8 +103,8 @@ namespace Client.Controller
         /// <summary>
         /// This method keeps track of the state the message is in and acts appropriately for each state
         /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
+        /// <param name="e">Message passed in</param>
+        /// <returns>Boolean returned</returns>
         public bool message(string e)
         {
             if (e == null) throw new ArgumentNullException(nameof(e));
