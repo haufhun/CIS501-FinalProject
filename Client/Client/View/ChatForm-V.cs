@@ -15,7 +15,7 @@ namespace Client
     public partial class ChatForm : Form
     {
         // Variable for accessing the chatroom
-        private ChatRoom _Chat;
+        private ChatRoom _chatRoom;
         // Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
         // Variable to read the Chat Database
@@ -29,7 +29,7 @@ namespace Client
         /// <param name="chatDb">Database for Chat to be passed in and read</param>
         public ChatForm(ChatRoom Chat, SendMessageHandler sm, ChatDB chatDb)
         {
-            _Chat = Chat;
+            _chatRoom = Chat;
             _sendMessageHandler = sm;
             _chatDb = chatDb;
 
@@ -46,7 +46,7 @@ namespace Client
         private void uxSend_Click(object sender, EventArgs e)
         {
 
-            _sendMessageHandler(uxMessageTextBox.Text, _Chat, this);
+            _sendMessageHandler(uxMessageTextBox.Text, _chatRoom, this);
             uxMessageTextBox.Text = "";
         }
 
@@ -63,6 +63,9 @@ namespace Client
                 Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
             Invoke(new MethodInvoker(uxListView.EndUpdate));
+
+            var users = _chatDb.ChatRooms[id].Participants.Aggregate("ChatRoom -   ", (current, u) => current + ("{" + u.ContactInfo.Username + "}  "));
+            this.Text = users;
         }
         /// <summary>
         /// This method will update the messages being viewed

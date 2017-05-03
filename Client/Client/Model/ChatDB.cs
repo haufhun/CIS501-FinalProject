@@ -16,12 +16,12 @@ namespace Client.Model
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, ChatRoom> ChatRooms { get; set; }
+        public Dictionary<string, ChatRoom> ChatRooms { get;}
 
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string,ChatForm> CurrentChatForm { get; set; }
+        public Dictionary<string,ChatForm> CurrentChatForm { get;}
         
         /// <summary>
         /// 
