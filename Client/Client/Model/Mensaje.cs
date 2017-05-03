@@ -15,30 +15,39 @@ namespace Client.Model
         {
             [JsonProperty]
             [JsonConverter(typeof(StringEnumConverter))]
+            //Gets and sets the state (Offline or Online)
             public State MyState { get; private set; }
 
             [JsonProperty]
+            //Gets the user info
             public IUser User { get; }
 
             [JsonProperty]
+            //Gets the chatroom info
             public IChatRoom ChatRoom { get; }
 
             [JsonProperty]
+            //Gets the Contact info
             public IContact Contact { get; }
 
             [JsonProperty]
+            //Gets the ContactLIst
             public IContactList ContactList { get; }
 
             [JsonProperty]
+            //Gets the message
             public ITextMessage TextMessage { get; }
 
             [JsonProperty]
+            //Gets error if detected
             public bool IsError { get; }
 
             [JsonProperty]
+            //Gets the error message
             public string ErrorMessage { get; }
 
             [JsonProperty]
+            //Gets information about whether the user is new
             public bool IsNewUser { get; }
 
             /// <summary>

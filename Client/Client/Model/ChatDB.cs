@@ -16,8 +16,13 @@ namespace Client.Model
         /// <summary>
         /// 
         /// </summary>
-        public Dictionary<string, ChatRoom> ChatRooms { get; set; }
+        public Dictionary<string, ChatRoom> ChatRooms { get;}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public Dictionary<string,ChatForm> CurrentChatForm { get;}
+        
         /// <summary>
         /// 
         /// </summary>
@@ -25,7 +30,7 @@ namespace Client.Model
         {
             User = new User(null, null);
             ChatRooms = new Dictionary<string, ChatRoom>();
-
+            CurrentChatForm = new Dictionary<string, ChatForm>();
         }
 
 
