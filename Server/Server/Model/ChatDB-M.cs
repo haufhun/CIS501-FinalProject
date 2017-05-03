@@ -57,16 +57,6 @@ namespace Server.Model
         }
 
         /// <summary>
-        /// Overload
-        /// </summary>
-        /// <param name="users"></param>
-        /// <param name="chatRooms"></param>
-        public ChatDb(Dictionary<string, User> users, Dictionary<string, ChatRoom> chatRooms)
-        {
-            //overload for JSON initializations
-        }
-
-        /// <summary>
         /// Creates a chat room with the two users, adds it to _chatRooms, and returns it
         /// </summary>
         /// <param name="u1">The first user for the chat room</param>
