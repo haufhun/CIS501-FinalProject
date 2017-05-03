@@ -114,7 +114,7 @@ namespace Client.View
           
             if (uxListView.SelectedItems.Count > 0)
             {
-                switch (MessageBox.Show(this, "Are you sure you want to delete '" + uxListView.SelectedItems[0].SubItems[0].Text + "' off your friends list?", "Confirm Removal", MessageBoxButtons.YesNo))
+                switch (MessageBox.Show(this, "Are you sure you want to remove '" + uxListView.SelectedItems[0].SubItems[0].Text + "' off your friends list?", "Confirm Removal", MessageBoxButtons.YesNo))
                 {
                     case DialogResult.No:
                         break;

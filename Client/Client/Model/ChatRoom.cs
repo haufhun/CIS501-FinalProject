@@ -105,6 +105,10 @@ namespace Client.Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// This method handles updating the Contact List status
+        /// </summary>
+        /// <param name="s">The status being passed in</param>
         public void UpdateContactListStatus(Status s)
         {
             foreach (var contact in _contactsToAdd.Contacts)

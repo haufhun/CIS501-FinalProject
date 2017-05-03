@@ -55,7 +55,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 52);
+            this.label1.Location = new System.Drawing.Point(23, 27);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(274, 20);
             this.label1.TabIndex = 3;
@@ -91,9 +91,9 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button uxAdd;
-        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox uxTxt;
-        private System.Windows.Forms.Button uxCancel;
+        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Button uxCancel;
+        public System.Windows.Forms.Button uxAdd;
     }
 }

@@ -212,6 +212,19 @@ namespace Server.Controller
                     m = new Mensaje(u, false);
                     SignalEventObserver(m, LogStatus.Send);
 
+                    var list = (from c in _chatDb.ChatRooms where c.ContactsToAdd.GetContact(name) != null select c).ToList();
+                    foreach(var cr in list)
+                    {
+                        ((Contact)cr.ContactsToAdd.GetContact(name)).ChangeOnlineStatus(Status.Online);
+                        var m2 = new Mensaje(State.AddContactToChat, cr);
+
+                        foreach (var user1 in cr.Participants)
+                        {
+                            var user = (User) user1;
+                            _send(m2, user.SessionId);
+                        }
+                    }
+
                     foreach (var c in u.ContactList.Contacts)
                     {
                         //Change the user that is logging-in to offline for each person that has him as a contact.
@@ -245,8 +258,23 @@ namespace Server.Controller
             var u = _chatDb.LookupUser(username);
             u.ChangeStatus(Status.Offline);
             _send(new Mensaje(State.Logout), u.SessionId);
-            
-            foreach(var contact in u.ContactList.Contacts)
+
+            var list = (from cr in _chatDb.ChatRooms where cr.ContactsToAdd.GetContact(username) != null select cr).ToList();
+
+            foreach (var cr in list)
+            {
+                ((Contact)cr.ContactsToAdd.GetContact(username)).ChangeOnlineStatus(Status.Offline);
+                var m2 = new Mensaje(State.AddContactToChat, cr);
+
+                foreach (var user1 in cr.Participants)
+                {
+                    var user = (User)user1;
+                    _send(m2, user.SessionId);
+                }
+            }
+
+
+            foreach (var contact in u.ContactList.Contacts)
             {
                 var a = (Contact) contact;
                 var t = _chatDb.LookupUser(a.Username);
@@ -355,20 +383,20 @@ namespace Server.Controller
 
             if (b == null)
             {
-                var m = (new Mensaje(State.OpenChat, "The user " + added + " does not exist"));
+                var m = (new Mensaje(State.OpenChat, "The user '" + added + "' does not exist"));
                 _send (m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
             else if (b.ContactInfo.OnlineStatus == Status.Offline)
             {
-                var m = (new Mensaje(State.OpenChat, "The user" + added + " you want to chat with is offline"));
+                var m = (new Mensaje(State.OpenChat, "The user '" + added + "' is offline"));
                 _send(m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
             else if(a.ContactList.GetContact(b.ContactInfo.Username) == null)
             {
                 
-                var m = (new Mensaje(State.OpenChat, "The user" + added + " you want to chat with is not one of your contacts"));
+                var m = (new Mensaje(State.OpenChat, "The user '" + added + "'  is not one of your contacts"));
                 _send(m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
@@ -434,7 +462,7 @@ namespace Server.Controller
 
             if (room == null)
             {
-                try { _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists"), sessionId); }
+                try { _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists. RoomId: " + roomId), sessionId); }
                 catch { SignalEventObserver(new Mensaje(State.AddContact, "Error sending to " + msg.Sender.Username), LogStatus.Internal); }
             }
             else
@@ -445,7 +473,7 @@ namespace Server.Controller
                 foreach (var u in room.GetOnlineParticipants())
                 {
                     try { _send(new Mensaje(State.SendTextMessage, room), u.SessionId); }
-                    catch { SignalEventObserver(new Mensaje(State.AddContact, "The user " + u.ContactInfo.Username + " is not online."), LogStatus.Internal); }
+                    catch { SignalEventObserver(new Mensaje(State.AddContact, "The user '" + u.ContactInfo.Username + "' is not online."), LogStatus.Internal); }
                 }
             }
         }
@@ -463,13 +491,13 @@ namespace Server.Controller
 
             if (user == null)
             {
-                var m = new Mensaje(State.AddContactToChat, "The user" + name + " does not exist");
+                var m = new Mensaje(State.AddContactToChat, "Cannot add to chat. The user '" + name + "' does not exist");
                 _send(m, adderSessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
             else if (user.ContactInfo.OnlineStatus == Status.Offline)
             {
-                var m = new Mensaje(State.AddContactToChat, "The user you would like to add is not online");
+                var m = new Mensaje(State.AddContactToChat, "Cannot add to chat. The user '" + name + "' is not online");
                 _send(m, adderSessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
