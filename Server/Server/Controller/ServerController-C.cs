@@ -482,7 +482,12 @@ namespace Server.Controller
 
             if (room == null)
             {
-                try { _send(new Mensaje(State.SendTextMessage, "This chat room no longer exists. RoomId: " + roomId), sessionId); }
+                try
+                {
+                    var m = new Mensaje(State.SendTextMessage, "This chat room no longer exists. RoomId: " + roomId);   
+                    _send(m, sessionId);
+                    SignalEventObserver(m, LogStatus.Send);
+                }
                 catch { SignalEventObserver(new Mensaje(State.AddContact, "Error sending to " + msg.Sender.Username), LogStatus.Internal); }
             }
             else
@@ -492,7 +497,12 @@ namespace Server.Controller
 
                 foreach (var u in room.GetOnlineParticipants())
                 {
-                    try { _send(new Mensaje(State.SendTextMessage, room), u.SessionId); }
+                    try
+                    {
+                        var m = new Mensaje(State.SendTextMessage, room);
+                        _send(m, u.SessionId);
+                        SignalEventObserver(m, LogStatus.Send);
+                    }
                     catch { SignalEventObserver(new Mensaje(State.AddContact, "The user '" + u.ContactInfo.Username + "' is not online."), LogStatus.Internal); }
                 }
             }
