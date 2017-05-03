@@ -253,7 +253,7 @@ namespace Server.Controller
                 if (t == null) continue;
                 
                 //Change the user that is logging-in to offline for each person that has him as a contact.
-                ((Contact)t.ContactList.GetContact(u.ContactInfo.Username)).ChangeOnlineStatus(Status.Online);
+                ((Contact)t.ContactList.GetContact(u.ContactInfo.Username)).ChangeOnlineStatus(Status.Offline);
 
                 var m = new Mensaje(State.Logout, t.ContactList);
                 try { _send(m, t.SessionId); }
