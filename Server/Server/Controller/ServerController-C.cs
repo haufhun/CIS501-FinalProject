@@ -101,7 +101,7 @@ namespace Server.Controller
                     break;
                 case State.OpenChat:
                     //Need to talk with Tyler. Can't remember if this is correct or not.
-                    CreateRoom(m.User.ContactInfo.Username, m.Contact.Username);
+                    CreateRoom(m.Contact.Username, m.Contact.Username);
                     break;
                 case State.RemoveContact:
                     RemoveContact(m.Contact.Username, m.User.ContactInfo.Username);

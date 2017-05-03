@@ -25,13 +25,17 @@ namespace Server
             var path = Path.Combine(folder, "UserFile.txt");
 
             ChatDb db;
-            var result = MessageBox.Show("Would you like to select a user file to load?", "", MessageBoxButtons.YesNo);
+            var result = MessageBox.Show("Would you like to select a user file to load?", "What is this", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
                 var o = new OpenFileDialog();
+                o.InitialDirectory = folder;
+                o.FileName = path;
+               // o.RestoreDirectory = true;
+
                 if (o.ShowDialog() == DialogResult.OK)
                 {
-                    db = LoadUsers(path) ?? new ChatDb();
+                    db = LoadUsers(o.FileName) ?? new ChatDb();
                 }
                 else
                 {
