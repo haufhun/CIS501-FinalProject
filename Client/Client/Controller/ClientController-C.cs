@@ -69,7 +69,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// This method keeps track of the state the message is in and acts appropriately for each state
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
