@@ -139,7 +139,7 @@ namespace Server.Model
         /// <param name="chatroom"></param>
         public Mensaje(State s, IChatRoom chatroom)
         {
-            if (s != State.AddContactToChat && s != State.OpenChat && s != State.SendTextMessage) throw new InvalidConstraintException();
+            if (s != State.AddContactToChat && s != State.OpenChat && s != State.SendTextMessage && s != State.CloseChat) throw new InvalidConstraintException();
 
             MyState = s;
             ChatRoom = chatroom;
