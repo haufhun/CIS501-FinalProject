@@ -12,13 +12,14 @@ namespace Client.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class Contact : IContact
     {
+        
+        //Getter and setter for online status of contact
         [JsonProperty]
         [JsonConverter(typeof(StringEnumConverter))]
-        //Getter and setter for online status of contact
         public Status OnlineStatus { get; private set; }
 
-        [JsonProperty]
         //Getter and setter for username of Contact
+        [JsonProperty]
         public string Username { get; private set; }
 
         /// <summary>

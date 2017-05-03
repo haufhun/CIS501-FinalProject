@@ -32,7 +32,7 @@ namespace Client.Model
         /// <summary>
         /// This initializes the ContactList to the private field _contacts
         /// </summary>
-        /// <param name="contacts"></param>
+        /// <param name="contacts">Dictionary of contacts passed in/param>
         [JsonConstructor]
         private ContactList(Dictionary<string, Contact> contacts)
         {

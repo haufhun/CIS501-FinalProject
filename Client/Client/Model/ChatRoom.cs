@@ -90,7 +90,7 @@ namespace Client.Model
         /// <summary>
         /// For the server alone. In order to add a message to a chat room.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">Message passed in</param>
         public void AddMessage(TextMessage message)
         {
             throw new NotImplementedException();
