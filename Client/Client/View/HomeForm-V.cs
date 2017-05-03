@@ -40,7 +40,9 @@ namespace Client.View
         /// <param name="sm">Handler to send message</param>
         /// <param name="chatDb">Chat Database to be read</param>
         /// <param name="aCForm">Add Contact form to access</param>
-        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, CloseRoomHandler closeRoomHandler, SendMessageHandler sm, ChatDB chatDb, AddContactForm aCForm)
+        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc,
+            AddContactToRoomHandler acr, CreateRoomHandler cr, CloseRoomHandler closeRoomHandler, SendMessageHandler sm,
+            ChatDB chatDb, AddContactForm aCForm)
         {
             _sInHandler = sI;
             _sOutHandler = sO;
@@ -95,7 +97,7 @@ namespace Client.View
             }
             else
             {
-                _aCForm.Hide();            
+                _aCForm.Hide();
             }
             _aCForm.uxTxt.Text = "";
 
@@ -121,12 +123,12 @@ namespace Client.View
         /// <param name="chatForm">Should be null when Calling StartChat</param>
         public void StartChat(ChatRoom chatRoom, ChatForm chatForm)
         {
-            this.Invoke(new MethodInvoker(delegate ()
+            this.Invoke(new MethodInvoker(delegate()
             {
                 ChatForm cForm;
                 if (!_chatDb.ChatForms.ContainsKey(chatRoom.Id))
                 {
-                     cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler, _chatDb);
+                    cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler, _chatDb);
                     _chatDb.ChatForms.Add(chatRoom.Id, cForm);
                 }
                 else cForm = _chatDb.ChatForms[chatRoom.Id];
@@ -136,7 +138,7 @@ namespace Client.View
                 cForm.Show();
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
-            })); 
+            }));
 
         }
 
@@ -147,7 +149,7 @@ namespace Client.View
         /// <param name="cForm">The chatForm to update the view on</param>
         public void SendTextMessage(ChatRoom chatRoom, ChatForm cForm)
         {
-            this.Invoke(new MethodInvoker(delegate ()
+            this.Invoke(new MethodInvoker(delegate()
             {
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
@@ -169,16 +171,18 @@ namespace Client.View
         {
             throw new NotImplementedException();
         }
+
         /// <summary>
         /// This method controls what happens in the View for sign out
         /// </summary>
         public void SignOut()
         {
-            if(InvokeRequired)
+            if (InvokeRequired)
                 this.Invoke(new MethodInvoker(this.Hide));
             else
                 this.Hide();
         }
+
         /// <summary>
         /// This prints out the error message on a message box
         /// </summary>
@@ -187,17 +191,18 @@ namespace Client.View
         {
             MessageBox.Show(message);
         }
+
         /// <summary>
         /// This updates the View info
         /// </summary>
         public void UpdateView()
         {
-            
-            Invoke(new MethodInvoker( uxListView.BeginUpdate));
+
+            Invoke(new MethodInvoker(uxListView.BeginUpdate));
             Invoke(new MethodInvoker(uxListView.Items.Clear));
             foreach (var c in _chatDb.User.ContactList.Contacts)
             {
-                string[] iteminfo = { c.Username, c.OnlineStatus.ToString() };
+                string[] iteminfo = {c.Username, c.OnlineStatus.ToString()};
                 var item = new ListViewItem(iteminfo);
                 Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
@@ -205,13 +210,16 @@ namespace Client.View
 
             Invoke(new MethodInvoker(UpdateHeaderName));
         }
+
         /// <summary>
         /// This method updates the header name in the View
         /// </summary>
         private void UpdateHeaderName()
         {
-            this.Text = "Home - " + _chatDb.User.ContactInfo.Username + "          Status: " + _chatDb.User.ContactInfo.OnlineStatus;
+            this.Text = "Home - " + _chatDb.User.ContactInfo.Username + "          Status: " +
+                        _chatDb.User.ContactInfo.OnlineStatus;
         }
+
         /// <summary>
         /// This method handles what happens upon form closing
         /// </summary>
@@ -239,3 +247,4 @@ namespace Client.View
 
     }
 }
+

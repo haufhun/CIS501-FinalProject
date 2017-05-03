@@ -58,8 +58,9 @@ namespace Client.Controller
             {
                 throw new Exception("Cant connect to server!");
             }
-
             _chatDB = chatDb;
+
+
         }
 
         /// <summary>
@@ -170,7 +171,7 @@ namespace Client.Controller
                 case State.CloseChat:
                     if (!m.IsError)
                     {
-                        MessageBox.Show("Someone ended the chat form.");
+                        MessageBox.Show("Closing because someone ended the chat.");
 
                         var cForm = _chatDB.ChatForms[m.ChatRoom.Id];
                         cForm.Invoke(new MethodInvoker(cForm.Close));
@@ -250,7 +251,11 @@ namespace Client.Controller
             }
             else
             {
-                MessageBox.Show("Cant connect to server!");
+                MessageBox.Show("Cant connect to server. Trying to reconnect..");
+                ws.Connect();
+                MessageBox.Show(ws.IsAlive
+                    ? "Reconnection was successful! Please try to sign in again."
+                    : "Reconnection was unsuccessful... Try checking the servers IP adress and making sure you are on the same network.");
             }
         }
         /// <summary>
@@ -267,7 +272,18 @@ namespace Client.Controller
             }
             else
             {
-                MessageBox.Show("Cant connect to server!");
+                MessageBox.Show("Cant connect to server. Trying to reconnect..");
+                ws.Connect();
+                if (ws.IsAlive)
+                {
+                    MessageBox.Show("Reconnection was successful! Please try to sign out again.");
+                }
+                else
+                {
+                    MessageBox.Show("Reconnection was unsuccessful, but will sign out anyway...");
+                    SignalHFormObserver(1);
+                    SignalSIFormObsever(2);
+                }
             }
 
         }
