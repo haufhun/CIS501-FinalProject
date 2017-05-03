@@ -123,8 +123,14 @@ namespace Client.View
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler,  _chatDb);
-                _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm); 
+                ChatForm cForm;
+                if (!_chatDb.CurrentChatForm.ContainsKey(chatRoom.Id))
+                {
+                     cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler, _chatDb);
+                    _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm);
+                }
+                else cForm = _chatDb.CurrentChatForm[chatRoom.Id];
+
 
 
                 cForm.Show();

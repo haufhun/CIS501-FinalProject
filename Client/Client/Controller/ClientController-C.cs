@@ -46,7 +46,7 @@ namespace Client.Controller
                 }
                 
             }
-           ws = new WebSocket("ws://192.168.2.4:8022/chat");
+           ws = new WebSocket("ws://192.168.2.8:8022/chat");
            //ws = new WebSocket(webIp);
 
             ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
@@ -144,8 +144,11 @@ namespace Client.Controller
                 case State.OpenChat:
                     if (!m.IsError)
                     {
-                        _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom)m.ChatRoom);
-                        
+                        if (!_chatDB.ChatRooms.ContainsKey(m.ChatRoom.Id))
+                            _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom) m.ChatRoom);
+
+                        else _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+
                         SignalCFormObserver(0, (ChatRoom)m.ChatRoom, null);
                         
                     }
