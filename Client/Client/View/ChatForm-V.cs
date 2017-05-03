@@ -20,14 +20,12 @@ namespace Client
         private SendMessageHandler _sendMessageHandler;
         private AddContactToRoomHandler _addCToRoomHandler;
         private CloseRoomHandler _closeRoomHandler;
-
         // Variable to read the Chat Database
         private readonly ChatDB _chatDb;
 
         /// <summary>
         /// This method initializes the Chat form
         /// </summary>
-
         /// <param name="Chat"></param>
         /// <param name="sm">Handler to send message passed in</param>
         /// <param name="addCToRoomHandler"></param>
@@ -88,14 +86,6 @@ namespace Client
                 Invoke(new MethodInvoker(delegate { uxListView.Items.Add(item); }));
             }
             Invoke(new MethodInvoker(uxListView.EndUpdate));
-        }
-        /// <summary>
-        /// This method will update the messages being viewed
-        /// </summary>
-        /// <param name="id"></param>
-        public void UpdateMessageView(string id)
-        {
-            var chatRoom = _chatDb.ChatRooms[id];
 
             var users = _chatDb.ChatRooms[id].Participants.Aggregate("ChatRoom -   ", (current, u) => current + ("{" + u.ContactInfo.Username + "}  "));
             this.Text = users;
@@ -112,11 +102,9 @@ namespace Client
             Invoke(new MethodInvoker(uxMessageListBox.Items.Clear));
             foreach (var m in chatRoom.MessageHistory)
             {
-
                     string[] iteminfo = {m.Sender.Username +": " + m.Body};
                     var item = new ListViewItem(iteminfo);
                     Invoke(new MethodInvoker(delegate { uxMessageListBox.Items.Add(item.Text); }));
-
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));
         }

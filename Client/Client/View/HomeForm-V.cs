@@ -126,6 +126,7 @@ namespace Client.View
                 var cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler,  _chatDb);
                 _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm); 
 
+
                 cForm.Show();
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);

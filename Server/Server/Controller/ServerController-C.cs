@@ -102,7 +102,7 @@ namespace Server.Controller
                     break;
                 case State.OpenChat:
                     //Need to talk with Tyler. Can't remember if this is correct or not.
-                    CreateRoom(m.Contact.Username, m.Contact.Username);
+                    CreateRoom(m.User.ContactInfo.Username, m.Contact.Username);
                     break;
                 case State.CloseChat:
                     CloseRoom(m.ChatRoom.Id, sessionId);
@@ -365,8 +365,13 @@ namespace Server.Controller
                 _send(m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
-            else
+            else if(!a.ContactList.Contacts.Contains(b.ContactInfo))
             {
+                var m = (new Mensaje(State.OpenChat, "The user" + added + " you want to chat with is not one of your contacts"));
+                _send(m, a.SessionId);
+                SignalEventObserver(m, LogStatus.Send);
+            }
+            else {
                 var cr = _chatDb.CreateRoom(a, b);
                 var cl = (ContactList) cr.ContactsToAdd;
 
