@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Windows.Forms;
@@ -29,11 +30,12 @@ namespace Client.Controller
         public event Message MessageReceived;
 
         /// <summary>
-        /// Constructor for Controller
+        /// Sets up the controller for functionality of the project. 
         /// </summary>
         /// <param name="chatDb">Model chat database</param>
         public ClientController_C(ChatDB chatDb)
         {
+
             string webIp = "ws://192.168.0.0:8022/chat";
 
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -41,15 +43,15 @@ namespace Client.Controller
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                   webIp = "ws://" + ip.ToString() +":8022/chat";
+                    webIp = "ws://" + ip.ToString() + ":8022/chat";
                     break;
                 }
-                
-            }
-           ws = new WebSocket("ws://192.168.2.4:8022/chat");
-           //ws = new WebSocket(webIp);
 
-            ws.OnMessage += (sender, e) => { if (MessageReceived != null) MessageReceived(e.Data); };
+            }
+            //ws = new WebSocket("ws://192.168.2.8:8022/chat"); // uncomment this to set ip yourself
+            ws = new WebSocket(webIp); // comment this out to set ip yourself
+
+            ws.OnMessage += (sender, e) =>{ MessageReceived?.Invoke(e.Data); };
 
             ws.Connect();
             if (!ws.IsAlive)
@@ -69,7 +71,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// This method keeps track of the state the message is in and acts appropriately for each state
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
@@ -96,6 +98,14 @@ namespace Client.Controller
                         {
                             _chatDB.User.UpdateContactList((ContactList)m.ContactList);
                             SignalHFormObserver(0);
+
+                            //foreach (var c in _chatDB.ChatForms)
+                            //{
+                            //    c.Value.ChatRoom.ContactsToAdd = m.ContactList;
+                            //    /// work herer
+                                
+                            //    SignalCFormObserver(1, _chatDB.ChatRooms[c.Key], c.Value);
+                            //}
                         }
                     }
                     else
@@ -117,11 +127,13 @@ namespace Client.Controller
                         {
                             _chatDB.User.UpdateContactList((ContactList)m.ContactList);
                             SignalHFormObserver(0);
+
+                            //foreach (var c in _chatDB.ChatForms)
+                            //    SignalCFormObserver(1, _chatDB.ChatRooms[c.Key], c.Value);
                         }
 
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.AddContact:        
@@ -130,9 +142,7 @@ namespace Client.Controller
                         _chatDB.User = (User) m.User;
                         SignalHFormObserver(0);
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.RemoveContact:
@@ -141,44 +151,54 @@ namespace Client.Controller
                         _chatDB.User = (User)m.User;
                         SignalHFormObserver(0);
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-                    
+                    else MessageBox.Show(m.ErrorMessage);                  
                     break;
 
                 case State.OpenChat:
                     if (!m.IsError)
                     {
-                        _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom)m.ChatRoom);
-                        
+                        if (!_chatDB.ChatRooms.ContainsKey(m.ChatRoom.Id))
+                            _chatDB.ChatRooms.Add(m.ChatRoom.Id, (ChatRoom) m.ChatRoom);
+
+                        else _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+
                         SignalCFormObserver(0, (ChatRoom)m.ChatRoom, null);
                         
                     }
-                    else
-                        MessageBox.Show(m.ErrorMessage);
-
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
                 case State.CloseChat:
-                    MessageBox.Show("Closing Chat Form because someone doesnt wanna talk to you anymore");
+                    if (!m.IsError)
+                    {
+                        MessageBox.Show("Someone ended the chat form.");
 
-                    var cForm = _chatDB.CurrentChatForm[m.ChatRoom.Id];
-                    cForm.Invoke(new MethodInvoker(cForm.Close)); 
+                        var cForm = _chatDB.ChatForms[m.ChatRoom.Id];
+                        cForm.Invoke(new MethodInvoker(cForm.Close));
 
-                    _chatDB.CurrentChatForm.Remove(m.ChatRoom.Id);
-                    _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
+                        _chatDB.ChatForms.Remove(m.ChatRoom.Id);
+                        _chatDB.ChatRooms.Remove(m.ChatRoom.Id);
+                    }
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom)m.ChatRoom;
-                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
-
+                    if (!m.IsError)
+                    {
+                        _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.ChatForms[m.ChatRoom.Id]);
+                    }
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 case State.SendTextMessage:
-                    _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
-                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm[m.ChatRoom.Id]);
-                    // a Chatroom // get most recent text message object and populates it.
+                    if (!m.IsError)
+                    {
+                        _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
+                        SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.ChatForms[m.ChatRoom.Id]);
+                        // a Chatroom // get most recent text message object and populates it.
+                    }
+                    else MessageBox.Show(m.ErrorMessage);
                     break;
 
                 default:
@@ -188,27 +208,27 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// Register for the sign in with the controller
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The Observer for sign in form passed in</param>
         public void SignInRegister(SignInFormObserver o)
         {
             _sIFormObserver.Add(o);
         }
 
         /// <summary>
-        /// 
+        /// Register for the homeform in the controller
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The Observer for the home form passed in</param>
         public void HomeFormRegister(HomeFormObserver o)
         {
             _hFormObserver.Add(o);
         }
 
         /// <summary>
-        /// 
+        /// Register for the chat form in the controller
         /// </summary>
-        /// <param name="o"></param>
+        /// <param name="o">The Observer for the chat form passed in</param>
         public void ChatFormRegister(ChatFormObserver o)
         {
             _cFormObserver.Add(o);
@@ -253,9 +273,9 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method that creates a new add contact mensaje and sends it to server
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Contact name passed in</param>
         public void AddContact(string name)
         {
             if (ws.IsAlive)
@@ -272,9 +292,9 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method that creates a new remove contact mensaje and sends it to server
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Contact name passed in</param>
         public void RemoveContact(string name)
         {
             if (ws.IsAlive)
@@ -291,9 +311,9 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method that creates a chat room mensaje and sends it to server
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Contact name passed in</param>
         public void CreateChatRoom(string name)
         {
             if (ws.IsAlive)
@@ -308,7 +328,10 @@ namespace Client.Controller
                 MessageBox.Show("Cant connect to server!");
             }
         }
-
+        /// <summary>
+        /// A method that creates a close chat room mensaje and sends it to server
+        /// </summary>
+        /// <param name="cRoom">Chatroom object passed in</param>
         public void CloseChatRoom(ChatRoom cRoom)
         {
             if (ws.IsAlive)
@@ -324,10 +347,10 @@ namespace Client.Controller
             }
         }
         /// <summary>
-        /// 
+        /// This method creates a mensaje for adding a contact to the chat room and sends it to server
         /// </summary>
-        /// <param name="chatRoom"></param>
-        /// <param name="name"></param>
+        /// <param name="chatRoom">Chatroom passed in</param>
+        /// <param name="name">Name of the contact passed in</param>
         public void AddContactToRoom(ChatRoom chatRoom, string name)
         {
             if (ws.IsAlive)
@@ -344,10 +367,11 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method to create a mensaje for sending a message and sends it the server
         /// </summary>
-        /// <param name="message"></param>
-        /// <param name="chatRoom"></param>
+        /// <param name="message">Message to be sent passed in</param>
+        /// <param name="chatRoom">Chatroom passed in</param>
+        /// <param name="cForm">This is Chatform passed in</param>
         public void SendMessage(string message, ChatRoom chatRoom, ChatForm cForm)
         {
             if (ws.IsAlive)
@@ -364,7 +388,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// This method signals the CForm Observer
         /// </summary>
         /// <param name="index">
         ///  Calls the StartChat method from homeform if index of [0]
@@ -378,7 +402,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method to signal the home form Observer
         /// </summary>
         /// <param name="index">
         ///  Calls Update if index of [0]
@@ -393,7 +417,7 @@ namespace Client.Controller
         }
 
         /// <summary>
-        /// 
+        /// A method to signal the Sign in Form Observer
         /// </summary>
         /// <param name="index"> 
         ///  Calls EventSuccessfulLogin if index of [0]

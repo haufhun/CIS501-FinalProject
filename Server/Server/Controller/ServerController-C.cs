@@ -253,7 +253,7 @@ namespace Server.Controller
                 if (t == null) continue;
                 
                 //Change the user that is logging-in to offline for each person that has him as a contact.
-                ((Contact)t.ContactList.GetContact(u.ContactInfo.Username)).ChangeOnlineStatus(Status.Online);
+                ((Contact)t.ContactList.GetContact(u.ContactInfo.Username)).ChangeOnlineStatus(Status.Offline);
 
                 var m = new Mensaje(State.Logout, t.ContactList);
                 try { _send(m, t.SessionId); }
@@ -365,14 +365,14 @@ namespace Server.Controller
                 _send(m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
-            else if (!a.ContactList.Contacts.Contains(b.ContactInfo))
+            else if(a.ContactList.GetContact(b.ContactInfo.Username) == null)
             {
+                
                 var m = (new Mensaje(State.OpenChat, "The user" + added + " you want to chat with is not one of your contacts"));
                 _send(m, a.SessionId);
                 SignalEventObserver(m, LogStatus.Send);
             }
-            else
-            {
+            else {
                 var cr = _chatDb.CreateRoom(a, b);
                 var cl = (ContactList) cr.ContactsToAdd;
 

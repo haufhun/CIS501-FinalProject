@@ -37,6 +37,7 @@ namespace Client.View
         /// <param name="rc">Remove Contact handler</param>
         /// <param name="acr">Add Contact to Chatroom handler</param>
         /// <param name="cr">Create a chatroom handler</param>
+        /// <param name="closeRoomHandler">Create a close chatroom handler</param>
         /// <param name="sm">Handler to send message</param>
         /// <param name="chatDb">Chat Database to be read</param>
         /// <param name="aCForm">Add Contact form to access</param>
@@ -115,16 +116,22 @@ namespace Client.View
         }
 
         /// <summary>
-        ///  
+        ///  This handles what to do with StartChat
         /// </summary>
-        /// <param name="chatRoom"></param>
+        /// <param name="chatRoom">Chatroom to be passed</param>
         /// <param name="chatForm">Should be null when Calling StartChat</param>
         public void StartChat(ChatRoom chatRoom, ChatForm chatForm)
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler,  _chatDb);
-                _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm); 
+                ChatForm cForm;
+                if (!_chatDb.ChatForms.ContainsKey(chatRoom.Id))
+                {
+                     cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler, _chatDb);
+                    _chatDb.ChatForms.Add(chatRoom.Id, cForm);
+                }
+                else cForm = _chatDb.ChatForms[chatRoom.Id];
+
 
 
                 cForm.Show();
@@ -143,8 +150,6 @@ namespace Client.View
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-
-
                 cForm.UpdateContactView(chatRoom.Id);
                 cForm.UpdateMessageView(chatRoom.Id);
             }));

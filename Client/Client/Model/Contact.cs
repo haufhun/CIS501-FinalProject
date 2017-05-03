@@ -46,7 +46,7 @@ namespace Client.Model
         /// <summary>
         /// This method updates the online status of a Contact
         /// </summary>
-        /// <param name="newStatus"></param>
+        /// <param name="newStatus">New status passed in</param>
         public void ChangeOnlineStatus(Status newStatus)
         {
             OnlineStatus = newStatus;

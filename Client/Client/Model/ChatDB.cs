@@ -24,7 +24,7 @@ namespace Client.Model
         /// <summary>
         /// Gets the Dictionary storing the chatroom we are on currently
         /// </summary>
-        public Dictionary<string,ChatForm> CurrentChatForm { get;}
+        public Dictionary<string,ChatForm> ChatForms { get;}
         
         /// <summary>
         /// Initializes the Chat Database
@@ -33,7 +33,7 @@ namespace Client.Model
         {
             User = new User(null, null);
             ChatRooms = new Dictionary<string, ChatRoom>();
-            CurrentChatForm = new Dictionary<string, ChatForm>();
+            ChatForms = new Dictionary<string, ChatForm>();
         }
 
 
