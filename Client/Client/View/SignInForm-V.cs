@@ -14,18 +14,17 @@ namespace Client
 {
     public partial class SignInForm : Form
     {
-        //
+        //private field for accessing the homeform
         private HomeForm _homeForm;
-        //
+        //privaate field for accessing the sign in handler
         private SignInHandler _sIHandler;
         
 
         /// <summary>
-        /// 
+        /// This method initializes the sign in form
         /// </summary>
-        /// <param name="s"></param>
-        /// <param name="homeForm"></param>
-        /// <param name="chatDb"></param>
+        /// <param name="s">Handler for the signIn passed in</param>
+        /// <param name="homeForm">Homeform object passed in</param>
         public SignInForm(SignInHandler s, HomeForm homeForm)
         {
             _sIHandler = s;
@@ -35,7 +34,7 @@ namespace Client
         }
 
         /// <summary>
-        /// 
+        /// The handler for the button press for the signIn button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -45,7 +44,7 @@ namespace Client
         }
 
         /// <summary>
-        /// 
+        /// This handles the View side of a successful login
         /// </summary>
         public void EventSuccessfulLogin()
         {
@@ -54,7 +53,7 @@ namespace Client
         }
 
         /// <summary>
-        /// 
+        /// This handles the View side of an unsuccessful login
         /// </summary>
         public void EventUnSuccessfulLogin()
         {
@@ -64,7 +63,7 @@ namespace Client
         }
 
         /// <summary>
-        /// 
+        /// This method handles what happens with SignOut in the view
         /// </summary>
         public void SignOut()
         {
