@@ -102,7 +102,6 @@ namespace Client.Model
             /// <summary>
             /// Constructor used to send a message to a chat room.
             /// </summary>
-            ///// <param name="s">The status of the message being sent.</param>
             /// <param name="chatroom">The chat room object that the message should be sent to.</param>
             /// <param name="msg">The text message that is to be sent in the chat room.</param>
             public Mensaje(IChatRoom chatroom, ITextMessage msg)
@@ -115,7 +114,6 @@ namespace Client.Model
             /// <summary>
             /// Constructor used to add a contact to a chat room.
             /// </summary>
-            /// <param name="s">The status of the message being sent.</param>
             /// <param name="chatroom">The chat room ojbect to where the contact should be added.</param>
             /// <param name="c">The contact to be added to the chat room.</param>
             public Mensaje(IChatRoom chatroom, IContact c)
@@ -154,6 +152,12 @@ namespace Client.Model
             /// <param name="c">The contact to be passed. Can be null.</param>
             /// <param name="chatRoom">The chat room to be passed. Can be null.</param>
             /// <param name="contact"></param>
+            /// <param name="s">The state to be passed.</param>
+            /// <param name="contactList">The contact List to be passed.</param>
+            /// <param name="textMessage">The text message to be passed.</param>
+            /// <param name="isError">Whether error is true or false to be passed.</param>
+            /// <param name="errorMessage">The error message to be passed.</param>
+            /// <param name="isNewUser">Check result for is new user to be passed.</param>
             [JsonConstructor]
             private Mensaje(State s, User user, ChatRoom chatRoom, Contact contact, ContactList contactList,
                 TextMessage textMessage, bool isError, string errorMessage, bool isNewUser)
