@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Server.Model;
@@ -425,23 +426,25 @@ namespace Server.Controller
 
             if (user == null)
             {
-                _send(new Mensaje(State.AddContactToChat, "The user you would like to add does not exist"), adderSessionId);
+                var m = new Mensaje(State.AddContactToChat, "The user" + name + " does not exist");
+                _send(m, adderSessionId);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else if (user.ContactInfo.OnlineStatus == Status.Offline)
             {
-                _send(new Mensaje(State.AddContactToChat, "The user you would like to add is not online"), adderSessionId);
+                var m = new Mensaje(State.AddContactToChat, "The user you would like to add is not online");
+                _send(m, adderSessionId);
+                SignalEventObserver(m, LogStatus.Send);
             }
             else
             {
                 var cr = _chatDb.LookupRoom(roomId);
 
-                foreach (var c in cr.ContactsToAdd.Contacts)
+                var list = (from c in cr.ContactsToAdd.Contacts where user.ContactList.GetContact(c.Username) == null select c.Username).ToList();
+
+                foreach (var s in list)
                 {
-                    //Remove a contact IF the user we are adding is not friends with them
-                    if (user.ContactList.GetContact(c.Username) == null)
-                    {
-                        cr.RemoveContact(c.Username);
-                    }
+                    cr.RemoveContact(s);
                 }
 
                 _send(new Mensaje(State.OpenChat, cr), user.SessionId);
