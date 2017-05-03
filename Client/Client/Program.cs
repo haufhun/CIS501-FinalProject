@@ -30,7 +30,7 @@ namespace Client
     public delegate void AddContactToRoomHandler(ChatRoom chatRoom, string name);
     // defines the type of method that handles a create chat room event
     public delegate void CreateRoomHandler(string name);
-    //
+    // defines the type of method that handles a semd message event
     public delegate void SendMessageHandler(string message, ChatRoom chatRoom, ChatForm cForm);
 
     static class Program
