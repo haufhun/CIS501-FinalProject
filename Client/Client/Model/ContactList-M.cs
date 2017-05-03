@@ -12,17 +12,27 @@ namespace Client.Model
     public class ContactList : IContactList
     {
         [JsonProperty]
+        //This is the private field for the Dictionary holding the contacts
         private Dictionary<string, Contact> _contacts;
 
+        //This is the getter for the count of contacts
         public int Count => _contacts.Values.Count;
 
+        //This is the getter for the contacts values
         public IEnumerable<IContact> Contacts => _contacts.Values; // had to add to iplement Icontact
 
+        /// <summary>
+        /// This initializes the ContactList to a Dictionary
+        /// </summary>
         public ContactList()
         {
             _contacts = new Dictionary<string, Contact>();
         }
 
+        /// <summary>
+        /// This initializes the ContactList to the private field _contacts
+        /// </summary>
+        /// <param name="contacts"></param>
         [JsonConstructor]
         private ContactList(Dictionary<string, Contact> contacts)
         {
@@ -39,6 +49,11 @@ namespace Client.Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// This gets the contacts
+        /// </summary>
+        /// <param name="username">Username for the Contact</param>
+        /// <returns>The contact info for that username</returns>
         public IContact GetContact(string username)
         {
             return _contacts[username];
