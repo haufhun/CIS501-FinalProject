@@ -37,9 +37,11 @@ namespace Client.Model
         //    Id = id;
         //}
         [JsonProperty]
+        //Private field storing a List of messages
         private List<TextMessage> _messages;
 
         [JsonProperty]
+        //Private field for a ContactList object storing contacts to add
         private ContactList _contactsToAdd;
 
         [JsonProperty]
@@ -47,21 +49,26 @@ namespace Client.Model
         public string Id { get; }
 
         [JsonProperty]
+        //Private field for dictionary which stores users
         private Dictionary<string, User> _users;
 
+        //Getter for contacts to add
         public IContactList ContactsToAdd => _contactsToAdd;
 
+        //Getter for message history
         public IEnumerable<ITextMessage> MessageHistory => _messages;
 
+        //Getter for participants
         public IEnumerable<IUser> Participants => _users.Values;
 
 
         /// <summary>
         /// Used for Json.
         /// </summary>
-        /// <param name="msgs"></param>
-        /// <param name="id"></param>
-        /// <param name="users"></param>
+        /// <param name="msgs">List of messages being passed in</param>
+        /// <param name="id">ID passed in for Chatroom</param>
+        /// <param name="users">Dictionary holding users passed in</param>
+        /// <param name="c">ContactList object passed in</param>
         [JsonConstructor]
         private ChatRoom(List<TextMessage> msgs, string id, Dictionary<string, User> users, ContactList c)
         {
@@ -89,6 +96,9 @@ namespace Client.Model
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// This method gets the offline participants 
+        /// </summary>
         public IEnumerable<IContact> GetOfflineParticipants()
         {
             //Find all the users that have a status of offline. only for the server.
