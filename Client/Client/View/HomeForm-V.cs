@@ -19,6 +19,8 @@ namespace Client.View
         private AddContactToRoomHandler _addCToRoomHandler;
         //Handler for creating a chat room
         private CreateRoomHandler _createRoomHandler;
+        //Handler for closing a chat room
+        private CloseRoomHandler _closeRoomHandler;
         //Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
         //private field variable for chat database
@@ -38,7 +40,7 @@ namespace Client.View
         /// <param name="sm">Handler to send message</param>
         /// <param name="chatDb">Chat Database to be read</param>
         /// <param name="aCForm">Add Contact form to access</param>
-        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, SendMessageHandler sm, ChatDB chatDb, AddContactForm aCForm)
+        public HomeForm(SignInHandler sI, SignOutHandler sO, AddContactHandler ac, RemoveContactHandler rc, AddContactToRoomHandler acr, CreateRoomHandler cr, CloseRoomHandler closeRoomHandler, SendMessageHandler sm, ChatDB chatDb, AddContactForm aCForm)
         {
             _sInHandler = sI;
             _sOutHandler = sO;
@@ -46,6 +48,7 @@ namespace Client.View
             _removeCHandler = rc;
             _addCToRoomHandler = acr;
             _createRoomHandler = cr;
+            _closeRoomHandler = closeRoomHandler;
             _sendMessageHandler = sm;
             _chatDb = chatDb;
             _aCForm = aCForm;
@@ -120,7 +123,7 @@ namespace Client.View
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _chatDb);
+                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _closeRoomHandler,  _chatDb);
                 _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm); 
 
 
