@@ -10,6 +10,7 @@ using Client.View;
 
 namespace Client
 {
+    //defines the type of method  that handles the Message
     public delegate bool Message(string message);
     //defines the type of method that handles HomeForm Events
     public delegate void HomeFormObserver();
