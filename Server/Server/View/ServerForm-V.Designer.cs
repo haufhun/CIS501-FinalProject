@@ -386,7 +386,6 @@
             this.uxEventLogListView.TabIndex = 0;
             this.uxEventLogListView.UseCompatibleStateImageBehavior = false;
             this.uxEventLogListView.View = System.Windows.Forms.View.Details;
-            this.uxEventLogListView.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             // 
             // uxTabControl
             // 
@@ -412,7 +411,6 @@
             this.toolStrip1.Size = new System.Drawing.Size(957, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // toolStripComboBox1
             // 
@@ -434,7 +432,6 @@
             this.Controls.Add(this.uxTabControl);
             this.Name = "ServerForm";
             this.Text = "Server";
-            this.Load += new System.EventHandler(this.ServerForm_Load);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);

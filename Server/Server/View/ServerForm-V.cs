@@ -16,22 +16,18 @@ namespace Server.View
         /// Private field to the delegate to the Controller
         /// </summary>
         private readonly InputHandler _handle;
-
         /// <summary>
         /// The instance of the chat database to update the database page.
         /// </summary>
         private readonly ChatDb _db;
-
         /// <summary>
         /// List of all buttons that can be used as an input to test.
         /// </summary>
         private readonly List<Button> _testingButtons;
-
         /// <summary>
         /// List of all text boxes on the testing tab.
         /// </summary>
         private readonly List<TextBox> _testingTextBoxes;
-
         /// <summary>
         /// List of the last selected users in the User list view.
         /// </summary>
@@ -323,7 +319,6 @@ namespace Server.View
 
             UpdateUserWebBrowser();
         }
-
         /// <summary>
         /// Handles enabling or disabling the testing tab.
         /// </summary>
@@ -335,20 +330,6 @@ namespace Server.View
 
             foreach (var u in _testingButtons) u.Enabled =  index == 1;
             foreach (var u in _testingTextBoxes) u.Enabled = index == 1;
-        }
-
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void ServerForm_Load(object sender, System.EventArgs e)
-        {
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
