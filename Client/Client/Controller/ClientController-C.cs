@@ -162,12 +162,12 @@ namespace Client.Controller
                 case State.AddContactToChat:
                     // state open chat- this will be for the person getting added. it will contain IChat and has list of messages and contacts
                     //state is addcontactochat - ths is for current users in chatroom it iwll contain IChat will have the upadted contact list to update the views
-                    SignalCFormObserver(2, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
+                    _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom)m.ChatRoom;
+                    SignalCFormObserver(1, (ChatRoom) m.ChatRoom, _chatDB.CurrentChatForm[m.ChatRoom.Id]);
 
                     break;
 
                 case State.SendTextMessage:
-
                     _chatDB.ChatRooms[m.ChatRoom.Id] = (ChatRoom) m.ChatRoom;
                     SignalCFormObserver(1, (ChatRoom) m.ChatRoom,_chatDB.CurrentChatForm[m.ChatRoom.Id]);
                     // a Chatroom // get most recent text message object and populates it.
@@ -310,7 +310,7 @@ namespace Client.Controller
         {
             if (ws.IsAlive)
             {
-                var m = new Mensaje(chatRoom, new Contact(name)); // maybe get contact from contact list dictionary in  a Database class??
+                var m = new Mensaje(chatRoom, _chatDB.User.ContactList.GetContact(name));
                 var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
@@ -334,7 +334,6 @@ namespace Client.Controller
                 var output = JsonConvert.SerializeObject(m);
 
                 ws.Send(output);
-
             }
             else
             {

@@ -18,19 +18,23 @@ namespace Client
         private ChatRoom _chatRoom;
         // Handler for sending a message
         private SendMessageHandler _sendMessageHandler;
+        private AddContactToRoomHandler _addCToRoomHandler;
         // Variable to read the Chat Database
         private readonly ChatDB _chatDb;
 
         /// <summary>
         /// This method initializes the Chat form
         /// </summary>
-        /// <param name="iChat">Chatroom object passed in</param>
+        /// <param name="Chat"></param>
         /// <param name="sm">Handler to send message passed in</param>
+        /// <param name="addCToRoomHandler"></param>
         /// <param name="chatDb">Database for Chat to be passed in and read</param>
-        public ChatForm(ChatRoom Chat, SendMessageHandler sm, ChatDB chatDb)
+        /// <param name="iChat">Chatroom object passed in</param>
+        public ChatForm(ChatRoom Chat, SendMessageHandler sm, AddContactToRoomHandler addCToRoomHandler, ChatDB chatDb)
         {
             _chatRoom = Chat;
             _sendMessageHandler = sm;
+            _addCToRoomHandler = addCToRoomHandler;
             _chatDb = chatDb;
 
 
@@ -49,7 +53,14 @@ namespace Client
             _sendMessageHandler(uxMessageTextBox.Text, _chatRoom, this);
             uxMessageTextBox.Text = "";
         }
-
+        private void uxAddContact_Click(object sender, EventArgs e)
+        {
+            if (uxListView.SelectedItems.Count > 0)
+                _addCToRoomHandler(_chatRoom, uxListView.SelectedItems[0].SubItems[0].Text);
+            else
+                MessageBox.Show("Please select a contact to add to the chat room!");
+           
+        }
         public void UpdateContactView(string id)
         {
             var chatRoom = _chatDb.ChatRooms[id];
@@ -85,5 +96,7 @@ namespace Client
             }
             Invoke(new MethodInvoker(uxMessageListBox.EndUpdate));
         }
+
+
     }
 }

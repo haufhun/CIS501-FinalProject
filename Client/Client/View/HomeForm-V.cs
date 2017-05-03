@@ -120,7 +120,7 @@ namespace Client.View
         {
             this.Invoke(new MethodInvoker(delegate ()
             {
-                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _chatDb);
+                var cForm = new ChatForm(chatRoom, _sendMessageHandler, _addCToRoomHandler, _chatDb);
                 _chatDb.CurrentChatForm.Add(chatRoom.Id, cForm); 
 
 

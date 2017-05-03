@@ -33,7 +33,7 @@
             this.uxMessageTextBox = new System.Windows.Forms.TextBox();
             this.uxMessageListBox = new System.Windows.Forms.ListBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.uxAddContact = new System.Windows.Forms.ToolStripButton();
             this.uxEndChat = new System.Windows.Forms.ToolStripButton();
             this.uxListView = new System.Windows.Forms.ListView();
             this.uxNameCol = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -80,7 +80,7 @@
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton2,
+            this.uxAddContact,
             this.uxEndChat});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -88,14 +88,15 @@
             this.toolStrip1.TabIndex = 9;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton2
+            // uxAddContact
             // 
-            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(214, 24);
-            this.toolStripButton2.Text = "Add Contact To Chat Room";
-            this.toolStripButton2.ToolTipText = "uxAddContact";
+            this.uxAddContact.Image = ((System.Drawing.Image)(resources.GetObject("uxAddContact.Image")));
+            this.uxAddContact.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.uxAddContact.Name = "uxAddContact";
+            this.uxAddContact.Size = new System.Drawing.Size(214, 24);
+            this.uxAddContact.Text = "Add Contact To Chat Room";
+            this.uxAddContact.ToolTipText = "uxAddContact";
+            this.uxAddContact.Click += new System.EventHandler(this.uxAddContact_Click);
             // 
             // uxEndChat
             // 
@@ -170,7 +171,7 @@
         private System.Windows.Forms.TextBox uxMessageTextBox;
         private System.Windows.Forms.ListBox uxMessageListBox;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton uxAddContact;
         private System.Windows.Forms.ToolStripButton uxEndChat;
         private System.Windows.Forms.ListView uxListView;
         private System.Windows.Forms.ColumnHeader uxNameCol;
