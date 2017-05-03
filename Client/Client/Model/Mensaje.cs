@@ -95,7 +95,7 @@ namespace Client.Model
             /// <param name="cRoom"></param>
             public Mensaje(IChatRoom cRoom)
             {
-                MyState = State.OpenChat;
+                MyState = State.CloseChat;
                 ChatRoom = cRoom;
             }
             /// <summary>
