@@ -936,6 +936,348 @@
         <elementDefinition Id="41096db8-12c6-49de-8925-89e079c41fed" />
       </referencedType>
     </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="29866469-0d44-4e8e-8d1a-bea015d80518" name="ClientController" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="eb47fae0-c6b0-451f-a435-d89e60c9d62a" />
+        <ownedAttributesInternal>
+          <property Id="feb5a7b7-94c1-48c7-9029-6a6ffa526f18" name="_sIFormObserver" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2655905c-29bf-4614-bdb0-abe713c31459" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="caf6f047-4bb5-4e32-b086-104a6a52939b" LastKnownName="List&lt;SignInFormObserver&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="764b0de5-8b3e-4f68-b748-f9e5f6408b57" name="_hFormObserver" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7a13c408-cf32-4434-94cf-e5df21340c8e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="f593489b-4644-4be2-81b7-61959964516e" LastKnownName="List&lt;HomeFormOberver&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="8ed7d242-1e38-4ded-a862-668154a6c605" name="_cFormObserver" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1d193dec-100d-471d-b2d4-2a11958f58e6" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="9b504ff9-99fc-4453-9ae7-e8b322928e31" LastKnownName="List&lt;ChatFormObserver&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="f4ba4bb2-396f-4f47-ac42-69e5b37338f7" name="ws" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c41b14e9-5b9a-409f-af1a-3078f4d3f53e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="fd4b4801-e41c-4fe8-9cc0-5dd504ab006b" LastKnownName="Websocket" />
+            </type_NamedElement>
+          </property>
+          <property Id="0d8550a9-6f1d-4ef0-a3b9-3e38ec4696a7" name="_chatDB" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="db5ed346-c9e3-4256-b1ea-eb2cdcf0f1cf" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d01da772-45dd-4a3b-bb95-a21836b50a0b" LastKnownName="ChatDB" />
+            </type_NamedElement>
+          </property>
+          <property Id="9177bab7-4b6a-47b8-972a-c88d76436061" name="MessageReceived" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bf3d8ca7-66a8-480c-b68c-7fd5cda872f7" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="8865e5be-0c1d-4af0-a54c-48a9fb16f08b" LastKnownName="Message" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="ff5ac03c-0d1d-4902-b1f0-013b1d11727d" name="ClientController_C" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="dd406e9c-ad34-4c6c-beb5-b15668a02415" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="cda86165-7e25-439b-9646-79455a505a0c" name="chatDb" direction="In" isUnique="false">
+                  <elementDefinition Id="8ced7b86-14de-42ee-8a51-2ed0f61a13ad" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d01da772-45dd-4a3b-bb95-a21836b50a0b" LastKnownName="ChatDB" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ca458ceb-2dc4-41ba-96df-a8efbfc07a71" name="ClientController_C" visibility="Package" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b3bcef55-d087-411d-8a65-83332a6edc33" />
+          </operation>
+          <operation Id="0835f845-1940-4e90-9c8c-85a56c39df01" name="message" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b0f5593e-8a7e-43a1-92a8-c2bf939db9b2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f8b4070b-4d0d-4835-ace4-767b5dd3d312" name="e" direction="In" isUnique="false">
+                  <elementDefinition Id="3ebf4192-18a4-40ca-9ea7-fc1bbdeb1ef8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7c34aab9-7d29-4d00-a6fe-0f795485be2f" direction="Return" isUnique="false">
+                  <elementDefinition Id="f932739c-d1d8-4555-91f7-4f80ef01ef53" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="49efad6b-6982-47c4-aef8-bce037973253" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="954b2639-0cde-4fb8-bfa6-ae8f5ca2fd8d" name="SignInRegister" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8ec365f1-341c-4306-9e2c-ca10ba8aaa4c" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="69ee53c5-77d3-4431-b07c-df0df4ccb341" name="o" direction="In" isUnique="false">
+                  <elementDefinition Id="ac6de83e-aa42-4c1b-a268-95bb1fe1a3b4" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="26cfd725-d24d-4fd0-bcf7-c84824c6233f" LastKnownName="SignInFormObserver" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="2603888a-0283-4d00-9177-03e346f90c26" name="HomeFormRegister" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="047b45e2-aaf0-4b20-ba6c-df0852651b06" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1a0a92ad-b11d-4301-aa86-fca5663c5757" name="o" direction="In" isUnique="false">
+                  <elementDefinition Id="b319ba3a-be53-403f-9951-ab96f09ee45f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb202afe-b5f9-4e48-96f5-3486e1410cdd" LastKnownName="omeFormObserver" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="c8b58b63-982f-4f08-8a22-25269f8e0fc7" name="ChatFormRegister" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="31ff9128-e600-4a90-83f3-edaede6b11c4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0a121b07-066d-4501-8ab0-b5bf84a49815" name="o" direction="In" isUnique="false">
+                  <elementDefinition Id="f1de3214-bbc2-4974-b455-dce4ab063345" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d145722d-f262-459d-904c-e91e384a861a" LastKnownName="ChatFormObserver" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="21a00ebe-15d5-4c1f-abca-b552f9970afd" name="SignIn" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="51772821-2b50-4bfd-8e93-85343a3b04aa" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8b4d8fe1-b6cf-4424-a090-ef15a7ac316b" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="f58612f9-9cd9-4e57-a5d0-ab3874ac2704" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="71729f3f-02ad-4690-8670-b24820d1d029" name="password" direction="In" isUnique="false">
+                  <elementDefinition Id="bbcd7da2-73c5-4f52-bb9c-37f167e02c57" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="725b0eb9-5ff1-4c46-b057-cb27b229783e" name="SignOut" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="81ec2fc0-6da2-4a0b-a4a5-24d53704bcdb" />
+          </operation>
+          <operation Id="de57792c-9fb7-44d6-8e16-e43a3e777521" name="AddContact" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="82241fdb-f006-4e0e-9bf1-0f5073374fe2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="65bc4d81-37a6-4694-b8b3-a364e854d0fb" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="a915f3ad-2205-433e-9276-6f93223ce251" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="83de3613-fb71-4812-9634-840dbe535996" name="RemoveContact" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ef1cfda5-a991-428b-9e7b-3535d1a5eb49" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="47cc5806-a1bf-44cb-814d-4ffa66b6bf25" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="cf4748d8-893f-495a-87d0-8326239ecf36" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="68a9d791-6f43-47b0-8489-91943a4f6ef0" name="CreateChatRoom" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="97bf0ac0-4d4b-4171-a123-41ed813f7ff4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="172ca759-f2d7-4a8c-9d12-6a67c2a3f38a" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="95438bf5-c42c-488b-a1a1-8ab8a53a3721" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="6c25c158-9d6f-40ca-bd27-d8b3975beb17" name="CloseChatRoom" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a37e647a-bcb0-4c9a-bb34-371ea023d0c4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0784630d-d6e8-4695-9df2-76982b05d39c" name="cRoom" direction="In" isUnique="false">
+                  <elementDefinition Id="39ac9104-46bf-4fa3-9b2e-aa45f831ad4e" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="56fb90aa-aebf-4dea-b708-714648ea3ade" LastKnownName="ChatRoom" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="d38d7ee7-acfd-44e1-b646-1384f9d2578e" name="AddContactToRoom" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c397f90f-65fb-4ff6-8dea-48971bd29b01" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8910a882-14ae-41a1-baac-1360fd141a2f" name="chatRoom" direction="In" isUnique="false">
+                  <elementDefinition Id="120f1b2d-934e-4448-824a-546563bbe124" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="56fb90aa-aebf-4dea-b708-714648ea3ade" LastKnownName="ChatRoom" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b03b156a-afc7-408a-9e44-c60da9ef7988" name="name" direction="In" isUnique="false">
+                  <elementDefinition Id="76c58575-13b7-4311-b5e4-b35a84cfc0d1" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="aa7c03ad-170b-4d35-ba4b-864bc5de68a2" name="SendMessage" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ad9f3bfa-fbcb-4516-9c24-c4c947c25143" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="39cc1937-f598-4aa0-8faa-e62ba312a71f" name="message" direction="In" isUnique="false">
+                  <elementDefinition Id="7bfad489-30a8-4b17-8d62-70474ba98742" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="fb5e42a7-c99f-4dd6-b404-2050c769651e" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c3d224ba-2b92-4805-91df-3c98837f90b2" name="chatRoom" direction="In" isUnique="false">
+                  <elementDefinition Id="72b2f3b6-b32c-460c-be76-c7b9c0c36cea" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="56fb90aa-aebf-4dea-b708-714648ea3ade" LastKnownName="ChatRoom" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4b7986bc-2485-460b-b657-2bba996790ed" name="cForm" direction="In" isUnique="false">
+                  <elementDefinition Id="2fa0cb34-7dc7-43cd-a06e-65c05b7eb725" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="528f0b36-6124-4fb5-82b1-768f9937821c" LastKnownName="ChatForm" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="287ec12b-99ed-4ebc-85d6-dc9f2e3f5e10" name="SignalCFormObserver" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b8a36540-36a4-4721-949c-efe35edb3542" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d98c8ff9-5ee8-4533-903f-f15bea44b503" name="index" direction="In" isUnique="false">
+                  <elementDefinition Id="dfd5f9a2-795f-40b9-9d44-791f7a8be358" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="8272f9d5-d7f3-42c0-86ed-578c7785e9dd" LastKnownName="int" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8e0207e7-0a6a-44d1-84eb-5c65e9404aca" name="chatRoom" direction="In" isUnique="false">
+                  <elementDefinition Id="284e73ad-cdab-4832-9252-c0b3d036b9e3" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="56fb90aa-aebf-4dea-b708-714648ea3ade" LastKnownName="ChatRoom" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f17453b2-5f46-4663-92e5-8533fca131e7" name="cForm" direction="In" isUnique="false">
+                  <elementDefinition Id="44167bbf-829c-4211-ad33-b667e5e126e9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="528f0b36-6124-4fb5-82b1-768f9937821c" LastKnownName="ChatForm" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ead94868-e288-4014-ae80-01774154dc2b" name="SignalHFormObserver" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bfc06148-2540-4f1a-8ca1-c80e2ca19873" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0b12a5c5-5747-4d91-9e09-346fdac4ae48" name="index" direction="In" isUnique="false">
+                  <elementDefinition Id="a3108b29-89e8-4881-88bf-a2b69f57e8da" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="8272f9d5-d7f3-42c0-86ed-578c7785e9dd" LastKnownName="int" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="8959f795-8aa3-44ab-9368-95662e4eefb7" name="SignalSIFormObsever" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="fc33403e-e6e2-4b35-8f4a-c97229f3a490" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="60a2a226-013c-4ff4-ae05-4319dae22dd6" name="index" direction="In" isUnique="false">
+                  <elementDefinition Id="2508848c-997c-4eb3-ac8d-a9dd7308a266" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="8272f9d5-d7f3-42c0-86ed-578c7785e9dd" LastKnownName="int" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="caf6f047-4bb5-4e32-b086-104a6a52939b" name="List&lt;SignInFormObserver&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;SignInFormObserver&gt;">
+        <elementDefinition Id="e544482a-c8ac-46bc-82d3-2c3cfa2bc2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f593489b-4644-4be2-81b7-61959964516e" name="List&lt;HomeFormOberver&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;HomeFormOberver&gt;">
+        <elementDefinition Id="9d002649-7d3e-4d4d-abfd-767093f616c4" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="9b504ff9-99fc-4453-9ae7-e8b322928e31" name="List&lt;ChatFormObserver&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;ChatFormObserver&gt;">
+        <elementDefinition Id="1e28b713-16df-48b0-a432-66e509311799" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fd4b4801-e41c-4fe8-9cc0-5dd504ab006b" name="Websocket" isAbstract="false" isLeaf="false" cachedFullName="Websocket">
+        <elementDefinition Id="0e6abd40-f2cb-495b-892d-1451399d97e0" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8865e5be-0c1d-4af0-a54c-48a9fb16f08b" name="Message" isAbstract="false" isLeaf="false" cachedFullName="Message">
+        <elementDefinition Id="2789c059-3f9c-45c3-a2a2-7978af6fb095" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="49efad6b-6982-47c4-aef8-bce037973253" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
+        <elementDefinition Id="f1e2f1f4-d695-41d7-83a6-c2d7864a152c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fb202afe-b5f9-4e48-96f5-3486e1410cdd" name="omeFormObserver" isAbstract="false" isLeaf="false" cachedFullName="omeFormObserver">
+        <elementDefinition Id="489c6755-acef-446e-bd93-c935a5ea19b0" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8272f9d5-d7f3-42c0-86ed-578c7785e9dd" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
+        <elementDefinition Id="99770e8c-1713-4f24-b0f4-a3bb837fc494" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="96e392d5-5206-41c3-b17e-e3cc1b2bf0ad" name="ModelingProject1">
     <elementDefinition Id="ce7dc644-d27c-420d-85e2-3d34b153da34" />
