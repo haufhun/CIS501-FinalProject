@@ -777,6 +777,165 @@
         <elementDefinition Id="2369be38-a525-4073-8d67-ecee5736a14e" />
       </referencedType>
     </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a0427809-d11b-42c0-9c65-b97b969e9d58" name="SignInForm" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9273b344-f0c8-4be4-bc0e-99ac6abca5f6" />
+        <ownedAttributesInternal>
+          <property Id="018789e3-3ebe-4a85-b86e-a900202165ce" name="_homeForm" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0c32b6de-0b45-4f4f-a074-ff5a44217548" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="e0bbd9f4-5f68-4833-a481-bf97de71a7ce" LastKnownName="HomeForm" />
+            </type_NamedElement>
+          </property>
+          <property Id="e4f5ff23-c9a3-4611-8156-9001b00c4ccb" name="_sIHandler" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="79b861ca-0d91-4ada-ba48-26574ad867c9" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="70f82ccf-5c5f-47bc-821c-863119bb7498" LastKnownName="SignInHandler" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="278833da-591e-40e5-9418-e82b83ba4a7c" name="uxSignIn_Click" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="114df06c-c768-402a-aad7-fed851455038" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7d22cc6d-4bd2-46e6-b622-4e872b26d084" name="sender" direction="In" isUnique="false">
+                  <elementDefinition Id="d1882950-05ae-4848-970a-572279d90ee9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="35da7b4a-b7f5-4f57-84f0-b773bba2fcb3" LastKnownName="object" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c28294c6-c803-43b6-8bb2-20a4545e8982" name="e EventArgs" direction="In" isUnique="false">
+                  <elementDefinition Id="577e419c-e750-4a02-a101-57524d0ce491" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4a2882f9-92b2-4923-b411-b6c32751ec90" direction="Return" isUnique="false">
+                  <elementDefinition Id="1298da43-50cb-4110-a0a2-f6d3c6bdfa7c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b258f8b6-9430-479b-be74-ae78f7343afc" LastKnownName="void" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ac3518a6-1691-414a-b02d-4430a9f9012e" name="SignInForm" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e7135a60-7b1d-4bbb-8fab-e2bd20472fc4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="83c3f16f-2bc9-48af-8e72-f81b5685164d" name="s" direction="In" isUnique="false">
+                  <elementDefinition Id="ba7964d6-183b-477b-90df-ad8029ee61b6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="70f82ccf-5c5f-47bc-821c-863119bb7498" LastKnownName="SignInHandler" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="17f42f3f-17b1-444d-b20f-bd53783bb141" name="homeForm" direction="In" isUnique="false">
+                  <elementDefinition Id="c9409c14-149a-486e-907e-6508078a882e" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="e0bbd9f4-5f68-4833-a481-bf97de71a7ce" LastKnownName="HomeForm" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="1ae65257-5cc0-436a-9f06-adfbb55e6095" name="EventSuccessfulLogin" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="d57e9a13-4493-4ff3-b3b9-ebacaa58e1de" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4f42b379-fb3b-44cf-9f18-b12d2d2007f8" direction="Return" isUnique="false">
+                  <elementDefinition Id="b1f7fac3-7cb5-4436-8c4b-21225a6e5317" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b258f8b6-9430-479b-be74-ae78f7343afc" LastKnownName="void" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="3e0300e8-3328-4fa8-abc5-734efa42c1e7" name="EventUnSuccessfulLogin" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ea8bfdfe-b458-4082-a31b-4b5cf13ab7d0" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4f40b12b-20c5-4644-beed-b3d94b3b844d" direction="Return" isUnique="false">
+                  <elementDefinition Id="7c03dbb3-1393-4c5a-96bd-051aff66b7c6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b258f8b6-9430-479b-be74-ae78f7343afc" LastKnownName="void" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="24037b0f-1928-403a-9717-a03085e96220" name="SignOut" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bc988036-1305-4803-818e-c33f9fdb2940" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4f35116f-7226-4fd1-bc95-260b907ed250" direction="Return" isUnique="false">
+                  <elementDefinition Id="0af4536d-87cc-4aee-b58c-311a5b9dcd5d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b258f8b6-9430-479b-be74-ae78f7343afc" LastKnownName="void" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="e15ce89e-a8b2-4737-a435-2a006477a931" name="uxExit_Click" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="da51414b-4181-4462-9909-70124eb810c9" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ff1c5751-9ac9-4125-b1a8-9ebdc8ce6ab3" name="sender" direction="In" isUnique="false">
+                  <elementDefinition Id="75014d9a-0f17-4d59-b9ba-1c5cfef8c6c8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="35da7b4a-b7f5-4f57-84f0-b773bba2fcb3" LastKnownName="object" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9ac31088-af46-4477-91b0-c794042bf54f" name="e" direction="In" isUnique="false">
+                  <elementDefinition Id="811b4a8f-f984-4b35-b570-afd457ecbe6f" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="55081832-7c54-4c50-8829-d36a094863b8" LastKnownName="EventArgs" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="a56bdca0-06c0-424f-a711-4b7fd328d120" direction="Return" isUnique="false">
+                  <elementDefinition Id="bef93664-1e5d-46aa-a78a-872cd189dd64" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="b258f8b6-9430-479b-be74-ae78f7343afc" LastKnownName="void" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="c52f73f4-78f9-4b4d-a694-bf6ac5e4ffdc" name="SignInFormObserver" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="008b4bb7-9a44-4ec8-8e5a-051518004369" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9ef31e11-4bbd-433e-8136-f3f7616b96d5" direction="Return" isUnique="false">
+                  <elementDefinition Id="93bebc2f-4efc-4f3c-b511-654d21948e8c" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="26cfd725-d24d-4fd0-bcf7-c84824c6233f" LastKnownName="SignInFormObserver" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="e0bbd9f4-5f68-4833-a481-bf97de71a7ce" name="HomeForm" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::HomeForm">
+        <elementDefinition Id="58c44c0b-734e-4c18-bce3-a8fb4b24cf9c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="26cfd725-d24d-4fd0-bcf7-c84824c6233f" name="SignInFormObserver" isAbstract="false" isLeaf="false" cachedFullName="SignInFormObserver">
+        <elementDefinition Id="41096db8-12c6-49de-8925-89e079c41fed" />
+      </referencedType>
+    </packageHasNamedElement>
   </packagedElements>
   <package Id="96e392d5-5206-41c3-b17e-e3cc1b2bf0ad" name="ModelingProject1">
     <elementDefinition Id="ce7dc644-d27c-420d-85e2-3d34b153da34" />
