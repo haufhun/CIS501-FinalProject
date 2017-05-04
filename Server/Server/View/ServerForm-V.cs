@@ -31,7 +31,7 @@ namespace Server.View
         /// <summary>
         /// List of the last selected users in the User list view.
         /// </summary>
-        private List<string> _userLVSelected;
+        private readonly List<string> _userLvSelected;
 
         /// <summary>
         /// Constructor that creates all the columns for the event log, initializes the list of buttons
@@ -80,7 +80,7 @@ namespace Server.View
                 uxMessageTB,
                 uxChatRoomIdTB
             };
-            _userLVSelected = new List<string>();
+            _userLvSelected = new List<string>();
 
             toolStripComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             toolStripComboBox1.SelectedIndex = 0;
@@ -223,7 +223,7 @@ namespace Server.View
         {
             var userList = string.Empty;
 
-            foreach(var un in _userLVSelected)
+            foreach(var un in _userLvSelected)
             {
                 var u = _db.LookupUser(un);
 
@@ -315,11 +315,11 @@ namespace Server.View
         private void uxUsersListView_SelectedIndexChanged(object sender, EventArgs e)
         {
             var lv = (ListView)sender;
-            _userLVSelected.Clear();
+            _userLvSelected.Clear();
 
             foreach (ListViewItem lvi in lv.SelectedItems)
             {
-                _userLVSelected.Add(lvi.Text);
+                _userLvSelected.Add(lvi.Text);
             }
 
             UpdateUserWebBrowser();

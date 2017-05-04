@@ -574,11 +574,6 @@ namespace Server.Controller
             _receive = a;
         }
         
-        protected override void OnOpen()
-        {
-
-        }
-
         /// <summary>
         /// Receives a string from the websocket, deserializes it, and calls the 
         /// ClientMessageHandler to perform a function.
