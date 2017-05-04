@@ -1278,6 +1278,11 @@
         <elementDefinition Id="99770e8c-1713-4f24-b0f4-a3bb837fc494" />
       </referencedType>
     </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="59c719fa-65c9-4a39-a905-d81204d0cfcf" name="Class1" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="cf37524f-9384-41c5-8dc4-1c6c88888e6d" />
+      </class>
+    </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="96e392d5-5206-41c3-b17e-e3cc1b2bf0ad" name="ModelingProject1">
     <elementDefinition Id="ce7dc644-d27c-420d-85e2-3d34b153da34" />
