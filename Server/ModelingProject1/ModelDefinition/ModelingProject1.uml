@@ -7597,7 +7597,7 @@ Below is outdated -- Calvin circa 2017</body>
     <packageHasNamedElement>
       <class
         Id="6567ad06-59bb-470f-b759-05c2444c60d0"
-        name="AddContactForm1"
+        name="AddContactForm"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -7616,7 +7616,7 @@ Below is outdated -- Calvin circa 2017</body>
     <packageHasNamedElement>
       <class
         Id="25da6476-e243-4e97-ab43-1380b12c027b"
-        name="ChatForm1"
+        name="ChatForm"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -8088,7 +8088,7 @@ Below is outdated -- Calvin circa 2017</body>
     <packageHasNamedElement>
       <class
         Id="8fe912dd-edf5-4a39-8570-25bd7e7ae745"
-        name="HomeForm1"
+        name="HomeForm"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -8931,7 +8931,7 @@ Below is outdated -- Calvin circa 2017</body>
     <packageHasNamedElement>
       <class
         Id="4c752442-8200-4cf6-b2c2-d6f22c66b1ca"
-        name="SignInForm1"
+        name="SignInForm"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">

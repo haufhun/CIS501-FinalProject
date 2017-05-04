@@ -108,28 +108,28 @@
       </nestedChildShapes>
     </classShape>
     <classShape Id="dc69143d-c50a-4e3a-9e48-bdb61930b922" absoluteBounds="7.125, 6.75, 1.5, 1.0624999801317849" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
-      <classMoniker Id="6f9d45bd-53ec-499f-b5f5-85913cfc1e89" LastKnownName="AddContactForm1" />
+      <classMoniker Id="6f9d45bd-53ec-499f-b5f5-85913cfc1e89" LastKnownName="AddContactForm" />
       <nestedChildShapes>
         <AttributeElementListCompartment Id="a856bee6-967b-4311-80f0-4b60b9f65ef2" absoluteBounds="7.14, 7.1400000000000006, 1.4700000000000002, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
         <OperationElementListCompartment Id="921a14d7-c402-4d0c-a5b9-6636a32d5d11" absoluteBounds="7.14, 7.35117186754942, 1.4700000000000002, 0.36132811258236563" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="f8471cc1-3d78-4467-87d6-233a7d2924d2" absoluteBounds="7.375, 8.25, 2.875, 2.9843749205271397" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
-      <classMoniker Id="5b48e09b-aa0c-4f80-876e-065005b941dc" LastKnownName="ChatForm1" />
+      <classMoniker Id="5b48e09b-aa0c-4f80-876e-065005b941dc" LastKnownName="ChatForm" />
       <nestedChildShapes>
         <AttributeElementListCompartment Id="f0ff2bce-f4d9-4df1-837f-f12f4cbab17f" absoluteBounds="7.39, 8.64, 2.8449999999999998, 1.0019530927141505" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
         <OperationElementListCompartment Id="bb0a53f4-1aa5-4edd-a1c1-55d3de01406c" absoluteBounds="7.39, 9.6519530927141517, 2.8449999999999998, 1.4824218278129895" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="18277d48-dc44-4730-b49e-0d96a01214f8" absoluteBounds="11.125, 6.75, 2.375, 4.5859373708566018" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
-      <classMoniker Id="343b2161-33bf-4136-9dbf-1cd7a572eb15" LastKnownName="HomeForm1" />
+      <classMoniker Id="343b2161-33bf-4136-9dbf-1cd7a572eb15" LastKnownName="HomeForm" />
       <nestedChildShapes>
         <AttributeElementListCompartment Id="56e28bc4-4cdd-4a5c-bddf-5fba3e5bbfeb" absoluteBounds="11.14, 7.1400000000000006, 2.3449999999999998, 1.8027343178788819" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
         <OperationElementListCompartment Id="252bd0e4-8eda-4dc8-9944-7e9abea88b13" absoluteBounds="11.14, 8.9527343178788819, 2.3449999999999998, 2.2832030529777203" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="80bccfae-d1b3-461b-8ab2-144852f56535" absoluteBounds="9, 11.375, 1.5, 2.3437499403953552" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
-      <classMoniker Id="a5812e2a-38fa-4de4-b4e9-867746050560" LastKnownName="SignInForm1" />
+      <classMoniker Id="a5812e2a-38fa-4de4-b4e9-867746050560" LastKnownName="SignInForm" />
       <nestedChildShapes>
         <AttributeElementListCompartment Id="333cb583-da56-44be-b2bc-1d6f17773a3f" absoluteBounds="9.015, 11.765, 1.4700000000000002, 0.52148435761531187" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
         <OperationElementListCompartment Id="ffefca41-769e-484a-823a-3ea4d1deb212" absoluteBounds="9.015, 12.296484357615313, 1.4700000000000002, 1.3222655827800431" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />

@@ -1578,7 +1578,7 @@
       </referencedType>
     </packageHasNamedElement>
     <logicalClassDesignerModelHasTypes>
-      <class Id="6f9d45bd-53ec-499f-b5f5-85913cfc1e89" name="AddContactForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="6f9d45bd-53ec-499f-b5f5-85913cfc1e89" name="AddContactForm" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="6567ad06-59bb-470f-b759-05c2444c60d0" />
         <ownedOperationsInternal>
           <operation Id="a382dee7-bbef-4ce2-a97e-49f318071bff" name="AddContactForm" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
@@ -1588,7 +1588,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="5b48e09b-aa0c-4f80-876e-065005b941dc" name="ChatForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="5b48e09b-aa0c-4f80-876e-065005b941dc" name="ChatForm" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="25da6476-e243-4e97-ab43-1380b12c027b" />
         <ownedAttributesInternal>
           <property Id="9ee93818-b897-463f-a984-2bcc854f5b4a" name="_chatRoom" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -1827,7 +1827,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="343b2161-33bf-4136-9dbf-1cd7a572eb15" name="HomeForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="343b2161-33bf-4136-9dbf-1cd7a572eb15" name="HomeForm" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="8fe912dd-edf5-4a39-8570-25bd7e7ae745" />
         <ownedAttributesInternal>
           <property Id="905aaf92-c6b3-442d-acb5-2a1628463256" name="_sInHandler" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -2249,7 +2249,7 @@
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
-      <class Id="a5812e2a-38fa-4de4-b4e9-867746050560" name="SignInForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
+      <class Id="a5812e2a-38fa-4de4-b4e9-867746050560" name="SignInForm" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="4c752442-8200-4cf6-b2c2-d6f22c66b1ca" />
         <ownedAttributesInternal>
           <property Id="ced5065e-cf14-4b54-88fa-00388fc0f198" name="_homeForm" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
