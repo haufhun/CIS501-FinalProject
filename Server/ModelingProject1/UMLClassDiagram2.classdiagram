@@ -1,23 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="ee0da8b9-474f-4e5b-a82c-e8cd89bb4874" name="UMLClassDiagram2" linkedPackageId="0b789186-4d81-4e4b-a480-ebf9fe4170cd" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
-  <profileInstances>
-    <packageHasProfileInstances Id="5f73432f-fe58-42ce-92ee-1e4b18657f7d">
-      <profileInstance Id="72bbffe0-44d7-4806-977d-c3c28d05d706" name="StandardProfileL2">
-        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
-      </profileInstance>
-      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
-    </packageHasProfileInstances>
-    <packageHasProfileInstances Id="7c2affb4-57b7-4785-bf96-bc6d24dc8c47">
-      <profileInstance Id="de506019-38aa-4868-8dd3-9ff4bbe8bab9" name="StandardProfileL3">
-        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
-      </profileInstance>
-      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
-    </packageHasProfileInstances>
-  </profileInstances>
   <packagedElements>
     <logicalClassDesignerModelHasTypes>
       <class Id="b7bacdb3-6268-46ad-a507-22daeef0bcd2" name="ChatDB" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="05197af9-8574-46f9-a648-5218fa74f772" />
+        <targetEnds>
+          <association Id="3d8f38e0-8eaa-46ef-865b-f0e2f9b9215d" isDerived="false" sourceEndRoleName="ChatDB" targetEndRoleName="ChatRoom" isLeaf="false" isAbstract="false">
+            <classMoniker Id="c995a747-69a8-4478-8a8a-4e5da60c6ad6" LastKnownName="ChatRoom" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ff551347-ee03-4233-815b-f0de6aed71d4" name="ChatDB" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b27b5235-8f21-4c39-af23-d92651f12891" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0a5f2817-b44c-4fbb-92a5-2acc1c02bcc7" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="39592bd0-feb6-4af9-a5b4-23623d238626" name="Lower" value="*">
+                      <elementDefinition Id="b48b4963-f78a-4586-b8a2-6afd59076bc1" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="19391b0e-b608-46af-902f-8033b983ae13" name="Upper" value="*">
+                      <elementDefinition Id="dd2113aa-fc0b-47db-966e-3469e2109126" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="7895701e-515d-4888-a90d-7b1e6dc32641" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="eea5d5fc-6467-4965-b134-ceb871ceb434" />
+          </association>
+          <association Id="d270c391-d8fb-487e-b5f8-44a1ed433419" isDerived="false" sourceEndRoleName="ChatDB" targetEndRoleName="User" isLeaf="false" isAbstract="false">
+            <classMoniker Id="a3ee4a4c-699b-4989-86ae-babdba2b8244" LastKnownName="User" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3b917dbd-961b-42ea-828a-e7a243dbb67b" name="ChatDB" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="fa8b3bbd-6159-47e5-95f5-87051f364a98" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="83534ab9-25ef-4d6b-8853-9a4926ff8fb5" name="User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="23126ed4-054d-4a31-9462-a31ede9d9fa6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="bfff55a6-9abe-4efb-848a-de479c9f98d7" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="dff10b49-c087-46bb-ae2b-4e1423b33eb2" name="User" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="96f26f41-7a66-43bc-bbdf-bfb23cad274a" />
@@ -58,6 +88,70 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="c995a747-69a8-4478-8a8a-4e5da60c6ad6" name="ChatRoom" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="9ab4af71-06bb-42d2-8aae-c0b0c90af203" />
+        <suppliersInternal>
+          <dependency Id="aeec7edb-43e6-407b-acf0-283be719f8a3">
+            <classMoniker Id="51a545c6-a249-4690-90a6-f9c0776bc72c" LastKnownName="ContactList" />
+            <elementDefinition Id="aad6e0f4-1d1c-4198-a00a-4db735041d28" />
+          </dependency>
+          <dependency Id="4859564d-f1bb-4a81-9e9f-9ed77736960a">
+            <enumerationMoniker Id="f92deccb-b929-418f-a0bf-473b97cc9dbc" LastKnownName="Status" />
+            <elementDefinition Id="3d487dc3-1a7a-4488-aebc-b0d8aef95c8e" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="78ec7fab-0c7f-4d47-8a62-d20f7e863304" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="User" isLeaf="false" isAbstract="false">
+            <classMoniker Id="a3ee4a4c-699b-4989-86ae-babdba2b8244" LastKnownName="User" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="54491b79-2d56-4522-9257-88c047945083" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9b0e3189-6b6c-4df2-a4b1-9d0d6015c7a7" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b0939538-ef11-4141-bf90-5b8b62b7bf05" name="User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="e94c1194-7e00-4ff3-8a98-261e855402cc" name="Lower" value="*">
+                      <elementDefinition Id="d1a0787c-b080-48ec-b9a7-7a49bd46269b" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="f42b08e8-477c-45bf-8091-9db82598d358" name="Upper" value="*">
+                      <elementDefinition Id="1c1da0eb-03ae-477e-8c6c-7fda2b2caaa4" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="47f7f85a-fa53-49ba-aa0a-13882082e876" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="fd0763fd-5291-4e99-a70c-965b56041cdb" />
+          </association>
+          <association Id="281b3aba-9a73-4ab1-bc03-b4339d104638" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="TextMessage" isLeaf="false" isAbstract="false">
+            <classMoniker Id="6e2277cd-761b-4e3a-ad13-3cdc2edc9626" LastKnownName="TextMessage" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="67425ae6-861f-4e6d-9b91-fd2682e6f25d" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f977a92b-8077-4f70-bf23-32da1521ad7b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bbc78bb4-4e5f-4e1a-a351-d3c8d6024aa9" name="TextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="4a6db7e7-b6b4-4964-99c0-c98628428ab0" name="Lower" value="*">
+                      <elementDefinition Id="9a6049aa-2aa7-48e5-904b-72d5de187254" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="5d5d4965-1ac3-4282-ba15-9101fcddc46d" name="Upper" value="*">
+                      <elementDefinition Id="5ba2d9bb-2a33-4fd2-ac46-28942d610809" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="1f74a8a0-6acc-4938-846e-b17c78bb26bc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f8e3fb60-5f6a-4027-86d5-f7f275ac2204" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="f7b00016-0cd2-42fa-8cb0-1a1029820ede" name="Id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="65072880-4cf2-4756-9db0-f58a9cc7045b" />
@@ -306,23 +400,1084 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="51a545c6-a249-4690-90a6-f9c0776bc72c" name="ContactList" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="b671d6f7-066d-4d13-b945-3e48b8e2aee7" />
+        <suppliersInternal>
+          <dependency Id="2052408a-862e-4c06-9673-e0b321693ffe">
+            <classMoniker Id="48ee1629-eaca-49d2-832e-5b2bd6a429d0" LastKnownName="Contact" />
+            <elementDefinition Id="26137f20-96f2-4f0d-bc08-24d4d9db0215" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="a9689000-28a1-4146-9b8d-2632424bc8cb" isDerived="false" sourceEndRoleName="ContactList" targetEndRoleName="IContact" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3f704348-711e-451f-b699-22461f9fbee1" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="4ace8f2a-0d0c-4d2d-b2e1-a20172cc3120" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2e2a7905-b105-4b6a-a36b-1998826d7df1" name="IContact" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="8c76a209-f6db-43a0-a2b0-9e401e3308bf" name="Lower" value="*">
+                      <elementDefinition Id="b685570e-cf12-49a7-9228-42000e767eca" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="45b8df63-fc6d-4eee-a3b6-91aa158c5b00" name="Upper" value="*">
+                      <elementDefinition Id="9f5df142-1c40-4abe-8a7a-a6c99bf6f78f" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="b2c4a394-a6c8-49a7-afa8-4ad94fdc7cec" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="6f58d818-50f1-4af7-8dd1-fb898a0e6b3f" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="c76abb1d-baaf-426f-bfcb-1d44b8fb14f4" name="_contacts" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="8e8dac9c-7479-4058-9cd1-798be55d790f" />
             <type_NamedElement>
-              <referencedTypeMoniker Id="29bfbadf-87e9-421f-9043-ee75722ce6b8" LastKnownName="Dictionary" />
+              <referencedTypeMoniker Id="d8a75580-63e1-4a95-96d7-1cd5d8c99a1a" LastKnownName="Dictionary&lt;string, IContact&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="7ab2431e-21ad-45c8-99cc-d8dc40d6b26b" name="Count" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="af5984e8-0168-4e4c-96d8-11897662cf81" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2e9cb70d-d186-458c-9862-8fb4ef7d7767" LastKnownName="int" />
+            </type_NamedElement>
+          </property>
+          <property Id="b51307fc-3406-458c-b689-00419cb4fe56" name="Contacts" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="79967cd0-f6e8-44c3-8a21-b1c4c9feaf3d" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="f43e5021-2e1f-4be6-a588-5fc625f291c0" LastKnownName="IEnumerable&lt;IContact&gt;" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="c9cd7fbb-5eb7-4914-a329-9c00e8cc9453" name="GetAllContacts" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="72cef69c-46d6-4602-80de-2d3e5f29f9d8" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="28ed4a9e-62e9-47cf-8f21-c3d4a4f9e7b4" direction="Return" isUnique="false">
+                  <elementDefinition Id="34f5f588-034b-4be7-b83a-23f3d6120900" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f43e5021-2e1f-4be6-a588-5fc625f291c0" LastKnownName="IEnumerable&lt;IContact&gt;" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="688e3288-a314-4f3a-af2d-4ba293e6c287" name="GetContact" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="20e583ec-5015-4455-9191-f06cae0bba55" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="15218207-e866-42ed-88fc-c07688617c85" name="username" direction="In" isUnique="false">
+                  <elementDefinition Id="4be1235a-6993-4813-8459-822620c5697d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="39c34308-938e-40ed-aaee-864d50aa3823" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7fd3ee34-c53a-41c0-b5a2-98361912d1d2" direction="Return" isUnique="false">
+                  <elementDefinition Id="531cc218-c7b0-4682-9ae2-87acffaf2008" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="84286e0b-41c1-459a-9a80-fac0cd2eb903" LastKnownName="IContact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="c84c7b8e-7650-42c3-90da-1727ebd6c3a8" name="RemoveContact" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="acc7f8b9-9165-4589-9786-2923ee2cc16b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="61a03e92-1a4d-40e8-b65e-b1eb1ec4c7e8" name="username" direction="In" isUnique="false">
+                  <elementDefinition Id="d6f5a4bf-b606-4568-926c-92cce0873bc3" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="39c34308-938e-40ed-aaee-864d50aa3823" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="8cec1271-50d5-45ec-b328-3cfd1683df3f" name="- ContactList(contacts: Dictionary&lt;string, Contact&gt;" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ed5c7d3e-20ca-459f-b162-97ea8ee57e8f" />
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <packageHasNamedElement>
-      <referencedType Id="29bfbadf-87e9-421f-9043-ee75722ce6b8" name="Dictionary" isAbstract="false" isLeaf="false" cachedFullName="Dictionary">
-        <elementDefinition Id="351b00dc-bb84-4b5b-95ce-4322e72e5fa8" />
+      <referencedType Id="d8a75580-63e1-4a95-96d7-1cd5d8c99a1a" name="Dictionary&lt;string, IContact&gt;" isAbstract="false" isLeaf="false" cachedFullName="Dictionary&lt;string, IContact&gt;">
+        <elementDefinition Id="d97d2152-e369-4850-b359-23d2c6964dfd" />
       </referencedType>
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2e9cb70d-d186-458c-9862-8fb4ef7d7767" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
+        <elementDefinition Id="99770e8c-1713-4f24-b0f4-a3bb837fc494" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="84286e0b-41c1-459a-9a80-fac0cd2eb903" name="IContact" isAbstract="false" isLeaf="false" cachedFullName="IContact">
+        <elementDefinition Id="a4ae943c-9dcf-40b8-9ca2-ecf974e93fbc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="48992a6d-208c-40e1-a346-d2f1b8f74d63" name="IEnumerable&lt;ITextMessage&gt;" isAbstract="false" isLeaf="false" cachedFullName="IEnumerable&lt;ITextMessage&gt;">
+        <elementDefinition Id="f6aace4f-18cb-455a-9712-e90fd18e4e0b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="4dca7008-008f-4076-ad89-5e9faf1d7ada" name="IEnumerable&lt;IUser&gt;" isAbstract="false" isLeaf="false" cachedFullName="IEnumerable&lt;IUser&gt;">
+        <elementDefinition Id="132a8c77-2475-4b90-af9c-e1e5d8db4186" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="0032b77c-18da-4d63-a235-0cde881bcfe4" name="int" isAbstract="false" isLeaf="false" cachedFullName="int">
+        <elementDefinition Id="99770e8c-1713-4f24-b0f4-a3bb837fc494" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="a35c385f-1524-4fef-87f5-22fef34d6005" name="IEnumerable&lt;IContact&gt;" isAbstract="false" isLeaf="false" cachedFullName="IEnumerable&lt;IContact&gt;">
+        <elementDefinition Id="7ec608a6-f7f9-4f71-8337-b9880cedd852" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2074b345-4a10-48b1-99f4-b69304f8e5bf" name="IContact" isAbstract="false" isLeaf="false" cachedFullName="IContact">
+        <elementDefinition Id="a4ae943c-9dcf-40b8-9ca2-ecf974e93fbc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="d3503f31-b411-4b6d-a1cd-2cea8867ca25" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
+        <elementDefinition Id="61d3e072-0138-446a-b6f0-e8e99578608f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="3b2c85d2-c0b5-40bf-87ee-c2362d1aa398" name="Status" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Status">
+        <elementDefinition Id="f1a255b5-9fa2-4d45-a976-1fde3f72a239" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6e8da963-8f10-42a3-b5fa-7afbadd3752a" name="IContact" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::IContact">
+        <elementDefinition Id="85a9af2a-056e-4d02-9973-69b6e1dc2cbc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="eb745964-dedb-4924-8d21-a42fddb7c33c" name="IContactList" isAbstract="false" isLeaf="false" cachedFullName="IContactList">
+        <elementDefinition Id="f9dcd5a3-decc-4745-b514-19a43d3d8688" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="0003349c-b4bb-4754-9158-e74ff3a57fc0" name="IChatRoom" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::IChatRoom">
+        <elementDefinition Id="ef7e293f-9091-4836-8c9f-43baa864a127" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="76eba24e-e0d7-4466-8ccf-5091dd414631" name="State" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::State">
+        <elementDefinition Id="e13c2dd0-e1b8-425f-833a-214a336a9d33" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c44c05a9-0946-4db8-89b3-8c57da39a465" name="ITextMessage" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::ITextMessage">
+        <elementDefinition Id="757a15e1-8b78-43a8-80cd-da8308a2cb3e" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="4f5986de-8d9b-4055-96e8-f58c69c7092b" name="IUser" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::IUser">
+        <elementDefinition Id="123dfb99-d4f5-4c3a-b9de-12685d72669c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f79d53f1-c945-4061-92cb-ec2bd796de39" name="Contact" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Contact">
+        <elementDefinition Id="262cba63-6082-43c7-8201-28f770dc89b5" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6f5ce170-f5fd-4997-b3d2-2082cbd3cdc7" name="ContactList" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::ContactList">
+        <elementDefinition Id="366224a6-221d-4414-b251-a5c44cda21ad" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5dc76ff8-920d-4c87-a0d1-f1bdc35a23f2" name="IContactList" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::IContactList">
+        <elementDefinition Id="df068fef-4f7c-423e-b4e1-23aadd97759c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f387ced1-ce5e-4f81-9eb2-94051168fef9" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
+        <elementDefinition Id="f1e2f1f4-d695-41d7-83a6-c2d7864a152c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c127ae98-2ece-43b1-a36b-499c55e2a75d" name="State" isAbstract="false" isLeaf="false" cachedFullName="State">
+        <elementDefinition Id="91f52a15-871a-467a-82b5-56af73c98495" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2ffa4423-355c-4e57-842c-586f91e477d6" name="IUser" isAbstract="false" isLeaf="false" cachedFullName="IUser">
+        <elementDefinition Id="6b848b63-6653-4588-8811-a7e2b048ca5d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2f1c6cb9-2440-43d6-a3c3-4064bf989613" name="IChatRoom" isAbstract="false" isLeaf="false" cachedFullName="IChatRoom">
+        <elementDefinition Id="a60fb0b7-8cf6-4981-bfbf-b82869ec3d00" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1f5dc38e-e386-46ee-81e4-2e3775d7ee15" name="ITextMessage" isAbstract="false" isLeaf="false" cachedFullName="ITextMessage">
+        <elementDefinition Id="ccbcdb57-53d6-4839-b009-599af57f1877" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b8e5547d-e5e6-4088-87f3-fc962e1c3bcc" name="IEnumerable&lt;string&gt;" isAbstract="false" isLeaf="false" cachedFullName="IEnumerable&lt;string&gt;">
+        <elementDefinition Id="0e26522f-eb30-4363-ab94-c799ddebe060" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="40d0e6f4-d435-47fd-8c30-51e2995261db" name="State" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::Package2::State">
+        <elementDefinition Id="e13c2dd0-e1b8-425f-833a-214a336a9d33" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="af489d7a-51eb-487f-a17f-7f9ac6a46593" name="User" isAbstract="false" isLeaf="false" cachedFullName="User">
+        <elementDefinition Id="3778896e-bb1a-4ffa-8b55-98dbeac1a68e" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="810743e3-accf-4226-9eaa-81c97a23db9f" name="ChatRoom" isAbstract="false" isLeaf="false" cachedFullName="ModelingProject1::ChatRoom">
+        <elementDefinition Id="593376d4-2ab3-4a55-8f42-05f156dd4ef0" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="53dd640a-8a69-44f9-9b31-89e4fcaf9a07" name="TextMessage" isAbstract="false" isLeaf="false" cachedFullName="TextMessage">
+        <elementDefinition Id="2fa50546-ab4c-45f5-baa9-c17d1f9f2411" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasPackages>
+      <package Id="1b467675-395d-407c-b4a2-f9b2432b2c0a" name="Chat-CSLibrary2">
+        <elementDefinition Id="bccb415d-1bc6-43dd-9930-a2d778112f91" />
+        <packagedElements>
+          <packageHasNamedElement>
+            <Interface Id="e0ed5408-3da0-440c-a772-2f56959784a6" name="IChatRoom" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="f39fe1db-cd5d-4571-bd97-a8b1ecfc98d9" />
+              <suppliersInternal>
+                <dependency Id="641c9a1a-fa05-42bc-8a09-eea4dd81a821">
+                  <interfaceMoniker Id="637fa811-cfb7-423a-b306-4644f3e1d8ea" LastKnownName="ITextMessage" />
+                  <elementDefinition Id="6534eee1-c5e2-4134-a23e-e4fa999d5780" />
+                </dependency>
+                <dependency Id="2da46e85-504d-48a5-88df-4cb0898127b9">
+                  <interfaceMoniker Id="c9b30846-00a3-4eec-8b57-761206e92e33" LastKnownName="IUser" />
+                  <elementDefinition Id="45dad5d4-c86b-4584-8ebe-9568fd4c5649" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributes>
+                <property Id="d67359e8-099a-419d-a33c-68d08397e790" name="Id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="e384418a-0cb7-49d0-bdb5-c442bdc3124b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+                <property Id="bf280e4b-1379-4ce4-ab4f-5db99bf193c4" name="MessageHistory" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="62a8c62e-5fdc-4eca-8fb3-2c7452d79111" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="48992a6d-208c-40e1-a346-d2f1b8f74d63" LastKnownName="IEnumerable&lt;ITextMessage&gt;" />
+                  </type_NamedElement>
+                </property>
+                <property Id="0a6ad07c-2ab5-4bb3-801a-d15150441938" name="Participants" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="85f2cbbf-d5f6-40f0-bda8-613776c0901b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="4dca7008-008f-4076-ad89-5e9faf1d7ada" LastKnownName="IEnumerable&lt;IUser&gt;" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="212d3c71-1493-4786-a180-f8f40bff5372" name="IContactList" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="d2e78a86-18c4-4c09-b587-368a82495c85" />
+              <suppliersInternal>
+                <dependency Id="c957018a-1f46-4736-afca-27849d326996">
+                  <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+                  <elementDefinition Id="da75a1e2-f86a-4db1-95e8-b009401a29a3" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributes>
+                <property Id="ccefa169-5e0c-4a79-a7c1-9d8812d6aa57" name="Count" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b904254b-2e38-4805-a943-76f18d7b18ad" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="0032b77c-18da-4d63-a235-0cde881bcfe4" LastKnownName="int" />
+                  </type_NamedElement>
+                </property>
+                <property Id="a429b8b5-3fb8-4bc5-8179-140482f9c940" name="Contacts" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="35298057-3973-4e3d-aa3d-b6ea73a425dd" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="a35c385f-1524-4fef-87f5-22fef34d6005" LastKnownName="IEnumerable&lt;IContact&gt;" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+              <ownedOperations>
+                <operation Id="5f1d740b-1ab8-4e1e-a075-7bef2cca6d14" name="GetContact" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="ef35513f-491b-4abe-8707-97b7a7675eab" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="dd2db433-3605-48cc-acc3-2c145a20f49e" name="username" direction="In" isUnique="false">
+                        <elementDefinition Id="80152913-7b2f-4f32-9bbb-cb052a2b7401" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperations>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="637fa811-cfb7-423a-b306-4644f3e1d8ea" name="ITextMessage" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="e5bf0e30-3fa3-4385-ad4c-a72ab7a88cf5" />
+              <suppliersInternal>
+                <dependency Id="b8d40345-5075-47d9-84f8-5c39b871cf5f">
+                  <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+                  <elementDefinition Id="f3ee391c-0e95-4bd7-a186-76ccb0c81dc5" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributes>
+                <property Id="19e043e9-3e8e-4b44-bd54-81c1966f0167" name="Body" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="20076721-3c56-4e74-b92a-1bf9f150509a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+                <property Id="b90edcf4-0acf-4eba-9ff1-9aac54718d71" name="Sender" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="11bb5ce1-42d9-4507-8ae8-e23d4c422e50" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="2074b345-4a10-48b1-99f4-b69304f8e5bf" LastKnownName="IContact" />
+                  </type_NamedElement>
+                </property>
+                <property Id="7f1f520b-0939-4267-91c1-0c56b4e6a35f" name="Time" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="8062e309-2996-45a7-b727-86993cdf1374" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d3503f31-b411-4b6d-a1cd-2cea8867ca25" LastKnownName="DateTime" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="6943403c-a7f2-476c-914b-8d8b27484f5b" name="IContact" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="30d380c2-6e89-445a-b102-200a6be287d8" />
+              <suppliersInternal>
+                <dependency Id="bea22689-717b-487b-aca7-7c7a4c16734a">
+                  <enumerationMoniker Id="f92deccb-b929-418f-a0bf-473b97cc9dbc" LastKnownName="Status" />
+                  <elementDefinition Id="dbfcddcc-a8ae-437c-a28c-ca2a79c59857" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributes>
+                <property Id="4db08766-7a06-48bc-bb0b-0db61555c14e" name="Username" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="66468015-c4bf-46c2-9772-cadb4c41490a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </property>
+                <property Id="d529843a-2c44-4b30-b308-3e3f1fed8d1d" name="OnlineStatus" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f89639ff-feba-4591-80c7-92e87588f273" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3b2c85d2-c0b5-40bf-87ee-c2362d1aa398" LastKnownName="Status" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="85d6ed39-d771-4a57-aa36-c8f01e8f0bc1" name="State" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="c4100a80-1e18-4a0a-ae57-a844581d4103" />
+              <ownedLiterals>
+                <enumerationLiteral Id="1df45557-a983-4511-97f1-69b67b9be5f7" name="Login">
+                  <elementDefinition Id="2e72fea9-719c-453a-8bdb-723883b7ac19" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="4dc165e9-78c0-4556-80b7-f10d1a300308" name="Logout">
+                  <elementDefinition Id="ff0cc176-4adf-403a-993b-073f148077fa" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="2ba813b1-15aa-476f-8779-61bf275bc341" name="AddContact">
+                  <elementDefinition Id="499b0e08-89e0-42e3-a66f-ce6fe66df84f" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="d0766790-2826-4c76-ab2c-06555cf3070d" name="RemoveContact">
+                  <elementDefinition Id="307f6e98-07fd-4a32-8843-f918691a2db5" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="229c7b61-efd8-455f-9f16-7680684bde76" name="OpenChat">
+                  <elementDefinition Id="7fd8af3d-15db-4b79-bd72-09bdfa71e591" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="f7ca4cd2-3c13-45ca-8bce-e33a3f5b0014" name="CloseChat">
+                  <elementDefinition Id="7cf38127-2b37-4d55-83e6-92a2ba9271b9" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="c89d651b-da81-4ad1-85f9-946e96165fe6" name="AddContactToChat">
+                  <elementDefinition Id="8a158a69-238c-4807-b702-150701c8c587" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="2f710203-4276-456c-b499-da7217320d0c" name="SendTextMessage">
+                  <elementDefinition Id="16946e56-65f3-43c0-a07d-8d579dc61362" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <enumeration Id="f92deccb-b929-418f-a0bf-473b97cc9dbc" name="Status" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="2355eb60-e050-4b40-8a23-b1c949b3e9c8" />
+              <ownedLiterals>
+                <enumerationLiteral Id="44e289a0-f67e-4bbb-9995-d0c223089249" name="Offline">
+                  <elementDefinition Id="ff95c39e-62ff-423f-bf22-ee1453a95830" />
+                </enumerationLiteral>
+                <enumerationLiteral Id="d4d4e8bf-622d-4eb9-83f2-8cfd2a0b65e2" name="Online">
+                  <elementDefinition Id="26618f42-c02c-44d3-894d-a72a85d68d3d" />
+                </enumerationLiteral>
+              </ownedLiterals>
+            </enumeration>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="c9b30846-00a3-4eec-8b57-761206e92e33" name="IUser" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="5e61dcff-bb74-4f5c-b0ae-a2908b04e40d" />
+              <suppliersInternal>
+                <dependency Id="df0eb692-2cb7-4d24-8b4b-8904521b76c9">
+                  <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+                  <elementDefinition Id="3ae7013a-2fbd-4090-a20d-f3b873b41402" />
+                </dependency>
+                <dependency Id="e15b8339-2452-49e7-af29-ffee99f2e027">
+                  <interfaceMoniker Id="212d3c71-1493-4786-a180-f8f40bff5372" LastKnownName="IContactList" />
+                  <elementDefinition Id="bd79ff00-092c-46b2-8a62-0f72ed0a0c2f" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributes>
+                <property Id="72b64fab-d381-4118-a9a3-94f8163a41de" name="ContactInfo" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="78b23a16-08f3-4fe0-b74c-3b4653b43ed3" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6e8da963-8f10-42a3-b5fa-7afbadd3752a" LastKnownName="IContact" />
+                  </type_NamedElement>
+                </property>
+                <property Id="5affc33b-104c-4355-a07f-b31318483317" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f92322e2-a60c-4097-83de-76e733e683c8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="eb745964-dedb-4924-8d21-a42fddb7c33c" LastKnownName="IContactList" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+          <packageHasNamedElement>
+            <Interface Id="c62be84e-0706-4232-b22f-92eb14e5edaa" name="IMensaje" isAbstract="false" isLeaf="false">
+              <elementDefinition Id="b5c72b89-6118-47d1-9859-813b9bc1a334" />
+              <suppliersInternal>
+                <dependency Id="398262a3-b77e-4123-ab88-8d2e283665b2">
+                  <interfaceMoniker Id="212d3c71-1493-4786-a180-f8f40bff5372" LastKnownName="IContactList" />
+                  <elementDefinition Id="58f7a854-68ad-4fd7-a8fb-39f2450d8e8a" />
+                </dependency>
+                <dependency Id="5d98524a-0fbc-494b-ba85-23e63f09d521">
+                  <enumerationMoniker Id="85d6ed39-d771-4a57-aa36-c8f01e8f0bc1" LastKnownName="State" />
+                  <elementDefinition Id="c27c421c-fffb-43ac-9bef-ec720805b0af" />
+                </dependency>
+                <dependency Id="cbb07f29-90d0-4185-ac4d-8ef636f5267f">
+                  <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+                  <elementDefinition Id="101d724b-3fbd-45fd-b5c3-8d48e41d80bf" />
+                </dependency>
+                <dependency Id="7ae79fcb-1085-4351-a107-b07d4d1ea6c2">
+                  <interfaceMoniker Id="637fa811-cfb7-423a-b306-4644f3e1d8ea" LastKnownName="ITextMessage" />
+                  <elementDefinition Id="e14a42f5-cebe-415b-88fe-b651a9e69a74" />
+                </dependency>
+                <dependency Id="b15594da-dc5f-4ad5-82e8-5241763f6eba">
+                  <interfaceMoniker Id="e0ed5408-3da0-440c-a772-2f56959784a6" LastKnownName="IChatRoom" />
+                  <elementDefinition Id="088a3c9a-a916-44f0-a350-fd32447466db" />
+                </dependency>
+                <dependency Id="4ed17ea9-4ecd-4558-9eae-eaea67ba0288">
+                  <interfaceMoniker Id="c9b30846-00a3-4eec-8b57-761206e92e33" LastKnownName="IUser" />
+                  <elementDefinition Id="d86f76a1-f662-4dd6-89f5-d2c4f50aa272" />
+                </dependency>
+              </suppliersInternal>
+              <ownedAttributes>
+                <property Id="0b78096f-b874-4b6f-aa4c-2d020297f118" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f4e43ec9-8ef9-442e-9fc9-b58444328e77" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="0003349c-b4bb-4754-9158-e74ff3a57fc0" LastKnownName="IChatRoom" />
+                  </type_NamedElement>
+                </property>
+                <property Id="7e429e6b-b229-4f35-9516-7bee086601d8" name="Contact" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a334596f-7a83-4873-b7c1-cec0833bec12" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6e8da963-8f10-42a3-b5fa-7afbadd3752a" LastKnownName="IContact" />
+                  </type_NamedElement>
+                </property>
+                <property Id="54ab86da-484f-4043-b132-2d55569b9edc" name="MyState" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="e9369723-83e7-43b2-ae0b-fcac691edd97" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="76eba24e-e0d7-4466-8ccf-5091dd414631" LastKnownName="State" />
+                  </type_NamedElement>
+                </property>
+                <property Id="70f4d791-1fd1-4647-ae45-88525f8e9b6d" name="TextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="25f21f05-7cdd-4b39-9751-83124448cdb2" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c44c05a9-0946-4db8-89b3-8c57da39a465" LastKnownName="ITextMessage" />
+                  </type_NamedElement>
+                </property>
+                <property Id="cf93235b-d25c-47e9-ab32-0ec1d01294e5" name="User" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a6316be2-eb17-4d92-a586-f15f4218bff8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="4f5986de-8d9b-4055-96e8-f58c69c7092b" LastKnownName="IUser" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
+            </Interface>
+          </packageHasNamedElement>
+        </packagedElements>
+      </package>
+    </logicalClassDesignerModelHasPackages>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="6e2277cd-761b-4e3a-ad13-3cdc2edc9626" name="TextMessage" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="cb4748c8-33e4-42a1-9468-db10603d478a" />
+        <suppliersInternal>
+          <dependency Id="efba75e0-c403-4714-bc58-6536dda63a94">
+            <interfaceMoniker Id="637fa811-cfb7-423a-b306-4644f3e1d8ea" LastKnownName="ITextMessage" />
+            <elementDefinition Id="4a34951c-b835-4a4b-8281-f1e55704fac6" />
+          </dependency>
+          <dependency Id="a42c1f6d-1f0f-44ba-908d-2de63409cec0">
+            <classMoniker Id="48ee1629-eaca-49d2-832e-5b2bd6a429d0" LastKnownName="Contact" />
+            <elementDefinition Id="e2041695-2116-425a-90bd-913db926e791" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property Id="14b65e72-8979-4b13-aafa-3ecd8fd80228" name="Body" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bd33f63b-320e-438b-96a9-447d601776c5" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="ff3fba99-29d9-4fd5-8ada-d90b531ac076" name="Sender" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5413d9ec-8146-4571-81a7-9b7595c133af" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="6e8da963-8f10-42a3-b5fa-7afbadd3752a" LastKnownName="IContact" />
+            </type_NamedElement>
+          </property>
+          <property Id="3e85c76c-f63b-429f-9a8d-42cb6acc772e" name="Time" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7888bdbf-0b38-460c-8798-32b2edd64284" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d3503f31-b411-4b6d-a1cd-2cea8867ca25" LastKnownName="DateTime" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="778be0a9-58a9-4703-ab3e-0ca4e6edf1fe" name="TextMessage" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="27d88913-a1db-4b1b-b834-d79b7e5b6e2a" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="960296df-2a12-4b49-950f-2e1b4a66a93b" name="body" direction="In" isUnique="false">
+                  <elementDefinition Id="f7e9a2df-17f1-47f7-ac92-ea83ec63a0b8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="600a0a04-a55c-41da-a737-0ae4d7dfaaa3" name="sender" direction="In" isUnique="false">
+                  <elementDefinition Id="96d56d57-ba08-497a-9557-bbc9433582e0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6e8da963-8f10-42a3-b5fa-7afbadd3752a" LastKnownName="IContact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="7e6d06aa-f65c-45c9-90fd-873e8c50adc1" name="TextMessage" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="2ec5cb2c-a088-47a0-852d-c1fc14467b79" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="aa04f174-5cff-4c00-8ebe-73ce6c05126e" name="body" direction="In" isUnique="false">
+                  <elementDefinition Id="c94927c0-4c98-4c4f-b097-b0dacf243770" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4590b540-e21c-4d25-b0e0-022088bfb362" name="sender" direction="In" isUnique="false">
+                  <elementDefinition Id="22bb4862-0b94-41ed-948b-d34680f785e5" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f79d53f1-c945-4061-92cb-ec2bd796de39" LastKnownName="Contact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="83b51d62-9ba6-4df1-b739-ffbb9fe4b9e0" name="time" direction="In" isUnique="false">
+                  <elementDefinition Id="8d86371e-a7bc-4222-85d4-47d8996f9021" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d3503f31-b411-4b6d-a1cd-2cea8867ca25" LastKnownName="DateTime" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="19177a2a-b904-4bef-8954-94be19877947" name="ToString" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="eee4871e-37cd-4204-86fe-8d685b8965c3" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="2d928c30-0a7a-4dd2-8b17-f4a451da8641" direction="Return" isUnique="false">
+                  <elementDefinition Id="267a0675-f9b9-4c8c-b2de-114556b56aa1" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a3ee4a4c-699b-4989-86ae-babdba2b8244" name="User" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="27868ada-ce4d-4f04-b773-77159ca352d8" />
+        <suppliersInternal>
+          <dependency Id="7609999c-5852-4c04-b54e-7b5443e04d7b">
+            <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+            <elementDefinition Id="3197263d-e55f-4895-aa28-f8fc97c0b396" />
+          </dependency>
+          <dependency Id="1f064bf7-d200-4e59-8150-a3b4d299e9b3">
+            <interfaceMoniker Id="212d3c71-1493-4786-a180-f8f40bff5372" LastKnownName="IContactList" />
+            <elementDefinition Id="23450469-fa3d-46b8-823c-7335bf4c3950" />
+          </dependency>
+          <dependency Id="c5aceafb-f816-4a6c-973f-8414f82ac004">
+            <enumerationMoniker Id="f92deccb-b929-418f-a0bf-473b97cc9dbc" LastKnownName="Status" />
+            <elementDefinition Id="1294cd3d-5318-4cb1-87ee-36705266ae00" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property Id="ba913c5a-502e-4f72-b188-c857666aad32" name="_password" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6674bb6f-7cc6-4569-a5fb-35f4c47483fb" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="8cfa482d-085a-4296-a750-8b75297a5c62" name="_contactList" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="eac853e5-9024-415d-a106-46c3152ee526" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="6f5ce170-f5fd-4997-b3d2-2082cbd3cdc7" LastKnownName="ContactList" />
+            </type_NamedElement>
+          </property>
+          <property Id="d67d0681-166c-4dcd-9fcf-5584c6160f47" name="Password" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6ef32f0f-5ce6-405e-9bf1-9bc33a8d4de3" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="a940eb2d-f09b-48d6-b96e-fa6e82c210fd" name="sessionId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="f14ba1f1-1a15-434e-884c-f84da9c403b1" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="ac0da7b0-58e7-434d-b99e-3e4b9eec1d51" name="ContactInfo" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="6ecd8147-8f27-4ded-9e7f-4c552bfd2154" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="6e8da963-8f10-42a3-b5fa-7afbadd3752a" LastKnownName="IContact" />
+            </type_NamedElement>
+          </property>
+          <property Id="dfd31168-49e0-4201-aa48-a62ade61e236" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="c1bde06e-697d-47ba-ad93-05d1d4b24438" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="5dc76ff8-920d-4c87-a0d1-f1bdc35a23f2" LastKnownName="IContactList" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="5aedb4ef-1ad7-42f4-99cd-53f11d383eac" name="User" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="88d94dac-edfe-4455-83d4-ca252d9bb356" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="311e6bfb-681c-4d4d-9863-fe839a29bac7" name="contactInfo" direction="In" isUnique="false">
+                  <elementDefinition Id="70bc092c-50ca-427f-8fb6-66c70af4cf97" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f79d53f1-c945-4061-92cb-ec2bd796de39" LastKnownName="Contact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5b973d67-9caf-430c-aaaf-c65d777ef19f" name="password" direction="In" isUnique="false">
+                  <elementDefinition Id="69481667-3b89-4b26-a4b6-4ef67024298b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="cd718ab5-523f-4365-b8c6-86de3a6b5974" name="sessionId" direction="In" isUnique="false">
+                  <elementDefinition Id="985b8047-ee0b-4427-b88a-a45729496acc" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="c8fb9675-cabf-4b9a-b1f2-57ac2fbbaadc" name="User" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="96979ce0-7f07-4849-befc-b5d91aa9835b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="34dc0e28-5e38-420a-9de5-b10f62c4b2f2" name="password" direction="In" isUnique="false">
+                  <elementDefinition Id="bcb15582-1c5a-4b89-b8d5-1a95dfbb6ad9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="17ded916-e377-4df6-ad17-3c8b2482cbc3" name="contactInfo" direction="In" isUnique="false">
+                  <elementDefinition Id="24b62221-f7c5-4f02-8af2-7ad1dec03799" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f79d53f1-c945-4061-92cb-ec2bd796de39" LastKnownName="Contact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="27368269-b1aa-41ac-b6c8-6093060a8c57" name="contactList" direction="In" isUnique="false">
+                  <elementDefinition Id="0f5e8228-b2c9-4706-9ecc-55403cea412b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6f5ce170-f5fd-4997-b3d2-2082cbd3cdc7" LastKnownName="ContactList" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="3bed375d-4299-4ff6-97d3-114acf9d31c0" name="IsValid" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c91ba1fe-db64-4fa7-84c2-ff644582db2a" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0a7507e8-1ebd-4ee2-b868-ee8e299d2dab" name="password" direction="In" isUnique="false">
+                  <elementDefinition Id="504146a7-51b7-433c-b35b-906051feaba8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7e6ae06a-57ab-4e38-953e-efdbf2c7c5e7" direction="Return" isUnique="false">
+                  <elementDefinition Id="e549f50a-eb44-49f0-9bb6-f9c4d1c9d1fa" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f387ced1-ce5e-4f81-9eb2-94051168fef9" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="4397dba7-b1f4-4a66-bfb2-7eb6498afe9e" name="ChangeSessionId" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8e0e2345-1a0f-48ba-82c6-570c32c045f7" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="257f45c2-b60a-43cd-b72b-1568e4fcd564" name="newId" direction="In" isUnique="false">
+                  <elementDefinition Id="7293d136-9063-411b-b7dc-cb0bc6dce0cf" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="387975fa-9319-40ce-b847-51c5840c2484" name="AddContact" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="5c26c859-e865-4f77-9f0e-792d6c2031e2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b5c32e85-a76a-4d09-a774-f29d0462367b" name="c" direction="In" isUnique="false">
+                  <elementDefinition Id="91a07034-5bea-42b8-8511-b1da3e37e570" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f79d53f1-c945-4061-92cb-ec2bd796de39" LastKnownName="Contact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="28327763-6240-4064-a68c-d1b5012c03be" direction="Return" isUnique="false">
+                  <elementDefinition Id="8b269f76-ca27-4677-a4da-77845c77f547" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f387ced1-ce5e-4f81-9eb2-94051168fef9" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="7a8d4f14-81a6-4ad9-a5d6-6bcc3d36242d" name="Remove" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="736675d0-d474-4c90-b5f2-0cc472759363" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1cd81549-5793-4d4d-bae2-98dbf68061e0" name="c" direction="In" isUnique="false">
+                  <elementDefinition Id="72a36801-cd6b-4d08-b131-33e3115f08d6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f79d53f1-c945-4061-92cb-ec2bd796de39" LastKnownName="Contact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="4c231971-5787-4bb7-9557-3bde76a374a5" name="ChangeStatus" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ca523ae9-9a61-446e-90c9-71067336b11f" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ed48dfd8-da3f-4605-8c60-ea88ec46e44b" name="newStatus" direction="In" isUnique="false">
+                  <elementDefinition Id="8a13079c-bc7c-430f-bb19-446865aa6670" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="3b2c85d2-c0b5-40bf-87ee-c2362d1aa398" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="bc06aeae-5453-4e92-b974-60f1890f80e9" name="Mensaje" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9647c587-cc38-4007-bdda-ddc50243fd45" />
+        <suppliersInternal>
+          <dependency Id="6d360bf4-c38a-4cad-8271-3c5ae8dd951d">
+            <interfaceMoniker Id="c62be84e-0706-4232-b22f-92eb14e5edaa" LastKnownName="IMensaje" />
+            <elementDefinition Id="8c21a0f9-66bc-47e7-944c-87a6e0898331" />
+          </dependency>
+          <dependency Id="fb6a589a-f4b3-45cd-83bd-3d68b3ab5210">
+            <interfaceMoniker Id="212d3c71-1493-4786-a180-f8f40bff5372" LastKnownName="IContactList" />
+            <elementDefinition Id="91360ac9-923b-48e5-b3c3-efbd2e6d88fc" />
+          </dependency>
+          <dependency Id="56441a1b-707c-446f-9e5b-1c99ba6ae0ed">
+            <interfaceMoniker Id="637fa811-cfb7-423a-b306-4644f3e1d8ea" LastKnownName="ITextMessage" />
+            <elementDefinition Id="9531ec61-f857-40ec-b70c-30672364ce20" />
+          </dependency>
+          <dependency Id="56f334ed-a175-4fc6-b4a0-250fbac8b7ee" name="s">
+            <interfaceMoniker Id="6943403c-a7f2-476c-914b-8d8b27484f5b" LastKnownName="IContact" />
+            <elementDefinition Id="8b2292c2-4a3b-424a-8793-a13b40a9a971" />
+          </dependency>
+          <dependency Id="6cde72f8-ab55-4ab6-9024-17e825042024">
+            <interfaceMoniker Id="e0ed5408-3da0-440c-a772-2f56959784a6" LastKnownName="IChatRoom" />
+            <elementDefinition Id="ed62bd1b-eb2a-4271-8a4c-b7a097e89ed6" />
+          </dependency>
+          <dependency Id="dee30f66-15d5-4299-b086-341a289c6cd5">
+            <interfaceMoniker Id="c9b30846-00a3-4eec-8b57-761206e92e33" LastKnownName="IUser" />
+            <elementDefinition Id="24791b83-0941-4ffa-a049-c01d1038a962" />
+          </dependency>
+          <dependency Id="a67ce5c5-7cb7-442c-908f-c20466dca257">
+            <enumerationMoniker Id="85d6ed39-d771-4a57-aa36-c8f01e8f0bc1" LastKnownName="State" />
+            <elementDefinition Id="bb80c7e0-8c3f-4247-b998-6ea5fcd4b377" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property Id="81d7ab61-61bd-4cdc-bd18-b6e016acb8f8" name="MyState" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0718135b-5330-464b-8765-63a8eabc5477" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c127ae98-2ece-43b1-a36b-499c55e2a75d" LastKnownName="State" />
+            </type_NamedElement>
+          </property>
+          <property Id="874bf608-9c3c-4186-988a-bd99a5e70b71" name="User" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="cda92f65-caea-41d9-986d-4b1365af61b1" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2ffa4423-355c-4e57-842c-586f91e477d6" LastKnownName="IUser" />
+            </type_NamedElement>
+          </property>
+          <property Id="7dc3bff2-e893-4a9a-ba97-85d89a4dc63e" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="029b596c-6dea-469c-a5e3-99f95fe97565" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2f1c6cb9-2440-43d6-a3c3-4064bf989613" LastKnownName="IChatRoom" />
+            </type_NamedElement>
+          </property>
+          <property Id="f5ad6eca-134a-4ae6-bd51-3e63f08a0f4d" name="Contact" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="297ae4a5-ffd3-4ba0-8054-24a06f2ac56a" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2074b345-4a10-48b1-99f4-b69304f8e5bf" LastKnownName="IContact" />
+            </type_NamedElement>
+          </property>
+          <property Id="4ff3e754-edfa-4b79-8f28-6f2ac227f24f" name="TextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="29b1227c-75e0-402b-985e-65ea0d029a69" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="1f5dc38e-e386-46ee-81e4-2e3775d7ee15" LastKnownName="ITextMessage" />
+            </type_NamedElement>
+          </property>
+          <property Id="b95f1b76-3bfa-4d5f-b847-3a907ce94107" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="41cd3c2b-e6b0-4a9b-b07e-3b29a1f53813" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="eb745964-dedb-4924-8d21-a42fddb7c33c" LastKnownName="IContactList" />
+            </type_NamedElement>
+          </property>
+          <property Id="f45afe84-b77c-4cc0-876d-b478b0f50658" name="IsError" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="70365907-3573-44f9-8fd7-b1c7f8a1e131" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="f387ced1-ce5e-4f81-9eb2-94051168fef9" LastKnownName="bool" />
+            </type_NamedElement>
+          </property>
+          <property Id="89b1757b-b3bc-4094-b9b9-5fdcfe93de8c" name="ErrorMessage" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="482dcbed-b78e-40d1-9c5a-c9052c20ae06" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="1ac15d33-e8e8-4a95-ba0a-f5076c3cff81" name="IsNewUser" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="dd6f4160-ff0d-49dc-ab4b-6201e7a4de6d" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="f387ced1-ce5e-4f81-9eb2-94051168fef9" LastKnownName="bool" />
+            </type_NamedElement>
+          </property>
+          <property Id="b301a51c-1384-493d-90fd-18b3da48606b" name="ArrayString" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="00eca6f2-dc03-49ae-a1df-f063e1a19130" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="b8e5547d-e5e6-4088-87f3-fc962e1c3bcc" LastKnownName="IEnumerable&lt;string&gt;" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="5360d99f-4f96-43fa-85ed-40f70506007e" name="Mensaje: s: State, cl: IContactList" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1cee1c83-04ce-417d-b10c-898914bae525" />
+          </operation>
+          <operation Id="b298acae-1afe-42d4-a46a-c7bd7072ee06" name="Mensaje" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="292b4177-e31c-4ce1-879c-0be67dd1dd48" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="22a062cd-cdb7-423a-bc99-953dc8c94f53" name="s" direction="In" isUnique="false">
+                  <elementDefinition Id="1870ec4b-22d1-4783-a615-f0c67145990b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c127ae98-2ece-43b1-a36b-499c55e2a75d" LastKnownName="State" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4870de66-3df9-4ba9-869c-af16ee0fef75" name="c" direction="In" isUnique="false">
+                  <elementDefinition Id="ec3ce4b8-5907-4153-8514-019dc27580c0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="2074b345-4a10-48b1-99f4-b69304f8e5bf" LastKnownName="IContact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b1e78575-6fa1-4ca3-b1d0-e318ca20ea16" name="user" direction="In" isUnique="false">
+                  <elementDefinition Id="598a2f42-403d-4360-a3a5-df84b9984408" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="2ffa4423-355c-4e57-842c-586f91e477d6" LastKnownName="IUser" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="c16cba23-395e-484b-9cbc-5ae25507fbed" name="Mensaje" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a4abf6f9-e709-4f7f-9d05-761b0b6d0833" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="122341a6-d7a8-445c-a5ef-d86cc949652b" name="s" direction="In" isUnique="false">
+                  <elementDefinition Id="4d2b077b-3aba-4ad2-a08f-f7b0b9425620" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="c127ae98-2ece-43b1-a36b-499c55e2a75d" LastKnownName="State" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="790767ae-d85a-48a3-9a1e-e4e56d027a8d" name="Mensaje(s: State, chatroom: IChatRoom" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cb6e2eb2-9c5c-41f9-8ceb-b34ee8998202" />
+          </operation>
+          <operation Id="604b4852-e177-4220-9682-41965bb4985d" name="Mensaje" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="2489ddf8-0c38-4f54-a547-1b393096abd1" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="23cb654d-3d83-4270-8272-497f126c8e3d" name="errorMessage" direction="In" isUnique="false">
+                  <elementDefinition Id="4082be5d-9030-49be-b503-0980955a8ca9" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="3370a15e-97be-48b8-8255-461a39cb9f62" name="Mensaje(s: State, errorMessage: string" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b5da8373-4ed4-4119-aab5-1e0d3b4f7f41" />
+          </operation>
+          <operation Id="e79a83b6-d866-4d54-962e-af9a8ac2a8c8" name="Mensaje" visibility="Private" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1271e6b7-b294-4e1e-972a-0c8e3a6ba18b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="a11b14f2-2fa5-46f0-90fb-f8391c86935c" name="s" direction="In" isUnique="false">
+                  <elementDefinition Id="ae3ca3a0-e797-4854-8f1c-df624269bc5b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="40d0e6f4-d435-47fd-8c30-51e2995261db" LastKnownName="State" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="86a3e0c4-6de5-464d-9353-79edde4347cf" name="user" direction="In" isUnique="false">
+                  <elementDefinition Id="7299501f-0ede-4026-a1d6-a515612af741" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="af489d7a-51eb-487f-a17f-7f9ac6a46593" LastKnownName="User" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="226d420c-c132-433f-b6d9-a8ada5745f32" name="chatRoom" direction="In" isUnique="false">
+                  <elementDefinition Id="915554b9-4dea-44c8-b00d-8263b6b153a5" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="810743e3-accf-4226-9eaa-81c97a23db9f" LastKnownName="ChatRoom" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="73d2e3a2-75b3-43d6-a216-b2e845938a79" name="contact" direction="In" isUnique="false">
+                  <elementDefinition Id="ab363181-18bd-4d0d-a3ab-ebdd500d96ef" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f79d53f1-c945-4061-92cb-ec2bd796de39" LastKnownName="Contact" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="46f662ff-3c55-4ef5-b442-ecebc1b5bee3" name="contactList" direction="In" isUnique="false">
+                  <elementDefinition Id="370ac09d-bed9-4670-a3af-eca910a7bfe2" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6f5ce170-f5fd-4997-b3d2-2082cbd3cdc7" LastKnownName="ContactList" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="07e9a431-2207-47c9-9caa-eff49a716669" name="textMessage" direction="In" isUnique="false">
+                  <elementDefinition Id="deb66c8c-9502-4795-90d7-1fe25fab361e" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="53dd640a-8a69-44f9-9b31-89e4fcaf9a07" LastKnownName="TextMessage" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c5582541-4c7e-4560-9dd0-b1de79f61310" name="isError" direction="In" isUnique="false">
+                  <elementDefinition Id="0515aa5f-71e7-4fa2-aab4-4803ae100ab8" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="f387ced1-ce5e-4f81-9eb2-94051168fef9" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="aa62eb49-1d3c-4c13-973e-a93d9c242b8d" name="errorMessage" direction="In" isUnique="false">
+                  <elementDefinition Id="787adaa8-2d5b-47dc-9716-8c6024c0659b" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="ef5c8935-baf1-4da0-bf3f-9424e7abef04" LastKnownName="string" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="0b789186-4d81-4e4b-a480-ebf9fe4170cd" name="ModelingProject1">
     <elementDefinition Id="ce7dc644-d27c-420d-85e2-3d34b153da34" />
+    <profileInstances>
+      <packageHasProfileInstances Id="5f73432f-fe58-42ce-92ee-1e4b18657f7d">
+        <profileInstance Id="72bbffe0-44d7-4806-977d-c3c28d05d706" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="7c2affb4-57b7-4785-bf96-bc6d24dc8c47">
+        <profileInstance Id="de506019-38aa-4868-8dd3-9ff4bbe8bab9" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
   </package>
 </logicalClassDesignerModel>
