@@ -1310,48 +1310,106 @@ Below is outdated -- Calvin circa 2017</body>
           <packageHasNamedElement>
             <class Id="680fbecc-0130-4eff-8453-17059aaac09f" name="ChatRoom" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="25d75f64-97fd-42df-bc7a-9bc280f669e7" />
+              <suppliersInternal>
+                <dependency Id="f5b4ac13-5a8d-4cd5-ad78-7ab1fe75949e">
+                  <interfaceMoniker Id="8a7a49ed-66b9-4aa1-b0eb-643c242444ec" LastKnownName="IContactList" />
+                  <elementDefinition Id="2cf712a6-8349-4b00-b253-e21b606fd4f8" />
+                </dependency>
+              </suppliersInternal>
               <targetEnds>
-                <association Id="69c6dc9e-a497-4657-94f3-483f6865378d" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="ContactList" isLeaf="false" isAbstract="false">
-                  <classMoniker Id="9e201abf-d1cf-4b71-8e03-7733b15c4a81" LastKnownName="ContactList" />
+                <association Id="4e6db216-b2ef-45c0-a8ac-c3e363925434" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="ITextMessage" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="a3cab34c-5d04-495d-bca0-1393b9d4c099" LastKnownName="ITextMessage" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="30ff8b4e-d204-4450-9d7e-e105996d8280" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="39ea5206-3ff6-4d1a-ae82-359c1b2df3c1" />
+                      <memberEnd Id="53b1f253-8233-43cd-ae7f-2af045fce423" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="5a673547-31b1-44bc-9a6d-72158a1fbb99" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="a37a7b8b-b86b-4202-83ec-b080c67841de" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="8b497bfd-93a1-4836-b710-90e60de968bf" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="82cad679-e473-4566-b1af-6f5de724c229" />
-                </association>
-                <association Id="c9a01bf5-3227-4716-a145-cdf84650b34e" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="TextMessage" isLeaf="false" isAbstract="false">
-                  <classMoniker Id="10fd7c52-952d-4bed-a080-73ca7d3426ed" LastKnownName="TextMessage" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="697967ec-3d02-442f-8fd6-2284bc79f1bd" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="32603660-d885-462e-aa02-d149a7ab2b07" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="42bae608-3a0d-44bb-b031-3078018e7d2f" name="TextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                      <memberEnd Id="eb05e29d-37a7-49d8-b29c-b16573c733f7" name="ITextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <lowerValueInternal>
-                          <literalString Id="e6740a49-e2a4-4bb1-8144-991c616dcc56" name="Lower" value="*">
-                            <elementDefinition Id="339be792-b357-4e9c-8ad0-aaaa15c4dafc" />
+                          <literalString Id="a5b0efaf-76b8-4267-b0f4-b76035cf2710" name="Lower" value="*">
+                            <elementDefinition Id="bb7f0a8d-aefa-4fed-b574-961ba51baa20" />
                           </literalString>
                         </lowerValueInternal>
                         <upperValueInternal>
-                          <literalString Id="9da9b5c9-4eac-4021-9ab0-d8fe392c2f3e" name="Upper" value="*">
-                            <elementDefinition Id="4705ff4d-15c6-4884-80e4-51dbe53fdb76" />
+                          <literalString Id="62034e97-f4ca-449d-9663-dd01c137d1b7" name="Upper" value="*">
+                            <elementDefinition Id="740d0faf-ab02-40a5-a77f-b83de0ef4a20" />
                           </literalString>
                         </upperValueInternal>
-                        <elementDefinition Id="3624e310-2320-4196-b4d7-d4663fcfac68" />
+                        <elementDefinition Id="50cebea3-4d9e-4441-a71d-597ae6e68d11" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="93baeb80-a349-4d58-81d8-8d2dc8f456f1" />
+                  <elementDefinition Id="e03e355d-d725-4fd2-9b20-bcf710404933" />
+                </association>
+                <association Id="2741ae48-4aae-4bbe-b2a3-62bb4fcc062f" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="IUser" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="07359663-cf42-4749-89f5-713e508fccaa" LastKnownName="IUser" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="77e2ff51-ff73-48ed-9f62-63bcb45609f6" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="d953ee84-bf20-4bfa-b987-ca0057354da3" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="095f365e-9a8e-41f9-bf45-33535c7fec3f" name="IUser" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="df125f20-ce4f-464c-8fae-97d2a827787c" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="7ae46a99-f4ac-4d63-a38f-64066ade2f0e" />
+                </association>
+                <association Id="2cc97861-6841-42da-903f-b983fec3f827" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="TextMessage" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="10fd7c52-952d-4bed-a080-73ca7d3426ed" LastKnownName="TextMessage" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="bdbe4d5f-5a84-4256-ba8f-6d8b95ac0e1b" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="1b4c96ef-44dd-4840-8822-8490246f6073" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="691351e7-672e-4661-92fc-3ab9e7432603" name="TextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                        <lowerValueInternal>
+                          <literalString Id="a0c3860a-2c18-4cf9-b71a-9725a2bd36d6" name="Lower" value="*">
+                            <elementDefinition Id="c70ba55e-5853-41f6-947f-ced66026575a" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="42f4996c-c3fd-4902-9f42-9994dacad97d" name="Upper" value="*">
+                            <elementDefinition Id="82cf45e4-8460-4532-bb8e-2ef35b5abc67" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="dbd152cc-3adb-4e04-8557-875fc1f09713" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="4ac106eb-64b2-410a-b4f0-7b94f43799a9" />
+                </association>
+                <association Id="de6c5d98-3adc-4aa5-97d4-aa07e3970bd6" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="User" isLeaf="false" isAbstract="false">
+                  <classMoniker Id="34b372e7-4886-4143-9166-90f4a96598a6" LastKnownName="User" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="9b444a46-cb68-4404-9ad0-642b53344be3" name="ChatRoom" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="16be0d96-88dc-4976-b060-cb46858d89da" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="06a4993c-a044-472b-9ad3-ce1ef050a6ee" name="User" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <lowerValueInternal>
+                          <literalString Id="111e1012-1e27-4e54-b354-6bfdfade8a8d" name="Lower" value="*">
+                            <elementDefinition Id="1d8099b2-a362-4ac3-a9dc-48a87ec9fa74" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="5648259d-2266-4329-a5c0-95f7332706a8" name="Upper" value="*">
+                            <elementDefinition Id="19ad1fff-b8ff-4bc6-b50d-11238917f3e0" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="d2b47fd9-f797-4ed1-bb71-8327e1fa49e9" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="5fa54839-cfcc-4889-9560-63ae7c43a9e2" />
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
@@ -1537,24 +1595,16 @@ Below is outdated -- Calvin circa 2017</body>
           <packageHasNamedElement>
             <class Id="10fd7c52-952d-4bed-a080-73ca7d3426ed" name="TextMessage" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="a549723a-0c7b-4597-8357-6beb6b765513" />
-              <targetEnds>
-                <association Id="6ed66e0e-b1b0-421f-8d42-28ae90964b80" isDerived="false" sourceEndRoleName="TextMessage" targetEndRoleName="Contact" isLeaf="false" isAbstract="false">
+              <suppliersInternal>
+                <dependency Id="805f9628-e355-4ab1-81e9-7b1db482ecce">
                   <classMoniker Id="a9b9b0a4-e105-4a85-b5b9-da17ff7c0031" LastKnownName="Contact" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="6dc86204-e4c3-46ee-a723-a6dc3a559f0b" name="TextMessage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="0a179498-89a3-48fa-938b-35c11c601a0c" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="6599c834-d01a-41cd-adb5-71f4299efdbd" name="Contact" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="2d0e50a5-2f19-4f72-8732-50d643238b2a" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="e673b5dd-c7ff-49cf-b0cc-4cb68391913c" />
-                </association>
-              </targetEnds>
+                  <elementDefinition Id="36eca9e3-5f1f-4d8f-a6f6-069af801d804" />
+                </dependency>
+                <dependency Id="f4fc3d0e-f743-4a45-827d-00b145e29d2b">
+                  <interfaceMoniker Id="a3cab34c-5d04-495d-bca0-1393b9d4c099" LastKnownName="ITextMessage" />
+                  <elementDefinition Id="e6e2b35c-4c92-46f6-bb49-f1d2662d404a" />
+                </dependency>
+              </suppliersInternal>
               <ownedAttributesInternal>
                 <property Id="6aaa4b71-32c0-4f07-9278-79be80642593" name="Body" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="a5580ebf-fee1-4383-8133-f10f52c75d5d" />
@@ -1645,6 +1695,28 @@ Below is outdated -- Calvin circa 2017</body>
           <packageHasNamedElement>
             <class Id="34b372e7-4886-4143-9166-90f4a96598a6" name="User" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="2347e2e8-7ba7-4a76-81eb-b0db71748fb2" />
+              <suppliersInternal>
+                <dependency Id="c64db757-d79b-44ea-bbde-30cb652a7407">
+                  <classMoniker Id="9e201abf-d1cf-4b71-8e03-7733b15c4a81" LastKnownName="ContactList" />
+                  <elementDefinition Id="a64b900f-b0f5-4cd8-8c02-652ea8b62903" />
+                </dependency>
+                <dependency Id="c87b451d-255d-4f8f-a6ee-f2c87ccfd726">
+                  <interfaceMoniker Id="3583bf90-a03a-45c9-9bc3-a730e047c928" LastKnownName="IContact" />
+                  <elementDefinition Id="af1a266a-9ce6-4415-91d3-c23d482301d2" />
+                </dependency>
+                <dependency Id="7f95774f-6e14-450f-99f1-1aed101c195c">
+                  <interfaceMoniker Id="8a7a49ed-66b9-4aa1-b0eb-643c242444ec" LastKnownName="IContactList" />
+                  <elementDefinition Id="333aeff1-edff-4219-b646-efdebb99dd48" />
+                </dependency>
+                <dependency Id="e1972b68-6c9e-4942-aeb8-7e4d3f8feb56">
+                  <enumerationMoniker Id="98b0b07b-4b58-4b03-9259-b1f3ab4645ee" LastKnownName="Status" />
+                  <elementDefinition Id="953dc20e-9967-478d-ab6c-3d63387a022b" />
+                </dependency>
+                <dependency Id="61ad16f8-890b-42e1-ae03-8072be097e8f">
+                  <classMoniker Id="a9b9b0a4-e105-4a85-b5b9-da17ff7c0031" LastKnownName="Contact" />
+                  <elementDefinition Id="239a7670-8bd2-4a6c-a478-1863660d8ee2" />
+                </dependency>
+              </suppliersInternal>
               <ownedAttributesInternal>
                 <property Id="46d4a8ff-869d-4970-ae74-5d9cf4e5942f" name="_password" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <elementDefinition Id="9bfdd3d8-58a3-4acd-bcc4-00ad8f24cfd0" />
@@ -1845,22 +1917,38 @@ Below is outdated -- Calvin circa 2017</body>
           <packageHasNamedElement>
             <class Id="9e201abf-d1cf-4b71-8e03-7733b15c4a81" name="ContactList" isAbstract="false" isLeaf="false" isActiveClass="false">
               <elementDefinition Id="628c5f09-1488-4e5c-9d13-1dbb39447b9f" />
+              <suppliersInternal>
+                <dependency Id="4b90975a-0a1a-4d00-9af4-9ebd2cb21a82">
+                  <interfaceMoniker Id="3583bf90-a03a-45c9-9bc3-a730e047c928" LastKnownName="IContact" />
+                  <elementDefinition Id="d8a41fff-bea4-46b1-be54-77414f3f8aa2" />
+                </dependency>
+              </suppliersInternal>
               <targetEnds>
-                <association Id="df1a774c-7689-4f79-94d4-a352a925a4c1" isDerived="false" sourceEndRoleName="ContactList" targetEndRoleName="Contact" isLeaf="false" isAbstract="false">
+                <association Id="4556b712-9134-4d30-aaea-592e7c4ac5fc" isDerived="false" sourceEndRoleName="ContactList" targetEndRoleName="Contact" isLeaf="false" isAbstract="false">
                   <classMoniker Id="a9b9b0a4-e105-4a85-b5b9-da17ff7c0031" LastKnownName="Contact" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="e00060e0-9265-44f1-bd24-f5962559bb55" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="22ec3b91-aa0c-41aa-a582-cae53ae8490e" />
+                      <memberEnd Id="09731e85-295b-4444-b20f-36eea8e235bb" name="ContactList" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                        <elementDefinition Id="df0a85f1-81d5-4d63-be83-0b409ddadc03" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="d3bca3e1-f3d1-4951-8850-a2353810d289" name="Contact" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="7dcb1c8a-918b-46bc-a090-388f9a8d4b9a" />
+                      <memberEnd Id="3de350fc-e2df-44c9-8e0d-4ec54a795fca" name="Contact" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                        <lowerValueInternal>
+                          <literalString Id="523a30c0-7b60-42b3-bc34-eafd9576ecf5" name="Lower" value="*">
+                            <elementDefinition Id="3ba99c56-751b-45de-b579-f873d1f8a313" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d102f6eb-0edf-4aab-88f5-e8914ea77780" name="Upper" value="*">
+                            <elementDefinition Id="cc87c16e-1beb-4ead-8f53-67d4fb823f23" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="e94f1db5-5802-4577-977a-ad3a6f86abba" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="6b021c7e-b5e4-40b7-92c3-65d70ccdcac7" />
+                  <elementDefinition Id="709113df-0d68-4125-8e4b-1e4fc2b667b2" />
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
@@ -2328,6 +2416,22 @@ Below is outdated -- Calvin circa 2017</body>
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="1b7445d8-84e7-4c0e-90b1-e9042d1956f5" />
           </association>
+          <association Id="7cec6446-710f-48db-8a06-d9959c443a2d" isDerived="false" sourceEndRoleName="ServerController" targetEndRoleName="ChatDb" isLeaf="false" isAbstract="false">
+            <classMoniker Id="60441844-4f7d-4438-826b-13b2f0f310fe" LastKnownName="ChatDb" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1cfc7b95-81c4-4f2b-95e2-6664f3d117e8" name="ServerController" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="00ff1674-4d21-4962-84d3-17d746b947a3" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="373d6551-e96e-4e8f-92f9-091dcc994f88" name="ChatDb" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2af3bfc3-3a1a-49d1-a4c7-73b6ade998d9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8e40fafa-ccd5-427c-ad05-45d3ecfd7ad7" />
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property Id="34aaa660-2b65-4a18-9f77-a9bef33646ea" name="_chatDb" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -2700,6 +2804,14 @@ Below is outdated -- Calvin circa 2017</body>
             <interfaceMoniker Id="21fa64fa-50f6-4d22-9ac9-5a8749e49e74" LastKnownName="Observer" />
             <elementDefinition Id="b1c6c4d9-e015-4685-8d68-1bf0efef5e12" />
           </interfaceRealization>
+          <dependency Id="15d52fb9-33d9-4856-bd07-979c6a03d5cc">
+            <interfaceMoniker Id="334ffc9d-0f75-4c0e-b385-ab3a61fd5705" LastKnownName="IMensaje" />
+            <elementDefinition Id="ee4bce27-40b4-4471-abde-8744dd7b226a" />
+          </dependency>
+          <dependency Id="778cb63d-3aac-49c0-8bd0-87a0b771abf8">
+            <enumerationMoniker Id="ec727e26-86e6-4f3a-8c7e-8a99dbccd11a" LastKnownName="LogStatus" />
+            <elementDefinition Id="d0ef9d54-6f76-462b-b5c1-0b04ee06d259" />
+          </dependency>
         </suppliersInternal>
         <targetEnds>
           <association Id="f499378b-f08a-4517-b76d-f72ff8e81eda" isDerived="false" sourceEndRoleName="ServerForm" targetEndRoleName="InputHandler" isLeaf="false" isAbstract="false">
@@ -2717,6 +2829,22 @@ Below is outdated -- Calvin circa 2017</body>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
             <elementDefinition Id="6cd687ad-986e-4293-9df3-7c8a016362f5" />
+          </association>
+          <association Id="297e7a20-22a3-4c1b-89d1-8597acb16385" isDerived="false" sourceEndRoleName="ServerForm" targetEndRoleName="ChatDb" isLeaf="false" isAbstract="false">
+            <classMoniker Id="60441844-4f7d-4438-826b-13b2f0f310fe" LastKnownName="ChatDb" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e83e54dd-0e39-48d4-8275-5026c1c0be97" name="ServerForm" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9edea2c0-297c-49fa-9517-25590c5717b2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d090070f-b6b6-4991-8517-870eefb50395" name="ChatDb" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="31bb12ef-b233-4631-a674-0da312142c7b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="b9fa83ef-e316-4464-b169-5b0551282ead" />
           </association>
         </targetEnds>
         <ownedAttributesInternal>
