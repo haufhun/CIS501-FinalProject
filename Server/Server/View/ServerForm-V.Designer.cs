@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.uxChatMsgsWebBrowser = new System.Windows.Forms.WebBrowser();
             this.label7 = new System.Windows.Forms.Label();
@@ -77,10 +77,10 @@
             this.tabPage1.Controls.Add(this.uxUsersWebBrowser);
             this.tabPage1.Controls.Add(this.uxUsersListView);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage1.Size = new System.Drawing.Size(1288, 757);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage1.Size = new System.Drawing.Size(1719, 757);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Database";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -88,11 +88,13 @@
             // uxChatMsgsWebBrowser
             // 
             this.uxChatMsgsWebBrowser.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDown;
-            this.uxChatMsgsWebBrowser.Location = new System.Drawing.Point(820, 50);
-            this.uxChatMsgsWebBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxChatMsgsWebBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.uxChatMsgsWebBrowser.Location = new System.Drawing.Point(819, 50);
+            this.uxChatMsgsWebBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.uxChatMsgsWebBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.uxChatMsgsWebBrowser.Name = "uxChatMsgsWebBrowser";
-            this.uxChatMsgsWebBrowser.Size = new System.Drawing.Size(435, 575);
+            this.uxChatMsgsWebBrowser.Size = new System.Drawing.Size(495, 575);
             this.uxChatMsgsWebBrowser.TabIndex = 4;
             // 
             // label7
@@ -107,24 +109,26 @@
             // 
             // uxUsersWebBrowser
             // 
-            this.uxUsersWebBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.uxUsersWebBrowser.Location = new System.Drawing.Point(311, 50);
-            this.uxUsersWebBrowser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxUsersWebBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.uxUsersWebBrowser.Location = new System.Drawing.Point(282, 50);
+            this.uxUsersWebBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.uxUsersWebBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.uxUsersWebBrowser.Name = "uxUsersWebBrowser";
-            this.uxUsersWebBrowser.Size = new System.Drawing.Size(463, 575);
+            this.uxUsersWebBrowser.Size = new System.Drawing.Size(529, 575);
             this.uxUsersWebBrowser.TabIndex = 1;
             this.uxUsersWebBrowser.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // uxUsersListView
             // 
+            this.uxUsersListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.uxUsersListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.uxUsersListView.FullRowSelect = true;
             this.uxUsersListView.GridLines = true;
             this.uxUsersListView.Location = new System.Drawing.Point(11, 50);
-            this.uxUsersListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxUsersListView.Margin = new System.Windows.Forms.Padding(4);
             this.uxUsersListView.Name = "uxUsersListView";
             this.uxUsersListView.Size = new System.Drawing.Size(263, 582);
             this.uxUsersListView.TabIndex = 0;
@@ -162,10 +166,10 @@
             this.tabPage2.Controls.Add(this.uxRmvCnctBtn);
             this.tabPage2.Controls.Add(this.uxLoginButton);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tabPage2.Size = new System.Drawing.Size(1288, 757);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
+            this.tabPage2.Size = new System.Drawing.Size(1719, 757);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Testing";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -183,7 +187,7 @@
             // uxMessageTB
             // 
             this.uxMessageTB.Location = new System.Drawing.Point(169, 274);
-            this.uxMessageTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxMessageTB.Margin = new System.Windows.Forms.Padding(4);
             this.uxMessageTB.Name = "uxMessageTB";
             this.uxMessageTB.Size = new System.Drawing.Size(132, 22);
             this.uxMessageTB.TabIndex = 21;
@@ -201,7 +205,7 @@
             // uxChatRoomIdTB
             // 
             this.uxChatRoomIdTB.Location = new System.Drawing.Point(169, 225);
-            this.uxChatRoomIdTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxChatRoomIdTB.Margin = new System.Windows.Forms.Padding(4);
             this.uxChatRoomIdTB.Name = "uxChatRoomIdTB";
             this.uxChatRoomIdTB.Size = new System.Drawing.Size(132, 22);
             this.uxChatRoomIdTB.TabIndex = 19;
@@ -219,7 +223,7 @@
             // uxSendMessageBtn
             // 
             this.uxSendMessageBtn.Location = new System.Drawing.Point(429, 268);
-            this.uxSendMessageBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxSendMessageBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxSendMessageBtn.Name = "uxSendMessageBtn";
             this.uxSendMessageBtn.Size = new System.Drawing.Size(149, 28);
             this.uxSendMessageBtn.TabIndex = 17;
@@ -261,7 +265,7 @@
             // uxCreateChatRoomBtn
             // 
             this.uxCreateChatRoomBtn.Location = new System.Drawing.Point(429, 219);
-            this.uxCreateChatRoomBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxCreateChatRoomBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxCreateChatRoomBtn.Name = "uxCreateChatRoomBtn";
             this.uxCreateChatRoomBtn.Size = new System.Drawing.Size(149, 28);
             this.uxCreateChatRoomBtn.TabIndex = 12;
@@ -282,7 +286,7 @@
             // uxAddCnctBtn
             // 
             this.uxAddCnctBtn.Location = new System.Drawing.Point(429, 108);
-            this.uxAddCnctBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxAddCnctBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxAddCnctBtn.Name = "uxAddCnctBtn";
             this.uxAddCnctBtn.Size = new System.Drawing.Size(149, 28);
             this.uxAddCnctBtn.TabIndex = 10;
@@ -343,7 +347,7 @@
             // uxContactTB
             // 
             this.uxContactTB.Location = new System.Drawing.Point(169, 133);
-            this.uxContactTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxContactTB.Margin = new System.Windows.Forms.Padding(4);
             this.uxContactTB.Name = "uxContactTB";
             this.uxContactTB.Size = new System.Drawing.Size(132, 22);
             this.uxContactTB.TabIndex = 4;
@@ -351,7 +355,7 @@
             // uxPasswordTB
             // 
             this.uxPasswordTB.Location = new System.Drawing.Point(169, 74);
-            this.uxPasswordTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxPasswordTB.Margin = new System.Windows.Forms.Padding(4);
             this.uxPasswordTB.Name = "uxPasswordTB";
             this.uxPasswordTB.Size = new System.Drawing.Size(132, 22);
             this.uxPasswordTB.TabIndex = 3;
@@ -359,7 +363,7 @@
             // uxUsernameTB
             // 
             this.uxUsernameTB.Location = new System.Drawing.Point(169, 27);
-            this.uxUsernameTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxUsernameTB.Margin = new System.Windows.Forms.Padding(4);
             this.uxUsernameTB.Name = "uxUsernameTB";
             this.uxUsernameTB.Size = new System.Drawing.Size(132, 22);
             this.uxUsernameTB.TabIndex = 2;
@@ -367,7 +371,7 @@
             // uxRmvCnctBtn
             // 
             this.uxRmvCnctBtn.Location = new System.Drawing.Point(429, 144);
-            this.uxRmvCnctBtn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxRmvCnctBtn.Margin = new System.Windows.Forms.Padding(4);
             this.uxRmvCnctBtn.Name = "uxRmvCnctBtn";
             this.uxRmvCnctBtn.Size = new System.Drawing.Size(149, 28);
             this.uxRmvCnctBtn.TabIndex = 1;
@@ -378,7 +382,7 @@
             // uxLoginButton
             // 
             this.uxLoginButton.Location = new System.Drawing.Point(449, 23);
-            this.uxLoginButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxLoginButton.Margin = new System.Windows.Forms.Padding(4);
             this.uxLoginButton.Name = "uxLoginButton";
             this.uxLoginButton.Size = new System.Drawing.Size(100, 28);
             this.uxLoginButton.TabIndex = 0;
@@ -390,9 +394,9 @@
             // 
             this.uxEventLogTabPage.Controls.Add(this.uxEventLogListView);
             this.uxEventLogTabPage.Location = new System.Drawing.Point(4, 25);
-            this.uxEventLogTabPage.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxEventLogTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.uxEventLogTabPage.Name = "uxEventLogTabPage";
-            this.uxEventLogTabPage.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxEventLogTabPage.Padding = new System.Windows.Forms.Padding(4);
             this.uxEventLogTabPage.Size = new System.Drawing.Size(1719, 757);
             this.uxEventLogTabPage.TabIndex = 0;
             this.uxEventLogTabPage.Text = "Event Log";
@@ -406,9 +410,9 @@
             this.uxEventLogListView.FullRowSelect = true;
             this.uxEventLogListView.GridLines = true;
             this.uxEventLogListView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem5});
             this.uxEventLogListView.Location = new System.Drawing.Point(9, 8);
-            this.uxEventLogListView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxEventLogListView.Margin = new System.Windows.Forms.Padding(4);
             this.uxEventLogListView.Name = "uxEventLogListView";
             this.uxEventLogListView.Size = new System.Drawing.Size(1475, 695);
             this.uxEventLogListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
@@ -425,7 +429,7 @@
             this.uxTabControl.Controls.Add(this.tabPage2);
             this.uxTabControl.Controls.Add(this.tabPage1);
             this.uxTabControl.Location = new System.Drawing.Point(0, 32);
-            this.uxTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uxTabControl.Margin = new System.Windows.Forms.Padding(4);
             this.uxTabControl.Name = "uxTabControl";
             this.uxTabControl.SelectedIndex = 0;
             this.uxTabControl.Size = new System.Drawing.Size(1727, 786);
@@ -460,7 +464,7 @@
             this.ClientSize = new System.Drawing.Size(1707, 773);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.uxTabControl);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ServerForm";
             this.Text = "Server";
             this.tabPage1.ResumeLayout(false);

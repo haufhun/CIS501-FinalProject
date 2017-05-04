@@ -57,6 +57,11 @@ namespace Server.View
             uxEventLogListView.Columns.Add("Chat Room Id");
             uxEventLogListView.Columns.Add("Send/Receive");
 
+            for (int i = 0; i < uxEventLogListView.Columns.Count; i++)
+            {
+                uxEventLogListView.Columns[i].Width = 100;
+            }
+
             _testingButtons = new List<Button>
             {
                 uxLoginButton,
