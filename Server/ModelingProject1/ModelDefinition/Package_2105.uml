@@ -11,6 +11,57 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="0021bf20-894e-499e-aea0-f2ca38460068">
+            <interfaceMoniker
+              Id="f976a378-1eb7-4ef8-afc7-8daf2f96c7f8"
+              LastKnownName="IMensaje"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="d69515ef-678b-4a51-a872-b48c198b48ce">
+            <interfaceMoniker
+              Id="e39563af-a885-45ac-b4f7-11255454f864"
+              LastKnownName="IContactList"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="f0b26d24-4a3f-4167-a057-bc9fc9642417">
+            <interfaceMoniker
+              Id="aad92cd1-e3c4-43e2-87c7-2d47b8b88034"
+              LastKnownName="ITextMessage"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="43493e4b-f667-42b3-8fd2-fd02bfe40b08">
+            <interfaceMoniker
+              Id="8d5c9ed5-4223-4e2c-a36d-b42dc257294d"
+              LastKnownName="IContact"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="b00ddaba-ce36-4817-860e-03a84220a8c9">
+            <interfaceMoniker
+              Id="945b4faf-6804-40b1-ac63-e5bdd7296e10"
+              LastKnownName="IChatRoom"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="6fb1e124-f22b-4d83-9ea0-ffd1bfc66a45">
+            <interfaceMoniker
+              Id="9a899309-c61b-468b-9f28-a8638ac9123f"
+              LastKnownName="IUser"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="61cc11a2-59d6-48e2-8dd7-5a5cd4fbf90f">
+            <enumerationMoniker
+              Id="8d176257-4baf-4d63-a2e3-c75c92043560"
+              LastKnownName="State"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributesInternal>
           <property
             Id="b3e76b13-de09-45cb-89c0-ecf93636f77c"
@@ -508,6 +559,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="887f72e5-a6c3-445c-872c-c16444f217f6"
+            isDerived="false"
+            sourceEndRoleName="ChatDb"
+            targetEndRoleName="ChatRoom"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="25d75f64-97fd-42df-bc7a-9bc280f669e7"
+              LastKnownName="ChatRoom"
+              LastKnownLocation="Package_2105.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="98621281-3938-4f98-a9f5-7bc1a6dd8bff"
+                  name="ChatDb"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6eca9815-8524-4405-8710-7a60b1273189"
+                  name="ChatRoom"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ab03a0d3-40ae-4363-ba9b-e0c8389ef79b"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="2d208981-2e6e-46f0-80ff-afb1d829a12d"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
@@ -849,6 +952,99 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="82cad679-e473-4566-b1af-6f5de724c229"
+            isDerived="false"
+            sourceEndRoleName="ChatRoom"
+            targetEndRoleName="ContactList"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="628c5f09-1488-4e5c-9d13-1dbb39447b9f"
+              LastKnownName="ContactList"
+              LastKnownLocation="Package_2105.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="39ea5206-3ff6-4d1a-ae82-359c1b2df3c1"
+                  name="ChatRoom"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8b497bfd-93a1-4836-b710-90e60de968bf"
+                  name="ContactList"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="93baeb80-a349-4d58-81d8-8d2dc8f456f1"
+            isDerived="false"
+            sourceEndRoleName="ChatRoom"
+            targetEndRoleName="TextMessage"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a549723a-0c7b-4597-8357-6beb6b765513"
+              LastKnownName="TextMessage"
+              LastKnownLocation="Package_2105.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="32603660-d885-462e-aa02-d149a7ab2b07"
+                  name="ChatRoom"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3624e310-2320-4196-b4d7-d4663fcfac68"
+                  name="TextMessage"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="339be792-b357-4e9c-8ad0-aaaa15c4dafc"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4705ff4d-15c6-4884-80e4-51dbe53fdb76"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="557d5710-1228-4001-a321-725252fc2709"
@@ -1126,6 +1322,15 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <suppliersInternal>
+          <dependency
+            Id="99323a80-79e4-4966-949f-4cae11832356">
+            <enumerationMoniker
+              Id="06ea9018-5cd9-4c2a-8cce-3cef2c91cb2b"
+              LastKnownName="Status"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributesInternal>
           <property
             Id="cde3a07a-c589-4a34-8e99-a01828751b72"
@@ -1239,6 +1444,47 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="e673b5dd-c7ff-49cf-b0cc-4cb68391913c"
+            isDerived="false"
+            sourceEndRoleName="TextMessage"
+            targetEndRoleName="Contact"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="ddcffad3-4985-41bd-81d9-505efb30d97f"
+              LastKnownName="Contact"
+              LastKnownLocation="Package_2105.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0a179498-89a3-48fa-938b-35c11c601a0c"
+                  name="TextMessage"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2d0e50a5-2f19-4f72-8732-50d643238b2a"
+                  name="Contact"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="a5580ebf-fee1-4383-8133-f10f52c75d5d"
@@ -1819,6 +2065,34 @@
               LastKnownName="InputHandler"
               LastKnownLocation="Package_2105.uml" />
           </interfaceRealization>
+          <dependency
+            Id="42706b4b-5176-42c2-a5ad-c2300286dbd4">
+            <classMoniker
+              Id="caa575c5-39a2-47d2-b6d5-fa67cd0b042d"
+              LastKnownName="Chat"
+              LastKnownLocation="ModelingProject1.uml" />
+          </dependency>
+          <dependency
+            Id="b9485914-3f1a-4bdb-bf4d-1ae667294b6b">
+            <enumerationMoniker
+              Id="aef83fd8-8ddb-46b3-b5ef-87b8c5c891e4"
+              LastKnownName="LogStatus"
+              LastKnownLocation="Package_2105.uml" />
+          </dependency>
+          <dependency
+            Id="c7517792-8112-4515-82b1-549de7a327bb">
+            <interfaceMoniker
+              Id="aad92cd1-e3c4-43e2-87c7-2d47b8b88034"
+              LastKnownName="ITextMessage"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="9bdf7de2-ed50-4200-bc37-64faa85e07e7">
+            <interfaceMoniker
+              Id="f976a378-1eb7-4ef8-afc7-8daf2f96c7f8"
+              LastKnownName="IMensaje"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
         </suppliersInternal>
         <targetEnds>
           <association
@@ -1900,7 +2174,7 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="4dcb65b0-abd2-4cf2-9dbd-f0c99979fad7"
+            Id="1b7445d8-84e7-4c0e-90b1-e9042d1956f5"
             isDerived="false"
             sourceEndRoleName="ServerController"
             targetEndRoleName="Observer"
@@ -1913,20 +2187,20 @@
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="2258819d-406f-42e8-92c5-4fbb05d32d4a"
+                  Id="30f0feff-a145-49a2-be0f-72a8e5834954"
                   name="ServerController"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
                   isDerived="false"
                   isDerivedUnion="false"
-                  aggregation="None"
+                  aggregation="Composite"
                   isComposite="false"
                   isNavigableOwned="false" />
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="33b32243-d674-4e44-b6c2-05338aef6fde"
+                  Id="2e29a06b-248b-4b3c-a818-905d85d0e770"
                   name="Observer"
                   isLeaf="false"
                   isStatic="false"
@@ -1934,7 +2208,20 @@
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
-                  isComposite="false" />
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="953bd547-6774-40fb-938c-cb3a7cdc2d6f"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="bf09527d-6b4f-4129-81d1-1ec3baa11553"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
@@ -2956,6 +3243,22 @@
         name="EventLogObserver"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="22501d38-76d7-435d-9958-9b074ee6079c">
+            <enumerationMoniker
+              Id="aef83fd8-8ddb-46b3-b5ef-87b8c5c891e4"
+              LastKnownName="LogStatus"
+              LastKnownLocation="Package_2105.uml" />
+          </dependency>
+          <dependency
+            Id="7f4850ad-1e9d-4e1b-9d1e-5537f66fc2e8">
+            <interfaceMoniker
+              Id="f976a378-1eb7-4ef8-afc7-8daf2f96c7f8"
+              LastKnownName="IMensaje"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedOperations>
           <operation
             Id="b2577bca-f20b-4f07-9ece-e0fa41792d28"
@@ -3187,6 +3490,47 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="6b021c7e-b5e4-40b7-92c3-65d70ccdcac7"
+            isDerived="false"
+            sourceEndRoleName="ContactList"
+            targetEndRoleName="Contact"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="ddcffad3-4985-41bd-81d9-505efb30d97f"
+              LastKnownName="Contact"
+              LastKnownLocation="Package_2105.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="22ec3b91-aa0c-41aa-a582-cae53ae8490e"
+                  name="ContactList"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7dcb1c8a-918b-46bc-a090-388f9a8d4b9a"
+                  name="Contact"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="27848c0b-24c7-4349-b3a5-dd11158d8f33"
