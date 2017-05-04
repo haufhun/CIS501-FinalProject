@@ -60,23 +60,5 @@ namespace Client.Model
         }
 
     }
-    //class ContactList_M
-    //{
-    //    private Dictionary<string, Contact> _contacts = new Dictionary<string, Contact>();
-
-    //    void AddContact(string name)
-    //    {
-
-    //    }
-
-    //    void RemoveContact(string name)
-    //    {
-
-    //    }
-
-    //    public void UpdateForm()
-    //    {
-
-    //    }
-    //}
+    
 }

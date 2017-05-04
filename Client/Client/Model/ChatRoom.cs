@@ -11,31 +11,7 @@ namespace Client.Model
     [JsonObject(MemberSerialization.OptIn)]
     public class ChatRoom : IChatRoom
     {
-        //[JsonProperty]
-        //private List<TextMessage> _messages;
-
-        //[JsonProperty]
-        ////We want this to be a JsonProperty so that when the client gives the server a ChatRoom, we know which one to associate it with...
-        //public string Id { get; }
-
-        //public IEnumerable<ITextMessage> MessageHistory => _messages;
-
-        //public IEnumerable<IUser> Participants => _users.Values;
-
-        //private Dictionary<string, User> _users;
-
-
-
-        ///// <summary>
-        ///// Used for Json.
-        ///// </summary>
-        ///// <param name="msgs"></param>
-        ///// <param name="list"></param>
-        //private ChatRoom(List<TextMessage> msgs, string id)
-        //{
-        //    _messages = msgs;
-        //    Id = id;
-        //}
+       
         [JsonProperty]
         //Private field storing a List of messages
         private List<TextMessage> _messages;
