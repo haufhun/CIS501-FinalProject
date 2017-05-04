@@ -1535,6 +1535,140 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="d78c0441-73f3-441c-8ed9-a77d30f28a6f" name="ClientController1" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="824719d5-1594-4a34-9d91-7c5c5cec1a6b" />
+        <suppliersInternal>
+          <interfaceRealization Id="ce482d60-3f66-461f-9ec2-4703d22b13a4">
+            <interfaceMoniker Id="ae49ac2f-d39a-46dc-998e-82b786e61072" LastKnownName="CloseRoomHandler" />
+            <elementDefinition Id="421b9584-9ad6-4343-b906-0cebed174ded" />
+          </interfaceRealization>
+          <interfaceRealization Id="4066064f-1c05-4562-9d84-524bc706fac1">
+            <interfaceMoniker Id="cc3f8e06-b4de-4409-a77e-d46f5bdc77c4" LastKnownName="SignOutHandler" />
+            <elementDefinition Id="bc57a57d-32f0-47ae-b1eb-9078f1130fb4" />
+          </interfaceRealization>
+          <interfaceRealization Id="4737c0fe-8392-4557-9a1c-21de8a9f2fa2">
+            <interfaceMoniker Id="96430f8d-541c-4968-a4b7-df735be63941" LastKnownName="SignInHandler" />
+            <elementDefinition Id="4afd13e4-765d-48a5-9c43-33afe7c818e1" />
+          </interfaceRealization>
+          <interfaceRealization Id="7a2f19b1-a744-486b-9bca-c234d4d1db37">
+            <interfaceMoniker Id="27d73e89-5777-4828-bd53-c5f3c9007e78" LastKnownName="RemoveContactHandler" />
+            <elementDefinition Id="2cf40a76-3d67-4eff-bf89-2699e8d9d055" />
+          </interfaceRealization>
+          <interfaceRealization Id="8b604fc3-9cfc-410a-94f3-503627cc9d82">
+            <interfaceMoniker Id="df0cc77d-7406-45c8-8e2e-913e2345d411" LastKnownName="AddContactHandler" />
+            <elementDefinition Id="364cfc5e-2b88-4984-b1c7-e4c2d6053737" />
+          </interfaceRealization>
+          <interfaceRealization Id="4a54cf8e-4971-4e6a-808f-d8b43e9ef60a">
+            <interfaceMoniker Id="be8252b4-eda6-486c-ae81-b4d6b66a70bb" LastKnownName="CreateRoomHandler" />
+            <elementDefinition Id="15fb3b17-63be-4122-a090-7eae8d295fea" />
+          </interfaceRealization>
+          <interfaceRealization Id="055ef8df-06f6-44e3-b09c-c2496f638be3">
+            <interfaceMoniker Id="9a70c184-50c2-489d-be36-f3696f809be5" LastKnownName="AddContactToRoomHandler" />
+            <elementDefinition Id="79f6835f-c4af-42a6-bcc9-9a406577a010" />
+          </interfaceRealization>
+          <interfaceRealization Id="a980cba2-909d-4359-8aab-539fc9abdeb6">
+            <interfaceMoniker Id="9e2cca41-0e28-4e68-8c2a-4e5c3c3c1dba" LastKnownName="SendMessageHandler" />
+            <elementDefinition Id="4d52f84c-4347-4afd-9c4a-af8dd976312e" />
+          </interfaceRealization>
+          <dependency Id="6c6f66b5-3fc1-4a7b-a473-0c5966b0f2db">
+            <classMoniker Id="b7bacdb3-6268-46ad-a507-22daeef0bcd2" LastKnownName="ChatDB" />
+            <elementDefinition Id="431119fa-b260-43bf-b940-be52389cde6a" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="85f86189-dd20-4855-ac58-f1b79bb02fc9" isDerived="false" sourceEndRoleName="ClientController1" targetEndRoleName="SignInFormOBserver" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="6b027c6f-31c3-46dc-a7a1-9e97c17b99fb" LastKnownName="SignInFormOBserver" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e8bf6aac-5e78-43cf-a700-07f389a5f54e" name="ClientController1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="156c1dbb-d9c5-4e19-9b9b-96df27c2c61c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="80acd17b-b4e0-4948-8208-ff7e73213289" name="SignInFormOBserver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="701c144e-b23c-43ed-a032-a86ff00e8fd3" name="Lower" value="3">
+                      <elementDefinition Id="8829bbb8-1841-41ab-8825-c3c452217aa7" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="41248a03-5094-40e4-b789-7cd0be531077" name="Upper" value="3">
+                      <elementDefinition Id="9eb20806-3eb3-4209-b84c-24400e7978f0" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="40a08462-b205-4d52-965c-cee98bfbaa84" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7a1b206f-7e70-4893-95f3-c19624f24426" />
+          </association>
+          <association Id="539719bd-c9d6-4f29-a0eb-23870cfe6649" isDerived="false" sourceEndRoleName="ClientController1" targetEndRoleName="HomeFormObserver" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="28797f29-b864-4561-b40f-8700b90955fd" LastKnownName="HomeFormObserver" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9a6a7987-46b7-40d3-9019-34602ae89655" name="ClientController1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2f973f0c-d7bf-4c93-8b6e-c8d4ce231f4c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2e28d0b4-909d-402f-8696-0756a92b3391" name="HomeFormObserver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="cb6e22b8-35c5-440c-8e53-eb760b69f88b" name="Lower" value="4">
+                      <elementDefinition Id="f9d4412f-fe61-4ba4-bbf8-d3153a8509f2" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="2bea4d74-7c56-4f0e-b5a0-e32d819b0512" name="Upper" value="4">
+                      <elementDefinition Id="f0611074-2d92-4428-9099-0374f79e7778" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="ffb945f8-60e2-4b27-a9c9-c13a99a99c3a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="100f2bea-85c9-4b0b-b882-e1f4f26dc9e3" />
+          </association>
+          <association Id="70b9215f-b199-41a3-97f9-dc4d89bf3ba1" isDerived="false" sourceEndRoleName="ClientController1" targetEndRoleName="ChatFormObserver" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="c2e3f050-9ea1-4fdb-90be-489d1933a611" LastKnownName="ChatFormObserver" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="fff7d7d1-92f2-4033-b960-2b25dd8fe153" name="ClientController1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="886e22fe-b0b8-4023-bd7c-1937b3d0edc6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ff920c59-d08f-4298-a45c-9c25ff3737b6" name="ChatFormObserver" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
+                  <lowerValueInternal>
+                    <literalString Id="4eed1a8c-361b-4f83-bea5-7f8602192482" name="Lower" value="2">
+                      <elementDefinition Id="aff637f6-2202-44e4-acb7-d0dd394a3e0a" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="f0b30271-de4a-409b-adb7-c737297ec385" name="Upper" value="2">
+                      <elementDefinition Id="dde9b0d3-b068-4695-b751-e436fd2118ff" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="9916933a-b388-41e4-8df1-ef840c6cb202" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="b8645d4d-8c56-4f87-9544-18e482432dbf" />
+          </association>
+          <association Id="ca81d354-3d60-4430-8683-8e6260f00382" isDerived="false" sourceEndRoleName="ClientController1" targetEndRoleName="Mensaje" isLeaf="false" isAbstract="false">
+            <classMoniker Id="bc06aeae-5453-4e92-b974-60f1890f80e9" LastKnownName="Mensaje" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="535bcd66-9b6f-4cff-a902-e9f60f20608a" name="ClientController1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a7c1d85f-64d6-4845-bde5-edd73a702c97" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0f402b23-0edd-4164-b0ab-b96de83175a1" name="Mensaje" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b0f46a0e-2a0f-443e-8274-dad6eddd342f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="6cbe2acd-bed1-42d3-b234-5b4f254081c1" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="5a738a2f-e1cb-43a0-8b7d-dfe269d7d5db" name="_sIFormObserver" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="4ffff9d8-2c96-409b-8506-10d41deb2d15" />
@@ -1831,6 +1965,19 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation Id="f918d93e-b03c-4ed4-b7e2-e28f5382d8ea" name="Handle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="4a01a6eb-d9c6-4e44-bffb-d63836d00a5b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="42120cd9-bf06-432a-9082-510fa943e91b" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="3322622c-08fe-4f5c-b4b8-6fad82bd0a44" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="18d40c7e-9c4b-4882-8e80-9901c143ef0c" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
@@ -1962,6 +2109,62 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="f4f1fc86-352d-4ca2-ab9b-548785dd78db" name="ChatForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="940e041b-ce7a-4fae-b23d-5ab6c55087b9" />
+        <suppliersInternal>
+          <interfaceRealization Id="68c3d217-a691-4ba0-8eb4-2fc362d12e69">
+            <interfaceMoniker Id="c2e3f050-9ea1-4fdb-90be-489d1933a611" LastKnownName="ChatFormObserver" />
+            <elementDefinition Id="134a4024-d2e8-451f-a56c-3bcddff16fc0" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="ca4e6a1b-4882-4d61-8dd1-cda14e67180d" isDerived="false" sourceEndRoleName="ChatForm1" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="9e2cca41-0e28-4e68-8c2a-4e5c3c3c1dba" LastKnownName="SendMessageHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7bdebaea-49e6-47c1-a8ac-595e86a0606d" name="ChatForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="abf33313-cf13-4dd2-855d-36a6c6d5f643" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="686cc482-993c-42a1-b2ff-1681daef0b42" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="08d18f9e-7343-4d43-bd4e-118904bda223" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0b7390ca-9a49-4396-b3b0-6e4def4ce715" />
+          </association>
+          <association Id="02b16b3f-27d2-48c5-9768-4265f59d4d82" isDerived="false" sourceEndRoleName="ChatForm1" targetEndRoleName="AddContactToRoomHandler" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="9a70c184-50c2-489d-be36-f3696f809be5" LastKnownName="AddContactToRoomHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0f85822b-c64d-46b9-8894-1bf08107a871" name="ChatForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="85a023e5-fb05-4752-9273-91ac7c30271d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a89a34b2-5752-4d2e-9e8d-bc299688c92c" name="AddContactToRoomHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a2451790-6f25-4468-b540-514b979d12c9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="828a9b80-4c77-45be-86d1-21954cdc4d0b" />
+          </association>
+          <association Id="1bab19df-f0a8-4897-907e-30d84863f3f9" isDerived="false" sourceEndRoleName="ChatForm1" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="ae49ac2f-d39a-46dc-998e-82b786e61072" LastKnownName="CloseRoomHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6720e16e-0bf8-4413-8142-c44a6c6cef2b" name="ChatForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="163e9c5e-62b7-40fa-97c7-4d09f7582b2e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d3d79e35-bd36-4bb5-8de7-a626014a688e" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="aab18d80-fe99-42b2-93d5-3a38fd5fcdb1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="35f83668-2f22-4495-bc19-99447f9e48aa" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="07bb66e2-2fda-4d74-8e74-f8bd957d7ea7" name="_chatRoom" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="81df18f7-cd77-404b-b32e-8c9e28364f27" />
@@ -2195,12 +2398,191 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation Id="3f5a845d-3e10-4d5b-8647-cf6d3f6a91cd" name="Handle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="376e34a0-6ec5-4ef3-911e-df87a23da9cf" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1e3d9642-8f8b-4ad9-8329-6f890ea57854" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="93b5f718-bd2f-462c-88ac-15486f8f12ce" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="18d40c7e-9c4b-4882-8e80-9901c143ef0c" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
       <class Id="7d428d72-69d2-4229-b21e-95092f4e4acf" name="HomeForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="7be31ff2-7471-4ec3-9f09-a6dd12dd9821" />
+        <suppliersInternal>
+          <dependency Id="5bf440eb-4a78-4078-958b-823bbf4fddcf">
+            <classMoniker Id="ed548771-aeb6-4f10-883c-af3ca913fe19" LastKnownName="AddContactForm1" />
+            <elementDefinition Id="b40ca9e7-f3c4-4805-bdc0-bf0d2783cad3" />
+          </dependency>
+          <interfaceRealization Id="76966778-7e6e-48be-b54a-ec3d859ef7d6">
+            <interfaceMoniker Id="28797f29-b864-4561-b40f-8700b90955fd" LastKnownName="HomeFormObserver" />
+            <elementDefinition Id="bf24f708-59d7-421d-ad6f-5db0e0e20a44" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="5c9d1bd1-4deb-49e4-a88f-86d2c46038ea" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="ChatForm1" isLeaf="false" isAbstract="false">
+            <classMoniker Id="f4f1fc86-352d-4ca2-ab9b-548785dd78db" LastKnownName="ChatForm1" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="9a475601-2c13-4c71-aaae-1a6d8aa0d263" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7f4ef62f-2716-434f-93ef-08ae1fcad535" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ccb109c8-08af-4a7b-9c7b-10ae067b06fa" name="ChatForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="84dfcd47-6c5c-472c-aa61-a0cb4651c1b8" name="Lower" value="1">
+                      <elementDefinition Id="2dc0aa62-793d-421b-b578-7434b28311cb" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="7f3f7f3d-c850-4672-837b-24f91aa5ec40" name="Upper" value="n">
+                      <elementDefinition Id="c0c9c8b7-4002-47ed-b505-74d9a30e7019" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="9cce295d-a01e-4954-afff-4ee5a087e92e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="55c9a19a-2612-43a8-8532-27ca6c3b92c1" />
+          </association>
+          <association Id="6d158cc6-b60c-4555-a7b3-9054e0d75e45" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="SignInHandler" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="96430f8d-541c-4968-a4b7-df735be63941" LastKnownName="SignInHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5624c534-5bea-4201-a31f-190fcd9ff534" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="dd3e0975-3156-4970-a4b1-3ae76bc23025" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a35ff9bf-ea5f-4a30-807e-e359458caca8" name="SignInHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0e636260-92bc-45b6-b2b6-6af99154dccc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="d3f647fb-b2c2-4b81-b7d3-1d8a18fc83b1" />
+          </association>
+          <association Id="cfb4ab1c-1cbc-4f34-bcc5-90e9fc2ee4d2" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="SignOutHandler" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="cc3f8e06-b4de-4409-a77e-d46f5bdc77c4" LastKnownName="SignOutHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e5aee4d9-7204-4342-9152-23ba2eba515e" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7cf490af-cd54-4a9d-8c94-bf559aa22d58" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="782a0ff0-7f6d-4a05-88ff-b09e7bbf66db" name="SignOutHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="077a6c2f-cc36-4070-b21c-d5d1baaf2f81" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0024e89a-c2b4-4b48-a19a-f9adef2a652c" />
+          </association>
+          <association Id="982a3697-4c23-4036-ac29-1f953099bf2f" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="RemoveContactHandler" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="27d73e89-5777-4828-bd53-c5f3c9007e78" LastKnownName="RemoveContactHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="817289ab-f857-4396-98de-8e9491b075da" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="ca8695d3-5b52-44d2-a25f-bc24f4c2b623" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ef29145f-69e3-46f2-aead-f2eca5b03e5b" name="RemoveContactHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="79104862-4e83-4798-b729-d2c54a6def3b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4f5de611-6a90-440a-95c7-d5d616786172" />
+          </association>
+          <association Id="089be386-cce1-4669-a3cd-827055e1ecae" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="9a70c184-50c2-489d-be36-f3696f809be5" LastKnownName="AddContactToRoomHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="08ab51e7-9336-4165-9975-d891dc4b3148" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7f24cf7c-3955-4fe4-93e9-c3cdbd152645" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="bbc89862-223b-4902-aee5-145ce4065ee9" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5bfa4fe0-cf38-4e87-888a-6fe1c40d3da1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ffa0b3d9-fd63-46d5-8269-8cd1f2a990c1" />
+          </association>
+          <association Id="1158ccf4-526a-41c2-847a-0fe9fc5458bc" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="CreateRoomHandler" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="be8252b4-eda6-486c-ae81-b4d6b66a70bb" LastKnownName="CreateRoomHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="3499797b-2d51-42e0-83de-b2e0d03f5595" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="95106cac-8024-4da6-9f02-2d3fcc9a7cee" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d57d3013-d890-4e2d-90c0-7d6f4c17a458" name="CreateRoomHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="d0770701-90ce-4863-8261-eb195bcfa11f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="816b1504-e5d5-4f99-b5fe-3dad0433a9a2" />
+          </association>
+          <association Id="69f6adb3-ae43-4148-8fc8-b7e96cb0377c" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="ae49ac2f-d39a-46dc-998e-82b786e61072" LastKnownName="CloseRoomHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7fc9a0bf-90f2-4f3a-9064-e5ba05c9bb37" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="03804bf5-2519-413b-af8a-92fdd375bab4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="1492d542-15a1-4d2e-a4eb-2aecd6ea7e10" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6767c8d6-53b3-4fac-9688-8757daebc34c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="f0dca6de-a874-494f-b4df-9f59a83c4387" />
+          </association>
+          <association Id="b7c80e4a-3e88-45fc-9b1b-f9d63796533e" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="9e2cca41-0e28-4e68-8c2a-4e5c3c3c1dba" LastKnownName="SendMessageHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ae45592d-575a-4e1c-88ee-a31af1bd1686" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="2c60edbf-75e2-435a-9ce9-65e3f20d315e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d9a5b674-e122-4591-87b8-dc95187e2308" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="46781831-b830-429f-861c-2de2f93fe87a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="6e2f1f5c-fef0-434a-b0d6-b8ec0dd5a7fe" />
+          </association>
+          <association Id="180ce17b-5f35-44fe-b32c-9d8617daa439" isDerived="false" sourceEndRoleName="HomeForm1" targetEndRoleName="AddContactHandler" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="df0cc77d-7406-45c8-8e2e-913e2345d411" LastKnownName="AddContactHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="71f329d4-83a8-48ec-a86b-23c6d437ed77" name="HomeForm1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="5db4aca6-5842-4c57-9364-e96a0aad0793" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="44aca817-bb0a-41d5-bbb6-0055e878fea8" name="AddContactHandler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7722f7e0-3fd2-4098-89cc-a7fcac5f3ebc" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="08a6e521-5826-4459-b6bc-b86cffa17644" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="a1fb42b7-0e4b-42cf-b3ad-80543be572d5" name="_sInHandler" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="0f0f16e0-b5de-4bc9-97a3-af81d3624fac" />
@@ -2617,12 +2999,53 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation Id="88e1f6be-cb1f-4308-afe7-0e667ebc0ce6" name="Handle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cd9cc897-585e-4ccd-ba39-604fc39a8ce1" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="96a94a30-e115-44f5-8aee-bc7291fc21cc" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="0a692def-4fac-4bdb-9c23-5c9829ba0e89" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="18d40c7e-9c4b-4882-8e80-9901c143ef0c" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
       <class Id="77b1d381-960a-481b-9091-ec31a0e3dbfb" name="SignInForm1" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="3aadc413-4d86-4228-a7bc-d99823456b0b" />
+        <suppliersInternal>
+          <dependency Id="04b438ea-2bb1-48b4-9115-b379a41a1b6b">
+            <classMoniker Id="7d428d72-69d2-4229-b21e-95092f4e4acf" LastKnownName="HomeForm1" />
+            <elementDefinition Id="f9b4cdbd-69f0-4b02-b35d-ace146ddebfc" />
+          </dependency>
+          <interfaceRealization Id="f6935a18-b606-4f2e-bd63-c35734ddb6a9">
+            <interfaceMoniker Id="6b027c6f-31c3-46dc-a7a1-9e97c17b99fb" LastKnownName="SignInFormOBserver" />
+            <elementDefinition Id="5a3bb5fe-7227-4be6-9ac0-43c5ebf1fc1f" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="ab3e0c24-e1ce-455c-9c8d-fc745a706583" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="96430f8d-541c-4968-a4b7-df735be63941" LastKnownName="SignInHandler" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="887f59a6-0034-4fcc-b546-5a2dcc4517b4" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="5608e1c5-7a8f-42ba-be35-5f46e631c71f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f8fd5b93-262c-40ef-bbe6-d54420ae4d57" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="b045713a-9066-4d5e-8193-a3e5a861d407" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4f62c0a6-a2e2-403c-a636-d75e9c9d2787" />
+          </association>
+        </targetEnds>
         <ownedAttributesInternal>
           <property Id="68958392-1325-420f-b053-8a51fc0eeec1" name="_homeForm" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
             <elementDefinition Id="5b469e74-be52-4a1b-9de4-011e9e2e7b96" />
@@ -2766,8 +3189,301 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation Id="d36851ed-7804-4877-8b28-748140e31b6e" name="Handle" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="63dcd11c-e091-4ff4-8e49-ec75b32e2dc2" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="c1b00a24-cc4d-46f0-a1af-9f21c3ff6490" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="4a752d4a-d1e4-41d7-8e69-d35c229ba3ab" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="18d40c7e-9c4b-4882-8e80-9901c143ef0c" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="18d40c7e-9c4b-4882-8e80-9901c143ef0c" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="0d06efb8-3f85-4206-970b-18c22781f9c3" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="c2e3f050-9ea1-4fdb-90be-489d1933a611" name="ChatFormObserver" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a43b6be4-09c5-4c67-baf7-c5522838ea40" />
+        <ownedOperations>
+          <operation Id="5585eb7b-e296-4ea9-bda0-679bb0e1e7b8" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="620a0de8-d70e-4dff-be66-e55bff630269" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6ecd6e3b-5efc-4830-8ff8-42dd918145e3" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="05e03d10-366c-4702-ac07-f22de31a6415" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="0d06efb8-3f85-4206-970b-18c22781f9c3" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="45f1a6dc-263a-43ba-8b73-5d40c1e1366a" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="28797f29-b864-4561-b40f-8700b90955fd" name="HomeFormObserver" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c02de7e3-aa58-4b48-91e4-f7ddb7043bf2" />
+        <ownedOperations>
+          <operation Id="54fa9d86-c673-4f4e-95ac-e6cc4fc4d037" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e7096eb7-9dad-452e-b5b9-b133dcf8f231" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1be4548f-216d-4019-84c9-299e0492a5ab" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="4c8e676c-cc83-4074-8953-e1ab37621544" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="45f1a6dc-263a-43ba-8b73-5d40c1e1366a" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="d5952d07-7c18-43f3-942c-cfecf5f0a14e" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="6b027c6f-31c3-46dc-a7a1-9e97c17b99fb" name="SignInFormOBserver" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="18ac77f6-0f8d-485b-9db0-704f46aa020a" />
+        <ownedOperations>
+          <operation Id="5217f19f-cf90-4410-8827-5ed6ce900579" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="72fe8b35-1443-4287-b28b-871108bd509f" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="2eb4dbbc-3700-4460-9bdc-2f4881057e5a" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="edbba8b8-9813-4f22-bd26-a1da64cc93d6" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d5952d07-7c18-43f3-942c-cfecf5f0a14e" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="d59fab30-c2e9-4c17-b530-caedc05d3106" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="9e2cca41-0e28-4e68-8c2a-4e5c3c3c1dba" name="SendMessageHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="59293c20-c749-4c63-bc61-41c80109a80a" />
+        <ownedOperations>
+          <operation Id="9e1eb330-6770-481a-8955-e673cbf2b2db" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="0096f9d5-7183-4ec0-95ee-c6e406a1373b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8a57d0e9-4835-426c-99f8-dff1813ac0aa" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="022f4e77-6d7d-4275-9204-b96517a7070d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="d59fab30-c2e9-4c17-b530-caedc05d3106" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="04827de3-ba14-4f4e-ad80-714f68694e19" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="ae49ac2f-d39a-46dc-998e-82b786e61072" name="CloseRoomHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d245ab4c-c666-44e4-a53e-bd990f9aa8d9" />
+        <ownedOperations>
+          <operation Id="db11b69d-88e4-4a90-b62c-c561b68edcfe" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8806ab24-5c9c-45e3-858a-bf87293ec5b3" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="44262420-c560-447f-8b47-ae32927b9ecf" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="a08f34e2-fcae-44f7-891e-73c54cc8647a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="04827de3-ba14-4f4e-ad80-714f68694e19" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="963149fa-c599-4870-8556-abf7c23522ad" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="be8252b4-eda6-486c-ae81-b4d6b66a70bb" name="CreateRoomHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="99344480-cbbc-490e-b4ed-45bc3a22dcb8" />
+        <ownedOperations>
+          <operation Id="36fc31fb-df17-40c0-8fb5-ae6e1cef2e9f" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="f40f1830-18b0-41c5-873f-aa76192e24cd" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="81b78f5b-e86f-4e7e-b0c1-67aa77230044" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="69ad81a9-c647-474d-a888-21c173490624" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="963149fa-c599-4870-8556-abf7c23522ad" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="05cbeb87-ba78-40bc-a4e0-c48885e9d503" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="9a70c184-50c2-489d-be36-f3696f809be5" name="AddContactToRoomHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e84beeec-c700-4484-be70-534347c4185b" />
+        <ownedOperations>
+          <operation Id="c734c8e0-6a5e-4542-bf0a-e63bef4a3d35" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8f93c125-2611-46c1-a7ad-241173fd3027" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4f85f0ad-c38d-4d78-a466-6260927751cb" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="eef42157-247b-402b-9457-ba4066956a52" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="05cbeb87-ba78-40bc-a4e0-c48885e9d503" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="a86c6cd1-e8f3-4ba3-8f83-b22dbab576a8" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="27d73e89-5777-4828-bd53-c5f3c9007e78" name="RemoveContactHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="33dce7f0-1d0b-41d2-b1a8-079600e30477" />
+        <ownedOperations>
+          <operation Id="c18b417f-2d98-4782-b003-b3af344581de" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="bc9a5084-8dc4-4007-ae65-5b9074417e53" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4a44e484-8535-40fd-9594-b7b39e74b755" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="14880b18-46b3-4b12-89cd-c9fdad23ff8e" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="a86c6cd1-e8f3-4ba3-8f83-b22dbab576a8" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="a7d4fe99-42ab-40ff-92e4-7c2aef095b4b" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="df0cc77d-7406-45c8-8e2e-913e2345d411" name="AddContactHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="c2199786-3bf1-47c7-90ba-b9ad672403a6" />
+        <ownedOperations>
+          <operation Id="866fa914-70b2-4032-b116-b994a09b1c89" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="0c170c12-50de-43d8-9330-e91db64feb29" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7b401d1e-dea0-424c-9735-d9848c3ccd33" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="d04cfe0c-96dd-4f3a-9dca-7584c17f3a99" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="a7d4fe99-42ab-40ff-92e4-7c2aef095b4b" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="47eb3a16-12f7-4fd6-8a1e-9b0a94e64f57" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="cc3f8e06-b4de-4409-a77e-d46f5bdc77c4" name="SignOutHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="63ec639b-5150-488a-81cb-af00a1b31ca3" />
+        <ownedOperations>
+          <operation Id="782882cf-2cdf-40ee-8b53-0403515aff9b" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="ba9d9f72-7182-4e53-bae7-b3250bee57a4" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7232f5d6-3777-403f-93e3-830cc1282409" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="008ece19-3f86-4eca-a90a-3a199ace5a2a" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="47eb3a16-12f7-4fd6-8a1e-9b0a94e64f57" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="6a946f2c-83db-4f23-9063-ca989cff45db" name="Status" isAbstract="false" isLeaf="false" cachedFullName="Status">
+        <elementDefinition Id="61dd761d-b8ed-4521-987e-8a214fbfb2c2" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="96430f8d-541c-4968-a4b7-df735be63941" name="SignInHandler" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4354a464-3950-429f-81b2-e29b789b1164" />
+        <ownedOperations>
+          <operation Id="524fc4b1-f393-407b-9375-a857f724b90a" name="Handle" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a83b7182-6f33-46ae-82d9-84ad51d8776a" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="3d6786fb-55d4-4785-a66d-75dbf9d98304" name="state" direction="In" isUnique="false">
+                  <elementDefinition Id="4a9b6bd8-1b0a-4e64-ab42-43d2239c7fa2" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6a946f2c-83db-4f23-9063-ca989cff45db" LastKnownName="Status" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
     </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="0b789186-4d81-4e4b-a480-ebf9fe4170cd" name="ModelingProject1">
