@@ -2055,7 +2055,7 @@ Below is outdated -- Calvin circa 2017</body>
       </package>
     </logicalClassDesignerModelHasPackages>
     <logicalClassDesignerModelHasPackages>
-      <package Id="e54d48af-f1ba-4297-a93c-711d0fba8e20" name="Package2">
+      <package Id="e54d48af-f1ba-4297-a93c-711d0fba8e20" name="Chat-CSLibrary">
         <elementDefinition Id="73b332bc-3743-47ed-b837-f5c499881300" />
         <packagedElements>
           <packageHasNamedElement>
