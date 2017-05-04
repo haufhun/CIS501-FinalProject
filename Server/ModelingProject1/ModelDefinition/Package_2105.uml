@@ -1020,6 +1020,7 @@
             sourceEndRoleName="ChatRoom"
             targetEndRoleName="IUser"
             isLeaf="false"
+            name="f"
             isAbstract="false">
             <interfaceMoniker
               Id="9a899309-c61b-468b-9f28-a8638ac9123f"

@@ -1343,7 +1343,7 @@ Below is outdated -- Calvin circa 2017</body>
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="e03e355d-d725-4fd2-9b20-bcf710404933" />
                 </association>
-                <association Id="2741ae48-4aae-4bbe-b2a3-62bb4fcc062f" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="IUser" isLeaf="false" isAbstract="false">
+                <association Id="2741ae48-4aae-4bbe-b2a3-62bb4fcc062f" isDerived="false" sourceEndRoleName="ChatRoom" targetEndRoleName="IUser" isLeaf="false" name="f" isAbstract="false">
                   <interfaceMoniker Id="07359663-cf42-4749-89f5-713e508fccaa" LastKnownName="IUser" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
