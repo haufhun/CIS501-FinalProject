@@ -2614,6 +2614,13 @@ Below is outdated -- Calvin circa 2017</body>
               LastKnownName="SendMessageHandler"
               LastKnownLocation="Package_2105.uml" />
           </interfaceRealization>
+          <dependency
+            Id="b7bd2d49-9817-4101-8cd1-45cd1059ce7d">
+            <interfaceMoniker
+              Id="f976a378-1eb7-4ef8-afc7-8daf2f96c7f8"
+              LastKnownName="IMensaje"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
         </suppliersInternal>
         <targetEnds>
           <association

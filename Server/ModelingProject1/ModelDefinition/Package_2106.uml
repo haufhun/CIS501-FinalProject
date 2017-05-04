@@ -10,6 +10,22 @@
         name="IChatRoom"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="8c2e88d6-517b-44e7-8a90-4a29852fe6d7">
+            <interfaceMoniker
+              Id="aad92cd1-e3c4-43e2-87c7-2d47b8b88034"
+              LastKnownName="ITextMessage"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="afcbb5f0-64f9-44af-9589-021e7206215c">
+            <interfaceMoniker
+              Id="9a899309-c61b-468b-9f28-a8638ac9123f"
+              LastKnownName="IUser"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributes>
           <property
             Id="cfa8cd05-6c07-497a-85cc-c2c92c4207d2"
@@ -74,6 +90,15 @@
         name="IContactList"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="1e61c11e-b8ae-4604-9a0e-35261d089f39">
+            <interfaceMoniker
+              Id="8d5c9ed5-4223-4e2c-a36d-b42dc257294d"
+              LastKnownName="IContact"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributes>
           <property
             Id="47beb275-4f74-4a3d-ac54-45c7b114c2fa"
@@ -147,6 +172,15 @@
         name="ITextMessage"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="f069a2a6-4ed4-462a-985f-df14b7183f67">
+            <interfaceMoniker
+              Id="8d5c9ed5-4223-4e2c-a36d-b42dc257294d"
+              LastKnownName="IContact"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributes>
           <property
             Id="941181b1-c019-46f4-96c9-6d9ae6ae7172"
@@ -211,6 +245,15 @@
         name="IContact"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="b2e5141e-03ee-4b7f-ab82-af2f1a13aba4">
+            <enumerationMoniker
+              Id="06ea9018-5cd9-4c2a-8cce-3cef2c91cb2b"
+              LastKnownName="Status"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributes>
           <property
             Id="ef302d5a-d0ba-45d8-98aa-a392518b25fb"
@@ -307,6 +350,22 @@
         name="IUser"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="6973b9eb-3d7a-4351-891f-1d6fcb158fdc">
+            <interfaceMoniker
+              Id="8d5c9ed5-4223-4e2c-a36d-b42dc257294d"
+              LastKnownName="IContact"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="a81468d8-a32b-4174-bbd5-e81f4aab8aad">
+            <interfaceMoniker
+              Id="e39563af-a885-45ac-b4f7-11255454f864"
+              LastKnownName="IContactList"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributes>
           <property
             Id="3977a155-fca1-453f-ae18-38c3c4defaea"
@@ -353,10 +412,90 @@
         name="IMensaje"
         isAbstract="false"
         isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="1d45181a-622b-43d8-8eae-7428b8d00505">
+            <interfaceMoniker
+              Id="e39563af-a885-45ac-b4f7-11255454f864"
+              LastKnownName="IContactList"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="1355a90c-b5eb-44da-ac76-bfa1b259d180">
+            <enumerationMoniker
+              Id="8d176257-4baf-4d63-a2e3-c75c92043560"
+              LastKnownName="State"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="a5005fbd-d6ba-400c-8ad9-d1225e53ef93">
+            <interfaceMoniker
+              Id="8d5c9ed5-4223-4e2c-a36d-b42dc257294d"
+              LastKnownName="IContact"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="11a4e101-2fc6-4892-9cd1-3b620bda69d0">
+            <interfaceMoniker
+              Id="aad92cd1-e3c4-43e2-87c7-2d47b8b88034"
+              LastKnownName="ITextMessage"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="9786bd63-b21b-4e82-b775-99a35844b2c3">
+            <interfaceMoniker
+              Id="945b4faf-6804-40b1-ac63-e5bdd7296e10"
+              LastKnownName="IChatRoom"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+          <dependency
+            Id="335a23a5-0135-4672-9de4-29b11afd4c25">
+            <interfaceMoniker
+              Id="9a899309-c61b-468b-9f28-a8638ac9123f"
+              LastKnownName="IUser"
+              LastKnownLocation="Package_2106.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedAttributes>
           <property
-            Id="73a3f330-cb55-4afa-a67f-407be2507467"
-            name="state"
+            Id="a0c840f7-f7ad-4973-a829-d6d309d3a428"
+            name="ChatRoom"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="945b4faf-6804-40b1-ac63-e5bdd7296e10"
+                LastKnownName="IChatRoom"
+                LastKnownLocation="Package_2106.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="7a05a4ca-f4d2-4fac-b5c5-57feed7cc0ae"
+            name="Contact"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <interfaceMoniker
+                Id="8d5c9ed5-4223-4e2c-a36d-b42dc257294d"
+                LastKnownName="IContact"
+                LastKnownLocation="Package_2106.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="97a9cac6-abf8-4d2a-b3e6-685c6ed9cb7f"
+            name="MyState"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -367,14 +506,14 @@
             isComposite="false">
             <type_NamedElement>
               <enumerationMoniker
-                Id="f1a255b5-9fa2-4d45-a976-1fde3f72a239"
-                LastKnownName="Status"
-                LastKnownLocation="ModelingProject1.uml" />
+                Id="8d176257-4baf-4d63-a2e3-c75c92043560"
+                LastKnownName="State"
+                LastKnownLocation="Package_2106.uml" />
             </type_NamedElement>
           </property>
           <property
-            Id="5373bd5e-1135-4039-b31b-7fd7720db4fa"
-            name="name"
+            Id="dc5f17d5-120c-4a53-ad87-3a1ebd594468"
+            name="TextMessage"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -384,15 +523,15 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
-                LastKnownName="string"
-                LastKnownLocation="ModelingProject1.uml" />
+              <interfaceMoniker
+                Id="aad92cd1-e3c4-43e2-87c7-2d47b8b88034"
+                LastKnownName="ITextMessage"
+                LastKnownLocation="Package_2106.uml" />
             </type_NamedElement>
           </property>
           <property
-            Id="3f5cf98d-59e4-4f0d-89e4-d04ea096a5f4"
-            name="password"
+            Id="0bb2b548-fb10-4db0-96e6-09b0acf56eb1"
+            name="User"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -402,28 +541,10 @@
             aggregation="None"
             isComposite="false">
             <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
-                LastKnownName="string"
-                LastKnownLocation="ModelingProject1.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="04fc7195-82e2-4344-bbb8-a69d67ddb407"
-            name="message"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isUnique="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="7c03d8ea-5872-465a-aef2-7fd7223d2f06"
-                LastKnownName="string"
-                LastKnownLocation="ModelingProject1.uml" />
+              <interfaceMoniker
+                Id="9a899309-c61b-468b-9f28-a8638ac9123f"
+                LastKnownName="IUser"
+                LastKnownLocation="Package_2106.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributes>
