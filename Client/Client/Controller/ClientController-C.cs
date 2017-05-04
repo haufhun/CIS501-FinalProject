@@ -100,6 +100,66 @@ namespace Client.Controller
             ws.Close();
         }
 
+        public Message Message
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public SignInFormObserver SignInFormObserver
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public ChatFormObserver ChatFormObserver
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public HomeFormObserver HomeFormObserver
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
+        public Mensaje Mensaje
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// This method keeps track of the state the message is in and acts appropriately for each state
         /// </summary>

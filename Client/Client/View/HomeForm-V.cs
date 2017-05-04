@@ -60,6 +60,18 @@ namespace Client.View
 
         }
 
+        public HomeFormObserver HomeFormObserver
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
         /// <summary>
         /// This handles the sign out button press
         /// </summary>

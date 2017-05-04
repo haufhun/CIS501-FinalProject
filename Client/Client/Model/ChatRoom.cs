@@ -117,5 +117,17 @@ namespace Client.Model
                 c.ChangeOnlineStatus(s);
             }
         }
+
+        public TextMessage TextMessage
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
     }
 }

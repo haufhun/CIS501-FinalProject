@@ -77,6 +77,18 @@ namespace Client
         {
             Close();
         }
+
+        public SignInFormObserver SignInFormObserver
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
     }
 
 }

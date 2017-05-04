@@ -55,6 +55,18 @@ namespace Client
             set { _chatRoom = value; }
         }
 
+        public ChatFormObserver ChatFormObserver
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+
+            set
+            {
+            }
+        }
+
 
         /// <summary>
         /// Method to handle the send button pressed
